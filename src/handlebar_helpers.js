@@ -128,7 +128,9 @@ Handlebars.registerHelper({
 
         var select = $('<select>');
         var option = jQuery('<option>', { value: '', text: '--'});
+        if (typeof(iSelectedZoom) === 'undefined') option.attr('selected', 'selected');
         option.appendTo(select);
+
         jQuery.each(aZoomLevels, function(i, title) {
             var option = jQuery('<option>', { value: i, text: i + ' ' + title });
             if (i == iSelectedZoom) option.attr('selected', 'selected');

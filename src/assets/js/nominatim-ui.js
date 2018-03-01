@@ -47,8 +47,9 @@ function map_viewbox_as_string() {
 
 function fetch_from_api(endpoint_name, params, callback) {
     var api_url = get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?' + $.param(params);
-    $('#api-request-link').attr('href', api_url);
-
+    if (endpoint_name !== 'status') {
+        $('#api-request-link').attr('href', api_url);
+    }
     $.get(api_url, function(data){
         callback(data);
     });
@@ -103,7 +104,7 @@ function display_map_position(mouse_lat_lng){
 
 
 
-function init_map_on_search_page(is_reverse_search, nominatim_results) {
+function init_map_on_search_page(is_reverse_search, nominatim_results, request_lat, request_lon, init_zoom) {
 
     map = new L.map('map', {
         // center: [nominatim_map_init.lat, nominatim_map_init.lon],
@@ -122,14 +123,14 @@ function init_map_on_search_page(is_reverse_search, nominatim_results) {
 
     // console.log(Nominatim_Config);
 
-    map.setView([get_config_value('Map_Default_Lat'), get_config_value('Map_Default_Lon')], get_config_value('Map_Default_Zoom'));
+    map.setView([request_lat, request_lon], init_zoom);
 
     var osm2 = new L.TileLayer(get_config_value('Map_Tile_URL'), {minZoom: 0, maxZoom: 13, attribution: (get_config_value('Map_Tile_Attribution') || null )});
     var miniMap = new L.Control.MiniMap(osm2, {toggleDisplay: true}).addTo(map);
 
     if (is_reverse_search) {
         // We don't need a marker, but an L.circle instance changes radius once you zoom in/out
-        var cm = L.circleMarker([get_config_value('Map_Default_Lat'), get_config_value('Map_Default_Lon')], { radius: 5, weight: 2, fillColor: '#ff7800', color: 'red', opacity: 0.75, clickable: false});
+        var cm = L.circleMarker([request_lat, request_lon], { radius: 5, weight: 2, fillColor: '#ff7800', color: 'red', opacity: 0.75, clickable: false});
         cm.addTo(map);
     }
 
@@ -249,8 +250,9 @@ function init_map_on_search_page(is_reverse_search, nominatim_results) {
             var result_coord = L.latLng(result.lat, result.lon);
             if ( result_coord ){
                 if ( is_reverse_search ){
+                    // console.dir([result_coord, [request_lat, request_lon]]);
                     // make sure the search coordinates are in the map view as well
-                    map.fitBounds([result_coord, [get_config_value('Map_Default_Lat'), get_config_value('Map_Default_Lon')]], {padding: [50,50], maxZoom: map.getZoom()});
+                    map.fitBounds([result_coord, [request_lat, request_lon]], {padding: [50,50], maxZoom: map.getZoom()});
 
                     // better, but causes a leaflet warning
                     // map.panInsideBounds([[result.lat,result.lon], [nominatim_map_init.lat,nominatim_map_init.lon]], {animate: false});
@@ -333,9 +335,9 @@ jQuery(document).ready(function(){
 
     if (is_reverse_search) {
         var api_request_params = {
-            lat: search_params.get('lat') || 0,
-            lon: search_params.get('lon') || 0,
-            zoom: search_params.get('zoom'),
+            lat: typeof(search_params.get('lat') !== 'undefined') ? search_params.get('lat') : get_config_value('Map_Default_Lat'),
+            lon: typeof(search_params.get('lon') !== 'undefined') ? search_params.get('lon') : get_config_value('Map_Default_Lon'),
+            zoom: (search_params.get('zoom') !== '' ? search_params.get('zoom') : get_config_value('Map_Default_Zoom')),
             format: 'jsonv2'
         }
 
@@ -349,12 +351,12 @@ jQuery(document).ready(function(){
                 aPlace: aPlace,
                 fLat: api_request_params.lat,
                 fLon: api_request_params.lon,
-                iZoom: api_request_params.zoom
+                iZoom: (api_request_params.zoom !== '' ? api_request_params.zoom : undefined)
             };
 
             render_template($('main'), 'reversepage-template', context);
 
-            init_map_on_search_page(is_reverse_search, [aPlace]);
+            init_map_on_search_page(is_reverse_search, [aPlace], api_request_params.lat, api_request_params.lon, api_request_params.zoom);
 
             update_data_date();
         });

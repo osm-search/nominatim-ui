@@ -4,7 +4,7 @@
 
 rsync --quiet --recursive src/assets dist/
 rsync --quiet --recursive src/templates dist/
-rsync --quiet --recursive src/partials dist/
+# rsync --quiet --recursive src/partials dist/
 
 rsync --quiet src/*.js dist/
 
