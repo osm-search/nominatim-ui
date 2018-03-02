@@ -5,7 +5,7 @@
 ## Essential
 
 * JS error on http://localhost:8000/reverse.html?format=html&lat=51.72702815704774&lon=8.701171874999998&zoom=
-* need polyfill for URLSearchParams https://caniuse.com/#feat=urlsearchparams
+* test in MSIE https://github.com/WebReflection/url-search-params
 * Nominatim backend API
    * need /status to support &format=json
    * need /details to support &format=json
