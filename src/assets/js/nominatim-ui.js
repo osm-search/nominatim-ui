@@ -444,6 +444,8 @@ jQuery(document).ready(function(){
 
     var api_request_params = {
         place_id: search_params.get('place_id'),
+        place_id: search_params.get('osmtype'),
+        place_id: search_params.get('osmid'),
         group_parents: 1,
         format: 'json'
     };

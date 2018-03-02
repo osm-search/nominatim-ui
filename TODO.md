@@ -12,7 +12,6 @@
 * reverse: zoom not set
 http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484374999999&zoom=
 * error message on API error or timeout
-* detail: support `osm_type`, `osm_id` paramters
 * search page: add pagination, moreurl
 * search page: add viewbox
 * details page: add "There are more child objects which are not shown" back in
@@ -59,5 +58,4 @@ http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484
 * aResults vs aPlace vs aFeature variable naming
 * use CSS preprocessor and linter
 * use eslint
-* add a /vendor directory for third-party files
 
