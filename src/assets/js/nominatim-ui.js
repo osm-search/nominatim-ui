@@ -351,7 +351,7 @@ jQuery(document).ready(function(){
                 aPlace: aPlace,
                 fLat: api_request_params.lat,
                 fLon: api_request_params.lon,
-                iZoom: (api_request_params.zoom !== '' ? api_request_params.zoom : undefined)
+                iZoom: (search_params.get('zoom') !== '' ? api_request_params.zoom : undefined)
             };
 
             render_template($('main'), 'reversepage-template', context);

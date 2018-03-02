@@ -4,15 +4,15 @@
 
 ## Essential
 
+* JS error on http://localhost:8000/reverse.html?format=html&lat=51.72702815704774&lon=8.701171874999998&zoom=
 * need polyfill for URLSearchParams https://caniuse.com/#feat=urlsearchparams
 * Nominatim backend API
    * need /status to support &format=json
    * need /details to support &format=json
-* all pages: "you need javascript enabled" default text
 * reverse: zoom not set
 http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484374999999&zoom=
 * error message on API error or timeout
-* reverse: support `osm_type`, `osm_id` paramters
+* detail: support `osm_type`, `osm_id` paramters
 * search page: add pagination, moreurl
 * search page: add viewbox
 * details page: add "There are more child objects which are not shown" back in
@@ -36,7 +36,7 @@ http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484
 
 ## Nice-to-have
 
-* don't show unset parameters in URL, e.g. `&a=&b=&c=1`
+* don't show unset parameters in URL, e.g. `&a=&b=&c=1` => '&c='
 * different content for official OSM, e.g. github urls
 * set HTML title
 * cache `update_data_date` result
@@ -52,10 +52,12 @@ http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484
 
 ## Code cleanup
 
+* we have marker-icon twice
 * remove Perl dependency from build
 * show map bounds section => move to handlebar template, map to partial
 * make sure we use https URL to external sites where possible
 * aResults vs aPlace vs aFeature variable naming
 * use CSS preprocessor and linter
 * use eslint
+* add a /vendor directory for third-party files
 
