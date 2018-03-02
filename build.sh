@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# mkdir dist/
-
 rsync --quiet --recursive src/assets dist/
 rsync --quiet --recursive src/vendor/js/* dist/assets/js/
 rsync --quiet --recursive src/vendor/css/* dist/assets/css/
