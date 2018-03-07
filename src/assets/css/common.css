@@ -41,3 +41,11 @@ footer {
 footer p {
   margin: 1em;
 }
+
+#error-overlay {
+  text-align: center;
+  font-style: italic;
+  padding: 2em 4em;
+  margin: 4em 8em;
+  background-color: #eee;
+}

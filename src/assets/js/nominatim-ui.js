@@ -68,6 +68,20 @@ function render_template(el, template_name, page_context) {
     el.html(html);
 }
 
+function show_error(html) {
+    $('#error-overlay').html(html).show();   
+}
+
+function hide_error() {
+    $('#error-overlay').empty().hide();    
+}
+
+
+$(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+    // console.log(thrownError);
+    // console.log(ajaxSettings);
+    show_error('Error fetching results from <a href="' + ajaxSettings.url + '">' + ajaxSettings.url + '</a>');
+});
 
 /*********************************************************
 * FORWARD/REVERSE SEARCH PAGE
@@ -306,7 +320,9 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
 
 
 
-
+jQuery(document).ready(function(){
+    hide_error();
+});
 
 
 
