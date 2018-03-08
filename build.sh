@@ -1,7 +1,10 @@
 #!/bin/bash
 
-rsync --quiet --recursive src/assets/css dist/css/
-rsync --quiet --recursive src/assets/images/ dist/images/
+mkdir -p dist/assets/
+rsync --quiet --recursive src/assets/css/ dist/assets/css/
+rsync --quiet --recursive src/assets/images/ dist/assets/images/
+
+mkdir -p dist/assets/js/
 cat src/assets/js/base.js src/assets/js/detailpage.js src/assets/js/searchpage.js > dist/assets/js/nominatim-ui.js
 
 rsync --quiet --recursive src/vendor/js/* dist/assets/js/
