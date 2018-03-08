@@ -304,6 +304,7 @@ jQuery(document).ready(function(){
             q: search_params.get('q'),
             polygon_geojson: search_params.get('polygon_geojson') ? 1 : 0,
             polygon: search_params.get('polygon'),
+            viewbox: search_params.get('viewbox'),
             format: 'jsonv2'
         };
 
