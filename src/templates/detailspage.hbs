@@ -176,11 +176,8 @@
                                 {{> partial_details_one_row}}
                             {{/each}}
                         {{/each}}
-                        
-        {{!--                 @if (sizeof($aParentOfLines) >= 500)
-                            <p>There are more child objects which are not shown.</p>
-                        @end --}}
-                   {{/if}}
+                    {{/if}}
+                    {{tooManyParentLinesWarning aPlace}}
                 </tbody>
             </table>
         </div>

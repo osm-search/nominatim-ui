@@ -100,6 +100,19 @@ Handlebars.registerHelper({
             return capitalize(aPlace.type.replace(/_/g, ' '));
         }
     },
+    tooManyParentLinesWarning: function(aPlace) {
+        if (!aPlace.parentof_lines) return;
+
+        var c = 0;
+        for (var type in aPlace.parentof_lines) {
+            c = c + type.length+1;
+        }
+        if (c < 500) return;
+
+        return new Handlebars.SafeString(
+            '<p>There are more child objects which are not shown.</p>'
+        );
+    },
     zoomLevels: function(iSelectedZoom) {
         var aZoomLevels = [
             /*  0 */ 'Continent / Sea',
