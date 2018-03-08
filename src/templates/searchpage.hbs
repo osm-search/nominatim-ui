@@ -6,7 +6,7 @@
         {{/if}}
 
         <span class="name">{{aResult.display_name}}</span>
-        <span class="type">{{formatLabel aResult}}</span>
+        <span class="type">({{formatLabel aResult}})</span>
         <p class="coords">{{aResult.lat}},{{aResult.lon}}</p>  
 
         <a class="btn btn-default btn-xs details" href="details.html?place_id={{aResult.place_id}}">details</a>
@@ -21,7 +21,7 @@
     <div class="form-group search-button-group">
         <button type="submit" class="btn btn-primary btn-sm">Search</button>
         {{#if env.Search_AreaPolygons}}
-            <input type="hidden" value="1" name="polygon" />
+            <input type="hidden" value="1" name="polygon_geojson" />
         {{/if}}
         <input type="hidden" name="viewbox" value="{{sViewBox}}" />
         <div class="checkbox-inline">

@@ -10,13 +10,13 @@
    * need /details to support &format=json
 * reverse: zoom not set
 http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484374999999&zoom=
-* search page: add pagination, moreurl
-* search page: add viewbox
+* !search page: add pagination, moreurl
 * details page: add "There are more child objects which are not shown" back in
 * set acceptlanguage to API request
 * move this TODO.txt to github issues
 * write install instructions
 * check output of /dist into repository
+* use polygon_geojson, not polygon parameter
 
 
 ## Unknown

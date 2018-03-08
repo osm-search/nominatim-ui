@@ -10,7 +10,7 @@ function get_config_value(str, default_val) {
     return (typeof Nominatim_Config[str] !== 'undefined' ? Nominatim_Config[str] :  default_val);
 }
 
-function parse_and_normalize_geojson_string(raw_string){
+function parse_and_normalize_geojson_string(part){
     // normalize places the geometry into a featurecollection, similar to
     // https://github.com/mapbox/geojson-normalize
     var parsed_geojson = {
@@ -18,7 +18,7 @@ function parse_and_normalize_geojson_string(raw_string){
         features: [
             {
                 type: "Feature",
-                geometry: JSON.parse(raw_string),
+                geometry: part,
                 properties: {}
             }
         ]

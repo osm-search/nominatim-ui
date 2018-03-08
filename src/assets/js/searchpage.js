@@ -153,15 +153,15 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
             });
             layerGroup.addLayer(circle);            
         }
-        if (result.aBoundingBox){
+        if (result.boundingbox){
 
-            var bounds = [[result.aBoundingBox[0]*1,result.aBoundingBox[2]*1], [result.aBoundingBox[1]*1,result.aBoundingBox[3]*1]];
+            var bounds = [[result.boundingbox[0]*1,result.boundingbox[2]*1], [result.boundingbox[1]*1,result.boundingbox[3]*1]];
             map.fitBounds(bounds);
 
-            if (result.asgeojson && result.asgeojson.match(/(Polygon)|(Line)/) ){
+            if (result.geojson && result.geojson.type.match(/(Polygon)|(Line)/) ){
 
                 var geojson_layer = L.geoJson(
-                    parse_and_normalize_geojson_string(result.asgeojson),
+                    parse_and_normalize_geojson_string(result.geojson),
                     {
                         // http://leafletjs.com/reference-1.0.3.html#path-option
                         style: function(feature) {
@@ -303,7 +303,6 @@ jQuery(document).ready(function(){
         var api_request_params = {
             q: search_params.get('q'),
             polygon_geojson: search_params.get('polygon_geojson') ? 1 : 0,
-            polygon: search_params.get('polygon'),
             viewbox: search_params.get('viewbox'),
             format: 'jsonv2'
         };
