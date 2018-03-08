@@ -4,14 +4,12 @@
 
 ## Essential
 
-* JS error on http://localhost:8000/reverse.html?format=html&lat=51.72702815704774&lon=8.701171874999998&zoom=
 * test in MSIE https://github.com/WebReflection/url-search-params
 * Nominatim backend API
    * need /status to support &format=json
    * need /details to support &format=json
 * reverse: zoom not set
 http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484374999999&zoom=
-* error message on API error or timeout
 * search page: add pagination, moreurl
 * search page: add viewbox
 * details page: add "There are more child objects which are not shown" back in
@@ -26,7 +24,6 @@ http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484
 * config vs config.local.js
 * should it be possible to add comments to config?
 * snake_case vs camelCase
-* support for proxy environment variables?
 * support nearlat,nearlon parameters
 * need a `<link href="nominatim.xml" rel="search" title="Nominatim Search" type="application/opensearchdescription+xml">` file
 * do we an /src/assets directory?
