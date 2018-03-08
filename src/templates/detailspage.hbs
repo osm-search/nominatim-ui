@@ -140,10 +140,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each aPlace.address_lines}}
-                        {{> partial_details_one_row}}
-                    {{/each}}
-
+                    {{#if aPlace.address_lines}}
+                        {{#each aPlace.address_lines}}
+                            {{> partial_details_one_row}}
+                        {{/each}}
+                    {{/if}}
 
                     {{#if aPlace.linked_lines}}
                         {{> partial_h2 'Linked Places'}}

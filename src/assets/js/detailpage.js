@@ -56,6 +56,9 @@ jQuery(document).ready(function(){
         place_id: search_params.get('place_id'),
         osmtype: search_params.get('osmtype'),
         osmid: search_params.get('osmid'),
+        addressdetails: 1,
+        linkedplaces: 1,
+        childplaces: 1,
         group_parents: 1,
         format: 'json'
     };

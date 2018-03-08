@@ -11,16 +11,16 @@
 * reverse: zoom not set
 http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484374999999&zoom=
 * details page: add "There are more child objects which are not shown" back in
-* details page: nicer 404
 * move this TODO.txt to github issues
 * write install instructions
 * check output of /dist into repository
 
 ## Might never work
 
-* pagination
+* pagination. API returns an array whichout indication if more results exist
 * API returns category, type, but without admin_level we can't derive e.g. state,country
 * seeting acceptlanguage whichout a server component https://github.com/dansingerman/jQuery-Browser-Language
+* nice 404 detail page. The API returns HTTP 400 error instead of an empty data set.
 
 ## Unknown
 
@@ -44,6 +44,7 @@ http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484
 * don't copy jquery/leaflet in /src, use dependency manager instead, e.g. https://bower.io/
 * add tests with fixtures
 * concatenate/minify JS and CSS
+* detailpage: make linkedplaces, childplaces optional (rarely used? second click to enable?)
 
 
 ## Code cleanup
