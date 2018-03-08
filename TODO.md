@@ -10,14 +10,17 @@
    * need /details to support &format=json
 * reverse: zoom not set
 http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484374999999&zoom=
-* !search page: add pagination, moreurl
 * details page: add "There are more child objects which are not shown" back in
-* set acceptlanguage to API request
+* details page: nicer 404
 * move this TODO.txt to github issues
 * write install instructions
 * check output of /dist into repository
-* use polygon_geojson, not polygon parameter
 
+## Might never work
+
+* pagination
+* API returns category, type, but without admin_level we can't derive e.g. state,country
+* seeting acceptlanguage whichout a server component https://github.com/dansingerman/jQuery-Browser-Language
 
 ## Unknown
 
@@ -45,7 +48,6 @@ http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484
 
 ## Code cleanup
 
-* we have marker-icon twice
 * remove Perl dependency from build
 * show map bounds section => move to handlebar template, map to partial
 * make sure we use https URL to external sites where possible

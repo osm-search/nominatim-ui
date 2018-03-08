@@ -21,4 +21,4 @@ cat src/layout.html | perl -pe'use File::Slurper qw(read_text); s/\@include\((.+
 cat /tmp/included.html | perl -pe's/BODYID/search-page/g' > dist/search.html
 cat /tmp/included.html | perl -pe's/BODYID/reverse-page/g' > dist/reverse.html
 cat /tmp/included.html | perl -pe's/BODYID/details-page/g' > dist/details.html
-
+cp src/index.html dist/
