@@ -68,6 +68,6 @@ jQuery(document).ready(function(){
 
         update_data_date();
 
-        init_map_on_detail_page(aFeature.lat, aFeature.lon, aFeature.asgeojson);
+        init_map_on_detail_page(aFeature.lat, aFeature.lon, aFeature.geojson);
     });
 });
