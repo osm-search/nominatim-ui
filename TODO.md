@@ -42,11 +42,9 @@ http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484
 * a new search causes a new pageview
 * webpack or grunt build framework
 * don't copy jquery/leaflet in /src, use dependency manager instead, e.g. https://bower.io/
-* update jquery 2 => 3
 * update leaflet
 * add tests with fixtures
 * concatenate/minify JS and CSS
-* reverse: get coordinate switcher working again
 
 
 ## Code cleanup
