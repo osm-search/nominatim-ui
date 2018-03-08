@@ -248,7 +248,6 @@ jQuery(document).ready(function(){
 
     var search_params = new URLSearchParams(location.search);
 
-
     // return view('search', [
     //     'sQuery' => $sQuery,
     //     'bAsText' => '',
@@ -262,31 +261,44 @@ jQuery(document).ready(function(){
 
     if (is_reverse_search) {
         var api_request_params = {
-            lat: typeof(search_params.get('lat') !== 'undefined') ? search_params.get('lat') : get_config_value('Map_Default_Lat'),
-            lon: typeof(search_params.get('lon') !== 'undefined') ? search_params.get('lon') : get_config_value('Map_Default_Lon'),
+            // lat: typeof(search_params.get('lat') !== 'undefined') ? search_params.get('lat') : get_config_value('Map_Default_Lat'),
+            // lon: typeof(search_params.get('lon') !== 'undefined') ? search_params.get('lon') : get_config_value('Map_Default_Lon'),
+            lat: search_params.get('lat'),
+            lon: search_params.get('lon'),
             zoom: (search_params.get('zoom') !== '' ? search_params.get('zoom') : get_config_value('Map_Default_Zoom')),
             format: 'jsonv2'
         }
 
-        fetch_from_api('reverse', api_request_params, function(aPlace){
+        var context = {
+            // aPlace: aPlace,
+            fLat: api_request_params.lat,
+            fLon: api_request_params.lon,
+            iZoom: (search_params.get('zoom') !== '' ? api_request_params.zoom : undefined)
+        };
 
-            if (aPlace.error) {
-                aPlace = null;
-            }
 
-            var context = {
-                aPlace: aPlace,
-                fLat: api_request_params.lat,
-                fLon: api_request_params.lon,
-                iZoom: (search_params.get('zoom') !== '' ? api_request_params.zoom : undefined)
-            };
+        if (api_request_params.lat && api_request_params.lon) {
 
+            fetch_from_api('reverse', api_request_params, function(aPlace){
+
+                if (aPlace.error) {
+                    aPlace = null;
+                }
+
+                context.aPlace = aPlace;
+
+                render_template($('main'), 'reversepage-template', context);
+
+                init_map_on_search_page(is_reverse_search, [aPlace], api_request_params.lat, api_request_params.lon, api_request_params.zoom);
+
+                update_data_date();
+            });
+        } else {
             render_template($('main'), 'reversepage-template', context);
 
-            init_map_on_search_page(is_reverse_search, [aPlace], api_request_params.lat, api_request_params.lon, api_request_params.zoom);
+            init_map_on_search_page(is_reverse_search, [], get_config_value('Map_Default_Lat'), get_config_value('Map_Default_Lon'), get_config_value('Map_Default_Zoom'));
+        }
 
-            update_data_date();
-        });
     } else {
         var api_request_params = {
             q: search_params.get('q'),
@@ -295,24 +307,35 @@ jQuery(document).ready(function(){
             format: 'jsonv2'
         };
 
-        fetch_from_api('search', api_request_params, function(aResults){
+        var context = {
+            // aSearchResults: aResults,
+            sQuery: api_request_params.q,
+            sViewBox: '',
+            env: Nominatim_Config,
+            sMoreURL: ''
+        };
 
-            var context = {
-                aSearchResults: aResults,
-                sQuery: api_request_params.q,
-                sViewBox: '',
-                env: Nominatim_Config,
-                sMoreURL: ''
-            };
+        if (api_request_params.q) {
 
+            fetch_from_api('search', api_request_params, function(aResults){
+
+                context.aSearchResults = aResults;
+
+                render_template($('main'), 'searchpage-template', context);
+
+                init_map_on_search_page(is_reverse_search, aResults, get_config_value('Map_Default_Lat'), get_config_value('Map_Default_Lon'), get_config_value('Map_Default_Zoom'));
+
+                $('#q').focus();
+
+                update_data_date();
+            });
+        } else {
             render_template($('main'), 'searchpage-template', context);
 
-            init_map_on_search_page(is_reverse_search, aResults);
+            init_map_on_search_page(is_reverse_search, [], get_config_value('Map_Default_Lat'), get_config_value('Map_Default_Lon'), get_config_value('Map_Default_Zoom'));
+        }
 
-            $('#q').focus();
 
-            update_data_date();
-        });
     }
 });
 
