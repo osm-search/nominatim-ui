@@ -46,6 +46,12 @@ function map_viewbox_as_string() {
 *********************************************************/
 
 function fetch_from_api(endpoint_name, params, callback) {
+
+    // `&a=&b=&c=1` => '&c='
+    for(var k in params) {
+        if (typeof(params[k]) === 'undefined' || params[k] === '' || params[k] === null ) delete params[k];
+    }
+
     var api_url = get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?' + $.param(params);
     if (endpoint_name !== 'status') {
         $('#api-request-link').attr('href', api_url);
