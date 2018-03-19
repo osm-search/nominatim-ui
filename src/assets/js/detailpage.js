@@ -56,10 +56,12 @@ jQuery(document).ready(function(){
         place_id: search_params.get('place_id'),
         osmtype: search_params.get('osmtype'),
         osmid: search_params.get('osmid'),
+        keywords: search_params.get('keywords'),
         addressdetails: 1,
         linkedplaces: 1,
         childplaces: 1,
-        group_parents: 1,
+        group_childplaces: 1,
+        polygon_geojson: 1,
         format: 'json'
     };
 
@@ -71,6 +73,6 @@ jQuery(document).ready(function(){
 
         update_data_date();
 
-        init_map_on_detail_page(aFeature.lat, aFeature.lon, aFeature.geojson);
+        init_map_on_detail_page(aFeature.lat, aFeature.lon, aFeature.geometry);
     });
 });

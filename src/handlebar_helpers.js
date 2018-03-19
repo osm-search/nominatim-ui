@@ -29,11 +29,11 @@ Handlebars.registerHelper({
     },
     /* en:London_Borough_of_Redbridge => https://en.wikipedia.org/wiki/London_Borough_of_Redbridge */
     wikipediaLink: function(aPlace) {
-        if (! aPlace.wikipedia) return '';
+        if (! aPlace.calculated_wikipedia) return '';
 
-        var parts = aPlace.wikipedia.split(':', 2);
+        var parts = aPlace.calculated_wikipedia.split(':', 2);
 
-        var sTitle = Handlebars.escapeExpression(aPlace.wikipedia),
+        var sTitle = Handlebars.escapeExpression(aPlace.calculated_wikipedia),
             sLanguage = Handlebars.escapeExpression(parts[0]),
             sArticle = Handlebars.escapeExpression(parts[1]);
 
@@ -55,7 +55,7 @@ Handlebars.registerHelper({
         );
     },
     coverageType: function(aPlace) {
-        return (aPlace.isarea === 't' ? 'Polygon' : 'Point');
+        return (aPlace.isarea ? 'Polygon' : 'Point');
     },
     // fDistance is in meters
     formatDistance: function(fDistanceMeters) {
@@ -101,10 +101,10 @@ Handlebars.registerHelper({
         }
     },
     tooManyParentLinesWarning: function(aPlace) {
-        if (!aPlace.parentof_lines) return;
+        if (!aPlace.parentof) return;
 
         var c = 0;
-        for (var type in aPlace.parentof_lines) {
+        for (var type in aPlace.parentof) {
             c = c + type.length+1;
         }
         if (c < 500) return;

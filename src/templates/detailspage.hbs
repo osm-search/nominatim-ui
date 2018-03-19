@@ -19,9 +19,9 @@
 
 {{#*inline "partial_details_keyword_one_row"}}
     <tr>
-        <td>{{formatKeywordToken this.word_token}}</td>
-        {{#if this.word_id}}
-            <td>word id: {{this.word_id}}</td>
+        <td>{{formatKeywordToken this.token}}</td>
+        {{#if this.id}}
+            <td>word id: {{this.id}}</td>
         {{/if}}
     </tr>
 {{/inline}}
@@ -50,14 +50,14 @@
                 <tr>
                     <td>Name</td>
                     <td>
-                        {{#each aPlace.aNames}}
+                        {{#each aPlace.names}}
                             <div class="line"><span class="name">{{this}}</span> ({{@key}})</div>
                         {{/each}}
                     </td>
                 </tr>
                 <tr>
                     <td>Type</td>
-                    <td>{{aPlace.class}}:{{aPlace.type}}</td>
+                    <td>{{aPlace.category}}:{{aPlace.type}}</td>
                 </tr>
                 <tr>
                     <td>Last Updated</td>
@@ -92,7 +92,7 @@
                     <td>OSM</td>
                     <td>{{osmLink aPlace}}
                 </tr>
-                {{#if aPlace.wikipedia}}
+                {{#if aPlace.calculated_wikipedia}}
                     <tr>
                         <td>Wikipedia Calculated</td>
                         <td>{{wikipediaLink aPlace}}</td>
@@ -105,7 +105,7 @@
                 <tr>
                     <td>Address Tags</td>
                     <td>
-                        {{#each aPlace.aAddressTags}}
+                        {{#each aPlace.addresstags}}
                             <div class="line"><span class="name">{{this}}</span> ({{@key}})</div>
                         {{/each}}
                     </td>
@@ -113,7 +113,7 @@
                 <tr>
                     <td>Extra Tags</td>
                     <td>
-                        {{#each aPlace.aExtraTags}}
+                        {{#each aPlace.extratags}}
                             <div class="line"><span class="name">{{this}}</span> ({{@key}})</div>
                         {{/each}}
                     </td>
@@ -140,37 +140,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#if aPlace.address_lines}}
-                        {{#each aPlace.address_lines}}
+                    {{#if aPlace.address}}
+                        {{#each aPlace.address}}
                             {{> partial_details_one_row}}
                         {{/each}}
                     {{/if}}
 
-                    {{#if aPlace.linked_lines}}
+                    {{#if aPlace.linked_places}}
                         {{> partial_h2 'Linked Places'}}
-                        {{#each aPlace.linked_lines}}
+                        {{#each aPlace.linked_places}}
                             {{> partial_details_one_row}}
                         {{/each}}
                     {{/if}}
 
-                    {{#if aPlace.place_search_name_keywords}}
+                    {{#if aPlace.keywords}}
                         {{> partial_h2 'Name Keywords'}}
-                        {{#each aPlace.place_search_name_keywords}}
+                        {{#each aPlace.keywords.name}}
                             {{> partial_details_keyword_one_row}}
                         {{/each}}
-                    {{/if}}
 
-                    {{#if aPlace.place_search_address_keywords}}
                         {{> partial_h2 'Address Keywords'}}
-                        {{#each aPlace.place_search_address_keywords}}
+                        {{#each aPlace.keywords.address}}
                             {{> partial_details_keyword_one_row}}
                         {{/each}}
                     {{/if}}
 
-                    {{#if aPlace.parentof_lines}}
+                    {{#if aPlace.parentof}}
                         {{> partial_h2 'Parent Of'}}
 
-                        {{#each aPlace.parentof_lines as |lines type|}}
+                        {{#each aPlace.parentof as |lines type|}}
                             {{> partial_h3 type}}
                             {{#each lines}}
                                 {{> partial_details_one_row}}
