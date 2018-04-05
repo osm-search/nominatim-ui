@@ -17,14 +17,14 @@ Handlebars.registerHelper({
         return ((aAddressLine.isaddress && aAddressLine.isaddress == 'f') ? 'notused' : '');
     },
     // { osm_type: 'R', osm_id: 12345 }
-    // <a href="//www.openstreetmap.org/relation/12345">relation 12345</a
+    // <a href="https://www.openstreetmap.org/relation/12345">relation 12345</a
     osmLink: function(aPlace) {
         if (!aPlace.osm_type) return '';
         var sOSMType = formatOSMType(aPlace.osm_type, false);
         if (!sOSMType) return '';
 
         return new Handlebars.SafeString(
-            '<a href="//www.openstreetmap.org/' + sOSMType + '/' + aPlace.osm_id + '">' + sOSMType + ' ' + aPlace.osm_id + '</a>'
+            '<a href="https://www.openstreetmap.org/' + sOSMType + '/' + aPlace.osm_id + '">' + sOSMType + ' ' + aPlace.osm_id + '</a>'
         );
     },
     /* en:London_Borough_of_Redbridge => https://en.wikipedia.org/wiki/London_Borough_of_Redbridge */
@@ -42,7 +42,7 @@ Handlebars.registerHelper({
         );
     },
     // { osm_type: 'R', osm_id: 12345 }
-    // <a href="//www.openstreetmap.org/relation/12345">relation 12345</a
+    // <a href="details.html?place_id=12345">details</a>
     detailsLink: function(aFeature, sTitle) {
         if (!aFeature) return '';
         if (!aFeature.place_id) return '';
@@ -80,7 +80,7 @@ Handlebars.registerHelper({
     formatMapIcon: function(sIcon) {
         if (!sIcon) return;
         
-        var url = sIcon.match(/png$/) ? Nominatim_Config.Images_Base_Url + '/' + sIcon : Nominatim_Config.Images_Base_Url + 'nominatim/images/mapicons/' + sIcon + '.n.32.png';
+        var url = Nominatim_Config.Images_Base_Url + sIcon;
 
         return new Handlebars.SafeString(
             '<img class="mapicon" src="' + url + '" alt="' + sIcon + '"/>'
@@ -100,11 +100,11 @@ Handlebars.registerHelper({
             return capitalize(aPlace.type.replace(/_/g, ' '));
         }
     },
-    tooManyParentLinesWarning: function(aPlace) {
-        if (!aPlace.parentof) return;
+    tooManyHierarchyLinesWarning: function(aPlace) {
+        if (!aPlace.hierarchy) return;
 
         var c = 0;
-        for (var type in aPlace.parentof) {
+        for (var type in aPlace.hierarchy) {
             c = c + type.length+1;
         }
         if (c < 500) return;

@@ -100,7 +100,7 @@
                 {{/if}}
                 <tr>
                     <td>Computed Postcode</td>
-                    <td>{{aPlace.postcode}}</td>
+                    <td>{{aPlace.calculated_postcode}}</td>
                 </tr>
                 <tr>
                     <td>Address Tags</td>
@@ -165,17 +165,17 @@
                         {{/each}}
                     {{/if}}
 
-                    {{#if aPlace.parentof}}
+                    {{#if aPlace.hierarchy}}
                         {{> partial_h2 'Parent Of'}}
 
-                        {{#each aPlace.parentof as |lines type|}}
+                        {{#each aPlace.hierarchy as |lines type|}}
                             {{> partial_h3 type}}
                             {{#each lines}}
                                 {{> partial_details_one_row}}
                             {{/each}}
                         {{/each}}
                     {{/if}}
-                    {{tooManyParentLinesWarning aPlace}}
+                    {{tooManyHierarchyLinesWarning aPlace}}
                 </tbody>
             </table>
         </div>

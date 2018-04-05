@@ -58,9 +58,8 @@ jQuery(document).ready(function(){
         osmid: search_params.get('osmid'),
         keywords: search_params.get('keywords'),
         addressdetails: 1,
-        linkedplaces: 1,
-        childplaces: 1,
-        group_childplaces: 1,
+        hierarchy: 1,
+        group_hierarchy: 1,
         polygon_geojson: 1,
         format: 'json'
     };

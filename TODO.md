@@ -43,7 +43,7 @@ http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484
 * add tests with fixtures
 * concatenate/minify JS and CSS
 * detailpage: make linkedplaces, childplaces optional (rarely used? second click to enable?)
-
+* set better alt tag for icons
 
 ## Code cleanup
 
