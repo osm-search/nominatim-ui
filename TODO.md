@@ -34,6 +34,7 @@ http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484
 
 ## Nice-to-have
 
+* add permalink (like https://github.com/openstreetmap/Nominatim/pull/1003)
 * different content for official OSM, e.g. github urls
 * set HTML title
 * cache `update_data_date` result
