@@ -72,6 +72,8 @@ jQuery(document).ready(function(){
 
         update_data_date();
 
-        init_map_on_detail_page(aFeature.lat, aFeature.lon, aFeature.geometry);
+        var lat = aFeature.centroid.coordinates[1];
+        var lon = aFeature.centroid.coordinates[0];
+        init_map_on_detail_page(lat, lon, aFeature.geometry);
     });
 });

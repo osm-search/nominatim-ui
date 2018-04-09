@@ -111,6 +111,47 @@ Handlebars.registerHelper({
             return capitalize(aPlace.type.replace(/_/g, ' '));
         }
     },
+    formatSearchRank: function(iRank) {
+        // same as
+        // https://github.com/openstreetmap/Nominatim/blob/master/sql/functions.sql
+        // get_searchrank_label()
+
+        if (iRank < 2) {
+            return 'continent';
+        } else if (iRank < 4) {
+            return 'sea';
+        } else if (iRank < 8) {
+            return 'country';
+        } else if (iRank < 12) {
+            return 'state';
+        } else if (iRank < 16) { 
+            return 'county';
+        } else if (iRank == 16) {
+            return 'city';
+        } else if (iRank == 17) {
+            return 'town / island';
+        } else if (iRank == 18) {
+            return 'village / hamlet';
+        } else if (iRank == 20) {
+            return 'suburb';
+        } else if (iRank == 21) {
+            return 'postcode area';
+        } else if (iRank == 22) {
+            return 'croft / farm / locality / islet';
+        } else if (iRank == 23) {
+            return 'postcode area';
+        } else if (iRank == 25) {
+            return 'postcode point';
+        } else if (iRank == 26) {
+            return 'street / major landmark';
+        } else if (iRank == 27) {
+            return 'minory street / path';
+        } else if (iRank == 28) {
+            return 'house / building';
+        } else {
+            return 'other: ' + iRank;
+        }
+    },
     tooManyHierarchyLinesWarning: function(aPlace) {
         if (!aPlace.hierarchy) return;
 

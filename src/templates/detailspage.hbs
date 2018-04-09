@@ -69,7 +69,7 @@
                 </tr>
                 <tr>
                     <td>Rank</td>
-                    <td>{{aPlace.rank_search_label}}</td>
+                    <td>{{formatSearchRank aPlace.rank_search}}</td>
                 </tr>
                 {{#if aPlace.calculated_importance}}
                     <tr>
@@ -85,8 +85,8 @@
                     <td>{{coverageType aPlace}}</td>
                 </tr>
                 <tr>
-                    <td>Centre Point</td>
-                    <td>{{aPlace.lat}},{{aPlace.lon}}</td>
+                    <td>Centre Point (lat,lon)</td>
+                    <td>{{aPlace.centroid.coordinates.[1]}},{{aPlace.centroid.coordinates.[0]}}</td>
                 </tr>
                 <tr>
                     <td>OSM</td>
