@@ -47,11 +47,22 @@ Handlebars.registerHelper({
         if (!aFeature) return '';
         if (!aFeature.place_id) return '';
 
-        sTitle = 'details >';
-        var sTitle = Handlebars.escapeExpression(sTitle);
+        sTitle = Handlebars.escapeExpression(sTitle || 'details >');
 
         return new Handlebars.SafeString(
-            '<a href="details.html?place_id=' + aFeature.place_id + '">' + (sTitle ? sTitle : aFeature.place_id ) + '</a>'
+            '<a href="details.html?place_id=' + aFeature.place_id + '">' + sTitle + '</a>'
+        );
+    },
+    detailsPermaLink: function(aFeature, sTitle) {
+        if (!aFeature) return '';
+
+        var sOSMType = formatOSMType(aFeature.osm_type, false);
+        if (!sOSMType) return '';
+
+        sTitle = Handlebars.escapeExpression(sTitle || sOSMType + ' ' + aFeature.osm_id);
+
+        return new Handlebars.SafeString(
+            '<a href="details.html?osmtype=' + aFeature.osm_type + '&osmid=' + aFeature.osm_id + '&class=' + aFeature.class + '">' + sTitle + '</a>'
         );
     },
     coverageType: function(aPlace) {

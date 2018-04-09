@@ -2,6 +2,12 @@
   margin: 10px 0;
   padding-left: 8px;
 }
+
+#details-page h1 small a {
+  font-size: 0.5em;
+  white-space: nowrap;
+}
+
 #details-page h2 {
   font-size: 2em;
   padding-left: 8px;

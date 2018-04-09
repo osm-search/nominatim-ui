@@ -13,7 +13,7 @@
         <td>{{this.rank_address}}</td>
         <td>{{formatAdminLevel this.admin_level}}</td>
         <td>{{formatDistance this.distance}}</td>
-        <td>{{detailsLink this}}</td>
+        <td>{{detailsLink this null}}</td>
     </tr>
 {{/inline}}
 
@@ -38,7 +38,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-10">
-            <h1>{{aPlace.localname}}</h1>
+            <h1>{{aPlace.localname}} <small>{{detailsPermaLink aPlace 'link to this page'}}</small></h1>
         </div>
         <div class="col-sm-2 text-right">
             {{formatMapIcon aPlace.icon}}
