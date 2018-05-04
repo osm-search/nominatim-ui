@@ -63,7 +63,7 @@ function fetch_from_api(endpoint_name, params, callback) {
 
 function update_data_date() {
     fetch_from_api('status', {format: 'json'}, function(data){
-        $('#data-date').text(data.data_last_updated);
+        $('#data-date').text(data.data_updated);
     });
 }
 
