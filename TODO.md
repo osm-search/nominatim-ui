@@ -1,57 +1,34 @@
 # TODO list
 
+* check output of /dist into repository?
 
-
-## Essential
-
-* test in MSIE https://github.com/WebReflection/url-search-params
-* Nominatim backend API
-   * need /status to support &format=json
-   * need /details to support &format=json
-* reverse: zoom not set
-http://localhost:8000/reverse.html?format=html&lat=52.3755991766591&lon=7.646484374999999&zoom=
-* move this TODO.txt to github issues
-* write install instructions
-* check output of /dist into repository
 
 ## Might never work
 
-* pagination. API returns an array whichout indication if more results exist
+* pagination. API returns an array without indication if more results exist
 * API returns category, type, but without admin_level we can't derive e.g. state,country
 * seeting acceptlanguage whichout a server component https://github.com/dansingerman/jQuery-Browser-Language
-* nice 404 detail page. The API returns HTTP 400 error instead of an empty data set.
-
-## Unknown
-
-* config vs config.local.js
-* should it be possible to add comments to config?
-* snake_case vs camelCase
-* support nearlat,nearlon parameters
-* need a `<link href="nominatim.xml" rel="search" title="Nominatim Search" type="application/opensearchdescription+xml">` file
-* do we an /src/assets directory?
-* in which repository should the images/mapicons/ live?
-
 
 ## Nice-to-have
 
-* add permalink (like https://github.com/openstreetmap/Nominatim/pull/1003)
+* support nearlat,nearlon parameters
+* should images/mapicons/ be served from API server or this repo?
 * different content for official OSM, e.g. github urls
 * set HTML title
-* cache `update_data_date` result
+* cache `update_data_date` result somehow?
 * a new search causes a new pageview
-* webpack or grunt build framework
-* don't copy jquery/leaflet in /src, use dependency manager instead, e.g. https://bower.io/
 * add tests with fixtures
-* concatenate/minify JS and CSS
 * detailpage: make linkedplaces, childplaces optional (rarely used? second click to enable?)
 * set better alt tag for icons
+* print text "loading..." instead of an error (which the user sees for a split second)
+* concatenate/minify JS and CSS
 
 ## Code cleanup
 
-* remove Perl dependency from build
+* move TODO list into github issues
 * show map bounds section => move to handlebar template, map to partial
-* make sure we use https URL to external sites where possible
 * aResults vs aPlace vs aFeature variable naming
 * use CSS preprocessor and linter
-* use eslint
-
+* use eslint. It's already a dependency but throws errors
+* cut line length (eslint warns when longer than 100)
+* upgrade bootstrap v3 to v4
