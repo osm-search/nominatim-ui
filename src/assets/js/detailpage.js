@@ -64,16 +64,40 @@ jQuery(document).ready(function(){
         format: 'json'
     };
 
-    fetch_from_api('details', api_request_params, function(aFeature){
+    if (api_request_params.place_id || (api_request_params.osmtype && api_request_params.osmid )){
+        fetch_from_api('details', api_request_params, function(aFeature){
 
-        var context = { aPlace: aFeature };
+            var context = { aPlace: aFeature };
 
-        render_template($('main'), 'detailspage-template', context);
+            render_template($('main'), 'detailspage-template', context);
 
-        update_data_date();
+            update_data_date();
 
-        var lat = aFeature.centroid.coordinates[1];
-        var lon = aFeature.centroid.coordinates[0];
-        init_map_on_detail_page(lat, lon, aFeature.geometry);
+            var lat = aFeature.centroid.coordinates[1];
+            var lon = aFeature.centroid.coordinates[0];
+            init_map_on_detail_page(lat, lon, aFeature.geometry);
+        });
+    } else {
+        render_template($('main'), 'detailspage-index-template');
+    }
+
+    $('#form-by-type-and-id,#form-by-osm-url').on('submit', function(e){
+        e.preventDefault();
+
+        var val = $(this).find('input[type=edit]').val();
+        var matches = val.match(/^\s*([NWR])(\d+)\s*$/i);
+
+        if (!matches) {
+            matches = val.match(/\/(relation|way|node)\/(\d+)\s*$/);
+        }
+
+        if (matches) {
+            $(this).find('input[name=osmtype]').val(matches[1].charAt(0).toUpperCase());
+            $(this).find('input[name=osmid]').val(matches[2]);
+            $(this).get(0).submit();
+        } else {
+            alert('invalid input');
+        }
     });
+
 });
