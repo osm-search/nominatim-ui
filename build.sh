@@ -13,15 +13,19 @@ rsync --quiet --recursive node_modules/leaflet/dist/leaflet.js dist/assets/js/
 rsync --quiet --recursive node_modules/leaflet/dist/leaflet.js.map dist/assets/js/
 rsync --quiet --recursive node_modules/leaflet/dist/leaflet.css dist/assets/css/
 rsync --quiet --recursive node_modules/leaflet/dist/images/ dist/assets/css/images/
+
+rsync --quiet --recursive node_modules/leaflet-minimap/dist/Control.MiniMap.min.js dist/assets/js/
+rsync --quiet --recursive node_modules/leaflet-minimap/dist/Control.MiniMap.min.css dist/assets/css/
+rsync --quiet --recursive node_modules/leaflet-minimap/dist/images/ dist/assets/css/images/
+
 rsync --quiet --recursive node_modules/bootstrap/dist/js/bootstrap.min.js dist/assets/js/
 rsync --quiet --recursive node_modules/bootstrap/dist/css/bootstrap.min.css dist/assets/css/
 rsync --quiet --recursive node_modules/bootstrap/dist/css/bootstrap-theme.min.css dist/assets/css/
 
 rsync --quiet --recursive node_modules/handlebars/dist/handlebars.min.js dist/assets/js/
-rsync --quiet --recursive src/vendor/css/* dist/assets/css/
+# rsync --quiet --recursive src/vendor/css/* dist/assets/css/
 # rsync --quiet --recursive src/vendor/images/* dist/assets/images/
 rsync --quiet --recursive src/templates dist/
-# rsync --quiet --recursive src/partials dist/
 
 rsync --quiet src/*.js dist/
 
