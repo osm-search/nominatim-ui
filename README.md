@@ -1,6 +1,6 @@
 # Nominatim-UI
 
-Frontend for [Nominatim](http://nominatim.org/) ([source](https://github.com/openstreetmap/Nominatim/)) geocoder.
+Frontend for [Nominatim](https://nominatim.org/) ([source](https://github.com/openstreetmap/Nominatim/)) geocoder.
 
 Preview version. See TODO file.
 
