@@ -265,7 +265,7 @@ jQuery(document).ready(function(){
             // lon: typeof(search_params.get('lon') !== 'undefined') ? search_params.get('lon') : get_config_value('Map_Default_Lon'),
             lat: search_params.get('lat'),
             lon: search_params.get('lon'),
-            zoom: (search_params.get('zoom') !== '' ? search_params.get('zoom') : get_config_value('Map_Default_Zoom')),
+            zoom: (search_params.get('zoom') !== '' ? search_params.get('zoom') : get_config_value('Reverse_Default_Search_Zoom')),
             format: 'jsonv2'
         }
 
@@ -273,7 +273,7 @@ jQuery(document).ready(function(){
             // aPlace: aPlace,
             fLat: api_request_params.lat,
             fLon: api_request_params.lon,
-            iZoom: (search_params.get('zoom') !== '' ? api_request_params.zoom : undefined)
+            iZoom: (search_params.get('zoom') !== '' ? api_request_params.zoom : get_config_value('Reverse_Default_Search_Zoom'))
         };
 
 
