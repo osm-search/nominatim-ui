@@ -62,7 +62,7 @@ Handlebars.registerHelper({
         sTitle = Handlebars.escapeExpression(sTitle || sOSMType + ' ' + aFeature.osm_id);
 
         return new Handlebars.SafeString(
-            '<a href="details.html?osmtype=' + aFeature.osm_type + '&osmid=' + aFeature.osm_id + '&class=' + aFeature.class + '">' + sTitle + '</a>'
+            '<a href="details.html?osmtype=' + aFeature.osm_type + '&osmid=' + aFeature.osm_id + '&class=' + aFeature.category + '">' + sTitle + '</a>'
         );
     },
     coverageType: function(aPlace) {
