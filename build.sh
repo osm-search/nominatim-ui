@@ -23,6 +23,7 @@ rsync --quiet --recursive node_modules/bootstrap/dist/css/bootstrap.min.css dist
 rsync --quiet --recursive node_modules/bootstrap/dist/css/bootstrap-theme.min.css dist/assets/css/
 
 rsync --quiet --recursive node_modules/handlebars/dist/handlebars.min.js dist/assets/js/
+rsync --quiet --recursive node_modules/@ungap/url-search-params/min.js dist/assets/js/url-search-params.js
 # rsync --quiet --recursive src/vendor/css/* dist/assets/css/
 # rsync --quiet --recursive src/vendor/images/* dist/assets/images/
 rsync --quiet --recursive src/templates dist/
