@@ -91,7 +91,8 @@ Handlebars.registerHelper({
     formatMapIcon: function(sIcon) {
         if (!sIcon) return;
         
-        var url = Nominatim_Config.Images_Base_Url + sIcon;
+        var url = sIcon;
+        if (!url.match(/^http/)) url = get_config_value('Images_Base_Url') + url;
 
         return new Handlebars.SafeString(
             '<img class="mapicon" src="' + url + '" alt="' + sIcon + '"/>'
