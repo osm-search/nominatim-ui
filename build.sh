@@ -8,6 +8,16 @@ mkdir -p dist/assets/js/
 cat src/assets/js/base.js src/assets/js/detailpage.js src/assets/js/searchpage.js > dist/assets/js/nominatim-ui.js
 
 rsync --quiet --recursive src/vendor/js/* dist/assets/js/
+rsync --quiet --recursive node_modules/jquery/dist/jquery.min.js dist/assets/js/
+rsync --quiet --recursive node_modules/leaflet/dist/leaflet.js dist/assets/js/
+rsync --quiet --recursive node_modules/leaflet/dist/leaflet.js.map dist/assets/js/
+rsync --quiet --recursive node_modules/leaflet/dist/leaflet.css dist/assets/css/
+rsync --quiet --recursive node_modules/leaflet/dist/images/ dist/assets/css/images/
+rsync --quiet --recursive node_modules/bootstrap/dist/js/bootstrap.min.js dist/assets/js/
+rsync --quiet --recursive node_modules/bootstrap/dist/css/bootstrap.min.css dist/assets/css/
+rsync --quiet --recursive node_modules/bootstrap/dist/css/bootstrap-theme.min.css dist/assets/css/
+
+rsync --quiet --recursive node_modules/handlebars/dist/handlebars.min.js dist/assets/js/
 rsync --quiet --recursive src/vendor/css/* dist/assets/css/
 # rsync --quiet --recursive src/vendor/images/* dist/assets/images/
 rsync --quiet --recursive src/templates dist/
