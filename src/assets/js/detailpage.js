@@ -1,7 +1,6 @@
-/*********************************************************
-* DETAILS PAGE
-*********************************************************/
-
+// *********************************************************
+// DETAILS PAGE
+// *********************************************************
 
 
 function init_map_on_detail_page(lat, lon, geojson) {
@@ -9,18 +8,20 @@ function init_map_on_detail_page(lat, lon, geojson) {
     // center: [nominatim_map_init.lat, nominatim_map_init.lon],
     // zoom:   nominatim_map_init.zoom,
     attributionControl: (get_config_value('Map_Tile_Attribution') && get_config_value('Map_Tile_Attribution').length),
-    scrollWheelZoom:    true, // !L.Browser.touch,
-    touchZoom:          false,
+    scrollWheelZoom: true, // !L.Browser.touch,
+    touchZoom: false,
   });
 
   L.tileLayer(get_config_value('Map_Tile_URL'), {
     // moved to footer
-    attribution: (get_config_value('Map_Tile_Attribution') || null ) //'&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    attribution: (get_config_value('Map_Tile_Attribution') || null) // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
   var layerGroup = new L.layerGroup().addTo(map);
 
-  var circle = L.circleMarker([lat,lon], { radius: 10, weight: 2, fillColor: '#ff7800', color: 'blue', opacity: 0.75});
+  var circle = L.circleMarker([lat, lon], {
+    radius: 10, weight: 2, fillColor: '#ff7800', color: 'blue', opacity: 0.75
+  });
   map.addLayer(circle);
 
   if (geojson) {
@@ -28,26 +29,24 @@ function init_map_on_detail_page(lat, lon, geojson) {
       // https://leafletjs.com/reference-1.0.3.html#path-option
       parse_and_normalize_geojson_string(geojson),
       {
-        style: function(feature) {
-          return { interactive: false, color: 'blue' }; 
+        style: function (feature) {
+          return { interactive: false, color: 'blue' };
         }
       }
     );
     map.addLayer(geojson_layer);
     map.fitBounds(geojson_layer.getBounds());
   } else {
-    map.setView([lat,lon],10);
+    map.setView([lat, lon], 10);
   }
 
-  var osm2 = new L.TileLayer(get_config_value('Map_Tile_URL'), {minZoom: 0, maxZoom: 13, attribution: (get_config_value('Map_Tile_Attribution') || null )});
-  var miniMap = new L.Control.MiniMap(osm2, {toggleDisplay: true}).addTo(map);
+  var osm2 = new L.TileLayer(get_config_value('Map_Tile_URL'), { minZoom: 0, maxZoom: 13, attribution: (get_config_value('Map_Tile_Attribution') || null) });
+  var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
 }
 
 
-
-jQuery(document).ready(function(){
-
-  if ( !$('#details-page').length ){ return; }
+jQuery(document).ready(function () {
+  if (!$('#details-page').length) { return; }
 
   var search_params = new URLSearchParams(location.search);
   // var place_id = search_params.get('place_id');
@@ -64,9 +63,8 @@ jQuery(document).ready(function(){
     format: 'json'
   };
 
-  if (api_request_params.place_id || (api_request_params.osmtype && api_request_params.osmid )){
-    fetch_from_api('details', api_request_params, function(aFeature){
-
+  if (api_request_params.place_id || (api_request_params.osmtype && api_request_params.osmid)) {
+    fetch_from_api('details', api_request_params, function (aFeature) {
       var context = { aPlace: aFeature };
 
       render_template($('main'), 'detailspage-template', context);
@@ -81,7 +79,7 @@ jQuery(document).ready(function(){
     render_template($('main'), 'detailspage-index-template');
   }
 
-  $('#form-by-type-and-id,#form-by-osm-url').on('submit', function(e){
+  $('#form-by-type-and-id,#form-by-osm-url').on('submit', function (e) {
     e.preventDefault();
 
     var val = $(this).find('input[type=edit]').val();
@@ -99,5 +97,4 @@ jQuery(document).ready(function(){
       alert('invalid input');
     }
   });
-
 });

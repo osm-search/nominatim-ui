@@ -1,0 +1,28 @@
+{
+    "env": {
+        "browser": true,
+        // "es6": true,
+        "jquery": true
+    },
+    "extends": [
+        "airbnb-base"
+    ],
+    "globals": {
+        "jQuery": true,
+        "Handlebars": true,
+        "L": true // Leaflet
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "rules": {
+        "camelcase": "off", // abd_def is fine
+        "vars-on-top": "off",
+        "comma-dangle": "off", // no comman after last item in list needed
+        "func-names": "off", // anonymous 'function()' is fine
+        "object-shorthand": "off",
+        "prefer-arrow-callback": "off",
+        "prefer-template": "off", // don't require emplates
+        "no-var": "off" // don't require let/const
+    }
+}
