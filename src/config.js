@@ -1,6 +1,5 @@
 var Nominatim_Config = {
-  // "Nominatim_API_Endpoint": 'http://localhost:8089/nominatim/',
-  "Nominatim_API_Endpoint": 'https://nominatim.openstreetmap.org/',
+  "Nominatim_API_Endpoint": 'http://localhost:8089/nominatim/',
   "Images_Base_Url": 'http://localhost:8089/',
   "Search_AreaPolygons": 1,
   "Reverse_Default_Search_Zoom": 18,
