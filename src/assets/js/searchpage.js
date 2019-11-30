@@ -48,7 +48,7 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
     L.tileLayer(get_config_value('Map_Tile_URL'), {
         noWrap: true, // otherwise we end up with click coordinates like latitude -728
         // moved to footer
-        attribution: (get_config_value('Map_Tile_Attribution') || null ) //'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        attribution: (get_config_value('Map_Tile_Attribution') || null ) //'&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     // console.log(Nominatim_Config);
@@ -163,7 +163,7 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
                 var geojson_layer = L.geoJson(
                     parse_and_normalize_geojson_string(result.geojson),
                     {
-                        // http://leafletjs.com/reference-1.0.3.html#path-option
+                        // https://leafletjs.com/reference-1.0.3.html#path-option
                         style: function(feature) {
                             return { interactive: false, color: 'blue' }; 
                         }

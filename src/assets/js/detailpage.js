@@ -15,7 +15,7 @@ function init_map_on_detail_page(lat, lon, geojson) {
 
     L.tileLayer(get_config_value('Map_Tile_URL'), {
         // moved to footer
-        attribution: (get_config_value('Map_Tile_Attribution') || null ) //'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        attribution: (get_config_value('Map_Tile_Attribution') || null ) //'&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     var layerGroup = new L.layerGroup().addTo(map);
@@ -25,7 +25,7 @@ function init_map_on_detail_page(lat, lon, geojson) {
 
     if (geojson) {
         var geojson_layer = L.geoJson(
-            // http://leafletjs.com/reference-1.0.3.html#path-option
+            // https://leafletjs.com/reference-1.0.3.html#path-option
             parse_and_normalize_geojson_string(geojson),
             {
                 style: function(feature) {
