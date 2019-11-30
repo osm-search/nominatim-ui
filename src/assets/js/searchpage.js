@@ -6,6 +6,10 @@
 
 function display_map_position(mouse_lat_lng){
 
+    if (mouse_lat_lng) {
+        mouse_lat_lng = map.wrapLatLng(mouse_lat_lng);
+    }
+
     html_mouse = "mouse position " + (mouse_lat_lng ? [mouse_lat_lng.lat.toFixed(5), mouse_lat_lng.lng.toFixed(5)].join(',') : '-');
     html_click = "last click: " + (last_click_latlng ? [last_click_latlng.lat.toFixed(5),last_click_latlng.lng.toFixed(5)].join(',') : '-');
 
@@ -20,9 +24,10 @@ function display_map_position(mouse_lat_lng){
 
     $('#map-position-inner').html([html_center,html_zoom,html_viewbox,html_click,html_mouse].join('<br/>'));
 
+    var center_lat_lng = map.wrapLatLng(map.getCenter());
     var reverse_params = {
-        // lat: map.getCenter().lat.toFixed(5),
-        // lon: map.getCenter().lng.toFixed(5),
+        lat: center_lat_lng.lat.toFixed(5),
+        lon: center_lat_lng.lng.toFixed(5)
         // zoom: 2,
         // format: 'html'
     }
@@ -46,7 +51,6 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
 
 
     L.tileLayer(get_config_value('Map_Tile_URL'), {
-        noWrap: true, // otherwise we end up with click coordinates like latitude -728
         // moved to footer
         attribution: (get_config_value('Map_Tile_Attribution') || null ) //'&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -205,7 +209,7 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
     if ( is_reverse_search ){
         map.on('click', function(e){
             $('form input[name=lat]').val( e.latlng.lat);
-            $('form input[name=lon]').val( e.latlng.lng);
+            $('form input[name=lon]').val( e.latlng.wrap().lng);
             $('form').submit();
         });
 

@@ -31,12 +31,22 @@ function map_link_to_osm(){
 }
 
 function map_viewbox_as_string() {
-    // since .toBBoxString() doesn't round numbers
+    var bounds = map.getBounds();
+    var west = bounds.getWest();
+    var east = bounds.getEast();
+
+    if ((east - west) >= 360) { // covers more than whole planet
+        west = map.getCenter().lng-179.999;
+        east = map.getCenter().lng+179.999;
+    }
+    east = L.latLng(77, east).wrap().lng;
+    west = L.latLng(77, west).wrap().lng;
+
     return [
-        map.getBounds().getSouthWest().lng.toFixed(5), // left
-        map.getBounds().getNorthEast().lat.toFixed(5), // top
-        map.getBounds().getNorthEast().lng.toFixed(5), // right
-        map.getBounds().getSouthWest().lat.toFixed(5)  // bottom
+        west.toFixed(5), // left
+        bounds.getNorth().toFixed(5), // top
+        east.toFixed(5), // right
+        bounds.getSouth().toFixed(5) // bottom
     ].join(',');
 }
 
