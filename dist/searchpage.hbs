@@ -1,0 +1,79 @@
+{{#*inline "partial_one_result"}}
+  <div class="result" data-position="{{iResNum}}">
+    {{#if aResult.icon}}
+      {{!-- <img src="{{env.Images_Base_Url}}{{aResult.icon}}" /> --}}
+      {{formatMapIcon aResult.icon}}
+    {{/if}}
+
+    <span class="name">{{aResult.display_name}}</span>
+    <span class="type">({{formatLabel aResult}})</span>
+    <p class="coords">{{aResult.lat}},{{aResult.lon}}</p>  
+
+    <a class="btn btn-default btn-xs details" href="details.html?place_id={{aResult.place_id}}">details</a>
+  </div>
+{{/inline}}
+
+
+<form class="form-inline" role="search" accept-charset="UTF-8" action="">
+  <div class="form-group">
+    <input id="q" name="q" type="text" class="form-control input-sm" placeholder="Search" value="{{sQuery}}">
+  </div>
+  <div class="form-group search-button-group">
+    <button type="submit" class="btn btn-primary btn-sm">Search</button>
+    {{#if env.Search_AreaPolygons}}
+      <input type="hidden" value="1" name="polygon_geojson" />
+    {{/if}}
+    <input type="hidden" name="viewbox" value="{{sViewBox}}" />
+    <div class="checkbox-inline">
+      <input type="checkbox" id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
+      <label for="use_viewbox">apply viewbox</label>
+    </div>
+  </div>
+  <div class="search-type-link">
+    <a id="switch-to-reverse" href="/reverse.html">reverse search</a>
+  </div>
+</form>
+
+<div id="content">
+
+  {{#if sQuery}}
+    <div id="searchresults" class="sidebar">
+      {{#each aSearchResults as |aResult|}}
+        {{>partial_one_result iResNum=@index aResult=aResult env=env}}
+      {{/each}}
+
+      {{#if aSearchResults}}
+        {{#if sMoreURL}}
+          <div class="more">
+            <a class="btn btn-primary" href="{{sMoreURL}}">Search for more results</a>
+          </div>
+        {{/if}}
+      {{else}}
+        <div class="noresults">No search results found</div>
+      {{/if}}
+    </div>
+
+  {{else}}
+
+    <div id="intro" class="sidebar">
+      <h2>Welcome to Nominatim</h2>
+
+      <p>Nominatim is a search engine for <a href="https://www.openstreetmap.org">OpenStreetMap</a>
+      data. This is the debugging interface. You may search for a name or address(forward search) or
+      look up data by its geographic coordinate(reverse search). Each result comes with a
+      link to a details page where you can inspect what data about the object is saved in 
+      the database and investigate how the address of the object has been computed.</p>
+
+      For more information visit the <a href="https://wiki.openstreetmap.org/wiki/Nominatim">Nominatim wiki page</a>.
+    </div>
+
+  {{/if}}
+
+  <div id="map-wrapper">
+    <div id="map-position">
+      <div id="map-position-inner"></div>
+      <div id="map-position-close"><a href="#">hide</a></div>
+    </div>
+    <div id="map"></div>
+  </div>
+</div>
