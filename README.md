@@ -25,29 +25,11 @@ be if complexity grows.
 
 You can open the `dist` directory in your browser.
 
-You can start a simple webserver
+You can start a simple HTTP webserver ([Big list of http static server one-liners](https://gist.github.com/willurd/5720255)).
 
-   * PHP
-
-   ```
-   php -S 0.0.0.0:8000 -t dist
-   ```
-
-   * Python 
-
-   ```
-   cd dist
-   python -m SimpleHTTPServer 8000
-   # python 3
-   python -m http.server 8000
-   ```
-
-   * NodeJS
-   
-   ```
-   # npm install -g light-server
-   light-server -s dist -p 8000
-   ```
+```
+php -S 0.0.0.0:8000 -t dist
+```
 
 
 ## Configuration
