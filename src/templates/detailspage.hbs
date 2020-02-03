@@ -92,6 +92,10 @@
           <td>OSM</td>
           <td>{{osmLink aPlace}}
         </tr>
+        <tr>
+          <td>Place Id (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">on this server</a>)</td>
+          <td>{{aPlace.place_id}}</td>
+        </tr>
         {{#if aPlace.calculated_wikipedia}}
           <tr>
             <td>Wikipedia Calculated</td>

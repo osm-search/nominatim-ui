@@ -12,6 +12,12 @@ function formatOSMType(sType, bExcludeExternal) {
 }
 
 Handlebars.registerHelper({
+  shortOSMType: function(sType) {
+    if (sType === 'node') return 'N';
+    if (sType === 'way') return 'W';
+    if (sType === 'relation') return 'R';
+    return '';
+  },
   isaddresses_unused: function (aAddressLine) {
     return ((aAddressLine.isaddress && aAddressLine.isaddress === 'f') ? 'notused' : '');
   },
