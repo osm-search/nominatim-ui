@@ -28,7 +28,7 @@ You can open the `dist` directory in your browser.
 You can start a simple HTTP webserver ([Big list of http static server one-liners](https://gist.github.com/willurd/5720255)).
 
 ```
-php -S 0.0.0.0:8000 -t dist
+php -S localhost:8000 -t dist
 ```
 
 
