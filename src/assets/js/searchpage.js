@@ -68,6 +68,7 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
         fillColor: '#ff7800',
         color: 'red',
         opacity: 0.75,
+        zIndexOffset: 100,
         clickable: false
       }
     );
