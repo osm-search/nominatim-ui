@@ -161,7 +161,7 @@ jQuery(document).ready(function () {
     osmid: search_params.get('osmid'),
     keywords: search_params.get('keywords'),
     addressdetails: 1,
-    hierarchy: 1,
+    hierarchy: (search_params.get('hierarchy') === '1' ? 1 : 0),
     group_hierarchy: 1,
     polygon_geojson: 1,
     format: 'json'
@@ -169,7 +169,7 @@ jQuery(document).ready(function () {
 
   if (api_request_params.place_id || (api_request_params.osmtype && api_request_params.osmid)) {
     fetch_from_api('details', api_request_params, function (aFeature) {
-      var context = { aPlace: aFeature };
+      var context = { aPlace: aFeature, base_url: location.search };
 
       render_template($('main'), 'detailspage-template', context);
 
@@ -272,10 +272,19 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
         fillColor: '#ff7800',
         color: 'red',
         opacity: 0.75,
+        zIndexOffset: 100,
         clickable: false
       }
     );
     cm.addTo(map);
+  } else {
+    var search_params = new URLSearchParams(location.search);
+    var viewbox = search_params.get('viewbox');
+    if (viewbox) {
+      var coords = viewbox.split(','); // <x1>,<y1>,<x2>,<y2>
+      var bounds = L.latLngBounds([coords[1], coords[0]], [coords[3], coords[2]]);
+      L.rectangle(bounds, {color: "#69d53e", weight: 3, dashArray: '5 5', opacity: 0.8, fill: false}).addTo(map);
+    }
   }
 
   var MapPositionControl = L.Control.extend({
@@ -484,12 +493,11 @@ jQuery(document).ready(function () {
   //     'sApiURL' => $url
   // ]);
 
-
   if (is_reverse_search) {
     var api_request_params = {
       lat: search_params.get('lat'),
       lon: search_params.get('lon'),
-      zoom: (search_params.get('zoom') !== null ? search_params.get('zoom') : get_config_value('Reverse_Default_Search_Zoom')),
+      zoom: (search_params.get('zoom') > 1 ? search_params.get('zoom') : get_config_value('Reverse_Default_Search_Zoom')),
       format: 'jsonv2'
     };
 
@@ -497,7 +505,7 @@ jQuery(document).ready(function () {
       // aPlace: aPlace,
       fLat: api_request_params.lat,
       fLon: api_request_params.lon,
-      iZoom: (search_params.get('zoom') !== null ? api_request_params.zoom : get_config_value('Reverse_Default_Search_Zoom'))
+      iZoom: (search_params.get('zoom') > 1 ? api_request_params.zoom : get_config_value('Reverse_Default_Search_Zoom'))
     };
 
 
@@ -546,7 +554,7 @@ jQuery(document).ready(function () {
     var context = {
       // aSearchResults: aResults,
       sQuery: api_request_params.q,
-      sViewBox: '',
+      sViewBox: search_params.get('viewbox'),
       env: Nominatim_Config,
       sMoreURL: ''
     };

@@ -66,8 +66,13 @@ Handlebars.registerHelper({
 
     var sTitleEscaped = Handlebars.escapeExpression(sTitle || sOSMType + ' ' + aFeature.osm_id);
 
+    var sURL = 'details.html?osmtype=' + aFeature.osm_type + '&osmid=' + aFeature.osm_id;
+    if (aFeature.category) {
+      sURL = sURL + '&class=' + aFeature.category;
+    }
+
     return new Handlebars.SafeString(
-      '<a href="details.html?osmtype=' + aFeature.osm_type + '&osmid=' + aFeature.osm_id + '&class=' + aFeature.category + '">' + sTitleEscaped + '</a>'
+      '<a href="' + sURL + '">' + sTitleEscaped + '</a>'
     );
   },
   coverageType: function (aPlace) {
@@ -110,10 +115,12 @@ Handlebars.registerHelper({
       return s && s[0].toUpperCase() + s.slice(1);
     }
 
-    if (aPlace.type && aPlace.type === 'yes') {
+    if (aPlace.type && aPlace.type === 'yes' && aPlace.class) {
       return capitalize(aPlace.class.replace(/_/g, ' '));
+    } else if (aPlace.type) {
+      return capitalize(aPlace.type.replace(/_/g, ' '));
     }
-    return capitalize(aPlace.type.replace(/_/g, ' '));
+    return '';
   },
   formatSearchRank: function (iRank) {
     // same as

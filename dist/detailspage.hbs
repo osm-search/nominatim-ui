@@ -13,7 +13,7 @@
     <td>{{this.rank_address}}</td>
     <td>{{formatAdminLevel this.admin_level}}</td>
     <td>{{formatDistance this.distance}}</td>
-    <td>{{detailsLink this null}}</td>
+    <td>{{detailsPermaLink this 'details >'}}</td>
   </tr>
 {{/inline}}
 
@@ -169,8 +169,8 @@
             {{/each}}
           {{/if}}
 
+          {{> partial_h2 'Parent Of'}}
           {{#if aPlace.hierarchy}}
-            {{> partial_h2 'Parent Of'}}
 
             {{#each aPlace.hierarchy as |lines type|}}
               {{> partial_h3 type}}
@@ -178,6 +178,12 @@
                 {{> partial_details_one_row}}
               {{/each}}
             {{/each}}
+          {{else}}
+            <tr>
+              <td>
+                <a class="btn btn-default btn-xs" href="{{base_url}}&hierarchy=1">display child places</a>
+              </td>
+            </tr>
           {{/if}}
           {{tooManyHierarchyLinesWarning aPlace}}
         </tbody>
