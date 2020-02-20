@@ -281,9 +281,6 @@ jQuery(document).ready(function () {
   //     'sApiURL' => $url
   // ]);
 
-
-  console.log(search_params);
-
   if (is_reverse_search) {
     var api_request_params = {
       lat: search_params.get('lat'),
