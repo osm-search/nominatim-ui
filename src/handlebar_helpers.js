@@ -117,7 +117,7 @@ Handlebars.registerHelper({
 
     if (aPlace.type && aPlace.type === 'yes' && aPlace.class) {
       return capitalize(aPlace.class.replace(/_/g, ' '));
-    } else if (aPlace.class) {
+    } else if (aPlace.type) {
       return capitalize(aPlace.type.replace(/_/g, ' '));
     }
     return '';
