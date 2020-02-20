@@ -57,7 +57,7 @@ jQuery(document).ready(function () {
     osmid: search_params.get('osmid'),
     keywords: search_params.get('keywords'),
     addressdetails: 1,
-    hierarchy: 1,
+    hierarchy: (search_params.get('hierarchy') === '1' ? 1 : 0),
     group_hierarchy: 1,
     polygon_geojson: 1,
     format: 'json'
@@ -65,7 +65,7 @@ jQuery(document).ready(function () {
 
   if (api_request_params.place_id || (api_request_params.osmtype && api_request_params.osmid)) {
     fetch_from_api('details', api_request_params, function (aFeature) {
-      var context = { aPlace: aFeature };
+      var context = { aPlace: aFeature, base_url: location.search };
 
       render_template($('main'), 'detailspage-template', context);
 
