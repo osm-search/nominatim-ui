@@ -66,8 +66,13 @@ Handlebars.registerHelper({
 
     var sTitleEscaped = Handlebars.escapeExpression(sTitle || sOSMType + ' ' + aFeature.osm_id);
 
+    var sURL = 'details.html?osmtype=' + aFeature.osm_type + '&osmid=' + aFeature.osm_id;
+    if (aFeature.category) {
+      sURL = sURL + '&class=' + aFeature.category;
+    }
+
     return new Handlebars.SafeString(
-      '<a href="details.html?osmtype=' + aFeature.osm_type + '&osmid=' + aFeature.osm_id + '&class=' + aFeature.category + '">' + sTitleEscaped + '</a>'
+      '<a href="' + sURL + '">' + sTitleEscaped + '</a>'
     );
   },
   coverageType: function (aPlace) {
