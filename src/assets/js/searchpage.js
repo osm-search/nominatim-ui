@@ -73,6 +73,14 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
       }
     );
     cm.addTo(map);
+  } else {
+    var search_params = new URLSearchParams(location.search);
+    var viewbox = search_params.get('viewbox');
+    if (viewbox) {
+      var coords = viewbox.split(','); // <x1>,<y1>,<x2>,<y2>
+      var bounds = L.latLngBounds([coords[1], coords[0]], [coords[3], coords[2]]);
+      L.rectangle(bounds, {color: "#69d53e", weight: 3, dashArray: '5 5', opacity: 0.8, fill: false}).addTo(map);
+    }
   }
 
   var MapPositionControl = L.Control.extend({
@@ -342,7 +350,7 @@ jQuery(document).ready(function () {
     var context = {
       // aSearchResults: aResults,
       sQuery: api_request_params.q,
-      sViewBox: '',
+      sViewBox: search_params.get('viewbox'),
       env: Nominatim_Config,
       sMoreURL: ''
     };
