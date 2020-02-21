@@ -68,6 +68,11 @@ jQuery(document).ready(function () {
       var context = { aPlace: aFeature, base_url: location.search };
 
       render_template($('main'), 'detailspage-template', context);
+      if (api_request_params.place_id) {
+        update_html_title('Details for ' + api_request_params.place_id);
+      } else {
+        update_html_title('Details for ' + api_request_params.osmtype + api_request_params.osmid);
+      }
 
       update_data_date();
 

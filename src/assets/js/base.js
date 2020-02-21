@@ -83,6 +83,14 @@ function render_template(el, template_name, page_context) {
   el.html(html);
 }
 
+function update_html_title(title) {
+  var prefix = '';
+  if (title && title.length > 1) {
+    prefix = title + ' | ';
+  }
+  $('head title').text(prefix + 'OpenStreetMap Nominatim');
+}
+
 function show_error(html) {
   $('#error-overlay').html(html).show();
 }

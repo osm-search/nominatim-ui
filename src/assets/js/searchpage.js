@@ -304,7 +304,7 @@ jQuery(document).ready(function () {
       iZoom: (search_params.get('zoom') > 1 ? api_request_params.zoom : get_config_value('Reverse_Default_Search_Zoom'))
     };
 
-
+    update_html_title();
     if (api_request_params.lat && api_request_params.lon) {
 
       fetch_from_api('reverse', api_request_params, function (aPlace) {
@@ -316,6 +316,7 @@ jQuery(document).ready(function () {
         context.aPlace = aPlace;
 
         render_template($('main'), 'reversepage-template', context);
+        update_html_title('Reverse result for ' + api_request_params.lat + ',' + api_request_params.lon);
 
         init_map_on_search_page(
           is_reverse_search,
@@ -362,6 +363,7 @@ jQuery(document).ready(function () {
         context.aSearchResults = aResults;
 
         render_template($('main'), 'searchpage-template', context);
+        update_html_title('Result for ' + api_request_params.q);
 
         init_map_on_search_page(is_reverse_search, aResults, get_config_value('Map_Default_Lat'), get_config_value('Map_Default_Lon'), get_config_value('Map_Default_Zoom'));
 
