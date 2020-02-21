@@ -4,17 +4,19 @@
 
 
 function init_map_on_detail_page(lat, lon, geojson) {
+  var attribution = get_config_value('Map_Tile_Attribution') || null;
   map = new L.map('map', {
     // center: [nominatim_map_init.lat, nominatim_map_init.lon],
     // zoom:   nominatim_map_init.zoom,
-    attributionControl: (get_config_value('Map_Tile_Attribution') && get_config_value('Map_Tile_Attribution').length),
+    attributionControl: (attribution && attribution.length),
     scrollWheelZoom: true, // !L.Browser.touch,
     touchZoom: false
   });
 
   L.tileLayer(get_config_value('Map_Tile_URL'), {
     // moved to footer
-    attribution: (get_config_value('Map_Tile_Attribution') || null) // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    attribution: attribution
   }).addTo(map);
 
   // var layerGroup = new L.layerGroup().addTo(map);

@@ -29,7 +29,10 @@ function parse_and_normalize_geojson_string(part) {
 }
 
 function map_link_to_osm() {
-  return 'https://openstreetmap.org/#map=' + map.getZoom() + '/' + map.getCenter().lat + '/' + map.getCenter().lng;
+  var zoom = map.getZoom();
+  var lat = map.getCenter().lat;
+  var lng = map.getCenter().lng;
+  return 'https://openstreetmap.org/#map=' + zoom + '/' + lat + '/' + lng;
 }
 
 function map_viewbox_as_string() {
@@ -60,10 +63,13 @@ function map_viewbox_as_string() {
 function fetch_from_api(endpoint_name, params, callback) {
   // `&a=&b=&c=1` => '&c='
   for (var k in params) {
-    if (typeof (params[k]) === 'undefined' || params[k] === '' || params[k] === null) delete params[k];
+    if (typeof (params[k]) === 'undefined' || params[k] === '' || params[k] === null) {
+      delete params[k];
+    }
   }
 
-  var api_url = get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?' + $.param(params);
+  var api_url = get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?'
+                  + $.param(params);
   if (endpoint_name !== 'status') {
     $('#api-request-link').attr('href', api_url);
   }
@@ -105,7 +111,8 @@ function hide_error() {
 $(document).ajaxError(function (event, jqXHR, ajaxSettings/* , thrownError */) {
   // console.log(thrownError);
   // console.log(ajaxSettings);
-  show_error('Error fetching results from <a href="' + ajaxSettings.url + '">' + ajaxSettings.url + '</a>');
+  var url = ajaxSettings.url;
+  show_error('Error fetching results from <a href="' + url + '">' + url + '</a>');
 });
 
 

@@ -29,7 +29,10 @@ function parse_and_normalize_geojson_string(part) {
 }
 
 function map_link_to_osm() {
-  return 'https://openstreetmap.org/#map=' + map.getZoom() + '/' + map.getCenter().lat + '/' + map.getCenter().lng;
+  var zoom = map.getZoom();
+  var lat = map.getCenter().lat;
+  var lng = map.getCenter().lng;
+  return 'https://openstreetmap.org/#map=' + zoom + '/' + lat + '/' + lng;
 }
 
 function map_viewbox_as_string() {
@@ -60,10 +63,13 @@ function map_viewbox_as_string() {
 function fetch_from_api(endpoint_name, params, callback) {
   // `&a=&b=&c=1` => '&c='
   for (var k in params) {
-    if (typeof (params[k]) === 'undefined' || params[k] === '' || params[k] === null) delete params[k];
+    if (typeof (params[k]) === 'undefined' || params[k] === '' || params[k] === null) {
+      delete params[k];
+    }
   }
 
-  var api_url = get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?' + $.param(params);
+  var api_url = get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?'
+                  + $.param(params);
   if (endpoint_name !== 'status') {
     $('#api-request-link').attr('href', api_url);
   }
@@ -105,7 +111,8 @@ function hide_error() {
 $(document).ajaxError(function (event, jqXHR, ajaxSettings/* , thrownError */) {
   // console.log(thrownError);
   // console.log(ajaxSettings);
-  show_error('Error fetching results from <a href="' + ajaxSettings.url + '">' + ajaxSettings.url + '</a>');
+  var url = ajaxSettings.url;
+  show_error('Error fetching results from <a href="' + url + '">' + url + '</a>');
 });
 
 
@@ -118,17 +125,19 @@ jQuery(document).ready(function () {
 
 
 function init_map_on_detail_page(lat, lon, geojson) {
+  var attribution = get_config_value('Map_Tile_Attribution') || null;
   map = new L.map('map', {
     // center: [nominatim_map_init.lat, nominatim_map_init.lon],
     // zoom:   nominatim_map_init.zoom,
-    attributionControl: (get_config_value('Map_Tile_Attribution') && get_config_value('Map_Tile_Attribution').length),
+    attributionControl: (attribution && attribution.length),
     scrollWheelZoom: true, // !L.Browser.touch,
     touchZoom: false
   });
 
   L.tileLayer(get_config_value('Map_Tile_URL'), {
     // moved to footer
-    attribution: (get_config_value('Map_Tile_Attribution') || null) // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    attribution: attribution
   }).addTo(map);
 
   // var layerGroup = new L.layerGroup().addTo(map);
@@ -238,11 +247,13 @@ function display_map_position(mouse_lat_lng) {
 
   var html_mouse = 'mouse position: -';
   if (mouse_lat_lng) {
-    html_mouse = 'mouse position: ' + [mouse_lat_lng.lat.toFixed(5), mouse_lat_lng.lng.toFixed(5)].join(',');
+    html_mouse = 'mouse position: '
+                  + [mouse_lat_lng.lat.toFixed(5), mouse_lat_lng.lng.toFixed(5)].join(',');
   }
   var html_click = 'last click: -';
   if (last_click_latlng) {
-    html_click = 'last click: ' + [last_click_latlng.lat.toFixed(5), last_click_latlng.lng.toFixed(5)].join(',');
+    html_click = 'last click: '
+                  + [last_click_latlng.lat.toFixed(5), last_click_latlng.lng.toFixed(5)].join(',');
   }
 
   var html_center = 'map center: '
@@ -252,7 +263,13 @@ function display_map_position(mouse_lat_lng) {
   var html_zoom = 'map zoom: ' + map.getZoom();
   var html_viewbox = 'viewbox: ' + map_viewbox_as_string();
 
-  $('#map-position-inner').html([html_center, html_zoom, html_viewbox, html_click, html_mouse].join('<br/>'));
+  $('#map-position-inner').html([
+    html_center,
+    html_zoom,
+    html_viewbox,
+    html_click,
+    html_mouse
+  ].join('<br/>'));
 
   var center_lat_lng = map.wrapLatLng(map.getCenter());
   var reverse_params = {
@@ -266,12 +283,14 @@ function display_map_position(mouse_lat_lng) {
   $('input#use_viewbox').trigger('change');
 }
 
-function init_map_on_search_page(is_reverse_search, nominatim_results, request_lat, request_lon, init_zoom) {
-  //
+function init_map_on_search_page(is_reverse_search, nominatim_results, request_lat,
+  request_lon, init_zoom) {
+
+  var attribution = get_config_value('Map_Tile_Attribution') || null;
   map = new L.map('map', {
     // center: [nominatim_map_init.lat, nominatim_map_init.lon],
     // zoom:   nominatim_map_init.zoom,
-    attributionControl: (get_config_value('Map_Tile_Attribution') && get_config_value('Map_Tile_Attribution').length),
+    attributionControl: (attribution && attribution.length),
     scrollWheelZoom: true, // !L.Browser.touch,
     touchZoom: false
   });
@@ -279,7 +298,8 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
 
   L.tileLayer(get_config_value('Map_Tile_URL'), {
     // moved to footer
-    attribution: (get_config_value('Map_Tile_Attribution') || null) // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    attribution: attribution
   }).addTo(map);
 
   // console.log(Nominatim_Config);
@@ -289,7 +309,7 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
   var osm2 = new L.TileLayer(get_config_value('Map_Tile_URL'), {
     minZoom: 0,
     maxZoom: 13,
-    attribution: (get_config_value('Map_Tile_Attribution') || null)
+    attribution: attribution
   });
   new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
 
@@ -331,12 +351,14 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
     onAdd: function (/* map */) {
       var container = L.DomUtil.create('div', 'my-custom-control');
 
-      $(container).text('show map bounds').addClass('leaflet-bar btn btn-sm btn-default').on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        $('#map-position').show();
-        $(container).hide();
-      });
+      $(container).text('show map bounds')
+        .addClass('leaflet-bar btn btn-sm btn-default')
+        .on('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $('#map-position').show();
+          $(container).hide();
+        });
       $('#map-position-close a').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -356,7 +378,9 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
 
   function update_viewbox_field() {
     // hidden HTML field
-    $('input[name=viewbox]').val($('input#use_viewbox').prop('checked') ? map_viewbox_as_string() : '');
+    $('input[name=viewbox]')
+      .val($('input#use_viewbox')
+        .prop('checked') ? map_viewbox_as_string() : '');
   }
 
   map.on('move', function () {
@@ -535,7 +559,9 @@ jQuery(document).ready(function () {
     api_request_params = {
       lat: search_params.get('lat'),
       lon: search_params.get('lon'),
-      zoom: (search_params.get('zoom') > 1 ? search_params.get('zoom') : get_config_value('Reverse_Default_Search_Zoom')),
+      zoom: (search_params.get('zoom') > 1
+        ? search_params.get('zoom')
+        : get_config_value('Reverse_Default_Search_Zoom')),
       format: 'jsonv2'
     };
 
@@ -543,7 +569,9 @@ jQuery(document).ready(function () {
       // aPlace: aPlace,
       fLat: api_request_params.lat,
       fLon: api_request_params.lon,
-      iZoom: (search_params.get('zoom') > 1 ? api_request_params.zoom : get_config_value('Reverse_Default_Search_Zoom'))
+      iZoom: (search_params.get('zoom') > 1
+        ? api_request_params.zoom
+        : get_config_value('Reverse_Default_Search_Zoom'))
     };
 
     update_html_title();
@@ -558,7 +586,10 @@ jQuery(document).ready(function () {
         context.aPlace = aPlace;
 
         render_template($('main'), 'reversepage-template', context);
-        update_html_title('Reverse result for ' + api_request_params.lat + ',' + api_request_params.lon);
+        update_html_title('Reverse result for '
+                            + api_request_params.lat
+                            + ','
+                            + api_request_params.lon);
 
         init_map_on_search_page(
           is_reverse_search,
