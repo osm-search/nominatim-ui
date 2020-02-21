@@ -1,3 +1,5 @@
+'use strict';
+
 var map;
 var last_click_latlng;
 
@@ -100,7 +102,7 @@ function hide_error() {
 }
 
 
-$(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
+$(document).ajaxError(function (event, jqXHR, ajaxSettings/* , thrownError */) {
   // console.log(thrownError);
   // console.log(ajaxSettings);
   show_error('Error fetching results from <a href="' + ajaxSettings.url + '">' + ajaxSettings.url + '</a>');

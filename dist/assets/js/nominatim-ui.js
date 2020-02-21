@@ -1,3 +1,5 @@
+'use strict';
+
 var map;
 var last_click_latlng;
 
@@ -100,7 +102,7 @@ function hide_error() {
 }
 
 
-$(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
+$(document).ajaxError(function (event, jqXHR, ajaxSettings/* , thrownError */) {
   // console.log(thrownError);
   // console.log(ajaxSettings);
   show_error('Error fetching results from <a href="' + ajaxSettings.url + '">' + ajaxSettings.url + '</a>');
@@ -121,7 +123,7 @@ function init_map_on_detail_page(lat, lon, geojson) {
     // zoom:   nominatim_map_init.zoom,
     attributionControl: (get_config_value('Map_Tile_Attribution') && get_config_value('Map_Tile_Attribution').length),
     scrollWheelZoom: true, // !L.Browser.touch,
-    touchZoom: false,
+    touchZoom: false
   });
 
   L.tileLayer(get_config_value('Map_Tile_URL'), {
@@ -129,7 +131,7 @@ function init_map_on_detail_page(lat, lon, geojson) {
     attribution: (get_config_value('Map_Tile_Attribution') || null) // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  var layerGroup = new L.layerGroup().addTo(map);
+  // var layerGroup = new L.layerGroup().addTo(map);
 
   var circle = L.circleMarker([lat, lon], {
     radius: 10, weight: 2, fillColor: '#ff7800', color: 'blue', opacity: 0.75
@@ -141,7 +143,7 @@ function init_map_on_detail_page(lat, lon, geojson) {
       // https://leafletjs.com/reference-1.0.3.html#path-option
       parse_and_normalize_geojson_string(geojson),
       {
-        style: function (feature) {
+        style: function () {
           return { interactive: false, color: 'blue' };
         }
       }
@@ -152,15 +154,22 @@ function init_map_on_detail_page(lat, lon, geojson) {
     map.setView([lat, lon], 10);
   }
 
-  var osm2 = new L.TileLayer(get_config_value('Map_Tile_URL'), { minZoom: 0, maxZoom: 13, attribution: (get_config_value('Map_Tile_Attribution') || null) });
-  var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
+  var osm2 = new L.TileLayer(
+    get_config_value('Map_Tile_URL'),
+    {
+      minZoom: 0,
+      maxZoom: 13,
+      attribution: (get_config_value('Map_Tile_Attribution') || null)
+    }
+  );
+  (new L.Control.MiniMap(osm2, { toggleDisplay: true })).addTo(map);
 }
 
 
 jQuery(document).ready(function () {
   if (!$('#details-page').length) { return; }
 
-  var search_params = new URLSearchParams(location.search);
+  var search_params = new URLSearchParams(window.location.search);
   // var place_id = search_params.get('place_id');
 
   var api_request_params = {
@@ -177,7 +186,7 @@ jQuery(document).ready(function () {
 
   if (api_request_params.place_id || (api_request_params.osmtype && api_request_params.osmid)) {
     fetch_from_api('details', api_request_params, function (aFeature) {
-      var context = { aPlace: aFeature, base_url: location.search };
+      var context = { aPlace: aFeature, base_url: window.location.search };
 
       render_template($('main'), 'detailspage-template', context);
       if (api_request_params.place_id) {
@@ -227,16 +236,21 @@ function display_map_position(mouse_lat_lng) {
     mouse_lat_lng = map.wrapLatLng(mouse_lat_lng);
   }
 
-  html_mouse = 'mouse position ' + (mouse_lat_lng ? [mouse_lat_lng.lat.toFixed(5), mouse_lat_lng.lng.toFixed(5)].join(',') : '-');
-  html_click = 'last click: ' + (last_click_latlng ? [last_click_latlng.lat.toFixed(5), last_click_latlng.lng.toFixed(5)].join(',') : '-');
+  var html_mouse = 'mouse position: -';
+  if (mouse_lat_lng) {
+    html_mouse = 'mouse position: ' + [mouse_lat_lng.lat.toFixed(5), mouse_lat_lng.lng.toFixed(5)].join(',');
+  }
+  var html_click = 'last click: -';
+  if (last_click_latlng) {
+    html_click = 'last click: ' + [last_click_latlng.lat.toFixed(5), last_click_latlng.lng.toFixed(5)].join(',');
+  }
 
-  html_center = 'map center: '
+  var html_center = 'map center: '
     + map.getCenter().lat.toFixed(5) + ',' + map.getCenter().lng.toFixed(5)
     + ' <a target="_blank" href="' + map_link_to_osm() + '">view on osm.org</a>';
 
-  html_zoom = 'map zoom: ' + map.getZoom();
-
-  html_viewbox = 'viewbox: ' + map_viewbox_as_string();
+  var html_zoom = 'map zoom: ' + map.getZoom();
+  var html_viewbox = 'viewbox: ' + map_viewbox_as_string();
 
   $('#map-position-inner').html([html_center, html_zoom, html_viewbox, html_click, html_mouse].join('<br/>'));
 
@@ -259,20 +273,24 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
     // zoom:   nominatim_map_init.zoom,
     attributionControl: (get_config_value('Map_Tile_Attribution') && get_config_value('Map_Tile_Attribution').length),
     scrollWheelZoom: true, // !L.Browser.touch,
-    touchZoom: false,
+    touchZoom: false
   });
 
 
   L.tileLayer(get_config_value('Map_Tile_URL'), {
     // moved to footer
-    attribution: (get_config_value('Map_Tile_Attribution') || null ) // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    attribution: (get_config_value('Map_Tile_Attribution') || null) // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
   // console.log(Nominatim_Config);
 
   map.setView([request_lat, request_lon], init_zoom);
 
-  var osm2 = new L.TileLayer(get_config_value('Map_Tile_URL'), { minZoom: 0, maxZoom: 13, attribution: (get_config_value('Map_Tile_Attribution') || null ) });
+  var osm2 = new L.TileLayer(get_config_value('Map_Tile_URL'), {
+    minZoom: 0,
+    maxZoom: 13,
+    attribution: (get_config_value('Map_Tile_Attribution') || null)
+  });
   new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
 
   if (is_reverse_search) {
@@ -291,12 +309,18 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
     );
     cm.addTo(map);
   } else {
-    var search_params = new URLSearchParams(location.search);
+    var search_params = new URLSearchParams(window.location.search);
     var viewbox = search_params.get('viewbox');
     if (viewbox) {
       var coords = viewbox.split(','); // <x1>,<y1>,<x2>,<y2>
       var bounds = L.latLngBounds([coords[1], coords[0]], [coords[3], coords[2]]);
-      L.rectangle(bounds, {color: "#69d53e", weight: 3, dashArray: '5 5', opacity: 0.8, fill: false}).addTo(map);
+      L.rectangle(bounds, {
+        color: '#69d53e',
+        weight: 3,
+        dashArray: '5 5',
+        opacity: 0.8,
+        fill: false
+      }).addTo(map);
     }
   }
 
@@ -363,9 +387,9 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
   function get_result_element(position) {
     return $('.result').eq(position);
   }
-  function marker_for_result(result) {
-    return L.marker([result.lat, result.lon], { riseOnHover: true, title: result.name });
-  }
+  // function marker_for_result(result) {
+  //   return L.marker([result.lat, result.lon], { riseOnHover: true, title: result.name });
+  // }
   function circle_for_result(result) {
     var cm_style = {
       radius: 10,
@@ -378,7 +402,7 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
     return L.circleMarker([result.lat, result.lon], cm_style);
   }
 
-  var layerGroup = new L.layerGroup().addTo(map);
+  var layerGroup = (new L.layerGroup()).addTo(map);
 
   function highlight_result(position, bool_focus) {
     var result = nominatim_results[position];
@@ -399,11 +423,11 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
     }
 
     if (result.boundingbox) {
-      var bounds = [
+      var bbox = [
         [result.boundingbox[0] * 1, result.boundingbox[2] * 1],
         [result.boundingbox[1] * 1, result.boundingbox[3] * 1]
       ];
-      map.fitBounds(bounds);
+      map.fitBounds(bbox);
 
       if (result.geojson && result.geojson.type.match(/(Polygon)|(Line)/)) {
         //
@@ -411,7 +435,7 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
           parse_and_normalize_geojson_string(result.geojson),
           {
             // https://leafletjs.com/reference-1.0.3.html#path-option
-            style: function (feature) {
+            style: function (/* feature */) {
               return { interactive: false, color: 'blue' };
             }
           }
@@ -472,10 +496,10 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
 
   // common mistake is to copy&paste latitude and longitude into the 'lat' search box
   $('form input[name=lat]').on('change', function () {
-    var coords = $(this).val().split(',');
-    if (coords.length === 2) {
-      $(this).val(L.Util.trim(coords[0]));
-      $(this).siblings('input[name=lon]').val(L.Util.trim(coords[1]));
+    var coords_split = $(this).val().split(',');
+    if (coords_split.length === 2) {
+      $(this).val(L.Util.trim(coords_split[0]));
+      $(this).siblings('input[name=lon]').val(L.Util.trim(coords_split[1]));
     }
   });
 }
@@ -491,10 +515,8 @@ jQuery(document).ready(function () {
   if (!$('#search-page,#reverse-page').length) { return; }
 
   var is_reverse_search = !!($('#reverse-page').length);
-  var endpoint = is_reverse_search ? 'reverse' : 'search';
 
-
-  var search_params = new URLSearchParams(location.search);
+  var search_params = new URLSearchParams(window.location.search);
 
   // return view('search', [
   //     'sQuery' => $sQuery,
@@ -506,15 +528,18 @@ jQuery(document).ready(function () {
   //     'sApiURL' => $url
   // ]);
 
+  var api_request_params;
+  var context;
+
   if (is_reverse_search) {
-    var api_request_params = {
+    api_request_params = {
       lat: search_params.get('lat'),
       lon: search_params.get('lon'),
       zoom: (search_params.get('zoom') > 1 ? search_params.get('zoom') : get_config_value('Reverse_Default_Search_Zoom')),
       format: 'jsonv2'
     };
 
-    var context = {
+    context = {
       // aPlace: aPlace,
       fLat: api_request_params.lat,
       fLon: api_request_params.lon,
@@ -558,14 +583,14 @@ jQuery(document).ready(function () {
     }
 
   } else {
-    var api_request_params = {
+    api_request_params = {
       q: search_params.get('q'),
       polygon_geojson: search_params.get('polygon_geojson') ? 1 : 0,
       viewbox: search_params.get('viewbox'),
       format: 'jsonv2'
     };
 
-    var context = {
+    context = {
       // aSearchResults: aResults,
       sQuery: api_request_params.q,
       sViewBox: search_params.get('viewbox'),
@@ -582,7 +607,13 @@ jQuery(document).ready(function () {
         render_template($('main'), 'searchpage-template', context);
         update_html_title('Result for ' + api_request_params.q);
 
-        init_map_on_search_page(is_reverse_search, aResults, get_config_value('Map_Default_Lat'), get_config_value('Map_Default_Lon'), get_config_value('Map_Default_Zoom'));
+        init_map_on_search_page(
+          is_reverse_search,
+          aResults,
+          get_config_value('Map_Default_Lat'),
+          get_config_value('Map_Default_Lon'),
+          get_config_value('Map_Default_Zoom')
+        );
 
         $('#q').focus();
 
@@ -591,7 +622,13 @@ jQuery(document).ready(function () {
     } else {
       render_template($('main'), 'searchpage-template', context);
 
-      init_map_on_search_page(is_reverse_search, [], get_config_value('Map_Default_Lat'), get_config_value('Map_Default_Lon'), get_config_value('Map_Default_Zoom'));
+      init_map_on_search_page(
+        is_reverse_search,
+        [],
+        get_config_value('Map_Default_Lat'),
+        get_config_value('Map_Default_Lon'),
+        get_config_value('Map_Default_Zoom')
+      );
     }
   }
 });

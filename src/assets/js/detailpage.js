@@ -9,7 +9,7 @@ function init_map_on_detail_page(lat, lon, geojson) {
     // zoom:   nominatim_map_init.zoom,
     attributionControl: (get_config_value('Map_Tile_Attribution') && get_config_value('Map_Tile_Attribution').length),
     scrollWheelZoom: true, // !L.Browser.touch,
-    touchZoom: false,
+    touchZoom: false
   });
 
   L.tileLayer(get_config_value('Map_Tile_URL'), {
@@ -17,7 +17,7 @@ function init_map_on_detail_page(lat, lon, geojson) {
     attribution: (get_config_value('Map_Tile_Attribution') || null) // '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  var layerGroup = new L.layerGroup().addTo(map);
+  // var layerGroup = new L.layerGroup().addTo(map);
 
   var circle = L.circleMarker([lat, lon], {
     radius: 10, weight: 2, fillColor: '#ff7800', color: 'blue', opacity: 0.75
@@ -29,7 +29,7 @@ function init_map_on_detail_page(lat, lon, geojson) {
       // https://leafletjs.com/reference-1.0.3.html#path-option
       parse_and_normalize_geojson_string(geojson),
       {
-        style: function (feature) {
+        style: function () {
           return { interactive: false, color: 'blue' };
         }
       }
@@ -40,15 +40,22 @@ function init_map_on_detail_page(lat, lon, geojson) {
     map.setView([lat, lon], 10);
   }
 
-  var osm2 = new L.TileLayer(get_config_value('Map_Tile_URL'), { minZoom: 0, maxZoom: 13, attribution: (get_config_value('Map_Tile_Attribution') || null) });
-  var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
+  var osm2 = new L.TileLayer(
+    get_config_value('Map_Tile_URL'),
+    {
+      minZoom: 0,
+      maxZoom: 13,
+      attribution: (get_config_value('Map_Tile_Attribution') || null)
+    }
+  );
+  (new L.Control.MiniMap(osm2, { toggleDisplay: true })).addTo(map);
 }
 
 
 jQuery(document).ready(function () {
   if (!$('#details-page').length) { return; }
 
-  var search_params = new URLSearchParams(location.search);
+  var search_params = new URLSearchParams(window.location.search);
   // var place_id = search_params.get('place_id');
 
   var api_request_params = {
@@ -65,7 +72,7 @@ jQuery(document).ready(function () {
 
   if (api_request_params.place_id || (api_request_params.osmtype && api_request_params.osmid)) {
     fetch_from_api('details', api_request_params, function (aFeature) {
-      var context = { aPlace: aFeature, base_url: location.search };
+      var context = { aPlace: aFeature, base_url: window.location.search };
 
       render_template($('main'), 'detailspage-template', context);
       if (api_request_params.place_id) {
