@@ -33,6 +33,12 @@
           }
         ]
       }
+    },
+    {
+      "files": ["handlebar_helpers.js"],
+      "globals": {
+        "get_config_value": true
+      }
     }
   ]
 }
