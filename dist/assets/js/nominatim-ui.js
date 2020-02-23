@@ -62,9 +62,14 @@ function map_viewbox_as_string() {
 
 function fetch_from_api(endpoint_name, params, callback) {
   // `&a=&b=&c=1` => '&c='
-  for (var k in params) {
-    if (typeof (params[k]) === 'undefined' || params[k] === '' || params[k] === null) {
-      delete params[k];
+  // fetch_from_api
+
+  // var c = ;
+  var keys = Object.keys(params);
+  for (var i = 0; i < keys.length; i += 1) {
+    var val = params[keys[i]];
+    if (typeof (val) === 'undefined' || val === '' || val === null) {
+      delete params[keys[i]];
     }
   }
 

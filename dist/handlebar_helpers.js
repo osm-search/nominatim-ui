@@ -1,3 +1,5 @@
+'use strict';
+
 function formatOSMType(sType, bExcludeExternal) {
   if (sType === 'N') return 'node';
   if (sType === 'W') return 'way';
@@ -12,7 +14,7 @@ function formatOSMType(sType, bExcludeExternal) {
 }
 
 Handlebars.registerHelper({
-  shortOSMType: function(sType) {
+  shortOSMType: function (sType) {
     if (sType === 'node') return 'N';
     if (sType === 'way') return 'W';
     if (sType === 'relation') return 'R';
@@ -99,7 +101,7 @@ Handlebars.registerHelper({
     return (iLevel < 15 ? iLevel : '');
   },
   formatMapIcon: function (sIcon) {
-    if (!sIcon) return;
+    if (!sIcon) return '';
 
     var url = sIcon;
     if (!url.match(/^http/)) url = get_config_value('Images_Base_Url') + url;
@@ -117,7 +119,8 @@ Handlebars.registerHelper({
 
     if (aPlace.type && aPlace.type === 'yes' && aPlace.class) {
       return capitalize(aPlace.class.replace(/_/g, ' '));
-    } else if (aPlace.type) {
+    }
+    if (aPlace.type) {
       return capitalize(aPlace.type.replace(/_/g, ' '));
     }
     return '';
@@ -146,13 +149,10 @@ Handlebars.registerHelper({
     return 'other: ' + iRank;
   },
   tooManyHierarchyLinesWarning: function (aPlace) {
-    if (!aPlace.hierarchy) return;
+    if (!aPlace.hierarchy) return '';
 
-    var c = 0;
-    for (var type in aPlace.hierarchy) {
-      c = c + type.length + 1;
-    }
-    if (c < 500) return;
+    var c = Object.keys(aPlace.hierarchy);
+    if (c < 500) return '';
 
     return new Handlebars.SafeString(
       '<p>There are more child objects which are not shown.</p>'
@@ -186,7 +186,9 @@ Handlebars.registerHelper({
 
     var select = $('<select>');
     var option = jQuery('<option>', { value: '', text: '--' });
-    if (typeof (iSelectedZoom) === 'undefined') option.attr('selected', 'selected');
+    if (typeof (iSelectedZoom) === 'undefined') {
+      option.attr('selected', 'selected');
+    }
     option.appendTo(select);
 
     jQuery.each(aZoomLevels, function (i, title) {

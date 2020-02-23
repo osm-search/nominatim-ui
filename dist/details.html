@@ -156,7 +156,10 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-10">
-      <h1>{{aPlace.localname}} <small>{{detailsPermaLink aPlace 'link to this page'}}</small></h1>
+      <h1>
+        {{aPlace.localname}}
+        <small>{{detailsPermaLink aPlace 'link to this page'}}</small>
+      </h1>
     </div>
     <div class="col-sm-2 text-right">
       {{formatMapIcon aPlace.icon}}
@@ -169,7 +172,9 @@
           <td>Name</td>
           <td>
             {{#each aPlace.names}}
-              <div class="line"><span class="name">{{this}}</span> ({{@key}})</div>
+              <div class="line">
+                <span class="name">{{this}}</span> ({{@key}})
+              </div>
             {{/each}}
           </td>
         </tr>
@@ -204,14 +209,19 @@
         </tr>
         <tr>
           <td>Centre Point (lat,lon)</td>
-          <td>{{aPlace.centroid.coordinates.[1]}},{{aPlace.centroid.coordinates.[0]}}</td>
+          <td>
+            {{aPlace.centroid.coordinates.[1]}},{{aPlace.centroid.coordinates.[0]}}
+          </td>
         </tr>
         <tr>
           <td>OSM</td>
           <td>{{osmLink aPlace}}
         </tr>
         <tr>
-          <td>Place Id (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">on this server</a>)</td>
+          <td>
+            Place Id
+            (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">on this server</a>)
+          </td>
           <td>{{aPlace.place_id}}</td>
         </tr>
         {{#if aPlace.calculated_wikipedia}}
@@ -228,7 +238,9 @@
           <td>Address Tags</td>
           <td>
             {{#each aPlace.addresstags}}
-              <div class="line"><span class="name">{{this}}</span> ({{@key}})</div>
+              <div class="line">
+                <span class="name">{{this}}</span> ({{@key}})
+              </div>
             {{/each}}
           </td>
         </tr>
@@ -236,7 +248,9 @@
           <td>Extra Tags</td>
           <td>
             {{#each aPlace.extratags}}
-              <div class="line"><span class="name">{{this}}</span> ({{@key}})</div>
+              <div class="line">
+                <span class="name">{{this}}</span> ({{@key}})
+              </div>
             {{/each}}
           </td>
         </tr>
@@ -299,7 +313,8 @@
           {{else}}
             <tr>
               <td>
-                <a class="btn btn-default btn-xs" href="{{base_url}}&hierarchy=1">display child places</a>
+                <a class="btn btn-default btn-xs"
+                  href="{{base_url}}&hierarchy=1">display child places</a>
               </td>
             </tr>
           {{/if}}
@@ -322,16 +337,27 @@
         <h4>Search by place id</h4>
 
         <form class="form-inline" action="details.html">
-          <input type="edit" class="form-control input-sm" pattern="^[0-9]+$" name="place_id" placeholder="12345" />
-          <input type="submit" class="btn btn-primary btn-sm" value="Show" />
+          <input type="edit"
+                 class="form-control input-sm"
+                 pattern="^[0-9]+$"
+                 name="place_id"
+                 placeholder="12345" />
+          <input type="submit"
+                 class="btn btn-primary btn-sm"
+                 value="Show" />
         </form>
       </div>
 
       <div class="search-form">
         <h4>Search by OSM type and OSM id</h4>
 
-        <form id="form-by-type-and-id" class="form-inline" action="details.html">
-          <input type="edit" class="form-control input-sm" pattern="^[NWR][0-9]+$" placeholder="N123 or W123 or R123" />
+        <form id="form-by-type-and-id"
+              class="form-inline"
+              action="details.html">
+          <input type="edit"
+                 class="form-control input-sm"
+                 pattern="^[NWR][0-9]+$"
+                 placeholder="N123 or W123 or R123" />
           <input type="hidden" name="osmtype" />
           <input type="hidden" name="osmid" />
           <input type="submit" class="btn btn-primary btn-sm" value="Show" />
@@ -341,8 +367,13 @@
       <div class="search-form">
         <h4>Search by openstreetmap.org URL</h4>
 
-        <form id="form-by-osm-url" class="form-inline" action="details.html">
-          <input type="edit" class="form-control input-sm" pattern=".*openstreetmap.*" placeholder="https://www.openstreetmap.org/relation/123" />
+        <form id="form-by-osm-url"
+              class="form-inline"
+              action="details.html">
+          <input type="edit"
+                 class="form-control input-sm"
+                 pattern=".*openstreetmap.*"
+                 placeholder="https://www.openstreetmap.org/relation/123" />
           <input type="hidden" name="osmtype" />
           <input type="hidden" name="osmid" />
           <input type="submit" class="btn btn-primary btn-sm" value="Show" />

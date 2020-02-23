@@ -1,7 +1,5 @@
 # TODO list
 
-* check output of /dist into repository?
-
 
 ## Might never work
 
@@ -11,13 +9,10 @@
 
 ## Nice-to-have
 
-* support nearlat,nearlon parameters
 * should images/mapicons/ be served from API server or this repo?
-* different content for official OSM, e.g. github urls
 * cache `update_data_date` result somehow?
 * a new search causes a new pageview
 * add tests with fixtures
-* detailpage: make linkedplaces, childplaces optional (rarely used? second click to enable?)
 * set better alt tag for icons
 * print text "loading..." instead of an error (which the user sees for a split second)
 * concatenate/minify JS and CSS

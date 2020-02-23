@@ -128,23 +128,34 @@
     <span class="type">{{formatLabel aResult}}</span>
     <p class="coords">{{aResult.lat}},{{aResult.lon}}</p>  
 
-    <a class="btn btn-default btn-xs details" href="details.html?osmtype={{shortOSMType aResult.osm_type}}&osmid={{aResult.osm_id}}">details</a>
+    <a class="btn btn-default btn-xs details"
+       href="details.html?osmtype={{shortOSMType aResult.osm_type}}&osmid={{aResult.osm_id}}">details</a>
   </div>
 {{/inline}}
 
 <form class="form-inline" role="search" accept-charset="UTF-8" action="">
   <div class="form-group">
     <input name="format" type="hidden" value="html">
-    <input name="lat" type="text" class="form-control input-sm" placeholder="latitude"  value="{{fLat}}">
+    <input name="lat"
+           type="text"
+           class="form-control input-sm"
+           placeholder="latitude"
+           value="{{fLat}}" />
     <span id="switch-coords">&lt;&gt;</span>
-    <input name="lon" type="text" class="form-control input-sm" placeholder="longitude" value="{{fLon}}">
+    <input name="lon"
+           type="text"
+           class="form-control input-sm"
+           placeholder="longitude"
+           value="{{fLon}}" />
     max zoom
     <select name="zoom" class="form-control input-sm" value="{{iZoom}}">
       {{zoomLevels iZoom}}
     </select>
   </div>
   <div class="form-group search-button-group">
-    <button type="submit" class="btn btn-primary btn-sm">Search</button>
+    <button type="submit" class="btn btn-primary btn-sm">
+      Search
+    </button>
   </div>
   <div class="search-type-link">
     <a href="/search.html">forward search</a>
