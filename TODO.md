@@ -23,6 +23,4 @@
 * show map bounds section => move to handlebar template, map to partial
 * aResults vs aPlace vs aFeature variable naming
 * use CSS preprocessor and linter
-* use eslint. It's already a dependency but throws errors
-* cut line length (eslint warns when longer than 100)
 * upgrade bootstrap v3 to v4
