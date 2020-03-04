@@ -65,9 +65,9 @@ function fetch_from_api(endpoint_name, params, callback) {
 
   var param_names = Object.keys(params);
   for (var i = 0; i < param_names.length; i += 1) {
-    var val = param_names[keys[i]];
+    var val = param_names[i];
     if (typeof (val) === 'undefined' || val === '' || val === null) {
-      delete param_names[keys[i]];
+      delete param_names[i];
     }
   }
 

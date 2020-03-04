@@ -61,15 +61,13 @@ function map_viewbox_as_string() {
 // *********************************************************
 
 function fetch_from_api(endpoint_name, params, callback) {
-  // `&a=&b=&c=1` => '&c='
-  // fetch_from_api
+  // `&a=&b=&c=1` => '&c=1'
 
-  // var c = ;
-  var keys = Object.keys(params);
-  for (var i = 0; i < keys.length; i += 1) {
-    var val = params[keys[i]];
+  var param_names = Object.keys(params);
+  for (var i = 0; i < param_names.length; i += 1) {
+    var val = param_names[i];
     if (typeof (val) === 'undefined' || val === '' || val === null) {
-      delete params[keys[i]];
+      delete param_names[i];
     }
   }
 
@@ -623,6 +621,7 @@ jQuery(document).ready(function () {
       q: search_params.get('q'),
       polygon_geojson: search_params.get('polygon_geojson') ? 1 : 0,
       viewbox: search_params.get('viewbox'),
+      exclude_place_ids: search_params.get('exclude_place_ids'),
       format: 'jsonv2'
     };
 
@@ -630,8 +629,8 @@ jQuery(document).ready(function () {
       // aSearchResults: aResults,
       sQuery: api_request_params.q,
       sViewBox: search_params.get('viewbox'),
-      env: Nominatim_Config,
-      sMoreURL: ''
+      env: Nominatim_Config
+      // sMoreURL: 'x'
     };
 
     if (api_request_params.q) {
@@ -639,6 +638,20 @@ jQuery(document).ready(function () {
       fetch_from_api('search', api_request_params, function (aResults) {
 
         context.aSearchResults = aResults;
+
+        if (aResults.length >= 10) {
+          var aExcludePlaceIds = [];
+          if (search_params.has('exclude_place_ids')) {
+            aExcludePlaceIds.search_params.get('exclude_place_ids').split(',');
+          }
+          for (var i = 0; i < aResults.length; i += 1) {
+            aExcludePlaceIds.push(aResults[i].place_id);
+          }
+
+          var parsed_url = new URLSearchParams(window.location.search);
+          parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
+          context.sMoreURL = '?' + parsed_url.toString();
+        }
 
         render_template($('main'), 'searchpage-template', context);
         update_html_title('Result for ' + api_request_params.q);

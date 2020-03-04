@@ -3,7 +3,6 @@
 
 ## Might never work
 
-* pagination. API returns an array without indication if more results exist
 * API returns category, type, but without admin_level we can't derive e.g. state,country
 * setting accept-language without a server component https://github.com/dansingerman/jQuery-Browser-Language
 
