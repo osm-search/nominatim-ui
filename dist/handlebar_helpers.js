@@ -77,6 +77,13 @@ Handlebars.registerHelper({
       '<a href="' + sURL + '">' + sTitleEscaped + '</a>'
     );
   },
+  formatPlaceType: function (aPlace) {
+    var sOut = aPlace.class + ':' + aPlace.type;
+    if (aPlace.type && aPlace.type === 'administrative' && aPlace.place_type) {
+      sOut = sOut + ' (' + aPlace.place_type + ')';
+    }
+    return new Handlebars.SafeString(sOut);
+  },
   coverageType: function (aPlace) {
     return (aPlace.isarea ? 'Polygon' : 'Point');
   },
