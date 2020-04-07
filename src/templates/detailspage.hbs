@@ -1,6 +1,6 @@
 
 {{#*inline "partial_details_one_row"}}
-  <tr class="{{isaddresses_unused this}}">
+  <tr class="{{#unless this.isaddress}}notused{{/unless}}">
     <td class="name">
       {{#if this.localname}}
         {{this.localname}}

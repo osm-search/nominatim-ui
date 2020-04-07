@@ -20,9 +20,6 @@ Handlebars.registerHelper({
     if (sType === 'relation') return 'R';
     return '';
   },
-  isaddresses_unused: function (aAddressLine) {
-    return ((aAddressLine.isaddress && aAddressLine.isaddress === 'f') ? 'notused' : '');
-  },
   // { osm_type: 'R', osm_id: 12345 }
   // <a href="https://www.openstreetmap.org/relation/12345">relation 12345</a
   osmLink: function (aPlace) {
