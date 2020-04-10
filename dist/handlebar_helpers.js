@@ -14,6 +14,9 @@ function formatOSMType(sType, bExcludeExternal) {
 }
 
 Handlebars.registerHelper({
+  formatOSMType: function (sType, bExcludeExternal) {
+    return formatOSMType(sType, bExcludeExternal);
+  },
   shortOSMType: function (sType) {
     if (sType === 'node') return 'N';
     if (sType === 'way') return 'W';
@@ -131,7 +134,7 @@ Handlebars.registerHelper({
   },
   formatSearchRank: function (iRank) {
     // same as
-    // https://github.com/openstreetmap/Nominatim/blob/master/sql/functions.sql
+    // https://github.com/osm-search/Nominatim/blob/master/sql/functions.sql
     // get_searchrank_label()
 
     if (iRank < 2) return 'continent';

@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Broken polygons</h1>
+
+      <p>
+          Total number of broken polygons: {{aPolygons.length}}.
+      </p>
+
+      <table class="table table-striped table-hover">
+        <thead>
+          <th>OSM type</th>
+          <th>OSM id</th>
+          <th>Class</th>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Country Code</th>
+          <th>Error message</th>
+          <th>Updated</th>
+          <th>&nbsp;</th>
+        </thead>
+        <tbody>
+          {{#each aPolygons}}
+          <tr>
+            <td>{{osm_type}}</td>
+            <td>{{osmLink this}}</td>
+            <td>{{class}}</td>
+            <td>{{type}}</td>
+            <td>{{name}}</td>
+            <td>{{country_code}}</td>
+            <td>{{errormessage}}</td>
+            <td>{{updated}}</td>
+            <td>
+              <a href="http://localhost:8111/import?url=https://www.openstreetmap.org/api/0.6/{{formatOSMType osm_type}}/{{osm_id}}/full" target="josm">josm</a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div
+

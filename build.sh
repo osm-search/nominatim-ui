@@ -5,7 +5,7 @@ rsync --quiet --recursive src/assets/css/ dist/assets/css/
 rsync --quiet --recursive src/assets/images/ dist/assets/images/
 
 mkdir -p dist/assets/js/
-cat src/assets/js/base.js src/assets/js/detailpage.js src/assets/js/searchpage.js > dist/assets/js/nominatim-ui.js
+cat src/assets/js/base.js src/assets/js/detailpage.js src/assets/js/searchpage.js src/assets/js/deletable.js src/assets/js/polygons.js > dist/assets/js/nominatim-ui.js
 
 rsync --quiet node_modules/jquery/dist/jquery.min.js dist/assets/js/
 rsync --quiet node_modules/leaflet/dist/leaflet.js dist/assets/js/
@@ -54,5 +54,19 @@ cat src/templates/detailspage-index.hbs >> dist/details.html
 echo '</script>' >> dist/details.html
 echo '</body>' >> dist/details.html
 echo '</html>' >> dist/details.html
+
+cat src/layout.html | grep -v '</body>' | grep -v '</html>' | sed -e 's/BODYID/deletable-page/' > dist/deletable.html
+echo '<script id="deletable-template" type="text/x-handlebars-template">' >> dist/deletable.html
+cat src/templates/deletable.hbs >> dist/deletable.html
+echo '</script>' >> dist/deletable.html
+echo '</body>' >> dist/deletable.html
+echo '</html>' >> dist/deletable.html
+
+cat src/layout.html | grep -v '</body>' | grep -v '</html>' | sed -e 's/BODYID/polygons-page/' > dist/polygons.html
+echo '<script id="polygons-template" type="text/x-handlebars-template">' >> dist/polygons.html
+cat src/templates/polygons.hbs >> dist/polygons.html
+echo '</script>' >> dist/polygons.html
+echo '</body>' >> dist/polygons.html
+echo '</html>' >> dist/polygons.html
 
 cp src/index.html dist/

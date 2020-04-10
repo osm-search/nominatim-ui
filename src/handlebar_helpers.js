@@ -14,6 +14,9 @@ function formatOSMType(sType, bExcludeExternal) {
 }
 
 Handlebars.registerHelper({
+  formatOSMType: function (sType, bExcludeExternal) {
+    return formatOSMType(sType, bExcludeExternal);
+  },
   shortOSMType: function (sType) {
     if (sType === 'node') return 'N';
     if (sType === 'way') return 'W';
