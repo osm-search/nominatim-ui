@@ -18,7 +18,7 @@
     "eslint-plugin-import": "^2.20.2",
     "grunt": "^1.1.0",
     "handlebars": "4.7.6",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "leaflet": "1.6.0",
     "leaflet-minimap": "3.6.1"
   },
