@@ -170,8 +170,19 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
     update_viewbox_field();
   });
 
-
-
+  $("input[name='query-selector']").click(function () {
+    var query_val = $("input[name='query-selector']:checked").val();
+    if (query_val === 'simple') {
+      $('div.form-group-simple').removeClass('hidden');
+      $('div.form-group-structured').addClass('hidden');
+      $('.form-group-structured').find('input:text').val('');
+    } else if (query_val === 'structured') {
+      console.log('here');
+      $('div.form-group-simple').addClass('hidden');
+      $('div.form-group-structured').removeClass('hidden');
+      $('.form-group-simple').find('input:text').val('');
+    }
+  });
 
   function get_result_element(position) {
     return $('.result').eq(position);
@@ -296,9 +307,6 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
 
 
 
-
-
-
 jQuery(document).ready(function () {
   //
   if (!$('#search-page,#reverse-page').length) { return; }
@@ -381,6 +389,12 @@ jQuery(document).ready(function () {
   } else {
     api_request_params = {
       q: search_params.get('q'),
+      street: search_params.get('street'),
+      city: search_params.get('city'),
+      county: search_params.get('county'),
+      state: search_params.get('state'),
+      country: search_params.get('country'),
+      postalcode: search_params.get('postalcode'),
       polygon_geojson: search_params.get('polygon_geojson') ? 1 : 0,
       viewbox: search_params.get('viewbox'),
       exclude_place_ids: search_params.get('exclude_place_ids'),
@@ -388,14 +402,24 @@ jQuery(document).ready(function () {
     };
 
     context = {
-      // aSearchResults: aResults,
       sQuery: api_request_params.q,
       sViewBox: search_params.get('viewbox'),
       env: Nominatim_Config
-      // sMoreURL: 'x'
     };
 
-    if (api_request_params.q) {
+    if (api_request_params.street || api_request_params.city || api_request_params.county
+      || api_request_params.state || api_request_params.country || api_request_params.postalcode) {
+      context.hStructured = {
+        street: api_request_params.street,
+        city: api_request_params.city,
+        county: api_request_params.county,
+        state: api_request_params.state,
+        country: api_request_params.country,
+        postalcode: api_request_params.postalcode
+      };
+    }
+
+    if (api_request_params.q || context.hStructured) {
 
       fetch_from_api('search', api_request_params, function (aResults) {
 

@@ -14,32 +14,60 @@
   </div>
 {{/inline}}
 
-
-<form class="form-inline" role="search" accept-charset="UTF-8" action="">
-  <div class="form-group">
-    <input id="q"
-           name="q"
-           type="text"
-           class="form-control input-sm"
-           placeholder="Search"
-           value="{{sQuery}}" />
-  </div>
-  <div class="form-group search-button-group">
-    <button type="submit" class="btn btn-primary btn-sm">Search</button>
-    {{#if env.Search_AreaPolygons}}
-      <input type="hidden" value="1" name="polygon_geojson" />
-    {{/if}}
-    <input type="hidden" name="viewbox" value="{{sViewBox}}" />
-    <div class="checkbox-inline">
-      <input type="checkbox"
-             id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
-      <label for="use_viewbox">apply viewbox</label>
-    </div>
-  </div>
+<div class="top-bar" id="structured-query-selector">
   <div class="search-type-link">
     <a id="switch-to-reverse" href="/reverse.html">reverse search</a>
   </div>
-</form>
+  <div class="radio-inline"><input type="radio" name="query-selector" id="simple" value="simple" {{#unless hStructured}}checked="checked"{{/unless}}>
+  <label for="simple">simple</label></div>
+  <div class="radio-inline"><input type="radio" name="query-selector" id="structured" value="structured" {{#if hStructured}}checked="checked"{{/if}}>
+  <label for="structured">structured</label></div>
+
+  <form class="form-inline" role="search" accept-charset="UTF-8" action="">
+    <div class="form-group-simple {{#if hStructured}}hidden{{/if}}">
+      <input id="q"
+             name="q"
+             type="text"
+             class="form-control input-sm"
+             placeholder="Search"
+             value="{{sQuery}}" />
+    </div>
+    <div class="form-group-structured {{#unless hStructured}}hidden{{/unless}}">
+      <div class="form-inline">
+        <input name="street" type="text" class="form-control input-sm"
+               placeholder="House number/Street"
+               value="{{hStructured.street}}" />
+        <input name="city" type="text" class="form-control input-sm"
+               placeholder="City"
+               value="{{hStructured.city}}" />
+        <input id="county" name="county" type="text" class="form-control input-sm"
+               placeholder="County"
+               value="{{hStructured.county}}" />
+        <input name="state" type="text" class="form-control input-sm"
+               placeholder="State"
+               value="{{hStructured.state}}" />
+        <input name="country" type="text" class="form-control input-sm"
+               placeholder="Country"
+               value="{{hStructured.country}}" />
+        <input name="postalcode" type="text" class="form-control input-sm"
+               placeholder="Postal Code"
+               value="{{hStructured.postalcode}}" />
+      </div>
+    </div>
+    <div class="form-group search-button-group">
+      <button type="submit" class="btn btn-primary btn-sm">Search</button>
+      {{#if env.Search_AreaPolygons}}
+        <input type="hidden" value="1" name="polygon_geojson" />
+      {{/if}}
+      <input type="hidden" name="viewbox" value="{{sViewBox}}" />
+      <div class="checkbox-inline">
+        <input type="checkbox"
+               id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
+        <label for="use_viewbox">apply viewbox</label>
+      </div>
+    </div>
+  </form>
+</div>
 
 <div id="content">
 
