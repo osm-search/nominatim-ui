@@ -1,9 +1,17 @@
-
-
-form {
+.top-bar {
   width: 100%;
   padding: 1em 15px;
 }
+
+.top-bar #q {
+  max-width: 500px;
+}
+
+.form-group-simple.hidden,
+.form-group-structured.hidden {
+  display: none;
+}
+
 form #q {
   min-width: 500px;
 }
@@ -140,6 +148,16 @@ form label {
     width: 100%;
   }
   .search-button-group {
-    display: inline
+    display: inline;
   }
+}
+
+.search-button-group {
+  margin-top: 3px;
+  box-sizing: content-box;
+  margin-bottom: 3px;
+}
+
+label {
+  font-weight: normal;
 }
