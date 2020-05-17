@@ -9,7 +9,6 @@
 
   <link href="assets/css/leaflet.css" rel="stylesheet" />
   <link href="assets/css/Control.MiniMap.min.css" rel="stylesheet" />
-  <link href="assets/css/bootstrap-theme.min.css" rel="stylesheet" />
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="assets/css/common.css" rel="stylesheet" />
   <link href="assets/css/search.css" rel="stylesheet" type="text/css" />
@@ -23,7 +22,7 @@
 
   <header class="container-fluid">
     <div class="row">
-      <div class="col-xs-4">
+      <div class="col-4">
         <div class="brand">
           <a href="/">
             <img alt="logo" src="assets/images/osm_logo.120px.png" width="30" height="30"/>
@@ -31,26 +30,26 @@
           </a>
         </div>
       </div>
-      <div id="last-updated" class="col-xs-4 text-center">
+      <div id="last-updated" class="col-4 text-center">
         Data from <a id="api-request-link" href="">API request</a>
         <br>
         Data last updated:
         <span id="data-date"></span>
       </div>
-      <div class="col-xs-4 text-right">
-        <div class="btn-group">
-          <button class="dropdown-toggle btn btn-sm btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            About &amp; Help <span class="caret"></span>
+      <div class="col-4 text-right">
+        <div class="dropdown">
+          <button class="dropdown-toggle btn btn-sm btn-outline-secondary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            About &amp; Help
           </button>
-          <ul class="dropdown-menu dropdown-menu-right">
-            <li><a href="https://nominatim.org/release-docs/develop/api/Overview/" target="_blank">API Reference</a></li>
-            <li><a href="https://nominatim.org/release-docs/develop/api/Faq/" target="_blank">FAQ</a></li>
-            <li><a href="https://help.openstreetmap.org/tags/nominatim/">OpenStreetMap Help</a></li>
-            <li><a href="https://github.com/osm-search/Nominatim">Nominatim on Github</a></li>
-            <li><a href="https://github.com/osm-search/nominatim-ui">This frontend on Github</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#" class="" data-toggle="modal" data-target="#report-modal">Report problem with results</a></li>
-          </ul>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="https://nominatim.org/release-docs/develop/api/Overview/" target="_blank">API Reference</a>
+            <a class="dropdown-item" href="https://nominatim.org/release-docs/develop/api/Faq/" target="_blank">FAQ</a>
+            <a class="dropdown-item" href="https://help.openstreetmap.org/tags/nominatim/">OpenStreetMap Help</a>
+            <a class="dropdown-item" href="https://github.com/osm-search/Nominatim">Nominatim on Github</a>
+            <a class="dropdown-item" href="https://github.com/osm-search/nominatim-ui">This frontend on Github</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#report-modal">Report problem with results</a>
+          </div>
         </div>
       </div>
     </div>
@@ -60,8 +59,8 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">Report a problem</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
           <p>
@@ -87,7 +86,7 @@
           </p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">OK</button>
         </div>
       </div>
     </div>
@@ -106,7 +105,7 @@
   </footer>
 
   <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/leaflet.js"></script>
   <script src="assets/js/Control.MiniMap.min.js"></script>
   <script src="assets/js/handlebars.min.js"></script>
@@ -129,40 +128,41 @@
     <span class="type">{{formatLabel aResult}}</span>
     <p class="coords">{{aResult.lat}},{{aResult.lon}}</p>  
 
-    <a class="btn btn-default btn-xs details"
+    <a class="details btn btn-outline-secondary btn-sm"
        href="details.html?osmtype={{shortOSMType aResult.osm_type}}&osmid={{aResult.osm_id}}">details</a>
   </div>
 {{/inline}}
 
-<form class="form-inline" role="search" accept-charset="UTF-8" action="">
-  <div class="form-group">
-    <input name="format" type="hidden" value="html">
-    <input name="lat"
-           type="text"
-           class="form-control input-sm"
-           placeholder="latitude"
-           value="{{fLat}}" />
-    <span id="switch-coords">&lt;&gt;</span>
-    <input name="lon"
-           type="text"
-           class="form-control input-sm"
-           placeholder="longitude"
-           value="{{fLon}}" />
-    max zoom
-    <select name="zoom" class="form-control input-sm" value="{{iZoom}}">
-      {{zoomLevels iZoom}}
-    </select>
-  </div>
-  <div class="form-group search-button-group">
-    <button type="submit" class="btn btn-primary btn-sm">
-      Search
-    </button>
-  </div>
-  <div class="search-type-link">
-    <a href="/search.html">forward search</a>
-  </div>
-</form>
-
+<div class="top-bar">
+  <form class="form-inline" role="search" accept-charset="UTF-8" action="">
+    <div class="form-group">
+      <input name="format" type="hidden" value="html">
+      <label>lat</label>
+      <input name="lat"
+             type="text"
+             class="form-control form-control-sm"
+             placeholder="latitude"
+             value="{{fLat}}" />
+      <a id="switch-coords" class="btn btn-outline-secondary btn-sm" title="switch lat and lon">&lt;&gt;</a>
+      <label>lon</label>
+      <input name="lon"
+             type="text"
+             class="form-control form-control-sm"
+             placeholder="longitude"
+             value="{{fLon}}" />
+      <label>max zoom</label>
+      <select name="zoom" class="form-control form-control-sm" value="{{iZoom}}">
+        {{zoomLevels iZoom}}
+      </select>
+      <button type="submit" class="btn btn-primary btn-sm mx-1">
+        Search
+      </button>
+    </div>
+    <div class="search-type-link">
+      <a href="/search.html">forward search</a>
+    </div>
+  </form>
+</div>
 
 <div id="content">
   {{#if aPlace}}

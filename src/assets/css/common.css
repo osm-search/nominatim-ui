@@ -1,3 +1,7 @@
+body {
+  font-size: 0.85em;
+}
+
 header {
   width: 100%;
   padding: 5px 15px;
@@ -30,6 +34,10 @@ header #last-updated {
   text-align: center;
 }
 
+header .dropdown-menu {
+  z-index: 1005;
+}
+
 footer {
   text-align: center;  
   padding: 2em 0;
@@ -48,4 +56,8 @@ footer p {
   padding: 2em;
   background-color: #ffa0a0;
   margin-bottom: 2em;
+}
+
+.btn-outline-secondary {
+  background-color: white;
 }

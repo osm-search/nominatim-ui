@@ -22,4 +22,3 @@
 * show map bounds section => move to handlebar template, map to partial
 * aResults vs aPlace vs aFeature variable naming
 * use CSS preprocessor and linter
-* upgrade bootstrap v3 to v4

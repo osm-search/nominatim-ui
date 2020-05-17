@@ -355,7 +355,7 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
       var container = L.DomUtil.create('div', 'my-custom-control');
 
       $(container).text('show map bounds')
-        .addClass('leaflet-bar btn btn-sm btn-default')
+        .addClass('leaflet-bar btn btn-sm btn-outline-secondary')
         .on('click', function (e) {
           e.preventDefault();
           e.stopPropagation();

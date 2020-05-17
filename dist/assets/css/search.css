@@ -20,11 +20,10 @@ form #q {
     min-width: 400px;
   }
 }
-form .checkbox-inline {
-  margin-left: 10px;  
-}
-form label {
-  font-weight: normal;
+
+#reverse-page form label {
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
 }
 
 .search-type-link {
@@ -35,9 +34,11 @@ form label {
 }
 
 #switch-coords {
-  font-size: 0.8em;
+  font-size: 0.6rem;
   font-weight: bold;
   cursor: pointer;
+  padding: 2px;
+  margin: 5px;
 }
 
 .sidebar {
@@ -101,6 +102,7 @@ form label {
   margin: 10px auto;
   display: block;
   max-width: 10em;
+  padding: 1px;
 }
 .result img{
   float: right;
@@ -150,12 +152,6 @@ form label {
   .search-button-group {
     display: inline;
   }
-}
-
-.search-button-group {
-  margin-top: 3px;
-  box-sizing: content-box;
-  margin-bottom: 3px;
 }
 
 label {

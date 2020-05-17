@@ -17,9 +17,8 @@ rsync --quiet node_modules/leaflet-minimap/dist/Control.MiniMap.min.js dist/asse
 rsync --quiet node_modules/leaflet-minimap/dist/Control.MiniMap.min.css dist/assets/css/
 rsync --quiet node_modules/leaflet-minimap/dist/images/* dist/assets/css/images/
 
-rsync --quiet node_modules/bootstrap/dist/js/bootstrap.min.js dist/assets/js/
-rsync --quiet node_modules/bootstrap/dist/css/bootstrap.min.css* dist/assets/css/
-rsync --quiet node_modules/bootstrap/dist/css/bootstrap-theme.min.css* dist/assets/css/
+rsync --quiet node_modules/bootstrap/dist/js/bootstrap.bundle.min.js* dist/assets/js/
+rsync --quiet node_modules/bootstrap/dist/css/bootstrap.min.css dist/assets/css/
 
 rsync --quiet node_modules/handlebars/dist/handlebars.min.js dist/assets/js/
 rsync --quiet node_modules/@ungap/url-search-params/min.js dist/assets/js/url-search-params.js
