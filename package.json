@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "./node_modules/.bin/static -c 0 -p 8000 dist",
+    "build": "./build.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "node node_modules/.bin/eslint --quiet src/handlebar_helpers.js dist/assets/js/nominatim-ui.js"
   },
@@ -20,5 +22,7 @@
     "leaflet": "^1.6.0",
     "leaflet-minimap": "3.6.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "node-static": "^0.7.11"
+  }
 }

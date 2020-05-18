@@ -25,11 +25,10 @@ be if complexity grows.
 
 You can open the `dist` directory in your browser.
 
-You can start a simple HTTP webserver ([Big list of http static server one-liners](https://gist.github.com/willurd/5720255)).
+You can run `yarn start` to start a simple HTTP webserver and open
+[http://localhost:8000/]() in your browser.
 
-```
-php -S localhost:8000 -t dist
-```
+Or start another webserver ([Big list of http static server one-liners](https://gist.github.com/willurd/5720255)).
 
 
 ## Configuration
@@ -49,7 +48,7 @@ you want to doublecheck is the `Nominatim_API_Endpoint` URL.
 * After you change files in `src` directory
 
    ```
-   ./build.sh
+   yarn build
    ```
 
 ## License
