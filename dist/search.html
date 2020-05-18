@@ -119,10 +119,7 @@
 <script id="searchpage-template" type="text/x-handlebars-template">
 {{#*inline "partial_one_result"}}
   <div class="result" data-position="{{iResNum}}">
-    {{#if aResult.icon}}
-      {{!-- <img src="{{env.Images_Base_Url}}{{aResult.icon}}" /> --}}
-      {{formatMapIcon aResult.icon}}
-    {{/if}}
+    {{formatMapIcon aResult}}
 
     <span class="name">{{aResult.display_name}}</span>
     <span class="type">({{formatLabel aResult}})</span>
