@@ -110,11 +110,14 @@ Handlebars.registerHelper({
   formatMapIcon: function (sIcon) {
     if (!sIcon) return '';
 
-    var url = sIcon;
-    if (!url.match(/^http/)) url = get_config_value('Images_Base_Url') + url;
+    // https://nominatim.openstreetmap.org/images/mapicons/poi_boundary_administrative.p.20.png
+    // => poi boundary administrative
+    var title = sIcon.replace(/.+\//, '').replace(/\..+/, '').replace(/_/g, ' ');
+    // => http://localhost/mapicons/poi_boundary_administrative.p.20.png
+    var url = get_config_value('Images_Base_Url') + sIcon.replace(/.+\//, '');
 
     return new Handlebars.SafeString(
-      '<img class="mapicon" src="' + url + '" alt="' + sIcon + '"/>'
+      '<img class="mapicon" src="' + url + '" alt="' + title + '"/>'
     );
   },
   formatLabel: function (aPlace) {

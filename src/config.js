@@ -1,6 +1,6 @@
 var Nominatim_Config = {
   "Nominatim_API_Endpoint": 'http://localhost:8089/nominatim/',
-  "Images_Base_Url": 'http://localhost:8089/',
+  "Images_Base_Url": '/mapicons/',
   "Search_AreaPolygons": 1,
   "Reverse_Default_Search_Zoom": 18,
   "Map_Default_Lat": 20.0,
