@@ -7,12 +7,11 @@ var Nominatim_Config = [];
 
 // Where Nominatim API runs. Remember to add port if needed and trailing slash.
 // Nominatim_Config['Nominatim_API_Endpoint'] = 'http://localhost/nominatim/';
-Nominatim_Config['Nominatim_API_Endpoint'] = 'https://nominatim.openstreetmap.org/';
 
 // Nominatim_Config['Images_Base_Url'] = '/mapicons/';
 
 // If the API should return polygons to be displayed on the map
-// Nominatim_Config['Search_AreaPolygons'] = true;
+// Nominatim_Config['Search_AreaPolygons'] = 1;
 // Nominatim_Config['Reverse_Default_Search_Zoom'] = 18;
 
 // ---- MAP ----

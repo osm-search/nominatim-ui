@@ -7,7 +7,6 @@ var Nominatim_Config = [];
 
 // Where Nominatim API runs. Remember to add port if needed and trailing slash.
 // Nominatim_Config['Nominatim_API_Endpoint'] = 'http://localhost/nominatim/';
-Nominatim_Config['Nominatim_API_Endpoint'] = 'https://nominatim.openstreetmap.org/';
 
 // Nominatim_Config['Images_Base_Url'] = '/mapicons/';
 
