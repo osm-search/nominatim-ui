@@ -178,9 +178,6 @@
     </div>
     <div class="form-group search-button-group">
             <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
-      {{#if env.Search_AreaPolygons}}
-        <input type="hidden" value="1" name="polygon_geojson" />
-      {{/if}}
       <input type="hidden" name="viewbox" value="{{sViewBox}}" />
       <div class="form-check form-check-inline">
         <input type="checkbox" class="form-check-input"
