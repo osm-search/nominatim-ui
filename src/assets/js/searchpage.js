@@ -404,7 +404,7 @@ jQuery(document).ready(function () {
     context = {
       sQuery: api_request_params.q,
       sViewBox: search_params.get('viewbox'),
-      env: Nominatim_Config
+      env: {}
     };
 
     if (api_request_params.street || api_request_params.city || api_request_params.county
