@@ -395,7 +395,7 @@ jQuery(document).ready(function () {
       state: search_params.get('state'),
       country: search_params.get('country'),
       postalcode: search_params.get('postalcode'),
-      polygon_geojson: search_params.get('polygon_geojson') ? 1 : 0,
+      polygon_geojson: get_config_value('Search_AreaPolygons', false) ? 1 : 0,
       viewbox: search_params.get('viewbox'),
       exclude_place_ids: search_params.get('exclude_place_ids'),
       format: 'jsonv2'
@@ -404,7 +404,7 @@ jQuery(document).ready(function () {
     context = {
       sQuery: api_request_params.q,
       sViewBox: search_params.get('viewbox'),
-      env: Nominatim_Config
+      env: {}
     };
 
     if (api_request_params.street || api_request_params.city || api_request_params.county

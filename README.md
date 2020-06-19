@@ -1,56 +1,45 @@
 # Nominatim-UI
 
 Debugging user interface for [Nominatim](https://nominatim.org/)
-([source](https://github.com/openstreetmap/Nominatim/)) geocoder.
+([source](https://github.com/osm-search/Nominatim/)) geocoder.
 The frontend runs standalone as website and will requests data
 from a separate Nominatim API (either on the same server or
 remote).
 
-Uses [jQuery](https://jquery.com/) for browser DOM interaction,
-[handlebar](http://handlebarsjs.com/) templates to build pages,
-[leaflet](https://leafletjs.com/) for map interaction,
-[bootstrap](https://getbootstrap.com/) for layout styling.
+For technical details see [CONTRIBUTING.md]() file.
 
-
-## Background
-
-The user interface used to be included in the geocoder. Thus the
-first version avoid being a redesign and still uses some of the
-same configuration values. For simplicity it's not a single
-page application (SPA) written in a framework though it could
-be if complexity grows.
-
+![Screenshot](screenshot.png)
 
 ## Starting the frontend
 
-You can open the `dist` directory in your browser.
+* You can open the `dist` directory in your browser.
 
-You can run `yarn start` to start a simple HTTP webserver and open
-[http://localhost:8000/]() in your browser.
+* If you have python installed (part of the Nominatim server installation):
 
-Or start another webserver ([Big list of http static server one-liners](https://gist.github.com/willurd/5720255)).
+   1. `cd dist`
+   2. start webserver `python3 -m http.server 8765` 
+   3. open [http://localhost:8765/]() in your browser
+
+* Start a webserver using ([Big list of http static server one-liners](https://gist.github.com/willurd/5720255)) or configure Apache, nginx or other webservers to serve the `dist` directory.
 
 
 ## Configuration
 
-In `dist/config.js` you will find configuration options. The first
-you want to doublecheck is the `Nominatim_API_Endpoint` URL.
+Create a `dist/config.js` file, you can use `dist/config.example.js` as basis (just copy it). All settings are optional. Usually you want to set the `Nominatim_API_Endpoint` value at least.
 
+Defaults:
 
-## Building the frontend
+| setting | default |
+|---|---|
+| `Nominatim_API_Endpoint` | http://localhost/nominatim/ (port 80) |
+| `Images_Base_Url` | images in [mapicons]() |
+| `Search_AreaPolygons` | yes, print boundaries of search results on map |
+| `Reverse_Default_Search_Zoom` | 18 (house-number level) |
+| `Map_Default_Lat`, `Map_Default_Lon`, `Map_Default_Zoom` | display whole world |
+| `Map_Tile_URL` | load from openstreetmap.org |
+| `Map_Tile_Attribution` | [OpenStreetMap](https://openstreetmap.org/copyright) obviously |
 
-* Install dependencies
-
-   ```
-   yarn install
-   ```
-
-* After you change files in `src` directory
-
-   ```
-   yarn build
-   ```
 
 ## License
 
-The source code is available under a GPLv2 license.
+The source code is available under a [GPLv2 license](LICENSE).

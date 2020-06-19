@@ -3,13 +3,33 @@
 var map;
 var last_click_latlng;
 
+// *********************************************************
+// DEFAULTS
+// *********************************************************
+
+var Nominatim_Config_Defaults = {
+  Nominatim_API_Endpoint: 'http://localhost/nominatim/',
+  Images_Base_Url: '/mapicons/',
+  Search_AreaPolygons: 1,
+  Reverse_Default_Search_Zoom: 18,
+  Map_Default_Lat: 20.0,
+  Map_Default_Lon: 0.0,
+  Map_Default_Zoom: 2,
+  Map_Tile_URL: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
+  Map_Tile_Attribution: '<a href="https://osm.org/copyright">OpenStreetMap contributors</a>'
+};
 
 // *********************************************************
 // HELPERS
 // *********************************************************
 
+
 function get_config_value(str, default_val) {
-  return (typeof Nominatim_Config[str] !== 'undefined' ? Nominatim_Config[str] : default_val);
+  var value = ((typeof Nominatim_Config !== 'undefined')
+               && (typeof Nominatim_Config[str] !== 'undefined'))
+    ? Nominatim_Config[str]
+    : Nominatim_Config_Defaults[str];
+  return (typeof value !== 'undefined' ? value : default_val);
 }
 
 function parse_and_normalize_geojson_string(part) {
@@ -633,7 +653,7 @@ jQuery(document).ready(function () {
       state: search_params.get('state'),
       country: search_params.get('country'),
       postalcode: search_params.get('postalcode'),
-      polygon_geojson: search_params.get('polygon_geojson') ? 1 : 0,
+      polygon_geojson: get_config_value('Search_AreaPolygons', false) ? 1 : 0,
       viewbox: search_params.get('viewbox'),
       exclude_place_ids: search_params.get('exclude_place_ids'),
       format: 'jsonv2'
@@ -642,7 +662,7 @@ jQuery(document).ready(function () {
     context = {
       sQuery: api_request_params.q,
       sViewBox: search_params.get('viewbox'),
-      env: Nominatim_Config
+      env: {}
     };
 
     if (api_request_params.street || api_request_params.city || api_request_params.county
