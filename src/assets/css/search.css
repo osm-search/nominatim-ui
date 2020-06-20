@@ -7,9 +7,9 @@
   max-width: 500px;
 }
 
-.form-group-simple.hidden,
-.form-group-structured.hidden {
-  display: none;
+.tab-content {
+  border: 1px solid #ddd;
+  border-top: none;
 }
 
 form #q {
