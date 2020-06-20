@@ -130,32 +130,41 @@
   </div>
 {{/inline}}
 
-<div class="top-bar" id="structured-query-selector">
-  <div class="search-type-link">
-    <a id="switch-to-reverse" href="/reverse.html">reverse search</a>
-  </div>
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="query-selector"
-           id="simple" value="simple" {{#unless hStructured}}checked="checked"{{/unless}}>
-    <label class="form-check-label" for="simple">simple</label>
-  </div>
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="query-selector"
-            id="structured" value="structured" {{#if hStructured}}checked="checked"{{/if}}>
-    <label class="form-check-label" for="structured">structured</label>
-  </div>
-
-  <form class="form-inline" role="search" accept-charset="UTF-8" action="">
-    <div class="form-group-simple {{#if hStructured}}hidden{{/if}}">
-      <input id="q"
-             name="q"
-             type="text"
-             class="form-control form-control-sm"
-             placeholder="Search"
-             value="{{sQuery}}" />
+<div class="top-bar">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link {{#unless hStructured}}active{{/unless}}" data-toggle="tab" href="#simple">simple</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{#if hStructured}}active{{/if}}" data-toggle="tab" href="#structured">structured</a>
+    </li>
+    <div class="search-type-link">
+      <a id="switch-to-reverse" href="/reverse.html">reverse search</a>
     </div>
-    <div class="form-group-structured {{#unless hStructured}}hidden{{/unless}}">
-      <div class="form-inline">
+  </ul>
+  <div class="tab-content p-2">
+    <div class="tab-pane {{#unless hStructured}}active{{/unless}}" id="simple" role="tabpanel">
+      <form class="form-inline" role="search" accept-charset="UTF-8" action="">
+        <input id="q"
+               name="q"
+               type="text"
+               class="form-control form-control-sm"
+               placeholder="Search"
+               value="{{sQuery}}" />
+
+        <div class="form-group search-button-group">
+          <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
+          <input type="hidden" name="viewbox" value="{{sViewBox}}" />
+          <div class="form-check form-check-inline">
+            <input type="checkbox" class="form-check-input"
+                   id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
+            <label class="form-check-label" for="use_viewbox">apply viewbox</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="tab-pane {{#if hStructured}}active{{/if}}" id="structured" role="tabpanel">
+      <form class="form-inline" role="search" accept-charset="UTF-8" action="">
         <input name="street" type="text" class="form-control form-control-sm mr-1"
                placeholder="House number/Street"
                value="{{hStructured.street}}" />
@@ -174,19 +183,20 @@
         <input name="postalcode" type="text" class="form-control form-control-sm mr-1"
                placeholder="Postal Code"
                value="{{hStructured.postalcode}}" />
-      </div>
+
+        <div class="form-group search-button-group">
+          <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
+          <input type="hidden" name="viewbox" value="{{sViewBox}}" />
+          <div class="form-check form-check-inline">
+            <input type="checkbox" class="form-check-input"
+                   id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
+            <label class="form-check-label" for="use_viewbox">apply viewbox</label>
+          </div>
+        </div>
+      </form>
     </div>
-    <div class="form-group search-button-group">
-            <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
-      <input type="hidden" name="viewbox" value="{{sViewBox}}" />
-      <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input"
-               id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
-        <label class="form-check-label" for="use_viewbox">apply viewbox</label>
-      </div>
-    </div>
-  </form>
-</div>
+  </div> <!-- /tab-content -->
+</div> <!-- /top-bar -->
 
 <div id="content">
 
