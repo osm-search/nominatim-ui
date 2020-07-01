@@ -110,6 +110,7 @@
   <script src="assets/js/Control.MiniMap.min.js"></script>
   <script src="assets/js/handlebars.min.js"></script>
   <script src="assets/js/url-search-params.js"></script>
+  <script src="assets/js/suggest.js"></script>
 
   <script src="config.js"></script>
   <script src="handlebar_helpers.js"></script>
@@ -147,9 +148,13 @@
         <input id="q"
                name="q"
                type="text"
+               oninput="suggester()"
                class="form-control form-control-sm"
                placeholder="Search"
+               autocomplete="off"
+               list="suglist"
                value="{{sQuery}}" />
+               <datalist id="suglist"></datalist>
 
         <div class="form-group search-button-group">
           <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
