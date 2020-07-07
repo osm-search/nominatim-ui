@@ -2,8 +2,7 @@
 // DELETABLE PAGE
 // *********************************************************
 
-jQuery(document).ready(function () {
-  if (!$('#deletable-page').length) { return; }
+function deletable_page_load() {
 
   var api_request_params = {
     format: 'json'
@@ -17,4 +16,4 @@ jQuery(document).ready(function () {
 
     update_data_date();
   });
-});
+}

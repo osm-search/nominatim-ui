@@ -292,12 +292,9 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
 
 
 
+function search_page_load() {
 
-jQuery(document).ready(function () {
-  //
-  if (!$('#search-page,#reverse-page').length) { return; }
-
-  var is_reverse_search = !!($('#reverse-page').length);
+  var is_reverse_search = window.location.pathname.match(/reverse/);
 
   var search_params = new URLSearchParams(window.location.search);
 
@@ -452,4 +449,6 @@ jQuery(document).ready(function () {
       );
     }
   }
-});
+}
+
+

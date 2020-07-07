@@ -131,16 +131,19 @@ function hide_error() {
 }
 
 
-$(document).ajaxError(function (event, jqXHR, ajaxSettings/* , thrownError */) {
-  // console.log(thrownError);
-  // console.log(ajaxSettings);
-  var url = ajaxSettings.url;
-  show_error('Error fetching results from <a href="' + url + '">' + url + '</a>');
-});
-
-
 jQuery(document).ready(function () {
   hide_error();
+
+  $(document).ajaxStart(function () {
+    $('#loading').fadeIn('fast');
+  }).ajaxComplete(function () {
+    $('#loading').fadeOut('fast');
+  }).ajaxError(function (event, jqXHR, ajaxSettings/* , thrownError */) {
+    // console.log(thrownError);
+    // console.log(ajaxSettings);
+    var url = ajaxSettings.url;
+    show_error('Error fetching results from <a href="' + url + '">' + url + '</a>');
+  });
 });
 // *********************************************************
 // DETAILS PAGE
@@ -198,8 +201,7 @@ function init_map_on_detail_page(lat, lon, geojson) {
 }
 
 
-jQuery(document).ready(function () {
-  if (!$('#details-page').length) { return; }
+function details_page_load() {
 
   var search_params = new URLSearchParams(window.location.search);
   // var place_id = search_params.get('place_id');
@@ -255,7 +257,7 @@ jQuery(document).ready(function () {
       alert('invalid input');
     }
   });
-});
+}
 
 // *********************************************************
 // FORWARD/REVERSE SEARCH PAGE
@@ -550,12 +552,9 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
 
 
 
+function search_page_load() {
 
-jQuery(document).ready(function () {
-  //
-  if (!$('#search-page,#reverse-page').length) { return; }
-
-  var is_reverse_search = !!($('#reverse-page').length);
+  var is_reverse_search = window.location.pathname.match(/reverse/);
 
   var search_params = new URLSearchParams(window.location.search);
 
@@ -710,13 +709,14 @@ jQuery(document).ready(function () {
       );
     }
   }
-});
+}
+
+
 // *********************************************************
 // DELETABLE PAGE
 // *********************************************************
 
-jQuery(document).ready(function () {
-  if (!$('#deletable-page').length) { return; }
+function deletable_page_load() {
 
   var api_request_params = {
     format: 'json'
@@ -730,14 +730,13 @@ jQuery(document).ready(function () {
 
     update_data_date();
   });
-});
+}
 // *********************************************************
 // BROKEN POLYGON PAGE
 // *********************************************************
 
-jQuery(document).ready(function () {
-  if (!$('#polygons-page').length) { return; }
-
+function polygons_page_load() {
+  //
   var api_request_params = {
     format: 'json'
   };
@@ -750,4 +749,54 @@ jQuery(document).ready(function () {
 
     update_data_date();
   });
+}
+jQuery(document).ready(function () {
+  var myhistory = [];
+
+  function parse_url_and_load_page() {
+    // 'search', 'reverse', 'details'
+    var pagename = window.location.pathname.replace('.html', '').replace(/^\//, '');
+
+    $('body').attr('id', pagename + '-page');
+
+    if (pagename === 'search' || pagename === 'reverse') {
+      search_page_load();
+    } else if (pagename === 'details') {
+      details_page_load();
+    } else if (pagename === 'deletable') {
+      deletable_page_load();
+    } else if (pagename === 'polygons') {
+      polygons_page_load();
+    }
+  }
+
+  parse_url_and_load_page();
+
+  // load page after form submit
+  $(document).on('submit', 'form', function (e) {
+    e.preventDefault();
+
+    window.history.pushState(myhistory, '', '?' + $(this).serialize());
+
+    parse_url_and_load_page();
+  });
+
+  // load page after click on relative URL
+  $(document).on('click', 'a', function (e) {
+    var target_url = $(this).attr('href');
+    if (target_url && target_url.match(/^http/)) return;
+    if (target_url && !target_url.match(/\.html/)) return;
+
+    e.preventDefault();
+
+    window.history.pushState(myhistory, '', target_url);
+
+    parse_url_and_load_page();
+  });
+
+  // deal with back-button and other user action
+  window.onpopstate = function () {
+    parse_url_and_load_page();
+  };
 });
+
