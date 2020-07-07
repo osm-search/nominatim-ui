@@ -15,11 +15,9 @@
   <link href="assets/css/search.css" rel="stylesheet" type="text/css" />
   <link href="assets/css/details.css" rel="stylesheet" type="text/css" />
 </head>
-<body id="reverse-page">
+<body id="BODYID">
 
-  <div id="error-overlay">
-    You need Javascript enabled to view this page.
-  </div>
+  <div id="error-overlay"></div>
 
   <header class="container-fluid">
     <div class="row">
@@ -32,6 +30,7 @@
         </div>
       </div>
       <div id="last-updated" class="col-4 text-center">
+        <div id="loading">loading...</div>
         Data from <a id="api-request-link" href="">API request</a>
         <br>
         Data last updated:
@@ -116,6 +115,139 @@
   <script src="handlebar_helpers.js"></script>
 
   <script src="assets/js/nominatim-ui.js"></script>
+<script id="searchpage-template" type="text/x-handlebars-template">
+{{#*inline "partial_one_result"}}
+  <div class="result" data-position="{{iResNum}}">
+    {{formatMapIcon aResult}}
+
+    <span class="name">{{aResult.display_name}}</span>
+    <span class="type">({{formatLabel aResult}})</span>
+    <p class="coords">{{aResult.lat}},{{aResult.lon}}</p>  
+
+    <a class="details btn btn-outline-secondary btn-sm"
+       href="details.html?osmtype={{shortOSMType aResult.osm_type}}&osmid={{aResult.osm_id}}">details</a>
+  </div>
+{{/inline}}
+
+<div class="top-bar">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link {{#unless hStructured}}active{{/unless}}" data-toggle="tab" href="#simple">simple</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{#if hStructured}}active{{/if}}" data-toggle="tab" href="#structured">structured</a>
+    </li>
+    <div class="search-type-link">
+      <a id="switch-to-reverse" href="/reverse.html">reverse search</a>
+    </div>
+  </ul>
+  <div class="tab-content p-2">
+    <div class="tab-pane {{#unless hStructured}}active{{/unless}}" id="simple" role="tabpanel">
+      <form class="form-inline" role="search" accept-charset="UTF-8" action="">
+        <input id="q"
+               name="q"
+               type="text"
+               class="form-control form-control-sm"
+               placeholder="Search"
+               value="{{sQuery}}" />
+
+        <div class="form-group search-button-group">
+          <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
+          <input type="hidden" name="viewbox" value="{{sViewBox}}" />
+          <div class="form-check form-check-inline">
+            <input type="checkbox" class="form-check-input"
+                   id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
+            <label class="form-check-label" for="use_viewbox">apply viewbox</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="tab-pane {{#if hStructured}}active{{/if}}" id="structured" role="tabpanel">
+      <form class="form-inline" role="search" accept-charset="UTF-8" action="">
+        <input name="street" type="text" class="form-control form-control-sm mr-1"
+               placeholder="House number/Street"
+               value="{{hStructured.street}}" />
+        <input name="city" type="text" class="form-control form-control-sm mr-1"
+               placeholder="City"
+               value="{{hStructured.city}}" />
+        <input id="county" name="county" type="text" class="form-control form-control-sm mr-1"
+               placeholder="County"
+               value="{{hStructured.county}}" />
+        <input name="state" type="text" class="form-control form-control-sm mr-1"
+               placeholder="State"
+               value="{{hStructured.state}}" />
+        <input name="country" type="text" class="form-control form-control-sm mr-1"
+               placeholder="Country"
+               value="{{hStructured.country}}" />
+        <input name="postalcode" type="text" class="form-control form-control-sm mr-1"
+               placeholder="Postal Code"
+               value="{{hStructured.postalcode}}" />
+
+        <div class="form-group search-button-group">
+          <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
+          <input type="hidden" name="viewbox" value="{{sViewBox}}" />
+          <div class="form-check form-check-inline">
+            <input type="checkbox" class="form-check-input"
+                   id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
+            <label class="form-check-label" for="use_viewbox">apply viewbox</label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div> <!-- /tab-content -->
+</div> <!-- /top-bar -->
+
+<div id="content">
+
+  {{#if sQuery}}
+    <div id="searchresults" class="sidebar">
+      {{#each aSearchResults as |aResult|}}
+        {{>partial_one_result iResNum=@index aResult=aResult env=env}}
+      {{/each}}
+
+      {{#if aSearchResults}}
+        {{#if sMoreURL}}
+          <div class="more">
+            <a class="btn btn-primary" href="{{sMoreURL}}">
+              Search for more results
+            </a>
+          </div>
+        {{/if}}
+      {{else}}
+        <div class="noresults">No search results found</div>
+      {{/if}}
+    </div>
+
+  {{else}}
+
+    <div id="intro" class="sidebar">
+      <h2>Welcome to Nominatim</h2>
+
+      <p>
+        Nominatim is a search engine for
+        <a href="https://www.openstreetmap.org">OpenStreetMap</a> data. This
+        is the debugging interface. You may search for a name or address
+        (forward search) or look up data by its geographic coordinate (reverse
+        search). Each result comes with a link to a details page where you
+        can inspect what data about the object is saved in the database and
+        investigate how the address of the object has been computed.
+      </p>
+
+      For more information visit the
+      <a href="https://nominatim.org">Nominatim home page</a>.
+    </div>
+
+  {{/if}}
+
+  <div id="map-wrapper">
+    <div id="map-position">
+      <div id="map-position-inner"></div>
+      <div id="map-position-close"><a href="#">hide</a></div>
+    </div>
+    <div id="map"></div>
+  </div>
+</div>
+</script>
 <script id="reversepage-template" type="text/x-handlebars-template">
 
 {{#*inline "partial_one_result"}}
@@ -181,6 +313,362 @@
     <div id="map"></div>
   </div>
 </div>
+</script>
+<script id="detailspage-template" type="text/x-handlebars-template">
+
+{{#*inline "partial_details_one_row"}}
+  <tr class="{{#unless this.isaddress}}notused{{/unless}}">
+    <td class="name">
+      {{#if this.localname}}
+        {{this.localname}}
+      {{else}}
+        <span class="noname">No Name</span>
+      {{/if}}
+    </td>
+    <td>{{formatPlaceType this}}</td>
+    <td>{{osmLink this}}</td>
+    <td>{{this.rank_address}}</td>
+    <td>{{formatAdminLevel this.admin_level}}</td>
+    <td>{{formatDistance this.distance}}</td>
+    <td>{{detailsPermaLink this 'details >'}}</td>
+  </tr>
+{{/inline}}
+
+{{#*inline "partial_details_keyword_one_row"}}
+  <tr>
+    <td>{{formatKeywordToken this.token}}</td>
+    {{#if this.id}}
+      <td>word id: {{this.id}}</td>
+    {{/if}}
+  </tr>
+{{/inline}}
+
+
+{{#*inline "partial_h2"}}
+  <tr class="all-columns"><td colspan="6"><h2>{{this}}</h2></td></tr>
+{{/inline}}
+
+{{#*inline "partial_h3"}}
+  <tr class="all-columns"><td colspan="6"><h3>{{this}}</h3></td></tr>
+{{/inline}}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10">
+      <h1>
+        {{aPlace.localname}}
+        <small>{{detailsPermaLink aPlace 'link to this page'}}</small>
+      </h1>
+    </div>
+    <div class="col-sm-2 text-right">
+      {{formatMapIcon aPlace}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <table id="locationdetails" class="table table-striped">
+        <tr>
+          <td>Name</td>
+          <td>
+            {{#each aPlace.names}}
+              <div class="line">
+                <span class="name">{{this}}</span> ({{@key}})
+              </div>
+            {{/each}}
+          </td>
+        </tr>
+        <tr>
+          <td>Type</td>
+          <td>{{aPlace.category}}:{{aPlace.type}}</td>
+        </tr>
+        <tr>
+          <td>Last Updated</td>
+          <td>{{aPlace.indexed_date}}</td>
+        </tr>
+        <tr>
+          <td>Admin Level</td>
+          <td>{{aPlace.admin_level}}</td>
+        </tr>
+        <tr>
+          <td>Rank</td>
+          <td>{{formatSearchRank aPlace.rank_search}}</td>
+        </tr>
+        {{#if aPlace.calculated_importance}}
+          <tr>
+            <td>Importance</td>
+            <td>
+              {{aPlace.calculated_importance}}
+              {{#unless aPlace.importance}} (estimated){{/unless}}
+            </td>
+          </tr>
+        {{/if}}
+        <tr>
+          <td>Coverage</td>
+          <td>{{coverageType aPlace}}</td>
+        </tr>
+        <tr>
+          <td>Centre Point (lat,lon)</td>
+          <td>
+            {{aPlace.centroid.coordinates.[1]}},{{aPlace.centroid.coordinates.[0]}}
+          </td>
+        </tr>
+        <tr>
+          <td>OSM</td>
+          <td>{{osmLink aPlace}}
+        </tr>
+        <tr>
+          <td>
+            Place Id
+            (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">on this server</a>)
+          </td>
+          <td>{{aPlace.place_id}}</td>
+        </tr>
+        {{#if aPlace.calculated_wikipedia}}
+          <tr>
+            <td>Wikipedia Calculated</td>
+            <td>{{wikipediaLink aPlace}}</td>
+          </tr>
+        {{/if}}
+        <tr>
+          <td>Computed Postcode</td>
+          <td>{{aPlace.calculated_postcode}}</td>
+        </tr>
+        <tr>
+          <td>Address Tags</td>
+          <td>
+            {{#each aPlace.addresstags}}
+              <div class="line">
+                <span class="name">{{this}}</span> ({{@key}})
+              </div>
+            {{/each}}
+          </td>
+        </tr>
+        <tr>
+          <td>Extra Tags</td>
+          <td>
+            {{#each aPlace.extratags}}
+              <div class="line">
+                <span class="name">{{this}}</span> ({{@key}})
+              </div>
+            {{/each}}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <div id="map"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Address</h2>
+       <table id="address" class="table table-striped table-small">
+        <thead>
+          <tr>
+            <th>Local name</th>
+            <th>Type</th>
+            <th>OSM</th>
+            <th>Address rank</th>
+            <th>Admin level</th>
+            <th>Distance</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#if aPlace.address}}
+            {{#each aPlace.address}}
+              {{> partial_details_one_row}}
+            {{/each}}
+          {{/if}}
+
+          {{#if aPlace.linked_places}}
+            {{> partial_h2 'Linked Places'}}
+            {{#each aPlace.linked_places}}
+              {{> partial_details_one_row}}
+            {{/each}}
+          {{/if}}
+
+          {{#if aPlace.keywords}}
+            {{> partial_h2 'Name Keywords'}}
+            {{#each aPlace.keywords.name}}
+              {{> partial_details_keyword_one_row}}
+            {{/each}}
+
+            {{> partial_h2 'Address Keywords'}}
+            {{#each aPlace.keywords.address}}
+              {{> partial_details_keyword_one_row}}
+            {{/each}}
+          {{/if}}
+
+          {{> partial_h2 'Parent Of'}}
+          {{#if aPlace.hierarchy}}
+
+            {{#each aPlace.hierarchy as |lines type|}}
+              {{> partial_h3 type}}
+              {{#each lines}}
+                {{> partial_details_one_row}}
+              {{/each}}
+            {{/each}}
+          {{else}}
+            <tr>
+              <td>
+                <a class="btn btn-outline-secondary btn-sm"
+                  href="{{base_url}}&hierarchy=1">display child places</a>
+              </td>
+            </tr>
+          {{/if}}
+          {{tooManyHierarchyLinesWarning aPlace}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</script>
+<script id="detailspage-index-template" type="text/x-handlebars-template">
+<div class="container" id="details-index-page">
+  <div class="row">
+    <div class="col-md-12">
+
+      <h1>Show details for place</h1>
+
+      <div class="search-form">
+        <h4>Search by place id</h4>
+
+        <form class="form-inline" action="details.html">
+          <input type="edit"
+                 class="form-control input-sm"
+                 pattern="^[0-9]+$"
+                 name="place_id"
+                 placeholder="12345" />
+          <input type="submit"
+                 class="btn btn-primary btn-sm"
+                 value="Show" />
+        </form>
+      </div>
+
+      <div class="search-form">
+        <h4>Search by OSM type and OSM id</h4>
+
+        <form id="form-by-type-and-id"
+              class="form-inline"
+              action="details.html">
+          <input type="edit"
+                 class="form-control input-sm"
+                 pattern="^[NWR][0-9]+$"
+                 placeholder="N123 or W123 or R123" />
+          <input type="hidden" name="osmtype" />
+          <input type="hidden" name="osmid" />
+          <input type="submit" class="btn btn-primary btn-sm" value="Show" />
+        </form>
+      </div>
+
+      <div class="search-form">
+        <h4>Search by openstreetmap.org URL</h4>
+
+        <form id="form-by-osm-url"
+              class="form-inline"
+              action="details.html">
+          <input type="edit"
+                 class="form-control input-sm"
+                 pattern=".*openstreetmap.*"
+                 placeholder="https://www.openstreetmap.org/relation/123" />
+          <input type="hidden" name="osmtype" />
+          <input type="hidden" name="osmid" />
+          <input type="submit" class="btn btn-primary btn-sm" value="Show" />
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div></script>
+<script id="deletable-template" type="text/x-handlebars-template">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Deletable</h1>
+
+      <p>
+          {{aPolygons.length}} objects have been deleted in OSM but are still in the Nominatim database.
+      </p>
+
+      <table class="table table-striped table-hover">
+        <thead>
+          <th>Place id</th>
+          <th>Country Code</th>
+          <th>Name</th>
+          <th>OSM id</th>
+          <th>OSM type</th>
+          <th>Class</th>
+          <th>Type</th>
+        </thead>
+        <tbody>
+          {{#each aPolygons}}
+          <tr>
+            <td>{{detailsLink this place_id}}</td>
+            <td>{{country_code}}</td>
+            <td>{{name}}</td>
+            <td>{{osmLink this}}</td>
+            <td>{{osm_type}}</td>
+            <td>{{class}}</td>
+            <td>{{type}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div
+
+</script>
+<script id="polygons-template" type="text/x-handlebars-template">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Broken polygons</h1>
+
+      <p>
+          Total number of broken polygons: {{aPolygons.length}}.
+      </p>
+
+      <table class="table table-striped table-hover">
+        <thead>
+          <th>OSM type</th>
+          <th>OSM id</th>
+          <th>Class</th>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Country Code</th>
+          <th>Error message</th>
+          <th>Updated</th>
+          <th>&nbsp;</th>
+        </thead>
+        <tbody>
+          {{#each aPolygons}}
+          <tr>
+            <td>{{osm_type}}</td>
+            <td>{{osmLink this}}</td>
+            <td>{{class}}</td>
+            <td>{{type}}</td>
+            <td>{{name}}</td>
+            <td>{{country_code}}</td>
+            <td>{{errormessage}}</td>
+            <td>{{updated}}</td>
+            <td>
+              <a href="http://localhost:8111/import?url=https://www.openstreetmap.org/api/0.6/{{formatOSMType osm_type}}/{{osm_id}}/full" target="josm">josm</a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div
+
 </script>
 </body>
 </html>

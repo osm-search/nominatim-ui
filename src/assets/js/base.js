@@ -131,14 +131,17 @@ function hide_error() {
 }
 
 
-$(document).ajaxError(function (event, jqXHR, ajaxSettings/* , thrownError */) {
-  // console.log(thrownError);
-  // console.log(ajaxSettings);
-  var url = ajaxSettings.url;
-  show_error('Error fetching results from <a href="' + url + '">' + url + '</a>');
-});
-
-
 jQuery(document).ready(function () {
   hide_error();
+
+  $(document).ajaxStart(function () {
+    $('#loading').fadeIn('fast');
+  }).ajaxComplete(function () {
+    $('#loading').fadeOut('fast');
+  }).ajaxError(function (event, jqXHR, ajaxSettings/* , thrownError */) {
+    // console.log(thrownError);
+    // console.log(ajaxSettings);
+    var url = ajaxSettings.url;
+    show_error('Error fetching results from <a href="' + url + '">' + url + '</a>');
+  });
 });

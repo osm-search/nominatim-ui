@@ -54,8 +54,7 @@ function init_map_on_detail_page(lat, lon, geojson) {
 }
 
 
-jQuery(document).ready(function () {
-  if (!$('#details-page').length) { return; }
+function details_page_load() {
 
   var search_params = new URLSearchParams(window.location.search);
   // var place_id = search_params.get('place_id');
@@ -111,4 +110,4 @@ jQuery(document).ready(function () {
       alert('invalid input');
     }
   });
-});
+}

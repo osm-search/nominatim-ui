@@ -50,6 +50,17 @@ footer p {
   margin: 1em;
 }
 
+#loading {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: #eee;
+  z-index: 100;
+  padding: 10px;
+  text-align: center;
+}
+
 #error-overlay {
   text-align: center;
   font-style: italic;

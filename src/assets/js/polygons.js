@@ -2,9 +2,8 @@
 // BROKEN POLYGON PAGE
 // *********************************************************
 
-jQuery(document).ready(function () {
-  if (!$('#polygons-page').length) { return; }
-
+function polygons_page_load() {
+  //
   var api_request_params = {
     format: 'json'
   };
@@ -17,4 +16,4 @@ jQuery(document).ready(function () {
 
     update_data_date();
   });
-});
+}
