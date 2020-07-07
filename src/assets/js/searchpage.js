@@ -411,7 +411,7 @@ function search_page_load() {
         if (aResults.length >= 10) {
           var aExcludePlaceIds = [];
           if (search_params.has('exclude_place_ids')) {
-            aExcludePlaceIds.search_params.get('exclude_place_ids').split(',');
+            aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
           }
           for (var i = 0; i < aResults.length; i += 1) {
             aExcludePlaceIds.push(aResults[i].place_id);

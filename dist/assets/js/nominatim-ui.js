@@ -671,7 +671,7 @@ function search_page_load() {
         if (aResults.length >= 10) {
           var aExcludePlaceIds = [];
           if (search_params.has('exclude_place_ids')) {
-            aExcludePlaceIds.search_params.get('exclude_place_ids').split(',');
+            aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
           }
           for (var i = 0; i < aResults.length; i += 1) {
             aExcludePlaceIds.push(aResults[i].place_id);
@@ -770,6 +770,16 @@ jQuery(document).ready(function () {
     }
   }
 
+  function is_relative_url(url) {
+    if (!url) return false;
+    if (url.indexOf('?') === 0) return true;
+    if (url.indexOf('/') === 0) return true;
+    if (url.match(/^http/)) return false;
+    if (!url.match(/\.html/)) return true;
+
+    return false;
+  }
+
   parse_url_and_load_page();
 
   // load page after form submit
@@ -784,10 +794,10 @@ jQuery(document).ready(function () {
   // load page after click on relative URL
   $(document).on('click', 'a', function (e) {
     var target_url = $(this).attr('href');
-    if (target_url && target_url.match(/^http/)) return;
-    if (target_url && !target_url.match(/\.html/)) return;
+    if (!is_relative_url(target_url)) return;
 
     e.preventDefault();
+    e.stopPropagation();
 
     window.history.pushState(myhistory, '', target_url);
 
