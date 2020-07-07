@@ -774,10 +774,25 @@ jQuery(document).ready(function () {
     if (!url) return false;
     if (url.indexOf('?') === 0) return true;
     if (url.indexOf('/') === 0) return true;
+    if (url.indexOf('#') === 0) return false;
     if (url.match(/^http/)) return false;
     if (!url.match(/\.html/)) return true;
 
     return false;
+  }
+
+  // remove any URL paramters with empty values
+  // '&empty=&filled=value' => 'filled=value'
+  function clean_up_url_parameters(url) {
+    var url_params = new URLSearchParams(url);
+    var to_delete = []; // deleting inside loop would skip iterations
+    url_params.forEach(function (value, key) {
+      if (value === '') to_delete.push(key);
+    });
+    for (var i=0; i<to_delete.length; i++) {
+      url_params.delete(to_delete[i]);
+    }
+    return url_params.toString();
   }
 
   parse_url_and_load_page();
@@ -786,7 +801,10 @@ jQuery(document).ready(function () {
   $(document).on('submit', 'form', function (e) {
     e.preventDefault();
 
-    window.history.pushState(myhistory, '', '?' + $(this).serialize());
+    var target_url = $(this).serialize();
+    target_url = clean_up_url_parameters(target_url);
+
+    window.history.pushState(myhistory, '', '?' + target_url);
 
     parse_url_and_load_page();
   });
