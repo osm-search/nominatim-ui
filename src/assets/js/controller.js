@@ -37,7 +37,7 @@ jQuery(document).ready(function () {
     url_params.forEach(function (value, key) {
       if (value === '') to_delete.push(key);
     });
-    for (var i=0; i<to_delete.length; i++) {
+    for (var i = 0; i < to_delete.length; i += 1) {
       url_params.delete(to_delete[i]);
     }
     return url_params.toString();

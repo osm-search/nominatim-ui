@@ -339,6 +339,7 @@ function search_page_load() {
           aPlace = null;
         }
 
+        context.bSearchRan = true;
         context.aPlace = aPlace;
 
         render_template($('main'), 'reversepage-template', context);
@@ -406,6 +407,7 @@ function search_page_load() {
 
       fetch_from_api('search', api_request_params, function (aResults) {
 
+        context.bSearchRan = true;
         context.aSearchResults = aResults;
 
         if (aResults.length >= 10) {
