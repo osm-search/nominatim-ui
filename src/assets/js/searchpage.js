@@ -339,6 +339,7 @@ function search_page_load() {
           aPlace = null;
         }
 
+        context.bSearchRan = true;
         context.aPlace = aPlace;
 
         render_template($('main'), 'reversepage-template', context);
@@ -406,12 +407,13 @@ function search_page_load() {
 
       fetch_from_api('search', api_request_params, function (aResults) {
 
+        context.bSearchRan = true;
         context.aSearchResults = aResults;
 
         if (aResults.length >= 10) {
           var aExcludePlaceIds = [];
           if (search_params.has('exclude_place_ids')) {
-            aExcludePlaceIds.search_params.get('exclude_place_ids').split(',');
+            aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
           }
           for (var i = 0; i < aResults.length; i += 1) {
             aExcludePlaceIds.push(aResults[i].place_id);

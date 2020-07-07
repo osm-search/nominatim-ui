@@ -8,12 +8,9 @@
 
 ## Nice-to-have
 
-* should images/mapicons/ be served from API server or this repo?
 * cache `update_data_date` result somehow?
-* a new search causes a new pageview
 * add tests with fixtures
 * set better alt tag for icons
-* print text "loading..." instead of an error (which the user sees for a split second)
 * concatenate/minify JS and CSS
 
 ## Code cleanup
