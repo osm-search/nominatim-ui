@@ -12,7 +12,7 @@
     <td>{{osmLink this}}</td>
     <td>{{this.rank_address}}</td>
     <td>{{formatAdminLevel this.admin_level}}</td>
-    <td>{{formatDistance this.distance}}</td>
+    <td>{{formatDistance this.distance bDistanceInMeters}}</td>
     <td>{{detailsPermaLink this 'details >'}}</td>
   </tr>
 {{/inline}}
@@ -160,14 +160,14 @@
         <tbody>
           {{#if aPlace.address}}
             {{#each aPlace.address}}
-              {{> partial_details_one_row}}
+              {{> partial_details_one_row bDistanceInMeters=false}}
             {{/each}}
           {{/if}}
 
           {{#if aPlace.linked_places}}
             {{> partial_h2 'Linked Places'}}
             {{#each aPlace.linked_places}}
-              {{> partial_details_one_row}}
+              {{> partial_details_one_row bDistanceInMeters=true}}
             {{/each}}
           {{/if}}
 
@@ -189,7 +189,7 @@
             {{#each aPlace.hierarchy as |lines type|}}
               {{> partial_h3 type}}
               {{#each lines}}
-                {{> partial_details_one_row}}
+                {{> partial_details_one_row bDistanceInMeters=true}}
               {{/each}}
             {{/each}}
           {{else}}

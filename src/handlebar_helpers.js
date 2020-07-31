@@ -184,16 +184,25 @@ Handlebars.registerHelper({
   coverageType: function (aPlace) {
     return (aPlace.isarea ? 'Polygon' : 'Point');
   },
-  // fDistance is in meters
-  formatDistance: function (fDistanceMeters) {
-    if (fDistanceMeters < 1) return '0';
+  formatDistance: function (fDistance, bInMeters) {
+    if (bInMeters) {
+      if (fDistance < 1) return '0';
+      var sFormatted = (fDistance >= 1000)
+        ? Math.round(fDistance / 1000, 1) + ' km'
+        : Math.round(fDistance, 0) + ' m';
 
-    var formatted = (fDistanceMeters >= 1000)
-      ? Math.round(fDistanceMeters / 1000, 1) + ' km'
-      : Math.round(fDistanceMeters, 0) + ' m';
+      return new Handlebars.SafeString(
+        '<abbr class="distance" title="' + fDistance + ' meters">~' + sFormatted + '</abbr>'
+      );
+    }
+
+    // spheric distance, http://postgis.net/docs/ST_Distance_Spheroid.html
+    if (fDistance === 0) return '0';
 
     return new Handlebars.SafeString(
-      '<abbr class="distance" title="' + fDistanceMeters + '">~' + formatted + '</abbr>'
+      '<abbr class="distance" title="spheric distance ' + fDistance + '">~'
+        + (Math.round(fDistance * 1000, 4) / 1000)
+        + '</abbr>'
     );
   },
   // mark partial tokens (those starting with a space) with a star for readability
