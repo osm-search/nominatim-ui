@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 1.2.1 - 2020-08-04
+
+    * URL parsing now works if app is in a subdirectory
+
 * version 1.2 - 2020-07-07
 
     * Use window.history.pushState to minimize page reloads
