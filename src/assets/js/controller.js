@@ -3,7 +3,9 @@ jQuery(document).ready(function () {
 
   function parse_url_and_load_page() {
     // 'search', 'reverse', 'details'
-    var pagename = window.location.pathname.replace('.html', '').replace(/^\//, '');
+    var pagename = window.location.pathname.replace('.html', '').replace(/.+\//, '');
+
+    if (pagename === '') pagename = 'search'
 
     $('body').attr('id', pagename + '-page');
 
