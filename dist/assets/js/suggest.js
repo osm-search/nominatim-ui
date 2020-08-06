@@ -9,7 +9,7 @@ function suggester() {
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var myArr = JSON.parse(this.responseText);
-            var hits = myArr['hits'].hits;
+            var hits = myArr['hits'];
             var options = '';
             for (var i = 0; i < hits.length; i++) {
                 tags = ['addr', 'addr:en', 'addr:it', 'addr:fr', 'addr:de'];
