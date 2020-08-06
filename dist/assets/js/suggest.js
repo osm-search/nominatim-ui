@@ -3,7 +3,7 @@ function suggester() {
     var query = document.getElementById("q").value;
 
     var xmlhttp = new XMLHttpRequest();
-    var url = encodeURI("https://gsoc2020.nominatim.org:8000/pref/?q=" + query);
+    var url = encodeURI("http://gsoc2020.nominatim.org:8000/pref/?q=" + query);
     console.log("trial: " + url);
 
     xmlhttp.onreadystatechange = function () {
@@ -21,10 +21,19 @@ function suggester() {
                         console.log(value);
                         console.log(hits[i]._source[value]);
                         res = hits[i]._source[value];
+                        if(hits[i]._source.country_code)
+                            res += ', ' + hits[i]._source.country_code;
+                        if(hits[i]._source.postcode)
+                            res += ', ' + hits[i]._source.postcode;
+
                         options += '<option value="' + res + '" />';
                     }
                 }
                 res = hits[i]._source.addr;
+                if(hits[i]._source.country_code)
+                    res += ', ' + hits[i]._source.country_code;
+                if(hits[i]._source.postcode)
+                    res += ', ' + hits[i]._source.postcode;
                 options += '<option value="' + res + '" />';
             }
             document.getElementById('suglist').innerHTML = options;
