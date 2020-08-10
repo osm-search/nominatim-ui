@@ -80,7 +80,7 @@ function map_viewbox_as_string() {
 // PAGE HELPERS
 // *********************************************************
 
-function fetch_from_api(endpoint_name, params, callback) {
+function generate_full_api_url(endpoint_name, params) {
   //
   // `&a=&b=&c=1` => '&c=1'
   var param_names = Object.keys(params);
@@ -93,6 +93,11 @@ function fetch_from_api(endpoint_name, params, callback) {
 
   var api_url = get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?'
                   + $.param(params);
+  return api_url;
+}
+
+function fetch_from_api(endpoint_name, params, callback) {
+  var api_url = generate_full_api_url(endpoint_name, params);
   if (endpoint_name !== 'status') {
     $('#api-request-link').attr('href', api_url);
   }

@@ -80,7 +80,7 @@ function map_viewbox_as_string() {
 // PAGE HELPERS
 // *********************************************************
 
-function fetch_from_api(endpoint_name, params, callback) {
+function generate_full_api_url(endpoint_name, params) {
   //
   // `&a=&b=&c=1` => '&c=1'
   var param_names = Object.keys(params);
@@ -93,6 +93,11 @@ function fetch_from_api(endpoint_name, params, callback) {
 
   var api_url = get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?'
                   + $.param(params);
+  return api_url;
+}
+
+function fetch_from_api(endpoint_name, params, callback) {
+  var api_url = generate_full_api_url(endpoint_name, params);
   if (endpoint_name !== 'status') {
     $('#api-request-link').attr('href', api_url);
   }
@@ -581,6 +586,11 @@ function search_page_load() {
       format: 'jsonv2'
     };
 
+    if (search_params.get('debug') === '1') {
+      window.location.href = generate_full_api_url('reverse', api_request_params);
+      return;
+    }
+
     context = {
       // aPlace: aPlace,
       fLat: api_request_params.lat,
@@ -644,6 +654,11 @@ function search_page_load() {
       exclude_place_ids: search_params.get('exclude_place_ids'),
       format: 'jsonv2'
     };
+
+    if (search_params.get('debug') === '1') {
+      window.location.href = generate_full_api_url('search', api_request_params);
+      return;
+    }
 
     context = {
       sQuery: api_request_params.q,
@@ -757,9 +772,9 @@ jQuery(document).ready(function () {
 
   function parse_url_and_load_page() {
     // 'search', 'reverse', 'details'
-    var pagename = window.location.pathname.replace('.html', '').replace(/.+\//, '');
+    var pagename = window.location.pathname.replace('.html', '').replace(/^.*\//, '');
 
-    if (pagename === '') pagename = 'search'
+    if (pagename === '') pagename = 'search';
 
     $('body').attr('id', pagename + '-page');
 
