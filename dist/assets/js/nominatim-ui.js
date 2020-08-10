@@ -670,19 +670,20 @@ function search_page_load() {
         context.bSearchRan = true;
         context.aSearchResults = aResults;
 
-        if (aResults.length >= 10) {
-          var aExcludePlaceIds = [];
-          if (search_params.has('exclude_place_ids')) {
-            aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
-          }
-          for (var i = 0; i < aResults.length; i += 1) {
-            aExcludePlaceIds.push(aResults[i].place_id);
-          }
-
-          var parsed_url = new URLSearchParams(window.location.search);
-          parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
-          context.sMoreURL = '?' + parsed_url.toString();
+        // lonvia wrote: https://github.com/osm-search/nominatim-ui/issues/24
+        // I would suggest to remove the guessing and always show the link. Nominatim only returns
+        // one or two results when it believes the result to be a good enough match.
+        // if (aResults.length >= 10) {
+        var aExcludePlaceIds = [];
+        if (search_params.has('exclude_place_ids')) {
+          aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
         }
+        for (var i = 0; i < aResults.length; i += 1) {
+          aExcludePlaceIds.push(aResults[i].place_id);
+        }
+        var parsed_url = new URLSearchParams(window.location.search);
+        parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
+        context.sMoreURL = '?' + parsed_url.toString();
 
         render_template($('main'), 'searchpage-template', context);
         update_html_title('Result for ' + api_request_params.q);
@@ -759,7 +760,7 @@ jQuery(document).ready(function () {
     // 'search', 'reverse', 'details'
     var pagename = window.location.pathname.replace('.html', '').replace(/.+\//, '');
 
-    if (pagename === '') pagename = 'search'
+    if (pagename === '') pagename = 'search';
 
     $('body').attr('id', pagename + '-page');
 

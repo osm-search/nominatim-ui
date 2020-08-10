@@ -5,7 +5,7 @@ jQuery(document).ready(function () {
     // 'search', 'reverse', 'details'
     var pagename = window.location.pathname.replace('.html', '').replace(/.+\//, '');
 
-    if (pagename === '') pagename = 'search'
+    if (pagename === '') pagename = 'search';
 
     $('body').attr('id', pagename + '-page');
 
