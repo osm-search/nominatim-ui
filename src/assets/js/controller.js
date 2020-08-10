@@ -22,6 +22,7 @@ jQuery(document).ready(function () {
 
   function is_relative_url(url) {
     if (!url) return false;
+    if (url.match(/debug=1/)) return false;
     if (url.indexOf('?') === 0) return true;
     if (url.indexOf('/') === 0) return true;
     if (url.indexOf('#') === 0) return false;

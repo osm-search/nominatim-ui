@@ -32,6 +32,7 @@ header #last-updated {
   font-size: 0.7em;
   white-space: nowrap;
   text-align: center;
+  display: none;
 }
 
 header .dropdown-menu {
