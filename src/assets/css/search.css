@@ -52,7 +52,7 @@ form #q {
 
 #map-wrapper {
   position: relative;
-  min-height: 700px;
+  height: calc(100vh - 250pt);
   width: 75%;
   padding-right: 20px;
   display: inline-block;
@@ -61,7 +61,6 @@ form #q {
 
 #map {
   height: 100%;
-  min-height: 700px;
   background:#eee;
 }
 
