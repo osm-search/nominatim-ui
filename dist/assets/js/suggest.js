@@ -15,28 +15,27 @@ function suggester() {
     var query = document.getElementById("q").value;
 
     var xmlhttp = new XMLHttpRequest();
-    var url = encodeURI("http://gsoc2020.nominatim.org:8000/pref/?q=" + query);
+    var url = encodeURI("https://gsoc2020.nominatim.org/suggest/autocomplete/?q=" + query);
     console.log("trial: " + url);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            var myArr = JSON.parse(this.responseText);
-            var hits = myArr['hits'];
+            var hits = JSON.parse(this.responseText);
+            length =Object.keys(hits).length;
             var options = '';
-            for (var i = 0; i < hits.length; i++) {
+            for (var i = 0; i < length; i++) {
                 added = false;
                 tags.forEach(function (value, index) {
-                    if(hits[i]._source[value] && hits[i]._source[value].includes(query))
+                    if(hits[i][value] && hits[i][value].includes(query) && hits[i]['addr:'+lan])
                     {
-                        console.log(value);
 //                         console.log(hits[i]._source[value]);
-                        res = hits[i]._source[value];
-                        if(hits[i]._source.country_code)
-                            res += ', ' + hits[i]._source.country_code;
-                        if(hits[i]._source.postcode)
-                            res += ', ' + hits[i]._source.postcode;
+                        res = hits[i][value];
+                        if(hits[i].country_code)
+                            res += ', ' + hits[i].country_code;
+                        if(hits[i].postcode)
+                            res += ', ' + hits[i].postcode;
                         if(value.slice(2) != lan)
                         {
-                            res += '(' + hits[i]._source['addr:'+lan] + ')';
+                            res += '(' + hits[i]['addr:'+lan] + ')';
                         }
                         options += '<option value="' + res + '" />';
                         added = true;
@@ -44,11 +43,11 @@ function suggester() {
                 });
                 if(!added)
                 {
-                    res = hits[i]._source.addr;
-                    if(hits[i]._source.country_code)
-                        res += ', ' + hits[i]._source.country_code;
-                    if(hits[i]._source.postcode)
-                        res += ', ' + hits[i]._source.postcode;
+                    res = hits[i].addr;
+                    if(hits[i].country_code)
+                        res += ', ' + hits[i].country_code;
+                    if(hits[i].postcode)
+                        res += ', ' + hits[i].postcode;
                     options += '<option value="' + res + '" />';
                 }
             }
@@ -56,6 +55,7 @@ function suggester() {
 //             console.log(document.getElementById('suglist').innerHTML);
         }
     };
+
 
 
     xmlhttp.open("GET", url, true);
