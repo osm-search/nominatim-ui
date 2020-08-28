@@ -145,16 +145,18 @@
   <div class="tab-content p-2">
     <div class="tab-pane {{#unless hStructured}}active{{/unless}}" id="simple" role="tabpanel">
       <form class="form-inline" role="search" accept-charset="UTF-8" action="">
-        <input id="q"
+        <div id="dd" class="dropdown">
+          <input id="q"
                name="q"
                type="text"
                oninput="suggester()"
                class="form-control form-control-sm"
                placeholder="Search with suggestions"
                autocomplete="off"
-               list="suglist"
+               data-toggle="dropdown"
                value="{{sQuery}}" />
-               <datalist id="suglist"></datalist>
+               <ul id="suglist" class="dropdown-menu"></ul>
+        </div>
 
         <div class="form-group search-button-group">
           <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>

@@ -1,43 +1,43 @@
-k
+
 function suggester() {
-//     console.log(navigator.languages);
+    // List of languages to search for
     languages = ['zh', 'sp', 'en', 'ar', 'fr', 'ru', 'pt', 'de', 'ja', 'ko'];
-//     browser_languages = navigator.languages;
+    // Finding the browser language
     lan = navigator.language;
     lan = lan.substr(0,2);
-//     browser_languages.push(navigator.language.slice(-2));
     tags = ['addr'];
     languages.forEach(function(language, index){
         tags.push('addr:' + language);
     });
+    // Tags contain all languages and tags to look for
     console.log(tags);
-//     tags = ['addr', 'addr:en', 'addr:it', 'addr:fr', 'addr:de'];
-    var query = document.getElementById("q").value;
 
+    var query = document.getElementById("q").value;
     var xmlhttp = new XMLHttpRequest();
+    // The API url to get suggestions
     var url = encodeURI("https://gsoc2020.nominatim.org/suggest/autocomplete/?q=" + query);
     console.log("trial: " + url);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var hits = JSON.parse(this.responseText);
             length =Object.keys(hits).length;
-            var options = '';
+            var list_items = '';
             for (var i = 0; i < length; i++) {
                 added = false;
                 tags.forEach(function (value, index) {
                     if(hits[i][value] && hits[i][value].includes(query) && hits[i]['addr:'+lan])
                     {
-//                         console.log(hits[i]._source[value]);
-                        res = hits[i][value];
+                        res = ''
+                        if(value.slice(2) != lan)
+                        {
+                            res += '(' + hits[i]['addr:'+lan] + ') ';
+                        }
+                        res += hits[i][value];
                         if(hits[i].country_code)
                             res += ', ' + hits[i].country_code;
                         if(hits[i].postcode)
                             res += ', ' + hits[i].postcode;
-                        if(value.slice(2) != lan)
-                        {
-                            res += '(' + hits[i]['addr:'+lan] + ')';
-                        }
-                        options += '<option value="' + res + '" />';
+                        list_items += "<li class='list-group-item' onclick='putText(\"" + res + "\")'>" + res + "</li>";
                         added = true;
                     }
                 });
@@ -48,27 +48,26 @@ function suggester() {
                         res += ', ' + hits[i].country_code;
                     if(hits[i].postcode)
                         res += ', ' + hits[i].postcode;
-                    options += '<option value="' + res + '" />';
+                    list_items += "<li class='list-group-item' onclick='putText(\"" + res + "\")'>" + res + "</li>";
                 }
             }
-            document.getElementById('suglist').innerHTML = options;
-//             console.log(document.getElementById('suglist').innerHTML);
+            document.getElementById('suglist').innerHTML = list_items;
+
+            console.log(document.getElementById('suglist').innerHTML, list_items);
+
+            // Making sure the dropdown is expanded
+            document.getElementById("dd").classList.add("open");
+            document.getElementById("dd").classList.add("show");
+            document.getElementById("suglist").classList.add("show");
+            document.getElementById("q").setAttribute("aria-expanded", true);
         }
     };
 
-
-
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
-
-    function myFunction(arr) {
-        var out = "";
-        var i;
-        for (i = 0; i < arr.length; i++) {
-            out += '<a href="' + arr[i].url + '">' +
-                arr[i].display + '</a><br>';
-        }
-        document.getElementById("content").innerHTML = out;
-    }
 }
 
+function putText(str)
+{
+	document.getElementById("q").value = str;
+}
