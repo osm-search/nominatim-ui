@@ -25,35 +25,38 @@ function suggester() {
             for (var i = 0; i < length; i++) {
                 added = false;
                 tags.forEach(function (value, index) {
-                    if(hits[i][value] && hits[i][value].includes(query) && hits[i]['addr:'+lan])
+                    if(hits[i][value] && hits[i][value].includes(query) && hits[i]['addr:'+lan] && !added)
                     {
                         res = ''
                         if(value.slice(2) != lan)
                         {
                             res += '(' + hits[i]['addr:'+lan] + ') ';
                         }
+                        else
+                            return;
                         res += hits[i][value];
                         if(hits[i].country_code)
                             res += ', ' + hits[i].country_code;
                         if(hits[i].postcode)
                             res += ', ' + hits[i].postcode;
-                        list_items += "<li class='list-group-item' onclick='putText(\"" + res + "\")'>" + res + "</li>";
+                    list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div id="+i+">" + res + "</div><div class='md-v-line'></div><img class='mapicons' src='/ui/mapicons/poi_boundary_administrative.p.20.png'></i></li>";
                         added = true;
                     }
                 });
                 if(!added)
                 {
-                    res = hits[i].addr;
+                    if(hits[i]['addr:'+lan])
+                        res = hits[i]['addr:'+lan];
+                    else
+                        res = hits[i].addr;
                     if(hits[i].country_code)
                         res += ', ' + hits[i].country_code;
                     if(hits[i].postcode)
                         res += ', ' + hits[i].postcode;
-                    list_items += "<li class='list-group-item' onclick='putText(\"" + res + "\")'>" + res + "</li>";
+                    list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div id="+i+">" + res + "</div><div class='md-v-line'></div><img class='mapicons' src='/ui/mapicons/poi_boundary_administrative.p.20.png'></i></li>";
                 }
             }
             document.getElementById('suglist').innerHTML = list_items;
-
-            console.log(document.getElementById('suglist').innerHTML, list_items);
 
             // Making sure the dropdown is expanded
             document.getElementById("dd").classList.add("open");
@@ -67,7 +70,7 @@ function suggester() {
     xmlhttp.send();
 }
 
-function putText(str)
+function putText(id)
 {
-	document.getElementById("q").value = str;
+	document.getElementById("q").value = document.getElementById(id).innerHTML;
 }
