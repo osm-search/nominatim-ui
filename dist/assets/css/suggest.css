@@ -3,3 +3,10 @@
     font-size: small !important;
 }
 
+.fas {
+    height: 100%;
+}
+
+.dropdown-menu {
+    z-index: 2000 !important;
+}
