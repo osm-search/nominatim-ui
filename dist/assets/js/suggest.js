@@ -44,8 +44,7 @@ function suggester() {
                         if(hits[i].postcode)
                             res += ', ' + hits[i].postcode;
                         icon_path = "poi_boundary_administrative.p.20.png"; // Needs to be calculated and replaced
-                        list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div id="+i+">" + res + "</div><div class='md-v-line'></div><img class='mapicons' src='/ui/mapicons/" + icon_path + "'></i></li>";
-                        added = true;
+                        list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div><img class='mapicons' src='" + icon_path + "'></div></li>";added = true;
                     }
                 });
                 // This is to handle cases where no returned language text matches straightaway.
@@ -61,7 +60,7 @@ function suggester() {
                     if(hits[i].postcode)
                         res += ', ' + hits[i].postcode;
                     icon_path = "poi_boundary_administrative.p.20.png"; // Needs to be calculated and replaced
-                    list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div id="+i+">" + res + "</div><div class='md-v-line'></div><img class='mapicons' src='/ui/mapicons/" + icon_path + "'></i></li>";
+		    list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div><img class='mapicons' src='" + icon_path + "'></div></li>";added = true;
                 }
             }
 
