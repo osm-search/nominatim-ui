@@ -1,5 +1,6 @@
 // This function provides suggestions in the form of unordered list.
 function suggester() {
+
     // List of languages to search for
     languages = ['zh', 'sp', 'en', 'ar', 'fr', 'ru', 'pt', 'de', 'ja', 'ko'];
     // Finding the browser language
@@ -9,14 +10,12 @@ function suggester() {
     languages.forEach(function(language, index){
         tags.push('addr:' + language);
     });
-    // Tags contain all languages and tags to look for
-    console.log(tags);
 
     var query = document.getElementById("q").value;
     var xmlhttp = new XMLHttpRequest();
-    // The API url to get suggestions
-    var url = encodeURI("https://gsoc2020.nominatim.org/suggest/autocomplete/?q=" + query);
-    console.log("trial: " + url);
+
+    // The API url to get suggestions - Update this with your server URL
+    var url = encodeURI(get_config_value('Suggestions_Url') + query);
 
     // This is executed after the results are fetched
     xmlhttp.onreadystatechange = function () {
@@ -29,7 +28,7 @@ function suggester() {
                 added = false;
                 // This part adds one tag for each of the received results. Addresss in Broweser default language is returned in paranthesis for clarity.
                 tags.forEach(function (value, index) {
-                    if(hits[i][value] && hits[i][value].includes(query) && hits[i]['addr:'+lan] && !added)
+                    if(hits[i][value] && hits[i][value].includes(query) && hits[i]['addr:'+browser_lang] && !added)
                     {
                         res = ''
                         if(value.slice(2) != browser_lang)
@@ -43,8 +42,8 @@ function suggester() {
                             res += ', ' + hits[i].country_code;
                         if(hits[i].postcode)
                             res += ', ' + hits[i].postcode;
-                        icon_path = "poi_boundary_administrative.p.20.png"; // Needs to be calculated and replaced
-                        list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div><img class='fas mr-4 mapicons' src='mapicons/" + icon_path + "'></div></li>";added = true;
+                        icon_path = get_config_value('Images_Base_Url') + getIcon({'category': hits[i].category, 'type': hits[i].type}) + '.p.20.png';
+                        list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div><img class='fas mr-4 mapicons' src='" + icon_path + "'></div></li>";added = true;
                     }
                 });
                 // This is to handle cases where no returned language text matches straightaway.
@@ -59,12 +58,12 @@ function suggester() {
                         res += ', ' + hits[i].country_code;
                     if(hits[i].postcode)
                         res += ', ' + hits[i].postcode;
-                    icon_path = "poi_boundary_administrative.p.20.png"; // Needs to be calculated and replaced
-		    list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div><img class='fas mr-4 mapicons' src='mapicons/" + icon_path + "'></div></li>";added = true;
+                    icon_path = get_config_value('Images_Base_Url') + getIcon({'category': hits[i].category, 'type': hits[i].type}) + '.p.20.png';
+                    list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div><img class='fas mr-4 mapicons' src='" + icon_path + "'></div></li>";added = true;
                 }
             }
 
-            // We are setting the unordered list's inner HTML as the list_items. 
+            // We are setting the unordered list's inner HTML as the list_items
             document.getElementById('suglist').innerHTML = list_items;
 
             // Making sure the dropdown is expanded
