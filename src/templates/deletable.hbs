@@ -20,7 +20,7 @@
         <tbody>
           {{#each aPolygons}}
           <tr>
-            <td>{{detailsLink this place_id}}</td>
+            <td><a href="{{detailsURL this}}">{{this.place_id}}</a></td>
             <td>{{country_code}}</td>
             <td>{{name}}</td>
             <td>{{osmLink this}}</td>

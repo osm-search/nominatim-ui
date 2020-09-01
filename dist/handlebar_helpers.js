@@ -13,6 +13,13 @@ function formatOSMType(sType, bExcludeExternal) {
   return '';
 }
 
+function formatShortOSMType(sType) {
+  if (sType === 'node') return 'N';
+  if (sType === 'way') return 'W';
+  if (sType === 'relation') return 'R';
+  return '';
+}
+
 function getIcon(aPlace) {
   // equivalent to PHP Nominatim::ClassTypes::getIcon
   // covers 83 of 214 available icon filenames, e.g. transport_roundabout_anticlockwise
@@ -115,10 +122,7 @@ Handlebars.registerHelper({
     return formatOSMType(sType, bExcludeExternal);
   },
   shortOSMType: function (sType) {
-    if (sType === 'node') return 'N';
-    if (sType === 'way') return 'W';
-    if (sType === 'relation') return 'R';
-    return '';
+    return formatShortOSMType(sType);
   },
   // { osm_type: 'R', osm_id: 12345 }
   // <a href="https://www.openstreetmap.org/relation/12345">relation 12345</a
@@ -145,34 +149,23 @@ Handlebars.registerHelper({
       '<a href="https://' + sLanguage + '.wikipedia.org/wiki/' + sArticle + '" target="_blank">' + sTitle + '</a>'
     );
   },
-  // { osm_type: 'R', osm_id: 12345 }
-  // <a href="details.html?place_id=12345">details</a>
-  detailsLink: function (aFeature, sTitle) {
-    if (!aFeature) return '';
-    if (!aFeature.place_id) return '';
-
-    var sTitleEscaped = Handlebars.escapeExpression(sTitle || 'details >');
-
-    return new Handlebars.SafeString(
-      '<a href="details.html?place_id=' + aFeature.place_id + '">' + sTitleEscaped + '</a>'
-    );
-  },
-  detailsPermaLink: function (aFeature, sTitle) {
+  // 'details.html?osmtype=R&osmid=2181874&class=boundary'
+  detailsURL: function (aFeature) {
     if (!aFeature) return '';
 
-    var sOSMType = formatOSMType(aFeature.osm_type, false);
+    var sOSMType = aFeature.osm_type;
+    if (sOSMType && sOSMType.length !== 1) {
+      sOSMType = formatShortOSMType(aFeature.osm_type, false); // node => N
+    }
     if (!sOSMType) return '';
 
-    var sTitleEscaped = Handlebars.escapeExpression(sTitle || sOSMType + ' ' + aFeature.osm_id);
-
-    var sURL = 'details.html?osmtype=' + aFeature.osm_type + '&osmid=' + aFeature.osm_id;
-    if (aFeature.category) {
+    var sURL = 'details.html?osmtype=' + sOSMType + '&osmid=' + aFeature.osm_id;
+    if (aFeature.class) {
+      sURL = sURL + '&class=' + aFeature.class;
+    } else if (aFeature.category) {
       sURL = sURL + '&class=' + aFeature.category;
     }
-
-    return new Handlebars.SafeString(
-      '<a href="' + sURL + '">' + sTitleEscaped + '</a>'
-    );
+    return sURL;
   },
   formatPlaceType: function (aPlace) {
     var sOut = aPlace.class + ':' + aPlace.type;

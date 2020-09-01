@@ -7,8 +7,7 @@
     <span class="type">{{formatLabel aResult}}</span>
     <p class="coords">{{aResult.lat}},{{aResult.lon}}</p>  
 
-    <a class="details btn btn-outline-secondary btn-sm"
-       href="details.html?osmtype={{shortOSMType aResult.osm_type}}&osmid={{aResult.osm_id}}">details</a>
+    <a class="details btn btn-outline-secondary btn-sm" href="{{detailsURL aResult}}">details</a>
   </div>
 {{/inline}}
 
