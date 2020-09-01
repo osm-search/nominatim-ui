@@ -1,5 +1,10 @@
 # CHANGES
 
+* version 1.2.3 - 2020-09-01
+
+    * Favicon URLs did not work when app is installed in a subdirectory
+    * On detail page in parents and linked-places sections address lines were all grayed out
+
 * version 1.2.2 - 2020-09-01
 
     * Don't intercept link clicks when the target is the raw API output
