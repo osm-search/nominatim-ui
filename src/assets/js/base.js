@@ -96,18 +96,36 @@ function generate_full_api_url(endpoint_name, params) {
   return api_url;
 }
 
+function update_last_updated(endpoint_name, params) {
+  if (endpoint_name === 'status') return;
+
+  var api_url = generate_full_api_url(endpoint_name, params);
+  $('#last-updated').show();
+
+  $('#api-request a').attr('href', api_url);
+  $('#api-request').show();
+
+  if (endpoint_name === 'search' || endpoint_name === 'reverse') {
+    $('#api-request-debug a').attr('href', api_url + '&debug=1');
+    $('#api-request-debug').show();
+  } else {
+    $('#api-request-debug').hide();
+  }
+}
+
 function fetch_from_api(endpoint_name, params, callback) {
   var api_url = generate_full_api_url(endpoint_name, params);
-  if (endpoint_name !== 'status') {
-    $('#api-request-link').attr('href', api_url);
-  }
   $.get(api_url, function (data) {
+    if (endpoint_name !== 'status') {
+      update_last_updated(endpoint_name, params);
+    }
     callback(data);
   });
 }
 
 function update_data_date() {
   fetch_from_api('status', { format: 'json' }, function (data) {
+    $('#last-updated').show();
     $('#data-date').text(data.data_updated);
   });
 }
@@ -138,6 +156,8 @@ function hide_error() {
 
 jQuery(document).ready(function () {
   hide_error();
+
+  $('#last-updated').hide();
 
   $(document).ajaxStart(function () {
     $('#loading').fadeIn('fast');

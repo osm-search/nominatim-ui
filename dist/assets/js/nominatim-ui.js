@@ -96,18 +96,36 @@ function generate_full_api_url(endpoint_name, params) {
   return api_url;
 }
 
+function update_last_updated(endpoint_name, params) {
+  if (endpoint_name === 'status') return;
+
+  var api_url = generate_full_api_url(endpoint_name, params);
+  $('#last-updated').show();
+
+  $('#api-request a').attr('href', api_url);
+  $('#api-request').show();
+
+  if (endpoint_name === 'search' || endpoint_name === 'reverse') {
+    $('#api-request-debug a').attr('href', api_url + '&debug=1');
+    $('#api-request-debug').show();
+  } else {
+    $('#api-request-debug').hide();
+  }
+}
+
 function fetch_from_api(endpoint_name, params, callback) {
   var api_url = generate_full_api_url(endpoint_name, params);
-  if (endpoint_name !== 'status') {
-    $('#api-request-link').attr('href', api_url);
-  }
   $.get(api_url, function (data) {
+    if (endpoint_name !== 'status') {
+      update_last_updated(endpoint_name, params);
+    }
     callback(data);
   });
 }
 
 function update_data_date() {
   fetch_from_api('status', { format: 'json' }, function (data) {
+    $('#last-updated').show();
     $('#data-date').text(data.data_updated);
   });
 }
@@ -138,6 +156,8 @@ function hide_error() {
 
 jQuery(document).ready(function () {
   hide_error();
+
+  $('#last-updated').hide();
 
   $(document).ajaxStart(function () {
     $('#loading').fadeIn('fast');
@@ -586,11 +606,6 @@ function search_page_load() {
       format: 'jsonv2'
     };
 
-    if (search_params.get('debug') === '1') {
-      window.location.href = generate_full_api_url('reverse', api_request_params);
-      return;
-    }
-
     context = {
       // aPlace: aPlace,
       fLat: api_request_params.lat,
@@ -654,11 +669,6 @@ function search_page_load() {
       exclude_place_ids: search_params.get('exclude_place_ids'),
       format: 'jsonv2'
     };
-
-    if (search_params.get('debug') === '1') {
-      window.location.href = generate_full_api_url('search', api_request_params);
-      return;
-    }
 
     context = {
       sQuery: api_request_params.q,
@@ -833,6 +843,7 @@ jQuery(document).ready(function () {
   $(document).on('click', 'a', function (e) {
     var target_url = $(this).attr('href');
     if (!is_relative_url(target_url)) return;
+    if ($(this).parents('#last-updated')) return;
 
     e.preventDefault();
     e.stopPropagation();

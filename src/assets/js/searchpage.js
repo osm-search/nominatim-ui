@@ -321,11 +321,6 @@ function search_page_load() {
       format: 'jsonv2'
     };
 
-    if (search_params.get('debug') === '1') {
-      window.location.href = generate_full_api_url('reverse', api_request_params);
-      return;
-    }
-
     context = {
       // aPlace: aPlace,
       fLat: api_request_params.lat,
@@ -389,11 +384,6 @@ function search_page_load() {
       exclude_place_ids: search_params.get('exclude_place_ids'),
       format: 'jsonv2'
     };
-
-    if (search_params.get('debug') === '1') {
-      window.location.href = generate_full_api_url('search', api_request_params);
-      return;
-    }
 
     context = {
       sQuery: api_request_params.q,

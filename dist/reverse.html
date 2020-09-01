@@ -29,12 +29,15 @@
           </a>
         </div>
       </div>
-      <div id="last-updated" class="col-4 text-center">
-        <div id="loading">loading...</div>
-        Data from <a id="api-request-link" href="">API request</a>
-        <br>
-        Data last updated:
-        <span id="data-date"></span>
+      <div class="col-4">
+        <div id="last-updated" class="text-center">
+          <div id="loading">loading...</div>
+          <div id="api-request">
+            Data from <a href="">API request</a>
+            <span id="api-request-debug">(<a href="">debug output</a>)</span>
+          </div>
+          Data last updated: <span id="data-date"></span>
+        </div>
       </div>
       <div class="col-4 text-right">
         <div class="dropdown">
