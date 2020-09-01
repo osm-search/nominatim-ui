@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 1.2.2 - 2020-09-01
+
+    * Don't intercept link clicks when the target is the raw API output
+
 * version 1.2.1 - 2020-08-04
 
     * URL parsing now works if app is in a subdirectory
