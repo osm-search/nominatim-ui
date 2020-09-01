@@ -5,8 +5,8 @@
   <title>OpenStreetMap Nominatim</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="icon" type="image/png" href="/assets/images/favicon-194x194.png" sizes="194x194" />
-  <link rel="icon" type="image/png" href="/assets/images/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="assets/images/favicon-194x194.png" sizes="194x194" />
+  <link rel="icon" type="image/png" href="assets/images/favicon-16x16.png" sizes="16x16" />
 
   <link href="assets/css/leaflet.css" rel="stylesheet" />
   <link href="assets/css/Control.MiniMap.min.css" rel="stylesheet" />
@@ -320,7 +320,7 @@
 <script id="detailspage-template" type="text/x-handlebars-template">
 
 {{#*inline "partial_details_one_row"}}
-  <tr class="{{#unless this.isaddress}}notused{{/unless}}">
+  <tr class="{{#unless bAddressLineUsed}}notused{{/unless}}">
     <td class="name">
       {{#if this.localname}}
         {{this.localname}}
@@ -480,14 +480,14 @@
         <tbody>
           {{#if aPlace.address}}
             {{#each aPlace.address}}
-              {{> partial_details_one_row bDistanceInMeters=false}}
+              {{> partial_details_one_row bDistanceInMeters=false bAddressLineUsed=this.isaddress}}
             {{/each}}
           {{/if}}
 
           {{#if aPlace.linked_places}}
             {{> partial_h2 'Linked Places'}}
             {{#each aPlace.linked_places}}
-              {{> partial_details_one_row bDistanceInMeters=true}}
+              {{> partial_details_one_row bDistanceInMeters=true bAddressLineUsed=true}}
             {{/each}}
           {{/if}}
 
@@ -509,7 +509,7 @@
             {{#each aPlace.hierarchy as |lines type|}}
               {{> partial_h3 type}}
               {{#each lines}}
-                {{> partial_details_one_row bDistanceInMeters=true}}
+                {{> partial_details_one_row bDistanceInMeters=true bAddressLineUsed=true}}
               {{/each}}
             {{/each}}
           {{else}}

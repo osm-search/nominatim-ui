@@ -1,6 +1,6 @@
 
 {{#*inline "partial_details_one_row"}}
-  <tr class="{{#unless this.isaddress}}notused{{/unless}}">
+  <tr class="{{#unless bAddressLineUsed}}notused{{/unless}}">
     <td class="name">
       {{#if this.localname}}
         {{this.localname}}
@@ -160,14 +160,14 @@
         <tbody>
           {{#if aPlace.address}}
             {{#each aPlace.address}}
-              {{> partial_details_one_row bDistanceInMeters=false}}
+              {{> partial_details_one_row bDistanceInMeters=false bAddressLineUsed=this.isaddress}}
             {{/each}}
           {{/if}}
 
           {{#if aPlace.linked_places}}
             {{> partial_h2 'Linked Places'}}
             {{#each aPlace.linked_places}}
-              {{> partial_details_one_row bDistanceInMeters=true}}
+              {{> partial_details_one_row bDistanceInMeters=true bAddressLineUsed=true}}
             {{/each}}
           {{/if}}
 
@@ -189,7 +189,7 @@
             {{#each aPlace.hierarchy as |lines type|}}
               {{> partial_h3 type}}
               {{#each lines}}
-                {{> partial_details_one_row bDistanceInMeters=true}}
+                {{> partial_details_one_row bDistanceInMeters=true bAddressLineUsed=true}}
               {{/each}}
             {{/each}}
           {{else}}
