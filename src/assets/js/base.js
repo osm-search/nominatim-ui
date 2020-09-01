@@ -157,6 +157,8 @@ function hide_error() {
 jQuery(document).ready(function () {
   hide_error();
 
+  $('#last-updated').hide();
+
   $(document).ajaxStart(function () {
     $('#loading').fadeIn('fast');
   }).ajaxComplete(function () {

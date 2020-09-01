@@ -157,6 +157,8 @@ function hide_error() {
 jQuery(document).ready(function () {
   hide_error();
 
+  $('#last-updated').hide();
+
   $(document).ajaxStart(function () {
     $('#loading').fadeIn('fast');
   }).ajaxComplete(function () {
@@ -800,7 +802,6 @@ jQuery(document).ready(function () {
 
   function is_relative_url(url) {
     if (!url) return false;
-    if (url.match(/debug=1/)) return false;
     if (url.indexOf('?') === 0) return true;
     if (url.indexOf('/') === 0) return true;
     if (url.indexOf('#') === 0) return false;
@@ -842,6 +843,7 @@ jQuery(document).ready(function () {
   $(document).on('click', 'a', function (e) {
     var target_url = $(this).attr('href');
     if (!is_relative_url(target_url)) return;
+    if ($(this).parents('#last-updated')) return;
 
     e.preventDefault();
     e.stopPropagation();
