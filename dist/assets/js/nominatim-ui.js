@@ -843,7 +843,7 @@ jQuery(document).ready(function () {
   $(document).on('click', 'a', function (e) {
     var target_url = $(this).attr('href');
     if (!is_relative_url(target_url)) return;
-    if ($(this).parents('#last-updated')) return;
+    if ($(this).parents('#last-updated').length !== 0) return;
 
     e.preventDefault();
     e.stopPropagation();
