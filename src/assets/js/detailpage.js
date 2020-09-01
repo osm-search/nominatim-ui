@@ -63,6 +63,7 @@ function details_page_load() {
     place_id: search_params.get('place_id'),
     osmtype: search_params.get('osmtype'),
     osmid: search_params.get('osmid'),
+    class: search_params.get('class'),
     keywords: search_params.get('keywords'),
     addressdetails: 1,
     hierarchy: (search_params.get('hierarchy') === '1' ? 1 : 0),
