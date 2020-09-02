@@ -1,6 +1,10 @@
 // This function provides suggestions in the form of unordered list.
 function suggester() {
 
+    // If suggestions end-point is not configured, return without any computation
+    if(get_config_value('Suggestions_Url') == "")
+        return;
+
     // List of languages to search for
     languages = ['zh', 'sp', 'en', 'ar', 'fr', 'ru', 'pt', 'de', 'ja', 'ko'];
     // Finding the browser language

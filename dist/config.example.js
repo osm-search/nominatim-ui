@@ -11,7 +11,7 @@ var Nominatim_Config = [];
 // Nominatim_Config['Images_Base_Url'] = '/mapicons/';
 
 // Url to provide suggestions
-// Nominatim_Config['Suggestions_Url'] = 'https://gsoc2020.nominatim.org/suggest/autocomplete/?q=';
+// Nominatim_Config['Suggestions_Url'] = '';
 
 // If the API should return polygons to be displayed on the map
 // Nominatim_Config['Search_AreaPolygons'] = 1;
