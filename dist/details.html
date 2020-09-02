@@ -127,8 +127,7 @@
     <span class="type">({{formatLabel aResult}})</span>
     <p class="coords">{{aResult.lat}},{{aResult.lon}}</p>  
 
-    <a class="details btn btn-outline-secondary btn-sm"
-       href="details.html?osmtype={{shortOSMType aResult.osm_type}}&osmid={{aResult.osm_id}}">details</a>
+    <a class="details btn btn-outline-secondary btn-sm" href="{{detailsURL aResult}}">details</a>
   </div>
 {{/inline}}
 
@@ -261,8 +260,7 @@
     <span class="type">{{formatLabel aResult}}</span>
     <p class="coords">{{aResult.lat}},{{aResult.lon}}</p>  
 
-    <a class="details btn btn-outline-secondary btn-sm"
-       href="details.html?osmtype={{shortOSMType aResult.osm_type}}&osmid={{aResult.osm_id}}">details</a>
+    <a class="details btn btn-outline-secondary btn-sm" href="{{detailsURL aResult}}">details</a>
   </div>
 {{/inline}}
 
@@ -333,7 +331,7 @@
     <td>{{this.rank_address}}</td>
     <td>{{formatAdminLevel this.admin_level}}</td>
     <td>{{formatDistance this.distance bDistanceInMeters}}</td>
-    <td>{{detailsPermaLink this 'details >'}}</td>
+    <td><a href="{{detailsURL this}}">details</td>
   </tr>
 {{/inline}}
 
@@ -360,7 +358,7 @@
     <div class="col-sm-10">
       <h1>
         {{aPlace.localname}}
-        <small>{{detailsPermaLink aPlace 'link to this page'}}</small>
+        <small><a href="{{detailsURL aPlace}}">link to this page</a></small>
       </h1>
     </div>
     <div class="col-sm-2 text-right">
@@ -608,7 +606,7 @@
         <tbody>
           {{#each aPolygons}}
           <tr>
-            <td>{{detailsLink this place_id}}</td>
+            <td><a href="{{detailsURL this}}">{{this.place_id}}</a></td>
             <td>{{country_code}}</td>
             <td>{{name}}</td>
             <td>{{osmLink this}}</td>
