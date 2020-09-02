@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 1.2.4 - 2020-09-01
+
+    * All links to detail page should include the class parameter
+
 * version 1.2.3 - 2020-09-01
 
     * Favicon URLs did not work when app is installed in a subdirectory
