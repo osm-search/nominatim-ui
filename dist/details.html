@@ -331,7 +331,7 @@
     <td>{{this.rank_address}}</td>
     <td>{{formatAdminLevel this.admin_level}}</td>
     <td>{{formatDistance this.distance bDistanceInMeters}}</td>
-    <td><a href="{{detailsURL this}}">details</td>
+    <td>{{#if this.osm_id}}<a href="{{detailsURL this}}">details</a>{{/if}}</td>
   </tr>
 {{/inline}}
 
