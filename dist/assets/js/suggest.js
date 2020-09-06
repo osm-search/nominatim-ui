@@ -46,8 +46,16 @@ function suggester() {
                             res += ', ' + hits[i].country_code;
                         if(hits[i].postcode)
                             res += ', ' + hits[i].postcode;
-                        icon_path = get_config_value('Images_Base_Url') + getIcon({'category': hits[i].category, 'type': hits[i].type}) + '.p.20.png';
-                        list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div><img class='fas mr-4 mapicons' src='" + icon_path + "'></div></li>";added = true;
+                        if (getIcon({'category': hits[i].category, 'type': hits[i].type}))
+                        {
+                            icon_path = get_config_value('Images_Base_Url') + getIcon({'category': hits[i].category, 'type': hits[i].type}) + '.p.20.png';
+                            list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div><img class='fas mr-4 mapicons' src='" + icon_path + "'></div></li>";added = true;
+                        }
+                        else
+                        {
+                            list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div></div></li>";added = true;
+
+                        }
                     }
                 });
                 // This is to handle cases where no returned language text matches straightaway.
@@ -62,8 +70,17 @@ function suggester() {
                         res += ', ' + hits[i].country_code;
                     if(hits[i].postcode)
                         res += ', ' + hits[i].postcode;
-                    icon_path = get_config_value('Images_Base_Url') + getIcon({'category': hits[i].category, 'type': hits[i].type}) + '.p.20.png';
-                    list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div><img class='fas mr-4 mapicons' src='" + icon_path + "'></div></li>";added = true;
+                    console.log(getIcon({'category': hits[i].category, 'type': hits[i].type}) == "undefined");
+                    if (getIcon({'category': hits[i].category, 'type': hits[i].type}))
+                    {
+                        icon_path = get_config_value('Images_Base_Url') + getIcon({'category': hits[i].category, 'type': hits[i].type}) + '.p.20.png';
+                        list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div><img class='fas mr-4 mapicons' src='" + icon_path + "'></div></li>";added = true;
+                    }
+                    else
+                    {
+                        list_items += "<li  class='list-group-item' onclick='putText("+ i +")'><div class='row'><div class='col' id="+i+">" + res + "</div></div></li>";added = true;
+
+                    }
                 }
             }
 
