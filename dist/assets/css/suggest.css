@@ -3,6 +3,14 @@
     font-size: small !important;
 }
 
+.selected {
+    background: #e2e2e2;
+}
+
+.list-group-item:hover {
+    background: #f1f1f1;
+}
+
 .fas {
     height: 100%;
 }

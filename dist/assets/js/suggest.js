@@ -1,3 +1,38 @@
+var liSelected;
+
+document.addEventListener("keydown", event => {
+    if(event.keyCode === 40){
+        if(liSelected){
+            liSelected.removeClass('selected');
+            next = liSelected.next();
+            if(next.length > 0){
+                liSelected = next.addClass('selected');
+            }else{
+                liSelected = $('.list-group-item').eq(0).addClass('selected');
+            }
+        }else{
+            liSelected = $('.list-group-item').eq(0).addClass('selected');
+        }
+    }else if(event.keyCode === 38){
+        if(liSelected){
+            liSelected.removeClass('selected');
+            next = liSelected.prev();
+            if(next.length > 0){
+                liSelected = next.addClass('selected');
+            }else{
+                liSelected = $('.list-group-item').last().addClass('selected');
+            }
+        }else{
+            liSelected = $('.list-group-item').last().addClass('selected');
+        }
+    }
+    if(liSelected && (event.keyCode === 40 || event.keyCode === 38)){
+        console.log(liSelected[0].innerText);
+        document.getElementById('q').value = liSelected[0].innerText;
+    }
+
+});
+
 // This function provides suggestions in the form of unordered list.
 function suggester() {
 
@@ -70,7 +105,6 @@ function suggester() {
                         res += ', ' + hits[i].country_code;
                     if(hits[i].postcode)
                         res += ', ' + hits[i].postcode;
-                    console.log(getIcon({'category': hits[i].category, 'type': hits[i].type}) == "undefined");
                     if (getIcon({'category': hits[i].category, 'type': hits[i].type}))
                     {
                         icon_path = get_config_value('Images_Base_Url') + getIcon({'category': hits[i].category, 'type': hits[i].type}) + '.p.20.png';
