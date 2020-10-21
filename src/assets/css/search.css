@@ -10,6 +10,8 @@
 .tab-content {
   border: 1px solid #ddd;
   border-top: none;
+  display: flex;
+  align-items: baseline
 }
 
 form #q {
@@ -155,4 +157,18 @@ form #q {
 
 label {
   font-weight: normal;
+}
+
+#searchAdvancedOptionsContent {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px
+}
+
+#searchAdvancedOptionsContent label {
+  padding: 0 3px;
+}
+
+#searchAdvancedOptionsContent span {
+  padding: 4px 10px;
 }

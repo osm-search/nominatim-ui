@@ -331,7 +331,7 @@ function display_map_position(mouse_lat_lng) {
   };
   $('#switch-to-reverse').attr('href', 'reverse.html?' + $.param(reverse_params));
 
-  $('input#use_viewbox').trigger('change');
+  $('input.api-param-setting').trigger('change');
 }
 
 function init_map_on_search_page(is_reverse_search, nominatim_results, request_lat,
@@ -455,6 +455,23 @@ function init_map_on_search_page(is_reverse_search, nominatim_results, request_l
   $('input#use_viewbox').on('change', function () {
     update_viewbox_field();
   });
+
+  $('input#option_bounded').on('change', function () {
+    $('input[name=bounded]')
+      .val($('input#option_bounded')
+        .prop('checked') ? '1' : '');
+  });
+
+  $('input#option_dedupe').on('change', function () {
+    $('input[name=dedupe]')
+      .val($('input#option_dedupe')
+        .prop('checked') ? '' : '0');
+  });
+
+  $('input[data-api-param]').on('change', function (e) {
+    $('input[name=' + $(e.target).data('api-param') + ']').val(e.target.value);
+  });
+
 
   function get_result_element(position) {
     return $('.result').eq(position);
@@ -667,6 +684,12 @@ function search_page_load() {
       postalcode: search_params.get('postalcode'),
       polygon_geojson: get_config_value('Search_AreaPolygons', false) ? 1 : 0,
       viewbox: search_params.get('viewbox'),
+      bounded: search_params.get('bounded'),
+      dedupe: search_params.get('dedupe'),
+      'accept-language': search_params.get('accept-language'),
+      countrycodes: search_params.get('countrycodes'),
+      limit: search_params.get('limit'),
+      polygon_threshold: search_params.get('polygon_threshold'),
       exclude_place_ids: search_params.get('exclude_place_ids'),
       format: 'jsonv2'
     };
@@ -674,6 +697,12 @@ function search_page_load() {
     context = {
       sQuery: api_request_params.q,
       sViewBox: search_params.get('viewbox'),
+      sBounded: search_params.get('bounded'),
+      sDedupe: search_params.get('dedupe'),
+      sLang: search_params.get('accept-language'),
+      sCCode: search_params.get('countrycodes'),
+      sLimit: search_params.get('limit'),
+      sPolyThreshold: search_params.get('polygon_threshold'),
       env: {}
     };
 
