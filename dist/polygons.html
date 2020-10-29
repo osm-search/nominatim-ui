@@ -211,10 +211,10 @@
             <label class="form-check-label" for="use_viewbox">apply viewbox</label></span>
             <span><input type="checkbox" class="form-check-input api-param-setting"
                    id="option_bounded" {{#if sBounded}}checked="checked"{{/if}}>
-            <label class="form-check-label" for="options_bounded">bounded to viewbox</label></span>
+            <label class="form-check-label" for="option_bounded">bounded to viewbox</label></span>
             <span><input type="checkbox" class="form-check-input api-param-setting"
                    id="option_dedupe" {{#unless sDedupe}}checked="checked"{{/unless}}>
-            <label class="form-check-label" for="options_dedupe">deduplicate results</label></span>
+            <label class="form-check-label" for="option_dedupe">deduplicate results</label></span>
           </div>
           <div class="form-check form-check-inline">
             <span><label class="form-check-label" for="option_limit">Maximum number of results: </label>
@@ -224,9 +224,9 @@
           </div>
           <div class="form-check form-check-inline">
             <span><label class="form-check-label" for="accept_lang">Languages: </label>
-            <input type="text" class="form-check-input api-param-setting" data-api-param="accept-language" id="accept_lang" size="15" value="{{sLang}}"></span>
+            <input type="text" placeholder="e.g. en,zh-Hant" class="form-check-input api-param-setting" data-api-param="accept-language" id="accept_lang" size="15" value="{{sLang}}"></span>
             <span><label class="form-check-label" for="option_ccode">Countries: </label>
-            <input type="text" class="form-check-input api-param-setting" data-api-param="countrycodes" id="option_ccode" size="15" value="{{sCCode}}"></span>
+            <input type="text" placeholder="e.g. de,gb" class="form-check-input api-param-setting" data-api-param="countrycodes" id="option_ccode" size="15" value="{{sCCode}}"></span>
           </div>
        </div>
     </div>
