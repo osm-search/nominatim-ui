@@ -157,11 +157,12 @@
         <div class="form-group search-button-group">
           <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
           <input type="hidden" name="viewbox" value="{{sViewBox}}" />
-          <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input"
-                   id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
-            <label class="form-check-label" for="use_viewbox">apply viewbox</label>
-          </div>
+          <input type="hidden" name="dedupe" value="{{sDedupe}}" />
+          <input type="hidden" name="bounded" value="{{sBounded}}" />
+          <input type="hidden" name="accept-language" value="{{sLang}}" />
+          <input type="hidden" name="countrycodes" value="{{sCCode}}" />
+          <input type="hidden" name="limit" value="{{sLimit}}" />
+          <input type="hidden" name="polygon_threshold" value="{{sPolyThreshold}}" />
         </div>
       </form>
     </div>
@@ -189,13 +190,45 @@
         <div class="form-group search-button-group">
           <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
           <input type="hidden" name="viewbox" value="{{sViewBox}}" />
-          <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input"
-                   id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
-            <label class="form-check-label" for="use_viewbox">apply viewbox</label>
-          </div>
+          <input type="hidden" name="dedupe" value="{{#unless sDedupe}}0{{/unless}}" />
+          <input type="hidden" name="bounded" value="{{#if sBounded}}1{{/if}}" />
+          <input type="hidden" name="accept-language" value="{{sLang}}" />
+          <input type="hidden" name="countrycodes" value="{{sCCode}}" />
+          <input type="hidden" name="limit" value="{{sLimit}}" />
+          <input type="hidden" name="polygon_threshold" value="{{sPolyThreshold}}" />
         </div>
       </form>
+    </div>
+    <!-- Additional options -->
+    <a class="btn btn-outline-secondary btn-sm" data-toggle="collapse" data-target="#searchAdvancedOptions" role="button" aria-expanded="false" aria-controls="collapseAdvancedOptions">
+      Advanced options
+    </a>
+    <div class="collapse" id="searchAdvancedOptions">
+      <div id="searchAdvancedOptionsContent">
+          <div class="form-check form-check-inline">
+            <span><input type="checkbox" class="form-check-input api-param-setting"
+                   id="use_viewbox" {{#if sViewBox}}checked="checked"{{/if}}>
+            <label class="form-check-label" for="use_viewbox">apply viewbox</label></span>
+            <span><input type="checkbox" class="form-check-input api-param-setting"
+                   id="option_bounded" {{#if sBounded}}checked="checked"{{/if}}>
+            <label class="form-check-label" for="option_bounded">bounded to viewbox</label></span>
+            <span><input type="checkbox" class="form-check-input api-param-setting"
+                   id="option_dedupe" {{#unless sDedupe}}checked="checked"{{/unless}}>
+            <label class="form-check-label" for="option_dedupe">deduplicate results</label></span>
+          </div>
+          <div class="form-check form-check-inline">
+            <span><label class="form-check-label" for="option_limit">Maximum number of results: </label>
+            <input type="number" class="form-check-input api-param-setting" data-api-param="limit" id="option_limit" size="5" min="1" max="50" value="{{sLimit}}"></span>
+            <span><label class="form-check-label" for="option_polygon_threashold">Polygon simplification: </label>
+            <input type="number" class="form-check-input api-param-setting" data-api-param="polygon_threshold" id="option_polygon_threshold" size="5" min="0.0" step="0.01" value="{{sPolyThreshold}}"></span>
+          </div>
+          <div class="form-check form-check-inline">
+            <span><label class="form-check-label" for="accept_lang">Languages: </label>
+            <input type="text" placeholder="e.g. en,zh-Hant" class="form-check-input api-param-setting" data-api-param="accept-language" id="accept_lang" size="15" value="{{sLang}}"></span>
+            <span><label class="form-check-label" for="option_ccode">Countries: </label>
+            <input type="text" placeholder="e.g. de,gb" class="form-check-input api-param-setting" data-api-param="countrycodes" id="option_ccode" size="15" value="{{sCCode}}"></span>
+          </div>
+       </div>
     </div>
   </div> <!-- /tab-content -->
 </div> <!-- /top-bar -->
