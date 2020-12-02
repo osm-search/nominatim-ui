@@ -73,8 +73,12 @@
           <td>{{aPlace.admin_level}}</td>
         </tr>
         <tr>
-          <td>Rank</td>
-          <td>{{formatSearchRank aPlace.rank_search}}</td>
+          <td>Search Rank</td>
+          <td>{{aPlace.rank_search}}</td>
+        </tr>
+        <tr>
+          <td>Address Rank</td>
+          <td>{{aPlace.rank_address}} ({{formatAddressRank aPlace.rank_address}})</td>
         </tr>
         {{#if aPlace.calculated_importance}}
           <tr>
