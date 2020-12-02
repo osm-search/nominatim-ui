@@ -171,16 +171,24 @@
             {{/each}}
           {{/if}}
 
+          {{> partial_h2 'Keywords'}}
           {{#if aPlace.keywords}}
-            {{> partial_h2 'Name Keywords'}}
+            {{> partial_h3 'Name Keywords'}}
             {{#each aPlace.keywords.name}}
               {{> partial_details_keyword_one_row}}
             {{/each}}
 
-            {{> partial_h2 'Address Keywords'}}
+            {{> partial_h3 'Address Keywords'}}
             {{#each aPlace.keywords.address}}
               {{> partial_details_keyword_one_row}}
             {{/each}}
+          {{else}}
+            <tr>
+              <td>
+                <a class="btn btn-outline-secondary btn-sm"
+                  href="{{base_url}}&keywords=1">display keywords</a>
+              </td>
+            </tr>
           {{/if}}
 
           {{> partial_h2 'Parent Of'}}
