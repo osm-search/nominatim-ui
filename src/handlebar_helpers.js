@@ -233,28 +233,23 @@ Handlebars.registerHelper({
     }
     return '';
   },
-  formatSearchRank: function (iRank) {
-    // same as
-    // https://github.com/osm-search/Nominatim/blob/master/sql/functions.sql
-    // get_searchrank_label()
-
-    if (iRank < 2) return 'continent';
-    if (iRank < 4) return 'sea';
-    if (iRank < 8) return 'country';
-    if (iRank < 12) return 'state';
-    if (iRank < 16) return 'county';
-    if (iRank === 16) return 'city';
-    if (iRank === 17) return 'town / island';
-    if (iRank === 18) return 'village / hamlet';
-    if (iRank === 20) return 'suburb';
-    if (iRank === 21) return 'postcode area';
-    if (iRank === 22) return 'croft / farm / locality / islet';
-    if (iRank === 23) return 'postcode area';
-    if (iRank === 25) return 'postcode point';
-    if (iRank === 26) return 'street / major landmark';
+  formatAddressRank: function (iRank) {
+    if (iRank < 4) return 'other';
+    if (iRank < 6) return 'country';
+    if (iRank < 8) return 'region';
+    if (iRank < 10) return 'state';
+    if (iRank < 12) return 'state district';
+    if (iRank < 14) return 'county';
+    if (iRank < 16) return 'municipality';
+    if (iRank < 18) return 'city / town / village';
+    if (iRank < 20) return 'city / village district';
+    if (iRank < 22) return 'suburb / hamlet';
+    if (iRank < 24) return 'neighbourhood';
+    if (iRank < 26) return 'city block / square';
+    if (iRank === 26) return 'major street';
     if (iRank === 27) return 'minory street / path';
-    if (iRank === 28) return 'house / building';
-    return 'other: ' + iRank;
+    if (iRank <= 30) return 'house / building';
+    return 'other';
   },
   tooManyHierarchyLinesWarning: function (aPlace) {
     if (!aPlace.hierarchy) return '';
