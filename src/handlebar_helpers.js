@@ -251,6 +251,9 @@ Handlebars.registerHelper({
     if (iRank <= 30) return 'house / building';
     return 'other';
   },
+  isAdminBoundary: function (aPlace) {
+    return aPlace.category === 'boundary' && aPlace.type === 'administrative';
+  },
   tooManyHierarchyLinesWarning: function (aPlace) {
     if (!aPlace.hierarchy) return '';
 

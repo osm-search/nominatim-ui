@@ -68,10 +68,12 @@
           <td>Last Updated</td>
           <td>{{aPlace.indexed_date}}</td>
         </tr>
+        {{#if (isAdminBoundary aPlace) }}
         <tr>
           <td>Admin Level</td>
           <td>{{aPlace.admin_level}}</td>
         </tr>
+        {{/if}}
         <tr>
           <td>Search Rank</td>
           <td>{{aPlace.rank_search}}</td>
