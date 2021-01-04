@@ -1,0 +1,25 @@
+.list-group-item {
+    padding: .25rem 0.25rem !important;
+    font-size: small !important;
+}
+
+.selected {
+    background: #e2e2e2;
+}
+
+.list-group-item:hover {
+    background: #f1f1f1;
+}
+
+.fas {
+    height: 100%;
+}
+
+.dropdown-menu {
+    z-index: 2000 !important;
+}
+
+.dropdown-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+}
