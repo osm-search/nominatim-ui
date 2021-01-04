@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 1.2.5 - 2021-03-04
+
+    * Another fix to make sure pages work when app is in a subdirectory
+
 * version 1.2.4 - 2020-09-01
 
     * All links to detail page should include the class parameter
