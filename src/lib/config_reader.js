@@ -3,7 +3,7 @@ module.exports.get_config_value = get_config_value;
 
 const Nominatim_Config_Defaults = {
   Nominatim_API_Endpoint: 'http://localhost/nominatim/',
-  Images_Base_Url: '/mapicons/',
+  Images_Base_Url: 'mapicons/',
   Search_AreaPolygons: 1,
   Reverse_Default_Search_Zoom: 18,
   Map_Default_Lat: 20.0,
