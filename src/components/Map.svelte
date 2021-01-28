@@ -109,8 +109,19 @@
       dataLayers.push(cm);
     }
 
-
-
+    var search_params = new URLSearchParams(window.location.search);
+    var viewbox = search_params.get('viewbox');
+    if (viewbox) {
+      let coords = viewbox.split(','); // <x1>,<y1>,<x2>,<y2>
+      let bounds = L.latLngBounds([coords[1], coords[0]], [coords[3], coords[2]]);
+      L.rectangle(bounds, {
+        color: '#69d53e',
+        weight: 3,
+        dashArray: '5 5',
+        opacity: 0.8,
+        fill: false
+      }).addTo(map);
+    }
 
     // nothing to do
     if (!aFeature) { return; }
