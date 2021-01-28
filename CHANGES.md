@@ -1,5 +1,10 @@
 # CHANGES
 
+* version 2.0.0 - 2021-01-29
+
+	* Complete refactor into Svelte framework
+	* Removed most of jQuery usage
+
 * version 1.2.4 - 2020-09-01
 
     * All links to detail page should include the class parameter

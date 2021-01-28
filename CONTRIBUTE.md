@@ -4,12 +4,9 @@
 
 The user interface used to be included in the geocoder. Thus the
 first version avoid being a redesign and still uses some of the
-same configuration values. For simplicity it's not a single
-page application (SPA) written in a framework though it could
-be in the future if complexity grows.
+same configuration values.
 
-Uses [jQuery](https://jquery.com/) for browser DOM interaction,
-[handlebar](http://handlebarsjs.com/) templates to build pages,
+Uses [svelte](https://svelte.dev/) framework,
 [leaflet](https://leafletjs.com/) for map interaction,
 [bootstrap](https://getbootstrap.com/) for layout styling.
 
@@ -25,20 +22,11 @@ Uses [jQuery](https://jquery.com/) for browser DOM interaction,
 * After you change files in `src` directory run
 
    ```
-   yarn build
+   yarn dev
    ```
+   which will start a webserver on port 5000 and auto-reloads
+   whenever you edit files.
 
-* Start a webserver on port 8000 to preview changes
-
-   ```
-   yarn start
-   ```
-
-* Run code style check
-
-   ```
-   yarn lint
-   ```
 
 ## Prepare a release
 
