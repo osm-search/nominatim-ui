@@ -1,5 +1,10 @@
 # CHANGES
 
+* version 2.0.0 - 2021-01-29
+
+    * Complete refactor into Svelte framework
+    * Removed most of jQuery usage
+
 * version 1.2.5 - 2021-03-04
 
     * Another fix to make sure pages work when app is in a subdirectory

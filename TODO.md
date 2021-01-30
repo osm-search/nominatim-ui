@@ -8,14 +8,17 @@
 
 ## Nice-to-have
 
+* on /details page differenciate between not found (HTTP 404 from API) and missing parameters (HTTP 400 from API)
+* display API errors, e.g. Object { code: 400, message: "Integer number expected for parameter 'limit'" }
 * cache `update_data_date` result somehow?
 * add tests with fixtures
-* set better alt tag for icons
-* concatenate/minify JS and CSS
+* add linter (https://github.com/sveltejs/eslint-plugin-svelte3) and .travis-ci.yml again
 
 ## Code cleanup
 
+* fix all a11y warnings during `yarn build`
+* move all bootstrap CSS overwrite rules into a bootstrap.theme.css file
 * move TODO list into github issues
-* show map bounds section => move to handlebar template, map to partial
 * aResults vs aPlace vs aFeature variable naming
-* use CSS preprocessor and linter
+* remove jquery completely (once bootstrap v5 is used)
+* in package.json clarify which dependencies are used in dev and production

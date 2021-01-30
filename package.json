@@ -1,28 +1,30 @@
 {
   "name": "nominatim-ui",
-  "version": "1.2.5",
   "description": "Debug web interface for Nominatim geocoder",
-  "main": "index.js",
-  "scripts": {
-    "start": "./node_modules/.bin/static -c 0 -p 8000 dist",
-    "build": "./build.sh",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "node node_modules/.bin/eslint --quiet src/handlebar_helpers.js dist/assets/js/nominatim-ui.js"
-  },
-  "author": "",
+  "version": "2.0.0",
   "license": "GPL-2.0",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv dist"
+  },
   "devDependencies": {
-    "@ungap/url-search-params": "^0.2.0",
-    "bootstrap": "^4.5.0",
-    "eslint": "^7.0.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "handlebars": "4.7.6",
-    "jquery": "^3.5.0",
-    "leaflet": "^1.7.0",
-    "leaflet-minimap": "3.6.1"
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0"
   },
   "dependencies": {
-    "node-static": "^0.7.11"
+    "@ungap/url-search-params": "^0.2.2",
+    "bootstrap": "^4.6.0",
+    "escape-html": "^1.0.3",
+    "jquery": "^3.5.1",
+    "leaflet": "^1.7.1",
+    "leaflet-minimap": "^3.6.1",
+    "sirv-cli": "^1.0.0"
   }
 }
