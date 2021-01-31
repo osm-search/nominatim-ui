@@ -6,11 +6,12 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv dist"
+    "start": "static -c 0 -p 5000 dist"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "node-static": "^0.7.11",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -24,7 +25,6 @@
     "escape-html": "^1.0.3",
     "jquery": "^3.5.1",
     "leaflet": "^1.7.1",
-    "leaflet-minimap": "^3.6.1",
-    "sirv-cli": "^1.0.0"
+    "leaflet-minimap": "^3.6.1"
   }
 }
