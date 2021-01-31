@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 2.0.1 - 2021-01-31
+
+    * removed debug files from dist/build/ [PR47]
+
 * version 2.0.0 - 2021-01-29
 
     * Complete refactor into Svelte framework
