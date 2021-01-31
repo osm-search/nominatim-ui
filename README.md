@@ -6,7 +6,7 @@ The frontend runs standalone as website and will requests data
 from a separate Nominatim API (either on the same server or
 remote).
 
-For technical details see [CONTRIBUTING.md]() file.
+For technical details see [CONTRIBUTE.md](CONTRIBUTE.md) file.
 
 ![Screenshot](screenshot.png)
 
@@ -18,7 +18,7 @@ For technical details see [CONTRIBUTING.md]() file.
 
    1. `cd dist`
    2. start webserver `python3 -m http.server 8765` 
-   3. open [http://localhost:8765/]() in your browser
+   3. open http://localhost:8765/ in your browser
 
 * Start a webserver using ([Big list of http static server one-liners](https://gist.github.com/willurd/5720255)) or configure Apache, nginx or other webservers to serve the `dist` directory.
 
@@ -32,7 +32,7 @@ Defaults:
 | setting | default |
 |---|---|
 | `Nominatim_API_Endpoint` | http://localhost/nominatim/ (port 80) |
-| `Images_Base_Url` | images in [mapicons]() |
+| `Images_Base_Url` | images in [mapicons](dist/mapicons) |
 | `Search_AreaPolygons` | yes, print boundaries of search results on map |
 | `Reverse_Default_Search_Zoom` | 18 (house-number level) |
 | `Map_Default_Lat`, `Map_Default_Lon`, `Map_Default_Zoom` | display whole world |
