@@ -42,7 +42,10 @@ module.exports = {
     },
     {
       files: ['*.svelte'],
-      processor: 'svelte3/svelte3'
+      processor: 'svelte3/svelte3',
+      rules: {
+        'no-label-var': 'off' // eslint thinks $: (https://svelte.dev/tutorial/reactive-statements) are labels
+      }
     }
   ]
 };
