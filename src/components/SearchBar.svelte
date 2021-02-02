@@ -1,4 +1,5 @@
 <script>
+  import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
 
   import { zoomLevels } from '../lib/helpers.js';
   import { map_store } from '../lib/stores.js';
@@ -97,7 +98,7 @@
 
 {#if reverse_search}
   <div class="top-bar">
-    <form class="form-inline" role="search" accept-charset="UTF-8" action="">
+    <UrlSubmitForm>
       <div class="form-group">
         <input name="format" type="hidden" value="html">
         <label for="reverse-lat">lat</label>
@@ -133,7 +134,7 @@
         <a href="details.html" class="mr-2">search by id</a>
         <a href="search.html">forward search</a>
       </div>
-    </form>
+    </UrlSubmitForm>
   </div>
 
 {:else}
@@ -153,7 +154,7 @@
     </ul>
     <div class="tab-content p-2">
       <div class="tab-pane" class:active={!bStructuredSearch} id="simple" role="tabpanel">
-        <form class="form-inline" role="search" accept-charset="UTF-8" action="">
+        <UrlSubmitForm>
           <input id="q"
                  name="q"
                  type="text"
@@ -171,10 +172,10 @@
             <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
             <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
           </div>
-        </form>
+        </UrlSubmitForm>
       </div>
       <div class="tab-pane" class:active={bStructuredSearch} id="structured" role="tabpanel">
-        <form class="form-inline" role="search" accept-charset="UTF-8" action="">
+        <UrlSubmitForm>
           <input name="street" type="text" class="form-control form-control-sm mr-1"
                  placeholder="House number/Street"
                  value="{api_request_params.street || ''}" />
@@ -204,7 +205,7 @@
             <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
             <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
           </div>
-        </form>
+        </UrlSubmitForm>
       </div>
       <!-- Additional options -->
       <a href="#advanced" class="btn btn-outline-secondary btn-sm" data-toggle="collapse" data-target="#searchAdvancedOptions" role="button" aria-expanded="false" aria-controls="collapseAdvancedOptions">
@@ -258,17 +259,19 @@
     align-items: baseline
   }
 
-  form #q {
+  #q {
     min-width: 500px;
   }
   @media (max-width: 850px) {
-    form #q {
+    #q {
       min-width: 400px;
     }
   }
 
   label {
     font-weight: normal;
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
   }
 
   #searchAdvancedOptionsContent {
@@ -284,12 +287,6 @@
   #searchAdvancedOptionsContent span {
     padding: 4px 10px;
   }
-
-  form label {
-    margin-left: 0.4rem;
-    margin-right: 0.4rem;
-  }
-  
 
   .search-type-link {
     display: inline;
