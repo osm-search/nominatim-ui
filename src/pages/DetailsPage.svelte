@@ -8,7 +8,6 @@
   import DetailsIndex from '../components/DetailsIndex.svelte';
   import DetailsOneRow from '../components/DetailsOneRow.svelte';
   import Map from '../components/Map.svelte';
-  import 'URLSearchParams';
 
   let aPlace;
   let base_url = window.location.search;

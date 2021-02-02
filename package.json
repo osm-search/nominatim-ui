@@ -20,7 +20,6 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-    "@ungap/url-search-params": "^0.2.2",
     "bootstrap": "^4.6.0",
     "escape-html": "^1.0.3",
     "jquery": "^3.5.1",
