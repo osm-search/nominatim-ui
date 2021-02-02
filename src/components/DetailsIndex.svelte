@@ -14,7 +14,8 @@
       return;
     }
 
-    form_el.querySelector('input[name=osmtype]').setAttribute('value', matches[1].charAt(0).toUpperCase());
+    let osmtype_short = matches[1].charAt(0).toUpperCase();
+    form_el.querySelector('input[name=osmtype]').setAttribute('value', osmtype_short);
     form_el.querySelector('input[name=osmid]').setAttribute('value', matches[2]);
     form_el.submit();
   }

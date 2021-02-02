@@ -40,7 +40,7 @@ function osmLink(aPlace) {
   var sOSMType = formatOSMType(aPlace.osm_type, false);
   if (!sOSMType) return '';
 
-  return '<a href="https://www.openstreetmap.org/' + sOSMType + '/' + aPlace.osm_id + '">' + sOSMType + ' ' + aPlace.osm_id + '</a>'
+  return '<a href="https://www.openstreetmap.org/' + sOSMType + '/' + aPlace.osm_id + '">' + sOSMType + ' ' + aPlace.osm_id + '</a>';
 }
 
 function formatLabel(aPlace) {
@@ -73,12 +73,12 @@ function detailsURL(aFeature) {
   if (aFeature.class) {
     sURL = sURL + '&class=' + encodeURIComponent(aFeature.class);
   } else if (aFeature.category) {
-    sURL = sURL + '&class=' +encodeURIComponent(aFeature.category);
+    sURL = sURL + '&class=' + encodeURIComponent(aFeature.category);
   }
   return sURL;
 }
 
-  /* en:London_Borough_of_Redbridge => https://en.wikipedia.org/wiki/London_Borough_of_Redbridge */
+/* en:London_Borough_of_Redbridge => https://en.wikipedia.org/wiki/London_Borough_of_Redbridge */
 function wikipediaLink(aPlace) {
   if (!aPlace.calculated_wikipedia) return '';
 
@@ -180,5 +180,4 @@ function zoomLevels() {
     /* 21 */ ''
   ];
   return aZoomLevels;
-
 }

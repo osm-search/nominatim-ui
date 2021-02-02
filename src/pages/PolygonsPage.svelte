@@ -6,7 +6,7 @@
   let aPolygons = [];
 
   function loaddata() {
-    fetch_from_api('polygons', {format: 'json'}, function(data){
+    fetch_from_api('polygons', { format: 'json' }, function (data) {
       aPolygons = data;
     });
     update_html_title('Broken polygons');

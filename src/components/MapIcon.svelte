@@ -1,14 +1,14 @@
 <script>
 
   export let aPlace;
-  import { get_config_value } from '../lib/config_reader.js'
+  import { get_config_value } from '../lib/config_reader.js';
 
-  let sIcon = getIcon(aPlace);
+  let sIcon = getIcon(aPlace.category, aPlace.type);
 
   let title = 'icon for ' + aPlace.category + ' ' + aPlace.type;
   let url = get_config_value('Images_Base_Url') + sIcon + '.p.20.png';
 
-  function getIcon(aPlace) {
+  function getIcon(category, type) {
     // equivalent to PHP Nominatim::ClassTypes::getIcon
     // covers 83 of 214 available icon filenames, e.g. transport_roundabout_anticlockwise
     // transport_rental_bicycle or place_of_worship_christian would need more data from
@@ -99,9 +99,7 @@
       'highway:bus_stop': 'transport_bus_stop2'
     };
 
-    var sCategoryPlace = aPlace.category + ':' + aPlace.type;
-
-    return aIcons[sCategoryPlace];
+    return aIcons[category + ':' + type];
   }
 
 </script>

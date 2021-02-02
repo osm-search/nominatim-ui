@@ -31,8 +31,8 @@
   }
 
   function set_viewbox(map) {
-    let set_viewbox = document.getElementById('use_viewbox');
-    if (set_viewbox && set_viewbox.checked) {
+    let use_viewbox = document.getElementById('use_viewbox');
+    if (use_viewbox && use_viewbox.checked) {
       sViewBox = map_viewbox_as_string(map);
     } else {
       sViewBox = '';
@@ -43,21 +43,22 @@
     let link = document.getElementById('switch-to-reverse');
     if (link) {
       let center_lat_lng = map.wrapLatLng(map.getCenter());
-      link.href = 'reverse.html?lat=' + center_lat_lng.lat.toFixed(5) + '&lon=' + center_lat_lng.lng.toFixed(5);
+      link.href = 'reverse.html?lat=' + center_lat_lng.lat.toFixed(5)
+                   + '&lon=' + center_lat_lng.lng.toFixed(5);
     }
   }
 
   map_store.subscribe(map => {
-    if(!map) { return; }
+    if (!map) { return; }
 
     map.on('move', function () {
       set_viewbox(map);
-      update_reverse_link(map) 
+      update_reverse_link(map);
     });
 
     map.on('load', function () {
       set_viewbox(map);
-      update_reverse_link(map) 
+      update_reverse_link(map);
     });
 
     map.on('click', function (e) {
@@ -71,7 +72,7 @@
 
   function reset_viewbox() {
     let map = get(map_store);
-    if (map) { set_viewbox(map) };
+    if (map) { set_viewbox(map); }
   }
 
   function set_bounded(e) {
@@ -83,8 +84,8 @@
     document.querySelector('input[name=dedupe]').value = e.target.checked ? 1 : '';
   }
 
-  function set_api_param(e){
-    document.querySelector('input[name=' + e.target.dataset['apiParam'] + ']').value = e.target.value;
+  function set_api_param(e) {
+    document.querySelector('input[name=' + e.target.dataset.apiParam + ']').value = e.target.value;
   }
 
   function handleSwitchCoords() {

@@ -42,9 +42,9 @@
     view_on_osm_link = map_link_to_osm(map);
     map_zoom = map.getZoom();
     map_viewbox = map_viewbox_as_string(map);
-    mouse_position = '-'
+    mouse_position = '-';
     if (mouse_lat_lng) {
-      mouse_position = [mouse_lat_lng.lat.toFixed(5), mouse_lat_lng.lng.toFixed(5)].join(',')
+      mouse_position = [mouse_lat_lng.lat.toFixed(5), mouse_lat_lng.lng.toFixed(5)].join(',');
     }
     if (last_click_latlng) {
       last_click = [last_click_latlng.lat.toFixed(5), last_click_latlng.lng.toFixed(5)].join(',');
@@ -53,7 +53,7 @@
 
 
   map_store.subscribe(map => {
-    if(!map) { return; }
+    if (!map) { return; }
 
     map.on('move', function () {
       display_map_position(map);
@@ -74,9 +74,9 @@
     });
   });
 
-  function handleHideClick(e) {
+  function handleHideClick() {
     document.getElementById('map-position').style.display = 'none';
-    document.getElementById('show-map-position').style.display = 'block';    
+    document.getElementById('show-map-position').style.display = 'block';
   }
 
 </script>

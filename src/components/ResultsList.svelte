@@ -5,7 +5,7 @@
   import Welcome from './Welcome.svelte';
   import MapIcon from './MapIcon.svelte';
 
-  export let reverse_search=false;
+  export let reverse_search = false;
 
   let aSearchResults;
   let iHighlightNum;
@@ -39,7 +39,7 @@
 
   function handleClick(e) {
     let result_el = e.target;
-    if (! result_el.className.match('result') ){
+    if (!result_el.className.match('result')) {
       result_el = result_el.parentElement;
     }
     let pos = Number(result_el.dataset.position);

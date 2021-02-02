@@ -3,7 +3,10 @@
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
   import { current_result_store } from '../lib/stores.js';
 
-  import { osmLink, detailsURL, wikipediaLink, coverageType, isAdminBoundary, formatAddressRank, formatKeywordToken } from '../lib/helpers.js';
+  import {
+    osmLink, detailsURL, wikipediaLink, coverageType, isAdminBoundary,
+    formatAddressRank, formatKeywordToken
+  } from '../lib/helpers.js';
   import MapIcon from '../components/MapIcon.svelte';
   import DetailsIndex from '../components/DetailsIndex.svelte';
   import DetailsOneRow from '../components/DetailsOneRow.svelte';
@@ -13,7 +16,6 @@
   let base_url = window.location.search;
 
   function loaddata() {
-
     var search_params = new URLSearchParams(window.location.search);
 
     var api_request_params = {
@@ -37,7 +39,7 @@
         update_html_title('Details for ' + api_request_params.osmtype + api_request_params.osmid);
       }
 
-      fetch_from_api('details', api_request_params, function(data){
+      fetch_from_api('details', api_request_params, function (data) {
         aPlace = data;
         current_result_store.set(data);
       });
@@ -252,7 +254,7 @@
       </div>
     </div>
   </div>
-{:else if (location.search === '')}
+{:else if (window.location.search === '')}
   <DetailsIndex/>
 {:else}
   No such place found.

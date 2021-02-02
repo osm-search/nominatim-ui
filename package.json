@@ -6,6 +6,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "lint": "node node_modules/.bin/eslint --quiet .*.js src/",
     "start": "static -c 0 -p 5000 dist"
   },
   "devDependencies": {
@@ -22,6 +23,10 @@
   "dependencies": {
     "bootstrap": "^4.6.0",
     "escape-html": "^1.0.3",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-svelte3": "^3.0.0",
     "jquery": "^3.5.1",
     "leaflet": "^1.7.1",
     "leaflet-minimap": "^3.6.1"
