@@ -94,7 +94,7 @@
           <a class="dropdown-item" href="https://github.com/osm-search/Nominatim">Nominatim on Github</a>
           <a class="dropdown-item" href="https://github.com/osm-search/nominatim-ui">This frontend on Github</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#report-modal">Report problem with results</a>
+          <a class="dropdown-item" href="#report-issue" data-toggle="modal" data-target="#report-modal">Report problem with results</a>
         </div>
       </div>
     </div>
