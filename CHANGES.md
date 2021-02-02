@@ -1,5 +1,11 @@
 # CHANGES
 
+* version 2.0.2 - 2021-02-02
+
+    * Reverse search: click on map triggers new search
+    * Report-issue modal from version 1 was missing
+    * Removed search-url-params polyfill. Svelte doesnt support MSIE11 either
+
 * version 2.0.1 - 2021-01-31
 
     * removed debug files from dist/build/ [PR47]
