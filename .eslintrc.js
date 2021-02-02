@@ -26,6 +26,7 @@ module.exports = {
         'vars-on-top': 'off',
         'new-cap': 'off', // constructor name can start lowercase (as Leaflet does)
         'no-multiple-empty-lines': 'off',
+        'no-use-before-define': ['error', { functions: false }],
         'padded-blocks': 'off',
         'no-param-reassign': 'off',
         'max-len': [
