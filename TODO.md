@@ -16,7 +16,6 @@
 
 ## Code cleanup
 
-* fix all a11y warnings during `yarn build`
 * move all bootstrap CSS overwrite rules into a bootstrap.theme.css file
 * move TODO list into github issues
 * aResults vs aPlace vs aFeature variable naming

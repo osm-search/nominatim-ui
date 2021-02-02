@@ -92,8 +92,9 @@
     <form class="form-inline" role="search" accept-charset="UTF-8" action="">
       <div class="form-group">
         <input name="format" type="hidden" value="html">
-        <label>lat</label>
-        <input name="lat"
+        <label for="reverse-lat">lat</label>
+        <input id="reverse-lat"
+               name="lat"
                type="text"
                class="form-control form-control-sm"
                placeholder="latitude"
@@ -102,14 +103,15 @@
            on:click|preventDefault|stopPropagation={handleSwitchCoords}
            class="btn btn-outline-secondary btn-sm"
            title="switch lat and lon">&lt;&gt;</a>
-        <label>lon</label>
-        <input name="lon"
+        <label for="reverse-lon">lon</label>
+        <input id="reverse-lon"
+               name="lon"
                type="text"
                class="form-control form-control-sm"
                placeholder="longitude"
                value="{api_request_params.lon || ''}" />
-        <label>max zoom</label>
-        <select name="zoom" class="form-control form-control-sm" value="{api_request_params.zoom}">
+        <label for="reverse-zoom">max zoom</label>
+        <select id="reverse-zoom" name="zoom" class="form-control form-control-sm" value="{api_request_params.zoom}">
           <option value="" selected={!api_request_params.zoom}>---</option>
           {#each zoomLevels() as zoomTitle, i}
             <option value="{i}" selected={i === api_request_params.zoom}>{i} - {zoomTitle}</option>

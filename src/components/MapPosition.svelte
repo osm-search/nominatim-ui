@@ -94,7 +94,7 @@
     <br>
     mouse position: {mouse_position}
   </div>
-  <div id="map-position-close"><a href="#" on:click={handleHideClick}>hide</a></div>
+  <div id="map-position-close"><a href="#hide" on:click={handleHideClick}>hide</a></div>
 </div>
 
 
