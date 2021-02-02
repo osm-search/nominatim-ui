@@ -58,6 +58,14 @@
       set_viewbox(map);
       update_reverse_link(map) 
     });
+
+    map.on('click', function (e) {
+      if (reverse_search) {
+        document.querySelector('input[name=lat]').value = e.latlng.lat.toFixed(5);
+        document.querySelector('input[name=lon]').value = e.latlng.wrap().lng.toFixed(5);
+        document.querySelector('form').submit();
+      }
+    });
   });
 
   function reset_viewbox() {
