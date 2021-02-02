@@ -254,7 +254,7 @@
       </div>
     </div>
   </div>
-{:else if (location.search === '')}
+{:else if (window.location.search === '')}
   <DetailsIndex/>
 {:else}
   No such place found.

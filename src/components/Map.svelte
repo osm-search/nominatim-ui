@@ -1,7 +1,7 @@
 
 <script>
   import * as L from 'leaflet';
-  import * as LMM from 'leaflet-minimap';
+  import 'leaflet-minimap';
   import 'leaflet/dist/leaflet.css';
   import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 

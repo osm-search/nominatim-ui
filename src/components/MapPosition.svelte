@@ -74,7 +74,7 @@
     });
   });
 
-  function handleHideClick(e) {
+  function handleHideClick() {
     document.getElementById('map-position').style.display = 'none';
     document.getElementById('show-map-position').style.display = 'block';
   }

@@ -3,7 +3,7 @@ import { refresh_page } from './lib/stores.js';
 
 let myhistory = [];
 
-const app = new App({
+const app = new App({ // eslint-disable-line no-unused-vars
   target: document.body
 });
 

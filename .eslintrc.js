@@ -17,7 +17,8 @@ module.exports = {
     {
       files: ['*'],
       globals: {
-        L: true // leaflet library
+        L: true, // leaflet library
+        Nominatim_Config: true
       },
       rules: {
         camelcase: 'off', // my_var is fine, no need for myVar

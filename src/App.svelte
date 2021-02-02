@@ -1,5 +1,4 @@
 <script>
-  import * as jquery from 'jquery';
   import 'bootstrap/dist/css/bootstrap.css';
   import 'bootstrap/dist/js/bootstrap.bundle.js';
 
