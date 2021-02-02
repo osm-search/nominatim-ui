@@ -15,9 +15,7 @@
 
   $: view = $page.tab;
 
-  $: console.log('siwtch-->', view);
-
-  refresh_page()
+  refresh_page();
 </script>
 
 <Header/>

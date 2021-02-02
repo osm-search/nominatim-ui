@@ -10,7 +10,7 @@ export const page = writable({count: 0});
 export function refresh_page() {
     let pagename = window.location.pathname.replace('.html', '').replace(/^.*\//, '');
 
-    if (['search', 'reverse', 'details', 'deletable', 'polygons'].indexOf(pagename) === '-1') {
+    if (['search', 'reverse', 'details', 'deletable', 'polygons'].indexOf(pagename) == -1) {
       pagename = 'search';
     }
 
