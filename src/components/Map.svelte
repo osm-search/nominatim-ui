@@ -6,7 +6,7 @@
   import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 
   import { get } from 'svelte/store';
-  import { get_config_value } from '../lib/config_reader.js'
+  import { get_config_value } from '../lib/config_reader.js';
   import { map_store, current_result_store, current_request_latlon } from '../lib/stores.js';
   import MapPosition from '../components/MapPosition.svelte';
 
@@ -42,7 +42,7 @@
 
     const MapPositionControl = L.Control.extend({
       options: { position: 'topright' },
-      onAdd: () => { return document.getElementById('show-map-position') }
+      onAdd: () => { return document.getElementById('show-map-position'); }
     });
     map.addControl(new MapPositionControl());
 
@@ -55,7 +55,7 @@
     setMapData(get(current_result_store));
 
     return {
-      destroy: () => { map.remove() }
+      destroy: () => { map.remove(); }
     };
   }
 
@@ -79,9 +79,9 @@
     let map = get(map_store);
     if (!map) { return; }
 
-    dataLayers.forEach(function(layer) {
+    dataLayers.forEach(function (layer) {
       map.removeLayer(layer);
-    })
+    });
   }
 
   function setMapData(aFeature) {
@@ -160,7 +160,7 @@
   }
 
   current_result_store.subscribe(aFeature => {
-    setMapData(aFeature);  
+    setMapData(aFeature);
   });
 
 

@@ -3,9 +3,11 @@
   export let addressLine;
   export let bDistanceInMeters;
 
-  $: bAddressLineUsed = addressLine.isaddress
+  $: bAddressLineUsed = addressLine.isaddress;
 
-  import { formatPlaceType, osmLink, formatAdminLevel, formatDistance, detailsURL } from '../lib/helpers.js';
+  import {
+    formatPlaceType, osmLink, formatAdminLevel, formatDistance, detailsURL
+  } from '../lib/helpers.js';
 
 </script>
 

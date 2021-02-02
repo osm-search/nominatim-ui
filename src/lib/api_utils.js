@@ -16,7 +16,7 @@ export async function fetch_from_api(endpoint_name, params, callback) {
     });
 
 
-  fetch(generate_nominatim_api_url('status', {format: 'json'}))
+  fetch(generate_nominatim_api_url('status', { format: 'json' }))
     .then(response => response.json())
     .then(data => {
       let last_updated = {
@@ -24,14 +24,14 @@ export async function fetch_from_api(endpoint_name, params, callback) {
         api_request_url_debug: api_url + '&debug=1',
         date: data.data_updated
       };
-      last_updated_store.set(last_updated)
+      last_updated_store.set(last_updated);
     });
 }
 
 function generate_nominatim_api_url(endpoint_name, params) {
   return get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?'
-         + Object.keys(clean_up_parameters(params)).map( (k) => {
-           return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
+         + Object.keys(clean_up_parameters(params)).map((k) => {
+           return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
          }).join('&');
 }
 
@@ -44,7 +44,7 @@ function generate_nominatim_api_url(endpoint_name, params) {
 export function serialize_form(form) {
   var arr = [];
   Array.prototype.slice.call(form.elements).forEach(function (field) {
-    if (!field.name || field.disabled || ['file', 'reset', 'submit', 'button'].indexOf(field.type) > -1) return;
+    if (!field.name || field.disabled || ['submit', 'button'].indexOf(field.type) > -1) return;
     // if (field.type === 'select-multiple') {
     //   Array.prototype.slice.call(field.options).forEach(function (option) {
     //     if (!option.selected) return;
@@ -52,12 +52,12 @@ export function serialize_form(form) {
     //   });
     //   return;
     // }
-    if (['checkbox', 'radio'].indexOf(field.type) >-1 && !field.checked) return;
-    if (typeof(field.value) === 'undefined') return;
+    if (['checkbox', 'radio'].indexOf(field.type) > -1 && !field.checked) return;
+    if (typeof field.value === 'undefined') return;
     arr.push(encodeURIComponent(field.name) + '=' + encodeURIComponent(field.value));
   });
   return arr.join('&');
-};
+}
 
 
 // remove any URL paramters with empty values
@@ -88,7 +88,7 @@ function clean_up_parameters(params) {
 
 export function update_html_title(title) {
   document.title = [title, 'OpenStreetMap Nominatim']
-                     .filter( (val) => val && val.length > 1 )
-                     .join(' | ');
+    .filter((val) => val && val.length > 1)
+    .join(' | ');
 }
 

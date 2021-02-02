@@ -1,7 +1,7 @@
 <script>
 
   export let aPlace;
-  import { get_config_value } from '../lib/config_reader.js'
+  import { get_config_value } from '../lib/config_reader.js';
 
   let sIcon = getIcon(aPlace);
 
