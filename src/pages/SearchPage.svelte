@@ -69,14 +69,14 @@
         format: 'jsonv2'
       };
 
-      let bStructuredSearch = (api_request_params.street
-                               || api_request_params.city
-                               || api_request_params.county
-                               || api_request_params.state
-                               || api_request_params.country
-                               || api_request_params.postalcode);
+      let anyStructuredFieldsSet = (api_request_params.street
+                                  || api_request_params.city
+                                  || api_request_params.county
+                                  || api_request_params.state
+                                  || api_request_params.country
+                                  || api_request_params.postalcode);
 
-      if (api_request_params.q || bStructuredSearch) {
+      if (api_request_params.q || anyStructuredFieldsSet) {
         fetch_from_api('search', api_request_params, function (data) {
           results_store.set(data);
 

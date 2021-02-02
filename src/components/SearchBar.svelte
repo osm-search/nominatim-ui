@@ -31,8 +31,8 @@
   }
 
   function set_viewbox(map) {
-    let set_viewbox = document.getElementById('use_viewbox');
-    if (set_viewbox && set_viewbox.checked) {
+    let use_viewbox = document.getElementById('use_viewbox');
+    if (use_viewbox && use_viewbox.checked) {
       sViewBox = map_viewbox_as_string(map);
     } else {
       sViewBox = '';
@@ -85,7 +85,7 @@
   }
 
   function set_api_param(e) {
-    document.querySelector('input[name=' + e.target.dataset['apiParam'] + ']').value = e.target.value;
+    document.querySelector('input[name=' + e.target.dataset.apiParam + ']').value = e.target.value;
   }
 
   function handleSwitchCoords() {
