@@ -7,7 +7,7 @@
   import { get_config_value } from '../lib/config_reader.js';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
 
-  import SearchBar from '../components/SearchBar.svelte';
+  import ReverseBar from '../components/ReverseBar.svelte';
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
@@ -52,7 +52,7 @@
   onDestroy(() => { page_subscription(); });
 </script>
 
-<SearchBar reverse_search={true} api_request_params={api_request_params} bStructuredSearch={bStructuredSearch} />
+<ReverseBar api_request_params={api_request_params} />
 
 <div id="content">
   <div class="sidebar">

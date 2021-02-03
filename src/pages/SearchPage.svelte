@@ -62,7 +62,7 @@
   onDestroy(() => { page_subscription(); });
 </script>
 
-<SearchBar reverse_search={false} api_request_params={api_request_params} bStructuredSearch={bStructuredSearch} />
+<SearchBar api_request_params={api_request_params} bStructuredSearch={bStructuredSearch} />
 
 <div id="content">
   <div class="sidebar">
