@@ -11,8 +11,6 @@
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
-  export let reverse_search = false;
-
   let api_request_params;
   let bStructuredSearch;
 
@@ -21,70 +19,41 @@
 
     update_html_title();
 
-    if (reverse_search) {
-      api_request_params = {
-        lat: search_params.get('lat'),
-        lon: search_params.get('lon'),
-        zoom: (search_params.get('zoom') > 1
-          ? Number(search_params.get('zoom'))
-          : Number(get_config_value('Reverse_Default_Search_Zoom'))),
-        format: 'jsonv2'
-      };
+    api_request_params = {
+      q: search_params.get('q'),
+      street: search_params.get('street'),
+      city: search_params.get('city'),
+      county: search_params.get('county'),
+      state: search_params.get('state'),
+      country: search_params.get('country'),
+      postalcode: search_params.get('postalcode'),
+      polygon_geojson: get_config_value('Search_AreaPolygons', false) ? 1 : 0,
+      viewbox: search_params.get('viewbox'),
+      bounded: search_params.get('bounded'),
+      dedupe: search_params.get('dedupe'),
+      'accept-language': search_params.get('accept-language'),
+      countrycodes: search_params.get('countrycodes'),
+      limit: search_params.get('limit'),
+      polygon_threshold: search_params.get('polygon_threshold'),
+      exclude_place_ids: search_params.get('exclude_place_ids'),
+      format: 'jsonv2'
+    };
 
-      if (api_request_params.lat || api_request_params.lat) {
+    let anyStructuredFieldsSet = (api_request_params.street
+                                || api_request_params.city
+                                || api_request_params.county
+                                || api_request_params.state
+                                || api_request_params.country
+                                || api_request_params.postalcode);
 
-        fetch_from_api('reverse', api_request_params, function (data) {
-          if (data && !data.error) {
-            current_request_latlon.set([api_request_params.lat, api_request_params.lon]);
-            results_store.set([data]);
-          } else {
-            results_store.set([]);
-          }
+    if (api_request_params.q || anyStructuredFieldsSet) {
+      fetch_from_api('search', api_request_params, function (data) {
+        results_store.set(data);
 
-          update_html_title('Reverse result for '
-                              + api_request_params.lat
-                              + ','
-                              + api_request_params.lon);
-          document.querySelector('input[name=lat]').focus();
-        });
-      }
-    } else {
-      api_request_params = {
-        q: search_params.get('q'),
-        street: search_params.get('street'),
-        city: search_params.get('city'),
-        county: search_params.get('county'),
-        state: search_params.get('state'),
-        country: search_params.get('country'),
-        postalcode: search_params.get('postalcode'),
-        polygon_geojson: get_config_value('Search_AreaPolygons', false) ? 1 : 0,
-        viewbox: search_params.get('viewbox'),
-        bounded: search_params.get('bounded'),
-        dedupe: search_params.get('dedupe'),
-        'accept-language': search_params.get('accept-language'),
-        countrycodes: search_params.get('countrycodes'),
-        limit: search_params.get('limit'),
-        polygon_threshold: search_params.get('polygon_threshold'),
-        exclude_place_ids: search_params.get('exclude_place_ids'),
-        format: 'jsonv2'
-      };
+        update_html_title('Result for ' + api_request_params.q);
 
-      let anyStructuredFieldsSet = (api_request_params.street
-                                  || api_request_params.city
-                                  || api_request_params.county
-                                  || api_request_params.state
-                                  || api_request_params.country
-                                  || api_request_params.postalcode);
-
-      if (api_request_params.q || anyStructuredFieldsSet) {
-        fetch_from_api('search', api_request_params, function (data) {
-          results_store.set(data);
-
-          update_html_title('Result for ' + api_request_params.q);
-
-          document.querySelector('input[name=q]').focus();
-        });
-      }
+        document.querySelector('input[name=q]').focus();
+      });
     }
   }
 
@@ -93,11 +62,11 @@
   onDestroy(() => { page_subscription(); });
 </script>
 
-<SearchBar reverse_search={reverse_search} api_request_params={api_request_params} bStructuredSearch={bStructuredSearch} />
+<SearchBar reverse_search={false} api_request_params={api_request_params} bStructuredSearch={bStructuredSearch} />
 
 <div id="content">
   <div class="sidebar">
-    <ResultsList reverse_search={reverse_search} />
+    <ResultsList reverse_search={false} />
   </div>
   <div id="map-wrapper">
     <Map display_minimap={true} />

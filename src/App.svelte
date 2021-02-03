@@ -8,6 +8,7 @@
   import Footer from './components/Footer.svelte';
   import ReportIssueModal from './components/ReportIssueModal.svelte';
   import SearchPage from './pages/SearchPage.svelte';
+  import ReversePage from './pages/ReversePage.svelte';
   import DetailsPage from './pages/DetailsPage.svelte';
   import PolygonsPage from './pages/PolygonsPage.svelte';
   import DeletablePage from './pages/DeletablePage.svelte';
@@ -19,9 +20,9 @@
 
 <Header/>
 {#if view === 'search'}
-<SearchPage reverse_search={false} />
+<SearchPage />
 {:else if view === 'reverse'}
-<SearchPage reverse_search={true}/>
+<ReversePage />
 {:else if view === 'details'}
 <DetailsPage />
 {:else if view === 'deletable'}
