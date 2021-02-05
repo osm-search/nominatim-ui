@@ -41,8 +41,3 @@ document.addEventListener('click', function (e) {
     }
   }
 });
-
-// deal with back-button and other user action
-window.onpopstate = function () {
-  refresh_page();
-};
