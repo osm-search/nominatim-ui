@@ -1,12 +1,10 @@
 <script>
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
 
-  import { zoomLevels } from '../lib/helpers.js';
   import { map_store } from '../lib/stores.js';
   import { get } from 'svelte/store';
 
   export let bStructuredSearch = false;
-  export let reverse_search = false;
   export let api_request_params = {};
   let sViewBox;
 
@@ -60,14 +58,6 @@
       set_viewbox(map);
       update_reverse_link(map);
     });
-
-    map.on('click', function (e) {
-      if (reverse_search) {
-        document.querySelector('input[name=lat]').value = e.latlng.lat.toFixed(5);
-        document.querySelector('input[name=lon]').value = e.latlng.wrap().lng.toFixed(5);
-        document.querySelector('form').submit();
-      }
-    });
   });
 
   function reset_viewbox() {
@@ -87,161 +77,109 @@
   function set_api_param(e) {
     document.querySelector('input[name=' + e.target.dataset.apiParam + ']').value = e.target.value;
   }
-
-  function handleSwitchCoords() {
-    let lat = document.querySelector('input[name=lat]').value;
-    let lon = document.querySelector('input[name=lon]').value;
-    document.querySelector('input[name=lat]').value = lon;
-    document.querySelector('input[name=lon]').value = lat;
-    document.querySelector('form').submit();
-  }
 </script>
 
-{#if reverse_search}
-  <div class="top-bar">
-    <UrlSubmitForm>
-      <div class="form-group">
-        <input name="format" type="hidden" value="html">
-        <label for="reverse-lat">lat</label>
-        <input id="reverse-lat"
-               name="lat"
+<div class="top-bar">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" class:active={!bStructuredSearch} data-toggle="tab" href="#simple">simple</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" class:active={bStructuredSearch} data-toggle="tab" href="#structured">structured</a>
+    </li>
+    <div class="search-type-link">
+      <a href="details.html" class="mr-2">search by id</a>
+      <a id="switch-to-reverse" href="reverse.html">reverse search</a>
+    </div>
+  </ul>
+  <div class="tab-content p-2">
+    <div class="tab-pane" class:active={!bStructuredSearch} id="simple" role="tabpanel">
+      <UrlSubmitForm>
+        <input id="q"
+               name="q"
                type="text"
                class="form-control form-control-sm"
-               placeholder="latitude"
-               value="{api_request_params.lat || ''}" />
-        <a id="switch-coords"
-           on:click|preventDefault|stopPropagation={handleSwitchCoords}
-           class="btn btn-outline-secondary btn-sm"
-           title="switch lat and lon">&lt;&gt;</a>
-        <label for="reverse-lon">lon</label>
-        <input id="reverse-lon"
-               name="lon"
-               type="text"
-               class="form-control form-control-sm"
-               placeholder="longitude"
-               value="{api_request_params.lon || ''}" />
-        <label for="reverse-zoom">max zoom</label>
-        <select id="reverse-zoom" name="zoom" class="form-control form-control-sm" value="{api_request_params.zoom}">
-          <option value="" selected={!api_request_params.zoom}>---</option>
-          {#each zoomLevels() as zoomTitle, i}
-            <option value="{i}" selected={i === api_request_params.zoom}>{i} - {zoomTitle}</option>
-          {/each}
-        </select>
-        <button type="submit" class="btn btn-primary btn-sm mx-1">
-          Search
-        </button>
-      </div>
-      <div class="search-type-link">
-        <a href="details.html" class="mr-2">search by id</a>
-        <a href="search.html">forward search</a>
-      </div>
-    </UrlSubmitForm>
-  </div>
+               placeholder="Search"
+               value="{api_request_params.q || ''}" />
 
-{:else}
+        <div class="form-group search-button-group">
+          <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
+          <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
+          <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
+          <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
+          <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
+          <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}" />
+          <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
+          <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+        </div>
+      </UrlSubmitForm>
+    </div>
+    <div class="tab-pane" class:active={bStructuredSearch} id="structured" role="tabpanel">
+      <UrlSubmitForm>
+        <input name="street" type="text" class="form-control form-control-sm mr-1"
+               placeholder="House number/Street"
+               value="{api_request_params.street || ''}" />
+        <input name="city" type="text" class="form-control form-control-sm mr-1"
+               placeholder="City"
+               value="{api_request_params.city || ''}" />
+        <input id="county" name="county" type="text" class="form-control form-control-sm mr-1"
+               placeholder="County"
+               value="{api_request_params.county || ''}" />
+        <input name="state" type="text" class="form-control form-control-sm mr-1"
+               placeholder="State"
+               value="{api_request_params.state || ''}" />
+        <input name="country" type="text" class="form-control form-control-sm mr-1"
+               placeholder="Country"
+               value="{api_request_params.country || ''}" />
+        <input name="postalcode" type="text" class="form-control form-control-sm mr-1"
+               placeholder="Postal Code"
+               value="{api_request_params.postalcode || ''}" />
 
-  <div class="top-bar">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link" class:active={!bStructuredSearch} data-toggle="tab" href="#simple">simple</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" class:active={bStructuredSearch} data-toggle="tab" href="#structured">structured</a>
-      </li>
-      <div class="search-type-link">
-        <a href="details.html" class="mr-2">search by id</a>
-        <a id="switch-to-reverse" href="reverse.html">reverse search</a>
-      </div>
-    </ul>
-    <div class="tab-content p-2">
-      <div class="tab-pane" class:active={!bStructuredSearch} id="simple" role="tabpanel">
-        <UrlSubmitForm>
-          <input id="q"
-                 name="q"
-                 type="text"
-                 class="form-control form-control-sm"
-                 placeholder="Search"
-                 value="{api_request_params.q || ''}" />
-
-          <div class="form-group search-button-group">
-            <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
-            <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
-            <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
-            <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
-            <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
-            <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}" />
-            <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
-            <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+        <div class="form-group search-button-group">
+          <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
+          <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
+          <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
+          <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
+          <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
+          <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}" />
+          <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
+          <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+        </div>
+      </UrlSubmitForm>
+    </div>
+    <!-- Additional options -->
+    <a href="#advanced" class="btn btn-outline-secondary btn-sm" data-toggle="collapse" data-target="#searchAdvancedOptions" role="button" aria-expanded="false" aria-controls="collapseAdvancedOptions">
+      Advanced options
+    </a>
+    <div class="collapse" id="searchAdvancedOptions">
+      <div id="searchAdvancedOptionsContent">
+          <div class="form-check form-check-inline">
+            <span><input type="checkbox" class="form-check-input api-param-setting"
+                   id="use_viewbox" checked={api_request_params.viewbox} on:change={reset_viewbox}>
+            <label class="form-check-label" for="use_viewbox">apply viewbox</label></span>
+            <span><input type="checkbox" class="form-check-input api-param-setting"
+                   id="option_bounded" checked={!!api_request_params.bounded} on:change={set_bounded}>
+            <label class="form-check-label" for="option_bounded">bounded to viewbox</label></span>
+            <span><input type="checkbox" class="form-check-input api-param-setting"
+                   id="option_dedupe" checked={!!api_request_params.dedupe} on:change={set_dedupe}>
+            <label class="form-check-label" for="option_dedupe">deduplicate results</label></span>
           </div>
-        </UrlSubmitForm>
-      </div>
-      <div class="tab-pane" class:active={bStructuredSearch} id="structured" role="tabpanel">
-        <UrlSubmitForm>
-          <input name="street" type="text" class="form-control form-control-sm mr-1"
-                 placeholder="House number/Street"
-                 value="{api_request_params.street || ''}" />
-          <input name="city" type="text" class="form-control form-control-sm mr-1"
-                 placeholder="City"
-                 value="{api_request_params.city || ''}" />
-          <input id="county" name="county" type="text" class="form-control form-control-sm mr-1"
-                 placeholder="County"
-                 value="{api_request_params.county || ''}" />
-          <input name="state" type="text" class="form-control form-control-sm mr-1"
-                 placeholder="State"
-                 value="{api_request_params.state || ''}" />
-          <input name="country" type="text" class="form-control form-control-sm mr-1"
-                 placeholder="Country"
-                 value="{api_request_params.country || ''}" />
-          <input name="postalcode" type="text" class="form-control form-control-sm mr-1"
-                 placeholder="Postal Code"
-                 value="{api_request_params.postalcode || ''}" />
-
-          <div class="form-group search-button-group">
-            <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
-            <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
-            <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
-            <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
-            <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
-            <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}" />
-            <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
-            <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+          <div class="form-check form-check-inline">
+            <span><label class="form-check-label" for="option_limit">Maximum number of results: </label>
+            <input type="number" class="form-check-input api-param-setting" data-api-param="limit" id="option_limit" size="5" min="1" max="50" value="{api_request_params.limit || ''}" on:change={set_api_param}></span>
+            <span><label class="form-check-label" for="option_polygon_threashold">Polygon simplification: </label>
+            <input type="number" class="form-check-input api-param-setting" data-api-param="polygon_threshold" id="option_polygon_threshold" size="5" min="0.0" step="0.01" value="{api_request_params.polygon_threshold || ''}" on:change={set_api_param}></span>
           </div>
-        </UrlSubmitForm>
-      </div>
-      <!-- Additional options -->
-      <a href="#advanced" class="btn btn-outline-secondary btn-sm" data-toggle="collapse" data-target="#searchAdvancedOptions" role="button" aria-expanded="false" aria-controls="collapseAdvancedOptions">
-        Advanced options
-      </a>
-      <div class="collapse" id="searchAdvancedOptions">
-        <div id="searchAdvancedOptionsContent">
-            <div class="form-check form-check-inline">
-              <span><input type="checkbox" class="form-check-input api-param-setting"
-                     id="use_viewbox" checked={api_request_params.viewbox} on:change={reset_viewbox}>
-              <label class="form-check-label" for="use_viewbox">apply viewbox</label></span>
-              <span><input type="checkbox" class="form-check-input api-param-setting"
-                     id="option_bounded" checked={!!api_request_params.bounded} on:change={set_bounded}>
-              <label class="form-check-label" for="option_bounded">bounded to viewbox</label></span>
-              <span><input type="checkbox" class="form-check-input api-param-setting"
-                     id="option_dedupe" checked={!!api_request_params.dedupe} on:change={set_dedupe}>
-              <label class="form-check-label" for="option_dedupe">deduplicate results</label></span>
-            </div>
-            <div class="form-check form-check-inline">
-              <span><label class="form-check-label" for="option_limit">Maximum number of results: </label>
-              <input type="number" class="form-check-input api-param-setting" data-api-param="limit" id="option_limit" size="5" min="1" max="50" value="{api_request_params.limit || ''}" on:change={set_api_param}></span>
-              <span><label class="form-check-label" for="option_polygon_threashold">Polygon simplification: </label>
-              <input type="number" class="form-check-input api-param-setting" data-api-param="polygon_threshold" id="option_polygon_threshold" size="5" min="0.0" step="0.01" value="{api_request_params.polygon_threshold || ''}" on:change={set_api_param}></span>
-            </div>
-            <div class="form-check form-check-inline">
-              <span><label class="form-check-label" for="accept_lang">Languages: </label>
-              <input type="text" placeholder="e.g. en,zh-Hant" class="form-check-input api-param-setting" data-api-param="accept-language" id="accept_lang" size="15" value="{api_request_params['accept-language'] || ''}" on:change={set_api_param}></span>
-              <span><label class="form-check-label" for="option_ccode">Countries: </label>
-              <input type="text" placeholder="e.g. de,gb" class="form-check-input api-param-setting" data-api-param="countrycodes" id="option_ccode" size="15" value="{api_request_params.countrycodes || ''}" on:change={set_api_param}></span>
-            </div>
-         </div>
-      </div>
-    </div> <!-- /tab-content -->
-  </div> <!-- /top-bar -->
-{/if}
+          <div class="form-check form-check-inline">
+            <span><label class="form-check-label" for="accept_lang">Languages: </label>
+            <input type="text" placeholder="e.g. en,zh-Hant" class="form-check-input api-param-setting" data-api-param="accept-language" id="accept_lang" size="15" value="{api_request_params['accept-language'] || ''}" on:change={set_api_param}></span>
+            <span><label class="form-check-label" for="option_ccode">Countries: </label>
+            <input type="text" placeholder="e.g. de,gb" class="form-check-input api-param-setting" data-api-param="countrycodes" id="option_ccode" size="15" value="{api_request_params.countrycodes || ''}" on:change={set_api_param}></span>
+          </div>
+       </div>
+    </div>
+  </div> <!-- /tab-content -->
+</div> <!-- /top-bar -->
 
 <style>
   .top-bar {
@@ -295,17 +233,6 @@
     position: absolute;
     right: 0
   }
-
-  #switch-coords {
-    font-size: 0.6rem;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 2px;
-    margin: 5px;
-  } 
-
-
-
 
   @media (max-width: 768px) {
     .search-button-group {
