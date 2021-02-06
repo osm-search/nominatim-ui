@@ -18,7 +18,7 @@
   refresh_page();
 </script>
 
-// deal with back-button and other user action
+<!-- deal with back-button and other user action -->
 <svelte:window on:popstate={refresh_page} />
 
 <Header/>
