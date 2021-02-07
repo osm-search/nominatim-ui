@@ -1,15 +1,7 @@
 <script>
-
-  import { last_updated_store } from '../lib/stores.js';
-
-  let last_updated;
-
-  last_updated_store.subscribe(data => {
-    if (!data) { return; }
-    last_updated = data;
-  });
-
+  import LastUpdated from './LastUpdated.svelte';
 </script>
+
 <style>
   header {
     width: 100%;
@@ -17,46 +9,28 @@
     z-index: 5;
   }
 
-  header .brand {
+  .brand {
     white-space: nowrap;
   }
 
-  header .brand a:hover{
+  .brand a:hover{
     text-decoration: none;
   }
 
-  header .brand h1 {
+  .brand h1 {
     display: inline;
     font-size: 1.5em;
     color: #333;
   }
 
-  header .brand img {
+  .brand img {
     display: inline-block;
     margin-right: 5px;
     margin-top: -5px;
   }
 
-  header #last-updated {
-    font-size: 0.7em;
-    white-space: nowrap;
-    text-align: center;
-/*    display: none;
-*/  }
-
-  header .dropdown-menu {
+  .dropdown-menu {
     z-index: 1005;
-  }
-
-  #loading {
-    display: none;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    background-color: #eee;
-    z-index: 100;
-    padding: 10px;
-    text-align: center;
   }
 </style>
 
@@ -71,16 +45,7 @@
       </div>
     </div>
     <div class="col-4">
-      <div id="last-updated" class="text-center">
-        <div id="loading">loading...</div>
-        {#if last_updated}
-          <div id="api-request">
-            Data from <a href="{last_updated.api_request_url}">API request</a>
-            <span id="api-request-debug">(<a href="{last_updated.api_request_url_debug}">debug output</a>)</span>
-          </div>
-          Data last updated: <span id="data-date">{last_updated.date}</span>
-        {/if}
-      </div>
+      <LastUpdated/>
     </div>
     <div class="col-4 text-right">
       <div class="dropdown">
