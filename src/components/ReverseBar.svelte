@@ -3,7 +3,6 @@
 
   import { zoomLevels } from '../lib/helpers.js';
   import { map_store } from '../lib/stores.js';
-  import { get } from 'svelte/store';
 
   export let api_request_params = {};
 

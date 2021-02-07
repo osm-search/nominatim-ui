@@ -1,9 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
 
-  import {
-    page, results_store, current_request_latlon
-  } from '../lib/stores.js';
+  import { page, results_store } from '../lib/stores.js';
   import { get_config_value } from '../lib/config_reader.js';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
 
