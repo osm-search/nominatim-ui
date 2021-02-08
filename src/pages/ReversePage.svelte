@@ -12,7 +12,6 @@
   import Map from '../components/Map.svelte';
 
   let api_request_params;
-  let bStructuredSearch;
 
   function loaddata() {
     let search_params = new URLSearchParams(window.location.search);
