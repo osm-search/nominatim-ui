@@ -13,6 +13,7 @@
   import Map from '../components/Map.svelte';
 
   let aPlace;
+  let errorResponse;
   let base_url = window.location.search;
 
   function loaddata() {
@@ -40,8 +41,14 @@
       }
 
       fetch_from_api('details', api_request_params, function (data) {
-        aPlace = data;
-        current_result_store.set(data);
+        if (data.error) {
+          errorResponse = data;
+          current_result_store.set(undefined);
+        } else {
+          aPlace = data;
+          errorResponse = undefined;
+          current_result_store.set(data);
+        }
       });
     } else {
       aPlace = undefined;
@@ -51,6 +58,9 @@
 
 </script>
 
+{#if errorResponse}
+  {errorResponse.error.message}
+{/if}
 {#if aPlace}
   <div class="container">
     <div class="row">
