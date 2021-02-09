@@ -7,7 +7,7 @@ const app = new App({ // eslint-disable-line no-unused-vars
   target: document.body
 });
 
-
+/*
 function is_relative_url(url) {
   if (!url) return false;
   if (url.indexOf('?') === 0) return true;
@@ -42,3 +42,4 @@ document.addEventListener('click', function (e) {
     }
   }
 });
+*/

@@ -1,4 +1,5 @@
 <script>
+  import DetailsLink from '../components/DetailsLink.svelte';
 
   export let addressLine;
   export let bDistanceInMeters;
@@ -6,7 +7,7 @@
   $: bAddressLineUsed = addressLine.isaddress;
 
   import {
-    formatPlaceType, osmLink, formatAdminLevel, formatDistance, detailsURL
+    formatPlaceType, osmLink, formatAdminLevel, formatDistance
   } from '../lib/helpers.js';
 
 </script>
@@ -24,7 +25,7 @@
   <td>{addressLine.rank_address}</td>
   <td>{formatAdminLevel(addressLine.admin_level)}</td>
   <td>{@html formatDistance(addressLine.distance, bDistanceInMeters)}</td>
-  <td>{#if addressLine.osm_id}<a href="{detailsURL(addressLine)}">details</a>{/if}</td>
+  <td>{#if addressLine.osm_id}<DetailsLink feature={addressLine}>details</DetailsLink>{/if}</td>
 </tr>
 
 <style>

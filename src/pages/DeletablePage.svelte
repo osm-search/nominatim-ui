@@ -1,7 +1,9 @@
 <script>
   import { onMount } from 'svelte';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
-  import { detailsURL, osmLink } from '../lib/helpers.js';
+  import { osmLink } from '../lib/helpers.js';
+
+  import DetailsLink from '../components/DetailsLink.svelte';
 
   let aPolygons = [];
 
@@ -36,7 +38,7 @@
         <tbody>
           {#each aPolygons as polygon}
           <tr>
-            <td><a href="{detailsURL(polygon)}">{polygon.place_id}</a></td>
+            <td><DetailsLink feature={polygon}>{polygon.place_id}</DetailsLink></td>
             <td>{polygon.country_code}</td>
             <td>{polygon.name}</td>
             <td>{@html osmLink(polygon)}</td>

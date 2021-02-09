@@ -1,14 +1,16 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
+  import { page } from '../lib/stores.js';
 
   import {
-    osmLink, detailsURL, wikipediaLink, coverageType, isAdminBoundary,
+    osmLink, wikipediaLink, coverageType, isAdminBoundary,
     formatAddressRank, formatKeywordToken
   } from '../lib/helpers.js';
   import MapIcon from '../components/MapIcon.svelte';
   import DetailsIndex from '../components/DetailsIndex.svelte';
   import DetailsOneRow from '../components/DetailsOneRow.svelte';
+  import DetailsLink from '../components/DetailsLink.svelte';
   import Map from '../components/Map.svelte';
 
   let aPlace;
@@ -54,7 +56,10 @@
       aPlace = undefined;
     }
   }
-  onMount(loaddata);
+
+  let page_subscription;
+  onMount(() => { page_subscription = page.subscribe(loaddata); });
+  onDestroy(() => { page_subscription(); });
 
 </script>
 
@@ -67,7 +72,7 @@
       <div class="col-sm-10">
         <h1>
           {aPlace.localname}
-          <small><a href="{detailsURL(aPlace)}">link to this page</a></small>
+          <small><DetailsLink feature={aPlace}>link to this page</DetailsLink></small>
         </h1>
       </div>
       <div class="col-sm-2 text-right">
@@ -278,7 +283,7 @@
     padding-left: 8px;
   }
 
-  h1 small a {
+  h1 small :global(a) {
     font-size: 0.5em;
     white-space: nowrap;
   }

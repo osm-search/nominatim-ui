@@ -1,5 +1,6 @@
 <script>
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
+  import DetailsLink from '../components/DetailsLink.svelte';
 
   import { map_store } from '../lib/stores.js';
   import { get } from 'svelte/store';
@@ -88,7 +89,7 @@
       <a class="nav-link" class:active={bStructuredSearch} data-toggle="tab" href="#structured">structured</a>
     </li>
     <div class="search-type-link">
-      <a href="details.html" class="mr-2">search by id</a>
+      <DetailsLink extra_classes="mr-2">search by id</DetailsLink>
       <a id="switch-to-reverse" href="reverse.html">reverse search</a>
     </div>
   </ul>
