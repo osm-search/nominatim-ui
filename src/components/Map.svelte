@@ -55,7 +55,7 @@
     setMapData(get(current_result_store));
 
     return {
-      destroy: () => { map.remove(); }
+      destroy: () => { map.remove(); map_store.set(undefined); }
     };
   }
 
