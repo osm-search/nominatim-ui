@@ -25,9 +25,10 @@ document.addEventListener('click', function (e) {
 
   // loop parent nodes from the target to the delegation node
   for (var target = e.target; target && target !== this; target = target.parentNode) {
-    if (target.matches('a')) {
 
-      var target_url = target.href;
+    if (target.matches('a') && target.href) {
+      // target.href always contains the full absolute URL, inspect the raw value instead
+      var target_url = target.attributes.href.value;
 
       if (!is_relative_url(target_url)) return;
 
