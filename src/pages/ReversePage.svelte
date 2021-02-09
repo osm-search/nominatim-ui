@@ -12,6 +12,7 @@
   import Map from '../components/Map.svelte';
 
   let api_request_params;
+  let current_result;
 
   function loaddata() {
     let search_params = new URLSearchParams(window.location.search);
@@ -55,10 +56,10 @@
 
 <div id="content">
   <div class="sidebar">
-    <ResultsList reverse_search={true} />
+    <ResultsList bind:current_result reverse_search={true} />
   </div>
   <div id="map-wrapper">
-    <Map display_minimap={true} />
+    <Map {current_result} display_minimap={true} />
   </div>
 </div>
 

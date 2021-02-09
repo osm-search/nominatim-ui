@@ -1,7 +1,6 @@
 <script>
   import { onMount } from 'svelte';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
-  import { current_result_store } from '../lib/stores.js';
 
   import {
     osmLink, detailsURL, wikipediaLink, coverageType, isAdminBoundary,
@@ -15,6 +14,7 @@
   let aPlace;
   let errorResponse;
   let base_url = window.location.search;
+  let current_result;
 
   function loaddata() {
     var search_params = new URLSearchParams(window.location.search);
@@ -43,11 +43,11 @@
       fetch_from_api('details', api_request_params, function (data) {
         if (data.error) {
           errorResponse = data;
-          current_result_store.set(undefined);
+          current_result = undefined;
         } else {
           aPlace = data;
           errorResponse = undefined;
-          current_result_store.set(data);
+          current_result = data;
         }
       });
     } else {
@@ -175,7 +175,7 @@
       </div>
       <div class="col-md-6">
         <div id="map-wrapper">
-          <Map/>
+          <Map {current_result} />
         </div>
       </div>
     </div>

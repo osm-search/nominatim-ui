@@ -2,7 +2,6 @@ import { writable } from 'svelte/store';
 
 export const map_store = writable();
 export const results_store = writable();
-export const current_result_store = writable();
 export const current_request_latlon = writable();
 export const last_api_request_url_store = writable();
 export const page = writable({ count: 0 });

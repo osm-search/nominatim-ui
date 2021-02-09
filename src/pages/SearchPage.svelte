@@ -11,6 +11,7 @@
 
   let api_request_params;
   let bStructuredSearch;
+  let current_result;
 
   function loaddata() {
     let search_params = new URLSearchParams(window.location.search);
@@ -64,10 +65,10 @@
 
 <div id="content">
   <div class="sidebar">
-    <ResultsList reverse_search={false} />
+    <ResultsList bind:current_result reverse_search={false} />
   </div>
   <div id="map-wrapper">
-    <Map display_minimap={true} />
+    <Map {current_result} display_minimap={true} />
   </div>
 </div>
 

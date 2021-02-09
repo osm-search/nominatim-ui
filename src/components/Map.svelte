@@ -7,10 +7,11 @@
 
   import { get } from 'svelte/store';
   import { get_config_value } from '../lib/config_reader.js';
-  import { map_store, current_result_store, current_request_latlon } from '../lib/stores.js';
+  import { map_store, current_request_latlon } from '../lib/stores.js';
   import MapPosition from '../components/MapPosition.svelte';
 
   export let display_minimap = false;
+  export let current_result = null;
 
   let dataLayers = [];
 
@@ -52,7 +53,7 @@
   function mapAction(container) {
     let map = createMap(container);
     map_store.set(map);
-    setMapData(get(current_result_store));
+    setMapData(current_result);
 
     return {
       destroy: () => { map.remove(); }
@@ -159,10 +160,7 @@
     }
   }
 
-  current_result_store.subscribe(aFeature => {
-    setMapData(aFeature);
-  });
-
+  $: setMapData(current_result);
 
   function show_map_position_click(e) {
     e.target.style.display = 'none';
