@@ -1,9 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
 
-  import {
-    page, results_store, current_request_latlon
-  } from '../lib/stores.js';
+  import { page, results_store, } from '../lib/stores.js';
   import { get_config_value } from '../lib/config_reader.js';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
 
@@ -13,6 +11,7 @@
 
   let api_request_params;
   let current_result;
+  let position_marker;
 
   function loaddata() {
     let search_params = new URLSearchParams(window.location.search);
@@ -32,7 +31,7 @@
 
       fetch_from_api('reverse', api_request_params, function (data) {
         if (data && !data.error) {
-          current_request_latlon.set([api_request_params.lat, api_request_params.lon]);
+          position_marker = [api_request_params.lat, api_request_params.lon];
           results_store.set([data]);
         } else {
           results_store.set([]);
@@ -59,7 +58,7 @@
     <ResultsList bind:current_result reverse_search={true} />
   </div>
   <div id="map-wrapper">
-    <Map {current_result} display_minimap={true} />
+    <Map {current_result} {position_marker} display_minimap={true} />
   </div>
 </div>
 
