@@ -1,11 +1,12 @@
 <script>
-  import { results_store, current_result_store } from '../lib/stores.js';
+  import { results_store } from '../lib/stores.js';
   import { formatLabel, detailsURL } from '../lib/helpers.js';
 
   import Welcome from './Welcome.svelte';
   import MapIcon from './MapIcon.svelte';
 
   export let reverse_search = false;
+  export let current_result = {};
 
   let aSearchResults;
   let iHighlightNum;
@@ -15,7 +16,7 @@
     if (!data) { return; }
     aSearchResults = data;
     iHighlightNum = 0;
-    current_result_store.set(aSearchResults[0]);
+    current_result = aSearchResults[0];
 
 
     let search_params = new URLSearchParams(window.location.search);
@@ -44,7 +45,7 @@
     }
     let pos = Number(result_el.dataset.position);
 
-    current_result_store.set(aSearchResults[pos]);
+    current_result = aSearchResults[pos];
     iHighlightNum = pos;
   }
 

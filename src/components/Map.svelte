@@ -7,10 +7,12 @@
 
   import { get } from 'svelte/store';
   import { get_config_value } from '../lib/config_reader.js';
-  import { map_store, current_result_store, current_request_latlon } from '../lib/stores.js';
+  import { map_store } from '../lib/stores.js';
   import MapPosition from '../components/MapPosition.svelte';
 
   export let display_minimap = false;
+  export let current_result = null;
+  export let position_marker = null;
 
   let dataLayers = [];
 
@@ -52,10 +54,13 @@
   function mapAction(container) {
     let map = createMap(container);
     map_store.set(map);
-    setMapData(get(current_result_store));
+    setMapData(current_result);
 
     return {
-      destroy: () => { map.remove(); }
+      destroy: () => {
+        map_store.set(null);
+        map.remove();
+      }
     };
   }
 
@@ -90,11 +95,10 @@
 
     resetMapData();
 
-    let request_latlon = get(current_request_latlon);
-    if (request_latlon) {
+    if (position_marker) {
       // We don't need a marker, but an L.circle instance changes radius once you zoom in/out
       let cm = L.circleMarker(
-        request_latlon,
+        position_marker,
         {
           radius: 5,
           weight: 2,
@@ -159,10 +163,7 @@
     }
   }
 
-  current_result_store.subscribe(aFeature => {
-    setMapData(aFeature);
-  });
-
+  $: setMapData(current_result);
 
   function show_map_position_click(e) {
     e.target.style.display = 'none';
