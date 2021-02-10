@@ -11,7 +11,7 @@
 
   let api_request_params;
   let current_result;
-  let position_marker;
+  let position_marker; // what the user searched for
 
   function loaddata() {
     let search_params = new URLSearchParams(window.location.search);

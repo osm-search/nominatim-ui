@@ -6,7 +6,7 @@
   import MapIcon from './MapIcon.svelte';
 
   export let reverse_search = false;
-  export let current_result = {};
+  export let current_result = null;
 
   let aSearchResults;
   let iHighlightNum;
