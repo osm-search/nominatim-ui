@@ -1,31 +1,28 @@
 
 import { get_config_value } from './config_reader.js';
-import { last_updated_store } from './stores.js';
+import { last_api_request_url_store } from './stores.js';
 
 
+function api_request_progress(status) {
+  var loading_el = document.getElementById('loading');
+  if (!loading_el) return; // might not be on page yet
+
+  loading_el.style.display = (status === 'start') ? 'block' : 'none';
+}
 
 export async function fetch_from_api(endpoint_name, params, callback) {
   var api_url = generate_nominatim_api_url(endpoint_name, params);
 
-  document.getElementById('loading').style.display = 'block';
+  api_request_progress('start');
+
   await fetch(api_url)
     .then(response => response.json())
     .then(data => {
       callback(data);
-      document.getElementById('loading').style.display = 'none';
+      api_request_progress('finish');
     });
 
-
-  fetch(generate_nominatim_api_url('status', { format: 'json' }))
-    .then(response => response.json())
-    .then(data => {
-      let last_updated = {
-        api_request_url: api_url,
-        api_request_url_debug: api_url + '&debug=1',
-        date: data.data_updated
-      };
-      last_updated_store.set(last_updated);
-    });
+  if (endpoint_name !== 'status') last_api_request_url_store.set(api_url);
 }
 
 function generate_nominatim_api_url(endpoint_name, params) {
