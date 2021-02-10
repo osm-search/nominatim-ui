@@ -23,6 +23,16 @@
     document.querySelector('input[name=lon]').value = lat;
     document.querySelector('form').submit();
   }
+
+  // common mistake is to copy&paste latitude and longitude into the 'lat' search box
+  function maybeSplitLatitude(e) {
+    var coords_split = e.target.value.split(',');
+    if (coords_split.length === 2) {
+      document.querySelector('input[name=lat]').value = L.Util.trim(coords_split[0]);
+      document.querySelector('input[name=lon]').value = L.Util.trim(coords_split[1]);
+    }
+  }
+
 </script>
 
 <div class="top-bar">
@@ -35,7 +45,8 @@
              type="text"
              class="form-control form-control-sm"
              placeholder="latitude"
-             value="{api_request_params.lat || ''}" />
+             value="{api_request_params.lat || ''}"
+             on:change={maybeSplitLatitude} />
       <a id="switch-coords"
          on:click|preventDefault|stopPropagation={handleSwitchCoords}
          class="btn btn-outline-secondary btn-sm"
