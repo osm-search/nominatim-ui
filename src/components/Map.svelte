@@ -96,7 +96,7 @@
     resetMapData();
 
     if (position_marker) {
-      // We don't need a marker, but an L.circle instance changes radius once you zoom in/out
+      // We don't need a marker, but L.circle would change radius when you zoom in/out
       let cm = L.circleMarker(
         position_marker,
         {
@@ -127,8 +127,7 @@
       }).addTo(map);
     }
 
-    // nothing to do
-    if (!aFeature) { return; }
+    if (!aFeature) return;
 
     let lat = aFeature.centroid ? aFeature.centroid.coordinates[1] : aFeature.lat;
     let lon = aFeature.centroid ? aFeature.centroid.coordinates[0] : aFeature.lon;
@@ -145,7 +144,7 @@
 
     if (geojson) {
       var geojson_layer = L.geoJson(
-        // https://leafletjs.com/reference-1.0.3.html#path-option
+        // https://leafletjs.com/reference-1.7.1.html#path-option
         parse_and_normalize_geojson_string(geojson),
         {
           style: function () {
@@ -156,10 +155,10 @@
       map.addLayer(geojson_layer);
       dataLayers.push(geojson_layer);
       map.fitBounds(geojson_layer.getBounds());
+    } else if (lat && lon && position_marker) {
+      map.fitBounds([[lat, lon], position_marker], { padding: [50, 50] });
     } else if (lat && lon) {
       map.setView([lat, lon], 10);
-    } else {
-      map.fitWorld();
     }
   }
 
