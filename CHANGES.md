@@ -1,5 +1,16 @@
 # CHANGES
 
+* version 2.1.0 - 2021-02-10
+
+    * Reverse search: better initial zoom when result found
+    * Reverse search: split value when copy&pasting a coordinate pair into first search field
+    * Further split reverse from search logic/templates 
+    * Details page: display error when place not found
+    * replaced development webserver node-static with static-server
+    * Less page reloading
+    * LastUpdated is now its own component
+    * Add linting (run: yarn lint)
+
 * version 2.0.2 - 2021-02-02
 
     * Reverse search: click on map triggers new search

@@ -1,7 +1,7 @@
 {
   "name": "nominatim-ui",
   "description": "Debug web interface for Nominatim geocoder",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "license": "GPL-2.0",
   "scripts": {
     "build": "rollup -c",

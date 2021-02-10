@@ -12,7 +12,7 @@
 * display API errors, e.g. Object { code: 400, message: "Integer number expected for parameter 'limit'" }
 * cache `update_data_date` result somehow?
 * add tests with fixtures
-* add linter (https://github.com/sveltejs/eslint-plugin-svelte3) and .travis-ci.yml again
+* add .travis-ci.yml again
 
 ## Code cleanup
 

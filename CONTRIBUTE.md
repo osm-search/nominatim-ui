@@ -27,6 +27,13 @@ Uses [svelte](https://svelte.dev/) framework,
    which will start a webserver on port 9880 and auto-reloads
    whenever you edit files.
 
+## Testing
+
+* Run syntax linter
+
+   ```
+   yarn lint
+   ```
 
 ## Prepare a release
 
