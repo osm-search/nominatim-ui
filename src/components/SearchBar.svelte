@@ -1,6 +1,7 @@
 <script>
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
   import DetailsLink from '../components/DetailsLink.svelte';
+  import ReverseLink from '../components/ReverseLink.svelte';
 
   import { map_store } from '../lib/stores.js';
   import { get } from 'svelte/store';
@@ -8,6 +9,8 @@
   export let bStructuredSearch = false;
   export let api_request_params = {};
   let sViewBox;
+  let lat;
+  let lon;
 
   function map_viewbox_as_string(map) {
     var bounds = map.getBounds();
@@ -39,12 +42,9 @@
   }
 
   function update_reverse_link(map) {
-    let link = document.getElementById('switch-to-reverse');
-    if (link) {
-      let center_lat_lng = map.wrapLatLng(map.getCenter());
-      link.href = 'reverse.html?lat=' + center_lat_lng.lat.toFixed(5)
-                   + '&lon=' + center_lat_lng.lng.toFixed(5);
-    }
+    let center_lat_lng = map.wrapLatLng(map.getCenter());
+    lat = center_lat_lng.lat.toFixed(5);
+    lon = center_lat_lng.lng.toFixed(5);
   }
 
   map_store.subscribe(map => {
@@ -90,7 +90,7 @@
     </li>
     <div class="search-type-link">
       <DetailsLink extra_classes="mr-2">search by id</DetailsLink>
-      <a id="switch-to-reverse" href="reverse.html">reverse search</a>
+      <ReverseLink lat={lat} lon={lon}>reverse search</ReverseLink>
     </div>
   </ul>
   <div class="tab-content p-2">
