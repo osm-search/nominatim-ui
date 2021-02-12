@@ -38,7 +38,7 @@
 </script>
 
 <div class="top-bar">
-  <UrlSubmitForm>
+  <UrlSubmitForm page="reverse">
     <div class="form-group">
       <input name="format" type="hidden" value="html">
       <label for="reverse-lat">lat</label>

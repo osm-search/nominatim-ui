@@ -4,8 +4,7 @@ import { refresh_page } from '../lib/stores.js';
 export let page;
 
 function handleClick() {
-  window.history.pushState([], '', page + '.html');
-  refresh_page();
+  refresh_page(page, {});
 }
 </script>
 

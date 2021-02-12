@@ -95,7 +95,7 @@
   </ul>
   <div class="tab-content p-2">
     <div class="tab-pane" class:active={!bStructuredSearch} id="simple" role="tabpanel">
-      <UrlSubmitForm>
+      <UrlSubmitForm page="search">
         <input id="q"
                name="q"
                type="text"
@@ -116,7 +116,7 @@
       </UrlSubmitForm>
     </div>
     <div class="tab-pane" class:active={bStructuredSearch} id="structured" role="tabpanel">
-      <UrlSubmitForm>
+      <UrlSubmitForm page="search">
         <input name="street" type="text" class="form-control form-control-sm mr-1"
                placeholder="House number/Street"
                value="{api_request_params.street || ''}" />

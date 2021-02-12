@@ -4,7 +4,8 @@
   export let extra_classes = '';
   export let feature = null;
 
-  let url_params = '';
+  let url_params = new URLSearchParams();
+  let href = 'details.html';
 
   function formatShortOSMType(sType) {
     if (sType === 'node') return 'N';
@@ -14,29 +15,35 @@
   }
 
   function handleClick() {
-    window.history.pushState([], '', 'details.html' + url_params);
-    refresh_page();
+    refresh_page('details', url_params);
   }
 
   $: {
+    let new_params = new URLSearchParams();
+
     if (feature !== null && feature.osm_type) {
-      let param = '?osmtype=';
       if (feature.osm_type.length == 1) {
-        param += encodeURIComponent(feature.osm_type);
+        new_params.set('osmtype', feature.osm_type);
       } else {
-        param += formatShortOSMType(feature.osm_type);
+        new_params.set('osmtype', formatShortOSMType(feature.osm_type));
       }
-      param += '&osmid=' + encodeURIComponent(feature.osm_id);
+
+      new_params.set('osmid', feature.osm_id);
+
       if (feature.class) {
-        param += '&class=' + encodeURIComponent(feature.class);
+        new_params.set('class', feature.class);
       } else if (feature.category) {
-        param += '&class=' + encodeURIComponent(feature.category);
+        new_params.set('class', feature.category);
       }
-      url_params = param
-    } else {
-        url_params = '';
     }
+
+    url_params = new_params;
+ }
+
+ $: {
+   let param_str = url_params.toString();
+   href = 'details.html' + (param_str ? '?' : '') + param_str;
  }
 </script>
 
-<a on:click|preventDefault|stopPropagation={handleClick} href="details.html{url_params}" class={extra_classes}><slot></slot></a>
+<a on:click|preventDefault|stopPropagation={handleClick} href={href} class={extra_classes}><slot></slot></a>

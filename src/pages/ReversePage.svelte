@@ -1,6 +1,4 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
-
   import { page, results_store } from '../lib/stores.js';
   import { get_config_value } from '../lib/config_reader.js';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
@@ -13,9 +11,7 @@
   let current_result;
   let position_marker; // what the user searched for
 
-  function loaddata() {
-    let search_params = new URLSearchParams(window.location.search);
-
+  function loaddata(search_params) {
     update_html_title();
 
     api_request_params = {
@@ -46,9 +42,12 @@
     }
   }
 
-  let page_subscription;
-  onMount(() => { page_subscription = page.subscribe(loaddata); });
-  onDestroy(() => { page_subscription(); });
+  $: {
+    let pageinfo = $page;
+    if (pageinfo.tab === 'reverse') {
+      loaddata(pageinfo.params);
+    }
+  }
 </script>
 
 <ReverseBar api_request_params={api_request_params} />

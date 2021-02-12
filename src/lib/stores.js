@@ -3,16 +3,33 @@ import { writable } from 'svelte/store';
 export const map_store = writable();
 export const results_store = writable();
 export const last_api_request_url_store = writable();
-export const page = writable({ count: 0 });
+export const page = writable();
 
-export function refresh_page() {
-  let pagename = window.location.pathname.replace('.html', '').replace(/^.*\//, '');
+export function refresh_page(pagename, params) {
+  if (typeof pagename === 'undefined') {
+    pagename = window.location.pathname.replace('.html', '').replace(/^.*\//, '');
 
-  if (['search', 'reverse', 'details', 'deletable', 'polygons'].indexOf(pagename) === -1) {
-    pagename = 'search';
+    if (['search', 'reverse', 'details', 'deletable', 'polygons'].indexOf(pagename) === -1) {
+      pagename = 'search';
+    }
+
+    params = new URLSearchParams(window.location.search);
+  } else {
+    if (!(params instanceof URLSearchParams)) {
+      let urlparams = new URLSearchParams();
+      Object.keys(params).forEach((key, index) => {
+        urlparams.set(key, params[key]);
+      });
+
+      params = urlparams;
+    }
+
+    let param_str = params.toString();
+    if (param_str) {
+      param_str = '?' + param_str;
+    }
+    window.history.pushState([], '', pagename + '.html' + param_str);
   }
 
-  // Add a counter here to make sure the store change is triggered
-  // everytime we refresh, not just when the page changes.
-  page.update(function (v) { return { tab: pagename, count: v.count + 1 }; });
+  page.set({ tab: pagename, params: params });
 }
