@@ -19,6 +19,6 @@
   }
 </script>
 
-<form on:submit|preventDefault={() => refresh_page(page, serialize_form(event.target))} class="form-inline" role="search" accept-charset="UTF-8" action="">
+<form on:submit|preventDefault={(e) => refresh_page(page, serialize_form(e.target))} class="form-inline" role="search" accept-charset="UTF-8" action="">
     <slot></slot>
 </form>

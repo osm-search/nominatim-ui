@@ -14,14 +14,16 @@
     let params = new URLSearchParams();
     params.set('lat', newlat);
     params.set('lon', newlon);
-    params.set('zoom', newzoom ? newzoom : zoom);
+    params.set('zoom', newzoom || zoom);
     refresh_page('reverse', params);
   }
 
   map_store.subscribe(map => {
     if (map) {
-      map.on('click', (e) => gotoCoordinates(e.latlng.lat.toFixed(5),
-                                             e.latlng.wrap().lng.toFixed(5)));
+      map.on('click', (e) => {
+        let coords = e.latlng.wrap();
+        gotoCoordinates(coords.lat.toFixed(5), coords.lng.toFixed(5));
+      });
     }
   });
 

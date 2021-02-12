@@ -21,7 +21,7 @@ $: {
   }
 
   params = new_params;
-};
+}
 
 $: {
   let param_str = params.toString();

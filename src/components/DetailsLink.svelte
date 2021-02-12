@@ -22,7 +22,7 @@
     let new_params = new URLSearchParams();
 
     if (feature !== null && feature.osm_type) {
-      if (feature.osm_type.length == 1) {
+      if (feature.osm_type.length === 1) {
         new_params.set('osmtype', feature.osm_type);
       } else {
         new_params.set('osmtype', formatShortOSMType(feature.osm_type));
@@ -38,12 +38,12 @@
     }
 
     url_params = new_params;
- }
+  }
 
- $: {
-   let param_str = url_params.toString();
-   href = 'details.html' + (param_str ? '?' : '') + param_str;
- }
+  $: {
+    let param_str = url_params.toString();
+    href = 'details.html' + (param_str ? '?' : '') + param_str;
+  }
 </script>
 
 <a on:click|preventDefault|stopPropagation={handleClick} href={href} class={extra_classes}><slot></slot></a>
