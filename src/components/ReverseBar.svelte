@@ -4,27 +4,26 @@
   import PageLink from '../components/PageLink.svelte';
 
   import { zoomLevels } from '../lib/helpers.js';
-  import { map_store } from '../lib/stores.js';
+  import { map_store, refresh_page } from '../lib/stores.js';
 
-  export let api_request_params = {};
+  export let lat = '';
+  export let lon = '';
+  export let zoom = '';
+
+  function gotoCoordinates(newlat, newlon, newzoom) {
+    let params = new URLSearchParams();
+    params.set('lat', newlat);
+    params.set('lon', newlon);
+    params.set('zoom', newzoom ? newzoom : zoom);
+    refresh_page('reverse', params);
+  }
 
   map_store.subscribe(map => {
-    if (!map) { return; }
-
-    map.on('click', function (e) {
-      document.querySelector('input[name=lat]').value = e.latlng.lat.toFixed(5);
-      document.querySelector('input[name=lon]').value = e.latlng.wrap().lng.toFixed(5);
-      document.querySelector('form').submit();
-    });
+    if (map) {
+      map.on('click', (e) => gotoCoordinates(e.latlng.lat.toFixed(5),
+                                             e.latlng.wrap().lng.toFixed(5)));
+    }
   });
-
-  function handleSwitchCoords() {
-    let lat = document.querySelector('input[name=lat]').value;
-    let lon = document.querySelector('input[name=lon]').value;
-    document.querySelector('input[name=lat]').value = lon;
-    document.querySelector('input[name=lon]').value = lat;
-    document.querySelector('form').submit();
-  }
 
   // common mistake is to copy&paste latitude and longitude into the 'lat' search box
   function maybeSplitLatitude(e) {
@@ -47,10 +46,10 @@
              type="text"
              class="form-control form-control-sm"
              placeholder="latitude"
-             value="{api_request_params.lat || ''}"
+             bind:value={lat}
              on:change={maybeSplitLatitude} />
       <a id="switch-coords"
-         on:click|preventDefault|stopPropagation={handleSwitchCoords}
+         on:click|preventDefault|stopPropagation={() => gotoCoordinates(lon, lat)}
          class="btn btn-outline-secondary btn-sm"
          title="switch lat and lon">&lt;&gt;</a>
       <label for="reverse-lon">lon</label>
@@ -59,12 +58,12 @@
              type="text"
              class="form-control form-control-sm"
              placeholder="longitude"
-             value="{api_request_params.lon || ''}" />
+             bind:value={lon} />
       <label for="reverse-zoom">max zoom</label>
-      <select id="reverse-zoom" name="zoom" class="form-control form-control-sm" value="{api_request_params.zoom}">
-        <option value="" selected={!api_request_params.zoom}>---</option>
+      <select id="reverse-zoom" name="zoom" class="form-control form-control-sm" bind:value={zoom}>
+        <option value="">---</option>
         {#each zoomLevels() as zoomTitle, i}
-          <option value="{i}" selected={i === api_request_params.zoom}>{i} - {zoomTitle}</option>
+          <option value="{i}">{i} - {zoomTitle}</option>
         {/each}
       </select>
       <button type="submit" class="btn btn-primary btn-sm mx-1">

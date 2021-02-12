@@ -50,7 +50,7 @@
   }
 </script>
 
-<ReverseBar api_request_params={api_request_params} />
+<ReverseBar {...api_request_params} />
 
 <div id="content">
   <div class="sidebar">
