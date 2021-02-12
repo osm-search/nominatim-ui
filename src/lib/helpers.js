@@ -1,8 +1,6 @@
 module.exports.formatOSMType = formatOSMType;
-module.exports.formatShortOSMType = formatShortOSMType;
 module.exports.osmLink = osmLink;
 module.exports.formatLabel = formatLabel;
-module.exports.detailsURL = detailsURL;
 module.exports.wikipediaLink = wikipediaLink;
 module.exports.coverageType = coverageType;
 module.exports.isAdminBoundary = isAdminBoundary;
@@ -28,13 +26,6 @@ function formatOSMType(sType, bExcludeExternal) {
   return '';
 }
 
-function formatShortOSMType(sType) {
-  if (sType === 'node') return 'N';
-  if (sType === 'way') return 'W';
-  if (sType === 'relation') return 'R';
-  return '';
-}
-
 function osmLink(aPlace) {
   if (!aPlace.osm_type) return '';
   var sOSMType = formatOSMType(aPlace.osm_type, false);
@@ -57,25 +48,6 @@ function formatLabel(aPlace) {
     return capitalize(aPlace.type.replace(/_/g, ' '));
   }
   return '';
-}
-
-// 'details.html?osmtype=R&osmid=2181874&class=boundary'
-function detailsURL(aFeature) {
-  if (!aFeature) return '';
-
-  var sOSMType = aFeature.osm_type;
-  if (sOSMType && sOSMType.length !== 1) {
-    sOSMType = formatShortOSMType(aFeature.osm_type, false); // node => N
-  }
-  if (!sOSMType) return '';
-
-  var sURL = 'details.html?osmtype=' + sOSMType + '&osmid=' + aFeature.osm_id;
-  if (aFeature.class) {
-    sURL = sURL + '&class=' + encodeURIComponent(aFeature.class);
-  } else if (aFeature.category) {
-    sURL = sURL + '&class=' + encodeURIComponent(aFeature.category);
-  }
-  return sURL;
 }
 
 /* en:London_Borough_of_Redbridge => https://en.wikipedia.org/wiki/London_Borough_of_Redbridge */

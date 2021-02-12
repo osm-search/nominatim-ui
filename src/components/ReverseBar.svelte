@@ -1,5 +1,7 @@
 <script>
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
+  import DetailsLink from '../components/DetailsLink.svelte';
+  import PageLink from '../components/PageLink.svelte';
 
   import { zoomLevels } from '../lib/helpers.js';
   import { map_store } from '../lib/stores.js';
@@ -70,8 +72,8 @@
       </button>
     </div>
     <div class="search-type-link">
-      <a href="details.html" class="mr-2">search by id</a>
-      <a href="search.html">forward search</a>
+      <DetailsLink extra_classes="mr-2">search by id</DetailsLink>
+      <PageLink page="search">forward search</PageLink>
     </div>
   </UrlSubmitForm>
 </div>

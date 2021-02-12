@@ -1,7 +1,8 @@
 <script>
   import { results_store } from '../lib/stores.js';
-  import { formatLabel, detailsURL } from '../lib/helpers.js';
+  import { formatLabel } from '../lib/helpers.js';
 
+  import DetailsLink from './DetailsLink.svelte';
   import Welcome from './Welcome.svelte';
   import MapIcon from './MapIcon.svelte';
 
@@ -61,9 +62,9 @@
         </div>
         <span class="name">{aResult.display_name}</span>
         <span class="type">{formatLabel(aResult)}</span>
-        <p class="coords">{aResult.lat},{aResult.lon}</p>  
+        <p class="coords">{aResult.lat},{aResult.lon}</p>
 
-        <a class="details btn btn-outline-secondary btn-sm" href="{detailsURL(aResult)}">details</a>
+        <DetailsLink extra_classes="btn btn-outline-secondary btn-sm" feature={aResult}>details</DetailsLink>
       </div>
     {/each}
 
@@ -102,17 +103,18 @@
     background-color: #D9E7F7;
     border-color: #9DB9E4;
   }
-  .result.highlight .details {
+  .result.highlight :global(a) {
     margin: 10px auto;
     display: block;
     max-width: 10em;
     padding: 1px;
+    background-color: white;
   }
   .result .type{
     color: gray;
     font-size: 0.8em;
   }
-  .result .details {
+  .result :global(a) {
     display: none;
   }
 
@@ -130,11 +132,7 @@
     margin-top: 1em;
   }
 
-  .btn-outline-secondary {
-    background-color: white;
-  }
-
-  .btn-outline-secondary:hover {
+  .result.highlight :global(a):hover {
     color: #111;
   }
 </style>

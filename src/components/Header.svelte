@@ -1,5 +1,6 @@
 <script>
   import LastUpdated from './LastUpdated.svelte';
+  import PageLink from './PageLink.svelte';
 </script>
 
 <style>
@@ -13,7 +14,7 @@
     white-space: nowrap;
   }
 
-  .brand a:hover{
+  .brand :global(a:hover) {
     text-decoration: none;
   }
 
@@ -38,10 +39,10 @@
   <div class="row">
     <div class="col-4">
       <div class="brand">
-        <a href="search.html">
+        <PageLink page="search">
           <img alt="logo" src="images/osm_logo.120px.png" width="30" height="30"/>
           <h1>Nominatim</h1>
-        </a>
+        </PageLink>
       </div>
     </div>
     <div class="col-4">
