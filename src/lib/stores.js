@@ -15,13 +15,8 @@ export function refresh_page(pagename, params) {
 
     params = new URLSearchParams(window.location.search);
   } else {
-    if (!(params instanceof URLSearchParams)) {
-      let urlparams = new URLSearchParams();
-      Object.keys(params).forEach((key, index) => {
-        urlparams.set(key, params[key]);
-      });
-
-      params = urlparams;
+    if (typeof params === 'undefined') {
+      params = new URLSearchParams();
     }
 
     let param_str = params.toString();
