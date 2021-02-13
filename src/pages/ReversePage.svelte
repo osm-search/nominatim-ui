@@ -39,6 +39,8 @@
                             + api_request_params.lon);
         document.querySelector('input[name=lat]').focus();
       });
+    } else {
+      results_store.set(undefined);
     }
   }
 

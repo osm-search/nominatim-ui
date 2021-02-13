@@ -49,6 +49,8 @@
 
         document.querySelector('input[name=q]').focus();
       });
+    } else {
+      results_store.set(undefined);
     }
   }
 
