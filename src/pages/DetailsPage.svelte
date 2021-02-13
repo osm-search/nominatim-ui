@@ -1,5 +1,4 @@
 <script>
-  import { onMount, onDestroy } from 'svelte';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
   import { page } from '../lib/stores.js';
 
@@ -18,9 +17,7 @@
   let base_url = window.location.search;
   let current_result;
 
-  function loaddata() {
-    var search_params = new URLSearchParams(window.location.search);
-
+  function loaddata(search_params) {
     var api_request_params = {
       place_id: search_params.get('place_id'),
       osmtype: search_params.get('osmtype'),
@@ -43,6 +40,7 @@
       }
 
       fetch_from_api('details', api_request_params, function (data) {
+        window.scrollTo(0, 0)
         if (data.error) {
           errorResponse = data;
           current_result = undefined;
@@ -57,10 +55,12 @@
     }
   }
 
-  let page_subscription;
-  onMount(() => { page_subscription = page.subscribe(loaddata); });
-  onDestroy(() => { page_subscription(); });
-
+  $: {
+    let pageinfo = $page;
+    if (pageinfo.tab === 'details') {
+      loaddata(pageinfo.params);
+    }
+  }
 </script>
 
 {#if errorResponse}

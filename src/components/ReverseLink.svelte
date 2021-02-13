@@ -5,27 +5,28 @@ export let lat;
 export let lon;
 export let zoom = null;
 
-let params = '';
+let params = new URLSearchParams();
+let href = 'reverse.html';
 
 $: {
+  let new_params = new URLSearchParams();
+
   if (lat && lon) {
-    let new_params = '?lat=' + encodeURIComponent(lat);
-    new_params += '&lon=' + encodeURIComponent(lon);
+    new_params.set('lat', lat);
+    new_params.set('lon', lon);
 
     if (zoom) {
-      new_params += '&zoom=' + encodeURIComponent(zoom);
+      new_params.set('zoom', zoom);
     }
-
-    params = new_params;
-  } else {
-    params = '';
   }
+
+  params = new_params;
 }
 
-function handleClick() {
-  window.history.pushState([], '', 'reverse.html' + params);
-  refresh_page();
+$: {
+  let param_str = params.toString();
+  href = 'reverse.html' + (param_str ? '?' : '') + param_str;
 }
 </script>
 
-<a on:click|preventDefault|stopPropagation={handleClick} href="reverse.html{params}"><slot></slot></a>
+<a on:click|preventDefault|stopPropagation={() => refresh_page('reverse', params)} href={href}><slot></slot></a>
