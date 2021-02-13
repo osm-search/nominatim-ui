@@ -1,5 +1,12 @@
 # CHANGES
 
+* version 2.2.0 - 2021-02-13
+
+    * Less page reloading
+    * Handle all page changes via page store
+    * Reverse search: click on map no longer triggers form submission
+    * Convert some lib/helpers that returned HTML into Svelte components
+
 * version 2.1.0 - 2021-02-10
 
     * Reverse search: better initial zoom when result found
