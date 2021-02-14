@@ -3,7 +3,8 @@
   import { get_config_value } from '../lib/config_reader.js';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
 
-  import ReverseBar from '../components/ReverseBar.svelte';
+  import Header from '../components/Header.svelte';
+  import SearchSectionReverse from '../components/SearchSectionReverse.svelte';
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
@@ -52,7 +53,9 @@
   }
 </script>
 
-<ReverseBar {...api_request_params} />
+<Header>
+  <SearchSectionReverse {...api_request_params} />
+</Header>
 
 <div id="content">
   <div class="sidebar">
