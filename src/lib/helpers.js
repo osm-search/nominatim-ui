@@ -100,7 +100,7 @@ function formatPlaceType(aPlace) {
 
 // Any over 15 are invalid data in OSM anyway
 function formatAdminLevel(iLevel) {
-  return (iLevel < 15 ? iLevel : '');
+  return (iLevel && iLevel < 15 ? iLevel : '');
 }
 
 function formatDistance(fDistance, bInMeters) {
