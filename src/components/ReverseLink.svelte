@@ -4,6 +4,7 @@ import { refresh_page } from '../lib/stores.js';
 export let lat;
 export let lon;
 export let zoom = null;
+export let extra_classes = '';
 
 let params = new URLSearchParams();
 let href = 'reverse.html';
@@ -29,4 +30,4 @@ $: {
 }
 </script>
 
-<a on:click|preventDefault|stopPropagation={() => refresh_page('reverse', params)} href={href}><slot></slot></a>
+<a on:click|preventDefault|stopPropagation={() => refresh_page('reverse', params)} href={href} class={extra_classes}><slot></slot></a>

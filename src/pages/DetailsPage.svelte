@@ -6,8 +6,9 @@
     osmLink, wikipediaLink, coverageType, isAdminBoundary,
     formatAddressRank, formatKeywordToken
   } from '../lib/helpers.js';
+  import Header from '../components/Header.svelte';
   import MapIcon from '../components/MapIcon.svelte';
-  import DetailsIndex from '../components/DetailsIndex.svelte';
+  import SearchSectionDetails from '../components/SearchSectionDetails.svelte';
   import DetailsOneRow from '../components/DetailsOneRow.svelte';
   import DetailsLink from '../components/DetailsLink.svelte';
   import Map from '../components/Map.svelte';
@@ -16,9 +17,10 @@
   let errorResponse;
   let base_url = window.location.search;
   let current_result;
+  let api_request_params;
 
   function loaddata(search_params) {
-    var api_request_params = {
+    api_request_params = {
       place_id: search_params.get('place_id'),
       osmtype: search_params.get('osmtype'),
       osmid: search_params.get('osmid'),
@@ -63,6 +65,9 @@
   }
 </script>
 
+<Header>
+  <SearchSectionDetails api_request_params={api_request_params}/>
+</Header>
 {#if errorResponse}
   {errorResponse.error.message}
 {/if}
@@ -270,7 +275,7 @@
     </div>
   </div>
 {:else if (window.location.search === '')}
-  <DetailsIndex/>
+  <!-- <DetailsIndex/> -->
 {:else}
   No such place found.
 {/if}

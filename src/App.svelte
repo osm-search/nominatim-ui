@@ -4,7 +4,6 @@
 
   import { page, refresh_page } from './lib/stores.js';
 
-  import Header from './components/Header.svelte';
   import Footer from './components/Footer.svelte';
   import ReportIssueModal from './components/ReportIssueModal.svelte';
   import SearchPage from './pages/SearchPage.svelte';
@@ -21,7 +20,6 @@
 <!-- deal with back-button and other user action -->
 <svelte:window on:popstate={() => refresh_page()} />
 
-<Header/>
 {#if view === 'search'}
 <SearchPage />
 {:else if view === 'reverse'}

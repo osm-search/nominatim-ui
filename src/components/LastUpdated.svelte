@@ -15,9 +15,8 @@
 
 <style>
   #last-updated {
-    font-size: 0.7em;
-    white-space: nowrap;
-    text-align: center;
+    font-size: 0.8rem;
+    font-style: italic;
   }
   #loading {
     display: none;
@@ -26,22 +25,26 @@
     width: 100%;
     background-color: #eee;
     z-index: 100;
-    padding: 10px;
-    text-align: center;
   }
 </style>
 
-<div id="last-updated">
-  <div id="loading">loading...</div>
-  {#if last_updated_date}
-    {#if last_api_request_url}
-      <div id="api-request">
-        Data from <a href="{last_api_request_url}">API request</a>
-        <span id="api-request-debug">
-          (<a href="{last_api_request_url}&debug=1">debug output</a>)
-        </span>
-      </div>
-    {/if}
-    Data last updated: <span id="data-date">{last_updated_date}</span>
-  {/if}
+<div id="last-updated" class="container-fluid py-2 px-4 mb-3">
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="loading">loading...</div>
+      {#if last_api_request_url}
+        <div id="api-request">
+          Data from <a href="{last_api_request_url}">API request</a>
+          <span id="api-request-debug">
+            (<a href="{last_api_request_url}&debug=1">debug output</a>)
+          </span>
+        </div>
+      {/if}
+    </div>
+    <div class="col-sm-6 text-right">
+      {#if last_updated_date}
+        Data last updated: <span id="data-date">{last_updated_date}</span>
+      {/if}
+    </div>
+  </div>
 </div>

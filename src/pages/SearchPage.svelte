@@ -3,7 +3,8 @@
   import { get_config_value } from '../lib/config_reader.js';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
 
-  import SearchBar from '../components/SearchBar.svelte';
+  import Header from '../components/Header.svelte';
+  import SearchSection from '../components/SearchSection.svelte';
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
@@ -62,7 +63,9 @@
   }
 </script>
 
-<SearchBar api_request_params={api_request_params} bStructuredSearch={bStructuredSearch} />
+<Header>
+  <SearchSection api_request_params={api_request_params} bStructuredSearch={bStructuredSearch} />
+</Header>
 
 <div id="content">
   <div class="sidebar">

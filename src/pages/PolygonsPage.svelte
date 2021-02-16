@@ -3,6 +3,8 @@
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
   import { formatOSMType, osmLink } from '../lib/helpers.js';
 
+  import Header from '../components/Header.svelte';
+
   let aPolygons = [];
 
   function loaddata() {
@@ -14,7 +16,7 @@
   onMount(loaddata);
 </script>
 
-
+<Header/>
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
