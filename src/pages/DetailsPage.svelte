@@ -40,7 +40,7 @@
       }
 
       fetch_from_api('details', api_request_params, function (data) {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
         if (data.error) {
           errorResponse = data;
           current_result = undefined;
