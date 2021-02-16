@@ -25,6 +25,10 @@
     margin-top: -5px;
   }
 
+  .nav-item {
+    white-space: nowrap;
+  }
+
   .dropdown-menu { /* need to be above map markers */
     z-index: 1005;
   }
@@ -38,7 +42,7 @@
 </style>
 
 <header class="container-fluid">
-  <nav class="navbar navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-expand-sm navbar-light">
     <div class="navbar-brand">
       <PageLink page="search">
         <img alt="logo" src="images/osm_logo.120px.png" width="30" height="30"/>

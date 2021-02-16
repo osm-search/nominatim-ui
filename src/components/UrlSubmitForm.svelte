@@ -20,5 +20,5 @@
 </script>
 
 <form on:submit|preventDefault={(e) => refresh_page(page, serialize_form(e.target))} class="form-inline" role="search" accept-charset="UTF-8" action="">
-    <slot></slot>
+  <slot></slot>
 </form>
