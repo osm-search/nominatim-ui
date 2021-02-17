@@ -86,7 +86,7 @@
   </li>
 </ul>
 
-<div class="tab-content p-2">
+<div class="tab-content py-2">
   <div class="tab-pane" class:active={!bStructuredSearch} id="simple" role="tabpanel">
     <UrlSubmitForm page="search">
       <input id="q"
@@ -141,48 +141,79 @@
       </div>
     </UrlSubmitForm>
   </div>
-  <!-- Additional options -->
-  <a href="#advanced" class="btn btn-outline-secondary btn-sm" data-toggle="collapse" data-target="#searchAdvancedOptions" role="button" aria-expanded="false" aria-controls="collapseAdvancedOptions">
-    Advanced options
-  </a>
-  <div class="collapse" id="searchAdvancedOptions">
-    <div id="searchAdvancedOptionsContent">
-        <div class="form-check form-check-inline">
-          <span><input type="checkbox" class="form-check-input api-param-setting"
-                 id="use_viewbox" checked={api_request_params.viewbox} on:change={reset_viewbox}>
-          <label class="form-check-label" for="use_viewbox">apply viewbox</label></span>
-          <span><input type="checkbox" class="form-check-input api-param-setting"
-                 id="option_bounded" checked={!!api_request_params.bounded} on:change={set_bounded}>
-          <label class="form-check-label" for="option_bounded">bounded to viewbox</label></span>
-          <span><input type="checkbox" class="form-check-input api-param-setting"
-                 id="option_dedupe" checked={!!api_request_params.dedupe} on:change={set_dedupe}>
-          <label class="form-check-label" for="option_dedupe">deduplicate results</label></span>
-        </div>
-        <div class="form-check form-check-inline">
-          <span><label class="form-check-label" for="option_limit">Maximum number of results: </label>
-          <input type="number" class="form-check-input api-param-setting" data-api-param="limit" id="option_limit" size="5" min="1" max="50" value="{api_request_params.limit || ''}" on:change={set_api_param}></span>
-          <span><label class="form-check-label" for="option_polygon_threashold">Polygon simplification: </label>
-          <input type="number" class="form-check-input api-param-setting" data-api-param="polygon_threshold" id="option_polygon_threshold" size="5" min="0.0" step="0.01" value="{api_request_params.polygon_threshold || ''}" on:change={set_api_param}></span>
-        </div>
-        <div class="form-check form-check-inline">
-          <span><label class="form-check-label" for="accept_lang">Languages: </label>
-          <input type="text" placeholder="e.g. en,zh-Hant" class="form-check-input api-param-setting" data-api-param="accept-language" id="accept_lang" size="15" value="{api_request_params['accept-language'] || ''}" on:change={set_api_param}></span>
-          <span><label class="form-check-label" for="option_ccode">Countries: </label>
-          <input type="text" placeholder="e.g. de,gb" class="form-check-input api-param-setting" data-api-param="countrycodes" id="option_ccode" size="15" value="{api_request_params.countrycodes || ''}" on:change={set_api_param}></span>
-        </div>
-     </div>
-  </div>
 </div> <!-- /tab-content -->
+
+<!-- Additional options -->
+<details id="searchAdvancedOptions">
+  <summary><small>Advanced options</small></summary>
+  <ul>
+    <li>
+      <div class="form-check form-check-inline">
+        <label class="form-check-label" for="use_viewbox">apply viewbox</label>
+        <input type="checkbox" class="form-check-input api-param-setting"
+               id="use_viewbox" checked={api_request_params.viewbox} on:change={reset_viewbox}>
+      </div>
+    </li>
+
+    <li>
+      <div class="form-check form-check-inline">
+        <label class="form-check-label" for="option_bounded">bounded to viewbox</label>
+        <input type="checkbox" class="form-check-input api-param-setting"
+               id="option_bounded" checked={!!api_request_params.bounded} on:change={set_bounded}>
+      </div>
+    </li>
+
+    <li>
+      <div class="form-check form-check-inline">
+        <label class="form-check-label" for="option_dedupe">deduplicate results</label>
+        <input type="checkbox" class="form-check-input api-param-setting"
+               id="option_dedupe" checked={!!api_request_params.dedupe} on:change={set_dedupe}>
+      </div>
+    </li>
+
+    <li>
+      <label for="option_limit">Maximum number of results</label>
+      <input type="number" class="form-control form-control-sm d-inline w-auto api-param-setting"
+             data-api-param="limit" id="option_limit" size="5" min="1" max="50"
+             value="{api_request_params.limit || ''}"
+             on:change={set_api_param}>
+    </li>
+
+    <li>
+      <label for="option_polygon_threshold">Polygon simplification</label>
+      <input type="number" class="form-control form-control-sm d-inline w-auto api-param-setting"
+             data-api-param="polygon_threshold" id="option_polygon_threshold" size="5" min="0.0" step="0.01"
+             value="{api_request_params.polygon_threshold || ''}"
+             on:change={set_api_param}>
+    </li>
+
+    <li>
+      <label for="accept_lang">Languages</label>
+      <input type="text" placeholder="e.g. en,zh-Hant" class="form-control form-control-sm d-inline w-auto api-param-setting"
+             data-api-param="accept-language" id="accept_lang" size="15"
+             value="{api_request_params['accept-language'] || ''}"
+             on:change={set_api_param}>
+    </li>
+
+    <li>
+      <label for="option_ccode">Countries</label>
+      <input type="text" placeholder="e.g. de,gb" class="form-control form-control-sm d-inline w-auto api-param-setting"
+             data-api-param="countrycodes" id="option_ccode" size="15"
+             value="{api_request_params.countrycodes || ''}"
+             on:change={set_api_param}>
+    </li>
+  </ul>
+</details>
 
 <style>
   .nav-tabs {
     font-size: 0.8em;
+    margin-top: -1em;
   }
 
-  #q {
-    max-width: 500px;
+  .nav-link {
+    padding: 0.1rem 1rem;
   }
-
   .tab-content {
     display: flex;
     align-items: baseline
@@ -196,30 +227,28 @@
       min-width: 400px;
     }
   }
-
-  label {
-    font-weight: normal;
-    margin-left: 0.4rem;
-    margin-right: 0.4rem;
-  }
-
-  #searchAdvancedOptionsContent {
-    display: flex;
-    flex-direction: column;
-    padding: 0 10px
-  }
-
-  #searchAdvancedOptionsContent label {
-    padding: 0 3px;
-  }
-
-  #searchAdvancedOptionsContent span {
-    padding: 4px 10px;
-  }
-
   @media (max-width: 768px) {
     .search-button-group {
       display: inline;
     }
   }
+
+  #searchAdvancedOptions ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 0.85rem;
+  }
+
+  #searchAdvancedOptions li {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: 1px dotted #ccc;
+    margin-right: 1em;
+  }
+
+  #searchAdvancedOptions label {
+    margin-right: 0.5em;
+  }
+
 </style>
