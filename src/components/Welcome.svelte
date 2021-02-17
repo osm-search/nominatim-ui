@@ -1,16 +1,10 @@
-<div id="welcome">
-  <h2>Welcome to Nominatim</h2>
+<script>
+  import { onMount } from 'svelte';
+  import { fetch_content_into_element } from '../lib/api_utils.js';
 
-  <p>
-    Nominatim is a search engine for
-    <a href="https://www.openstreetmap.org">OpenStreetMap</a> data. This
-    is the debugging interface. You may search for a name or address
-    (forward search) or look up data by its geographic coordinate (reverse
-    search). Each result comes with a link to a details page where you
-    can inspect what data about the object is saved in the database and
-    investigate how the address of the object has been computed.
-  </p>
+  onMount(() => {
+    fetch_content_into_element('theme/welcome.html', document.getElementById('welcome'));
+  });
+</script>
 
-  For more information visit the
-  <a href="https://nominatim.org">Nominatim home page</a>.
-</div>
+<div id="welcome"></div>

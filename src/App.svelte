@@ -5,12 +5,12 @@
   import { page, refresh_page } from './lib/stores.js';
 
   import Footer from './components/Footer.svelte';
-  import ReportIssueModal from './components/ReportIssueModal.svelte';
   import SearchPage from './pages/SearchPage.svelte';
   import ReversePage from './pages/ReversePage.svelte';
   import DetailsPage from './pages/DetailsPage.svelte';
   import PolygonsPage from './pages/PolygonsPage.svelte';
   import DeletablePage from './pages/DeletablePage.svelte';
+  import AboutPage from './pages/AboutPage.svelte';
 
   $: view = $page.tab;
 
@@ -30,6 +30,7 @@
 <DeletablePage />
 {:else if view === 'polygons'}
 <PolygonsPage />
+{:else if view === 'about'}
+<AboutPage />
 {/if}
 <Footer/>
-<ReportIssueModal/>

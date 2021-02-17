@@ -40,6 +40,15 @@ Defaults:
 | `Map_Tile_Attribution` | [OpenStreetMap](https://openstreetmap.org/copyright) obviously |
 
 
+## Theming
+
+You can customize parts of the website by overwriting files in `dist/theme/`
+
+   * Set a `Page_Title` in the configuration
+   * Logo
+   * Content of Welcome and About&Help page
+   * Additional CSS styling
+
 ## License
 
 The source code is available under a [GPLv2 license](LICENSE).
