@@ -1,4 +1,5 @@
 <script>
+  import * as timeago from 'timeago.js';
   import { last_api_request_url_store } from '../lib/stores.js';
   import { fetch_from_api } from '../lib/api_utils.js';
 
@@ -15,13 +16,16 @@
 
 <style>
   #last-updated {
+    position: relative;
     font-size: 0.8rem;
     font-style: italic;
   }
   #loading {
     display: none;
     position: absolute;
+    padding: 0.5em 1em;
     top: 0;
+    left: 0;
     width: 100%;
     background-color: #eee;
     z-index: 100;
@@ -29,9 +33,12 @@
 </style>
 
 <div id="last-updated" class="container-fluid py-2 px-4 mb-3">
+  <div id="loading" class="py-2 px-4">
+    <div class="spinner-border spinner-border-sm text-primary mr-1" role="status"></div>
+    Loading data from API ...
+  </div>
   <div class="row">
     <div class="col-sm-6">
-      <div id="loading">loading...</div>
       {#if last_api_request_url}
         <div id="api-request">
           Data from <a href="{last_api_request_url}">API request</a>
@@ -43,7 +50,8 @@
     </div>
     <div class="col-sm-6 text-right">
       {#if last_updated_date}
-        Data last updated: <span id="data-date">{last_updated_date}</span>
+        Data last updated:
+        <abbr id="data-date" title="{last_updated_date} (UTC timezone)">{timeago.format(new Date(last_updated_date))}</abbr>
       {/if}
     </div>
   </div>

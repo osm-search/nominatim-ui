@@ -29,6 +29,7 @@
     "eslint-plugin-svelte3": "^3.0.0",
     "jquery": "^3.5.1",
     "leaflet": "^1.7.1",
-    "leaflet-minimap": "^3.6.1"
+    "leaflet-minimap": "^3.6.1",
+    "timeago.js": "^4.0.2"
   }
 }

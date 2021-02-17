@@ -7,7 +7,7 @@ function api_request_progress(status) {
   var loading_el = document.getElementById('loading');
   if (!loading_el) return; // might not be on page yet
 
-  loading_el.style.display = (status === 'start') ? 'block' : 'none';
+  loading_el.style.display = (status === 'start') ? 'block' : null;
 }
 
 export async function fetch_from_api(endpoint_name, params, callback) {
