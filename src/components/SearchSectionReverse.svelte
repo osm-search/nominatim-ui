@@ -38,7 +38,6 @@
 
 <UrlSubmitForm page="reverse">
   <div class="form-group">
-    <input name="format" type="hidden" value="html">
     <label for="reverse-lat">lat</label>
     <input id="reverse-lat"
            name="lat"
@@ -47,10 +46,14 @@
            placeholder="latitude"
            bind:value={lat}
            on:change={maybeSplitLatitude} />
+  </div>
+  <div class="form-group">
     <a id="switch-coords"
        on:click|preventDefault|stopPropagation={() => gotoCoordinates(lon, lat)}
        class="btn btn-outline-secondary btn-sm"
        title="switch lat and lon">&lt;&gt;</a>
+  </div>
+  <div class="form-group">
     <label for="reverse-lon">lon</label>
     <input id="reverse-lon"
            name="lon"
@@ -58,6 +61,8 @@
            class="form-control form-control-sm"
            placeholder="longitude"
            bind:value={lon} />
+  </div>
+  <div class="form-group">
     <label for="reverse-zoom">max zoom</label>
     <select id="reverse-zoom" name="zoom" class="form-control form-control-sm" bind:value={zoom}>
       <option value="">---</option>
@@ -65,9 +70,9 @@
         <option value="{i}">{i} - {zoomTitle}</option>
       {/each}
     </select>
-    <button type="submit" class="btn btn-primary btn-sm mx-1">
-      Search
-    </button>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
   </div>
 </UrlSubmitForm>
 
@@ -84,5 +89,11 @@
     cursor: pointer;
     padding: 2px;
     margin: 5px;
+  }
+
+  @media (max-width: 850px) {
+    #reverse-lon, #reverse-lat, #reverse-zoom {
+      width: 8em;
+    }
   }
 </style>

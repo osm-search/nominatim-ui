@@ -80,19 +80,20 @@
 <style>
   .sidebar {
     width: 25%;
+    min-width: 200px;
     padding: 15px;
     padding-top: 0;
-    display: inline-block;
+    display: block;
     float: left;
   }
 
   #map-wrapper {
     position: relative;
-    min-height: 300px;
     height: calc(100vh - 250pt);
+    min-height: 300px;
     width: 75%;
     padding-right: 20px;
-    display: inline-block;
+    display: block;
     float: left;
   }
 
@@ -105,7 +106,9 @@
       width: 100%;
     }
     #map-wrapper {
+      width: 100%;
       height: 300px;
+      padding-left: 20px;
     }
   }
 </style>
