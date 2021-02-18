@@ -33,6 +33,17 @@
     z-index: 1005;
   }
 
+  .page-title-section {
+    display: none;
+    text-align: center;
+    padding: 1em;
+  }
+  @media (max-width: 600px) {
+    .page-title-section {
+      display: block;
+    }
+  }
+
   .search-section {
     padding: 1em 30px;
     background-color: #f5f5f5;
@@ -83,6 +94,9 @@
     </div>
   </nav>
 </header>
+<section class="page-title-section">
+  <h2>{view}</h2>
+</section>
 <section class="search-section">
   <slot/>
 </section>

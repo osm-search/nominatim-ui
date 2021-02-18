@@ -96,16 +96,14 @@
              placeholder="Search"
              value="{api_request_params.q || ''}" />
 
-      <div class="form-group search-button-group">
-        <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
-        <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
-        <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
-        <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
-        <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
-        <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}" />
-        <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
-        <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
-      </div>
+      <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
+      <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
+      <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
+      <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
+      <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
+      <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}" />
+      <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
+      <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
     </UrlSubmitForm>
   </div>
   <div class="tab-pane" class:active={bStructuredSearch} id="structured" role="tabpanel">
@@ -129,16 +127,14 @@
              placeholder="Postal Code"
              value="{api_request_params.postalcode || ''}" />
 
-      <div class="form-group search-button-group">
-        <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
-        <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
-        <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
-        <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
-        <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
-        <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}" />
-        <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
-        <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
-      </div>
+      <button type="submit" class="btn btn-primary btn-sm">Search</button>
+      <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
+      <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
+      <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
+      <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
+      <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}" />
+      <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
+      <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
     </UrlSubmitForm>
   </div>
 </div> <!-- /tab-content -->
@@ -214,23 +210,10 @@
   .nav-link {
     padding: 0.1rem 1rem;
   }
-  .tab-content {
-    display: flex;
-    align-items: baseline
-  }
 
   #q {
-    min-width: 500px;
-  }
-  @media (max-width: 850px) {
-    #q {
-      min-width: 400px;
-    }
-  }
-  @media (max-width: 768px) {
-    .search-button-group {
-      display: inline;
-    }
+    width: 500px;
+    max-width: 100%;
   }
 
   #searchAdvancedOptions ul {
