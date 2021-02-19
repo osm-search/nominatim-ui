@@ -1,5 +1,14 @@
 # CHANGES
 
+* version 2.3.0 - 2021-02-19
+
+    * New top-level navigation: Search, Reverse, Search-by-id
+    * Details page: now has a search form, all 3 search fields merged into one
+    * Details page: add links for countries and postalcodes
+    * Last updated: now display as "x minutes/hours/days ago"
+    * Layout fixes for small browsers/mobile
+    * Simple automatic test setup (Github actions)
+
 * version 2.2.0 - 2021-02-13
 
     * Less page reloading
