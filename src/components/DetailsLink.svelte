@@ -21,22 +21,25 @@
   $: {
     let new_params = new URLSearchParams();
 
-    if (feature !== null && feature.osm_type) {
-      if (feature.osm_type.length === 1) {
-        new_params.set('osmtype', feature.osm_type);
-      } else {
-        new_params.set('osmtype', formatShortOSMType(feature.osm_type));
-      }
+    if (feature !== null) {
+      if (feature.osm_type) {
+        if (feature.osm_type.length === 1) {
+          new_params.set('osmtype', feature.osm_type);
+        } else {
+          new_params.set('osmtype', formatShortOSMType(feature.osm_type));
+        }
 
-      new_params.set('osmid', feature.osm_id);
+        new_params.set('osmid', feature.osm_id);
 
-      if (feature.class) {
-        new_params.set('class', feature.class);
-      } else if (feature.category) {
-        new_params.set('class', feature.category);
+        if (feature.class) {
+          new_params.set('class', feature.class);
+        } else if (feature.category) {
+          new_params.set('class', feature.category);
+        }
+      } else if (feature.place_id) {
+        new_params.set('place_id', feature.place_id);
       }
     }
-
     url_params = new_params;
   }
 
