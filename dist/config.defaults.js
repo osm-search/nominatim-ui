@@ -10,7 +10,7 @@ let Nominatim_Config = {
   Images_Base_Url: 'mapicons/',
 
   // If the API should return polygons to be displayed on the map
-  Search_AreaPolygons: 1,
+  Search_AreaPolygons: true,
 
   // ---- MAP ----
   Reverse_Default_Search_Zoom: 18,

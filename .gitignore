@@ -1,3 +1,4 @@
 .DS_Store
-dist/config.js
+dist/theme/config.theme.js
+dist/build/bundle.*
 node_modules

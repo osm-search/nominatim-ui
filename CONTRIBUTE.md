@@ -1,10 +1,13 @@
 # Developing Nominatim-UI
 
+[![Continuous Integration](https://github.com/osm-search/nominatim-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/osm-search/nominatim-ui/actions/workflows/ci.yml)
+
 ## Background
 
 The user interface used to be included in the geocoder. Thus the
 first version avoid being a redesign and still uses some of the
-same configuration values.
+same configuration values. Version 2 was a full refactor using
+Svelte. Version 3 added theme and easier configuration.
 
 Uses [svelte](https://svelte.dev/) framework,
 [leaflet](https://leafletjs.com/) for map interaction,
