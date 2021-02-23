@@ -25,3 +25,6 @@ var Nominatim_Config = [];
 // Nominatim_Config['Map_Default_Lat'] = 20.0;
 // Nominatim_Config['Map_Default_Lon'] = 0.0;
 // Nominatim_Config['Map_Default_Zoom'] = 2;
+
+// ---- BRANDING ----
+// Nominatim_Config['Page_Title'] = 'Nominatim Demo';

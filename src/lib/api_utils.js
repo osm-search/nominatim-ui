@@ -25,6 +25,21 @@ export async function fetch_from_api(endpoint_name, params, callback) {
   if (endpoint_name !== 'status') last_api_request_url_store.set(api_url);
 }
 
+var fetch_content_cache = {};
+export async function fetch_content_into_element(url, dom_element) {
+  if (fetch_content_cache[url]) {
+    dom_element.innerHTML = fetch_content_cache[url];
+    return;
+  }
+  await fetch(url)
+    .then(response => response.text())
+    .then(html => {
+      html = html.replace('Nominatim_API_Endpoint', get_config_value('Nominatim_API_Endpoint'));
+      dom_element.innerHTML = html;
+      fetch_content_cache[url] = html;
+    });
+}
+
 function generate_nominatim_api_url(endpoint_name, params) {
   return get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?'
          + Object.keys(clean_up_parameters(params)).map((k) => {
@@ -46,7 +61,7 @@ function clean_up_parameters(params) {
 }
 
 export function update_html_title(title) {
-  document.title = [title, 'OpenStreetMap Nominatim']
+  document.title = [title, get_config_value('Page_Title')]
     .filter((val) => val && val.length > 1)
     .join(' | ');
 }
