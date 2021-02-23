@@ -10,7 +10,8 @@ const Nominatim_Config_Defaults = {
   Map_Default_Lon: 0.0,
   Map_Default_Zoom: 2,
   Map_Tile_URL: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
-  Map_Tile_Attribution: '<a href="https://osm.org/copyright">OpenStreetMap contributors</a>'
+  Map_Tile_Attribution: '<a href="https://osm.org/copyright">OpenStreetMap contributors</a>',
+  Page_Title: 'Nominatim Demo'
 };
 
 function get_config_value(str, default_val) {
