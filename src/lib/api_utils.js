@@ -1,7 +1,4 @@
-
-import { get_config_value } from './config_reader.js';
 import { last_api_request_url_store, error_store } from './stores.js';
-
 
 function api_request_progress(status) {
   var loading_el = document.getElementById('loading');
@@ -43,14 +40,14 @@ export async function fetch_content_into_element(url, dom_element) {
   await fetch(url)
     .then(response => response.text())
     .then(html => {
-      html = html.replace('Nominatim_API_Endpoint', get_config_value('Nominatim_API_Endpoint'));
+      html = html.replace('Nominatim_API_Endpoint', Nominatim_Config.Nominatim_API_Endpoint);
       dom_element.innerHTML = html;
       fetch_content_cache[url] = html;
     });
 }
 
 function generate_nominatim_api_url(endpoint_name, params) {
-  return get_config_value('Nominatim_API_Endpoint') + endpoint_name + '.php?'
+  return Nominatim_Config.Nominatim_API_Endpoint + endpoint_name + '.php?'
          + Object.keys(clean_up_parameters(params)).map((k) => {
            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
          }).join('&');
@@ -70,7 +67,7 @@ function clean_up_parameters(params) {
 }
 
 export function update_html_title(title) {
-  document.title = [title, get_config_value('Page_Title')]
+  document.title = [title, Nominatim_Config.Page_Title]
     .filter((val) => val && val.length > 1)
     .join(' | ');
 }

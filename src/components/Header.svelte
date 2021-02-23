@@ -5,9 +5,9 @@
   import Error from './Error.svelte';
 
   import { page } from '../lib/stores.js';
-  import { get_config_value } from '../lib/config_reader.js';
 
   $: view = $page.tab;
+  $: page_title = Nominatim_Config.Page_Title;
 </script>
 
 <style>
@@ -56,7 +56,7 @@
     <div class="navbar-brand">
       <PageLink page="search">
         <img alt="logo" id="theme-logo" src="theme/logo.png" />
-        <h1>{get_config_value('Page_Title')}</h1>
+        <h1>{page_title}</h1>
       </PageLink>
     </div>
     <!-- Toggler (hamburger button) -->
