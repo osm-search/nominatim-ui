@@ -1,5 +1,7 @@
 # Nominatim-UI
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/osm-search/nominatim-ui)
+
 Debugging user interface for [Nominatim](https://nominatim.org/)
 ([source](https://github.com/osm-search/Nominatim/)) geocoder.
 

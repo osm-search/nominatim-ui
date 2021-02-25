@@ -44,10 +44,9 @@ Uses [svelte](https://svelte.dev/) framework,
 
 2. Update `CHANGES.md` file
 
-3. Run `yarn build` to make sure the `dist/build/` files don't contain lifereload.js
+3. Commit your changes: `git add... `, `git commit ...`, `git push ...` etc
 
-4. Commit your changes: `git add... `, `git commit ...`, `git push ...` etc
+4. Tag release: `git tag THE_VERSION_NUMBER`, `git push --tags`
 
-5. Tag release: `git tag THE_VERSION_NUMBER`, `git push --tags`
-
-6. Upload release
+5. Create release on https://github.com/osm-search/nominatim-ui/releases
+   This (a triggered Github Action) will run `yarn build` and add the `dist/build/bundle.*` files.

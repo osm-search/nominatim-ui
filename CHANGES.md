@@ -1,8 +1,19 @@
 # CHANGES
 
-* unreleased
-    * Add theming
-    * Replace config.js with config.default.js and theme/config.theme.js
+* version 3.0.0 - 2021-02-25
+
+    Version 3 add a new directory dist/theme/. It changes the default welcome, about and
+    help text, and moves the configuration into dist/theme/. Admins should review those
+    (explained in README.md) before deploying the nominatim-ui.
+
+    * Major change: Add theming
+    * Major change: Replace dist/config.js with dist/config.default.js and dist/theme/config.theme.js
+    * Refactored and added API error output
+    * Build: dist/build/bundle.* files are now created by a Github Action upon release, no longer in version control
+    * Documentation: removed TODO.md, we use github issues now
+    * Documentation: README.md is part of the release, moved some development content to CONTRIBUTE.md
+    * Documentation: badge showing latest release version in README.md
+    * Documentation: badge showing latest test (Github CI) output in CONTRIBUTE.md
 
 * version 2.3.0 - 2021-02-19
 
