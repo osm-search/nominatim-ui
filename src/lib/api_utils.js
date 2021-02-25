@@ -1,6 +1,6 @@
 
 import { get_config_value } from './config_reader.js';
-import { last_api_request_url_store } from './stores.js';
+import { last_api_request_url_store, error_store } from './stores.js';
 
 
 function api_request_progress(status) {
@@ -14,13 +14,22 @@ export async function fetch_from_api(endpoint_name, params, callback) {
   var api_url = generate_nominatim_api_url(endpoint_name, params);
 
   api_request_progress('start');
+  if (endpoint_name !== 'status') last_api_request_url_store.set(null);
 
-  await fetch(api_url)
-    .then(response => response.json())
-    .then(data => {
-      callback(data);
-      api_request_progress('finish');
-    });
+  try {
+    await fetch(api_url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          error_store.set(data.error.message);
+        }
+        callback(data);
+        api_request_progress('finish');
+      });
+  } catch (error) {
+    error_store.set(`Error fetching data from ${api_url} (${error})`);
+    api_request_progress('finish');
+  }
 
   if (endpoint_name !== 'status') last_api_request_url_store.set(api_url);
 }

@@ -2,6 +2,7 @@
   import PageLink from './PageLink.svelte';
   import ReverseLink from './ReverseLink.svelte';
   import LastUpdated from './LastUpdated.svelte';
+  import Error from './Error.svelte';
 
   import { page } from '../lib/stores.js';
   import { get_config_value } from '../lib/config_reader.js';
@@ -90,4 +91,5 @@
 <section class="search-section">
   <slot/>
 </section>
+<Error/>
 <LastUpdated/>

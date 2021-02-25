@@ -14,10 +14,9 @@
   import Map from '../components/Map.svelte';
 
   let aPlace;
-  let errorResponse;
   let base_url = window.location.search;
-  let current_result;
   let api_request_params;
+  let api_request_finished = false;
 
   function loaddata(search_params) {
     api_request_params = {
@@ -32,6 +31,7 @@
       polygon_geojson: 1,
       format: 'json'
     };
+    api_request_finished = false;
 
     if (api_request_params.place_id || (api_request_params.osmtype && api_request_params.osmid)) {
 
@@ -43,14 +43,8 @@
 
       fetch_from_api('details', api_request_params, function (data) {
         window.scrollTo(0, 0);
-        if (data.error) {
-          errorResponse = data;
-          current_result = undefined;
-        } else {
-          aPlace = data;
-          errorResponse = undefined;
-          current_result = data;
-        }
+        api_request_finished = true;
+        aPlace = (data && !data.error) ? data : undefined;
       });
     } else {
       aPlace = undefined;
@@ -68,11 +62,9 @@
 <Header>
   <SearchSectionDetails api_request_params={api_request_params}/>
 </Header>
-{#if errorResponse}
-  {errorResponse.error.message}
-{/if}
-{#if aPlace}
-  <div class="container">
+
+<div class="container">
+  {#if aPlace}
     <div class="row">
       <div class="col-sm-10">
         <h1>
@@ -185,7 +177,7 @@
       </div>
       <div class="col-md-6">
         <div id="map-wrapper">
-          <Map {current_result} />
+          <Map current_result={aPlace} />
         </div>
       </div>
     </div>
@@ -273,12 +265,10 @@
         </table>
       </div>
     </div>
-  </div>
-{:else if (window.location.search === '')}
-  <!-- <DetailsIndex/> -->
-{:else}
-  No such place found.
-{/if}
+  {:else if (window.location.search !== '' && api_request_finished)}
+    No such place found.
+  {/if}
+</div>
 
 
 
