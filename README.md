@@ -2,52 +2,41 @@
 
 Debugging user interface for [Nominatim](https://nominatim.org/)
 ([source](https://github.com/osm-search/Nominatim/)) geocoder.
-The frontend runs standalone as website and will requests data
-from a separate Nominatim API (either on the same server or
-remote).
 
-For technical details see [CONTRIBUTE.md](CONTRIBUTE.md) file.
+The frontend runs standalone as website and will request data
+from a separate Nominatim API running on http://localhost:80/nominatim/ (configurable, see below).
+
+Download a stable release from [https://github.com/osm-search/nominatim-ui/releases]().
+For technical background, how to develop and create a release see [CONTRIBUTE.md](CONTRIBUTE.md) file at [https://github.com/osm-search/nominatim-ui/]().
 
 ![Screenshot](screenshot.png)
 
 ## Starting the frontend
 
-* You can open the `dist` directory in your browser.
+You can either
 
-* If you have python installed (part of the Nominatim server installation):
+* open the `dist` directory in your browser.
+
+* if you have Python installed (part of the Nominatim API server installation):
 
    1. `cd dist`
    2. start webserver `python3 -m http.server 8765` 
-   3. open http://localhost:8765/ in your browser
+   3. open [http://localhost:8765/]() in your browser
 
-* Start a webserver using ([Big list of http static server one-liners](https://gist.github.com/willurd/5720255)) or configure Apache, nginx or other webservers to serve the `dist` directory.
+* start a webserver using ([Big list of http static server one-liners](https://gist.github.com/willurd/5720255)) or configure Apache, nginx or other webservers to serve the `dist` directory.
 
 
 ## Configuration
 
-Create a `dist/config.js` file, you can use `dist/config.example.js` as basis (just copy it). All settings are optional. Usually you want to set the `Nominatim_API_Endpoint` value at least.
+Defaults are set in `dist/config.default.js`.
+You can overwrite settings in `dist/config.theme.js`, for example:
 
-Defaults:
+```javascript
+  Nominatim_Config.Nominatim_API_Endpoint = 'http://my-server:1234/';
+```
 
-| setting | default |
-|---|---|
-| `Nominatim_API_Endpoint` | http://localhost/nominatim/ (port 80) |
-| `Images_Base_Url` | images in [mapicons](dist/mapicons) |
-| `Search_AreaPolygons` | yes, print boundaries of search results on map |
-| `Reverse_Default_Search_Zoom` | 18 (house-number level) |
-| `Map_Default_Lat`, `Map_Default_Lon`, `Map_Default_Zoom` | display whole world |
-| `Map_Tile_URL` | load from openstreetmap.org |
-| `Map_Tile_Attribution` | [OpenStreetMap](https://openstreetmap.org/copyright) obviously |
-
-
-## Theming
-
-You can customize parts of the website by overwriting files in `dist/theme/`
-
-   * Set a `Page_Title` in the configuration
-   * Logo
-   * Content of Welcome and About&Help page
-   * Additional CSS styling
+The `dist/theme/` directory also contains files make it easy to set a different
+logo image, colors, welcome and help text.
 
 ## License
 

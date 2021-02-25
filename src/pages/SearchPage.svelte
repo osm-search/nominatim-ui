@@ -1,6 +1,5 @@
 <script>
   import { page, results_store } from '../lib/stores.js';
-  import { get_config_value } from '../lib/config_reader.js';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
 
   import Header from '../components/Header.svelte';
@@ -23,7 +22,7 @@
       state: search_params.get('state'),
       country: search_params.get('country'),
       postalcode: search_params.get('postalcode'),
-      polygon_geojson: get_config_value('Search_AreaPolygons', false) ? 1 : 0,
+      polygon_geojson: Nominatim_Config.Search_AreaPolygons ? 1 : 0,
       viewbox: search_params.get('viewbox'),
       bounded: search_params.get('bounded'),
       dedupe: search_params.get('dedupe'),

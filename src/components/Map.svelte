@@ -6,7 +6,6 @@
   import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 
   import { get } from 'svelte/store';
-  import { get_config_value } from '../lib/config_reader.js';
   import { map_store } from '../lib/stores.js';
   import MapPosition from '../components/MapPosition.svelte';
 
@@ -17,24 +16,24 @@
   let dataLayers = [];
 
   function createMap(container) {
-    const attribution = get_config_value('Map_Tile_Attribution') || null;
+    const attribution = Nominatim_Config.Map_Tile_Attribution;
     let map = new L.map(container, {
       attributionControl: (attribution && attribution.length),
       scrollWheelZoom: true, // !L.Browser.touch,
       touchZoom: false,
       center: [
-        get_config_value('Map_Default_Lat'),
-        get_config_value('Map_Default_Lon')
+        Nominatim_Config.Map_Default_Lat,
+        Nominatim_Config.Map_Default_Lon
       ],
-      zoom: get_config_value('Map_Default_Zoom')
+      zoom: Nominatim_Config.Map_Default_Zoom
     });
 
-    L.tileLayer(get_config_value('Map_Tile_URL'), {
+    L.tileLayer(Nominatim_Config.Map_Tile_URL, {
       attribution: attribution
     }).addTo(map);
 
     if (display_minimap) {
-      let osm2 = new L.TileLayer(get_config_value('Map_Tile_URL'), {
+      let osm2 = new L.TileLayer(Nominatim_Config.Map_Tile_URL, {
         minZoom: 0,
         maxZoom: 13,
         attribution: attribution

@@ -1,6 +1,5 @@
 <script>
   import { page, results_store } from '../lib/stores.js';
-  import { get_config_value } from '../lib/config_reader.js';
   import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
 
   import Header from '../components/Header.svelte';
@@ -20,7 +19,7 @@
       lon: search_params.get('lon'),
       zoom: (search_params.get('zoom') > 1
         ? Number(search_params.get('zoom'))
-        : Number(get_config_value('Reverse_Default_Search_Zoom'))),
+        : Number(Nominatim_Config.Reverse_Default_Search_Zoom)),
       format: 'jsonv2'
     };
 

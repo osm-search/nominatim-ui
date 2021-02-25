@@ -1,12 +1,11 @@
 <script>
 
   export let aPlace;
-  import { get_config_value } from '../lib/config_reader.js';
 
   let sIcon = getIcon(aPlace.category, aPlace.type);
 
   let title = 'icon for ' + aPlace.category + ' ' + aPlace.type;
-  let url = get_config_value('Images_Base_Url') + sIcon + '.p.20.png';
+  let url = Nominatim_Config.Images_Base_Url + sIcon + '.p.20.png';
 
   function getIcon(category, type) {
     // equivalent to PHP Nominatim::ClassTypes::getIcon

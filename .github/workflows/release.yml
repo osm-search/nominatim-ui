@@ -24,7 +24,7 @@ jobs:
           yarn build
           export VERSION=${GITREF/*v/}
           mkdir nominatim-ui-${VERSION}
-          mv dist LICENSE README.md nominatim-ui-${VERSION}/
+          mv dist LICENSE README.md screenshot.png nominatim-ui-${VERSION}/
           mkdir artifacts
           tar czf artifacts/nominatim-ui-${VERSION}.tar.gz nominatim-ui-${VERSION}
           zip -qr artifacts/nominatim-ui-${VERSION}.zip nominatim-ui-${VERSION}

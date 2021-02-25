@@ -1,5 +1,9 @@
 # CHANGES
 
+* unreleased
+    * Add theming
+    * Replace config.js with config.default.js and theme/config.theme.js
+
 * version 2.3.0 - 2021-02-19
 
     * New top-level navigation: Search, Reverse, Search-by-id
