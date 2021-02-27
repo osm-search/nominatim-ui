@@ -31,7 +31,7 @@ You can either
 ## Configuration
 
 Defaults are set in `dist/config.default.js`.
-You can overwrite settings in `dist/config.theme.js`, for example:
+You can overwrite settings in `dist/theme/config.theme.js`, for example:
 
 ```javascript
   Nominatim_Config.Nominatim_API_Endpoint = 'http://my-server:1234/';
