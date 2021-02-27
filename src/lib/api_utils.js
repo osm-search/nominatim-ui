@@ -33,17 +33,27 @@ export async function fetch_from_api(endpoint_name, params, callback) {
 
 var fetch_content_cache = {};
 export async function fetch_content_into_element(url, dom_element) {
+  if (!window.location.protocol.match(/^http/)) {
+    dom_element.innerHTML = `Cannot display data from ${url} here. `
+      + 'Browser security prevents loading content from file:// URLs.';
+    return;
+  }
+
   if (fetch_content_cache[url]) {
     dom_element.innerHTML = fetch_content_cache[url];
     return;
   }
-  await fetch(url)
-    .then(response => response.text())
-    .then(html => {
-      html = html.replace('Nominatim_API_Endpoint', Nominatim_Config.Nominatim_API_Endpoint);
-      dom_element.innerHTML = html;
-      fetch_content_cache[url] = html;
-    });
+  try {
+    await fetch(url)
+      .then(response => response.text())
+      .then(html => {
+        html = html.replace('Nominatim_API_Endpoint', Nominatim_Config.Nominatim_API_Endpoint);
+        dom_element.innerHTML = html;
+        fetch_content_cache[url] = html;
+      });
+  } catch (error) {
+    dom_element.innerHTML = `Error fetching content from ${url} (${error})`;
+  }
 }
 
 function generate_nominatim_api_url(endpoint_name, params) {

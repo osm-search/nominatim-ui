@@ -34,7 +34,13 @@ export function refresh_page(pagename, params) {
     if (param_str) {
       param_str = '?' + param_str;
     }
-    window.history.pushState([], '', pagename + '.html' + param_str);
+    let new_url = pagename + '.html' + param_str;
+
+    if (window.location.protocol.match(/^http/)) {
+      window.history.pushState([], '', new_url);
+    } else {
+      window.location.href = new_url;
+    }
   }
 
   page.set({ tab: pagename, params: params });
