@@ -150,7 +150,7 @@
             {/if}
             <tr>
               <td>Computed Postcode</td>
-              <td>{aPlace.calculated_postcode}</td>
+              <td>{aPlace.calculated_postcode || ''}</td>
             </tr>
             <tr>
               <td>Address Tags</td>
