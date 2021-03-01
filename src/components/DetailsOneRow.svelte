@@ -43,4 +43,9 @@
   .noname{
     color:#800;
   }
+
+  td {
+    padding: 2px 8px;
+    font-size: 0.9em;
+  }
 </style>
