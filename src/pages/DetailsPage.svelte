@@ -11,6 +11,8 @@
   import SearchSectionDetails from '../components/SearchSectionDetails.svelte';
   import DetailsOneRow from '../components/DetailsOneRow.svelte';
   import DetailsLink from '../components/DetailsLink.svelte';
+  import InfoRow from '../components/DetailsInfoRow.svelte';
+  import InfoRowList from '../components/DetailsInfoRowList.svelte';
   import Map from '../components/Map.svelte';
 
   let aPlace;
@@ -80,98 +82,35 @@
       <div class="col-md-6">
         <table id="locationdetails" class="table table-striped">
           <tbody>
-            <tr>
-              <td>Name</td>
-              <td>
-                {#each Object.keys(aPlace.names) as name}
-                  <div class="line">
-                    <span class="name">{aPlace.names[name]}</span> ({name})
-                  </div>
-                {/each}
-              </td>
-            </tr>
-            <tr>
-              <td>Type</td>
-              <td>{aPlace.category}:{aPlace.type}</td>
-            </tr>
-            <tr>
-              <td>Last Updated</td>
-              <td>{aPlace.indexed_date}</td>
-            </tr>
+            <InfoRow title="Name"><InfoRowList items={aPlace.names} /></InfoRow>
+            <InfoRow title="Type">{aPlace.category}:{aPlace.type}</InfoRow>
+            <InfoRow title="Last Updated">{aPlace.indexed_date}</InfoRow>
             {#if (isAdminBoundary(aPlace)) }
-            <tr>
-              <td>Admin Level</td>
-              <td>{aPlace.admin_level}</td>
-            </tr>
+              <InfoRow title="Admin Level">{aPlace.admin_level}</InfoRow>
             {/if}
-            <tr>
-              <td>Search Rank</td>
-              <td>{aPlace.rank_search}</td>
-            </tr>
-            <tr>
-              <td>Address Rank</td>
-              <td>{aPlace.rank_address} ({formatAddressRank(aPlace.rank_address)})</td>
-            </tr>
+            <InfoRow title="Search Rank">{aPlace.rank_search}</InfoRow>
+            <InfoRow title="Address Rank">{aPlace.rank_address} ({formatAddressRank(aPlace.rank_address)})</InfoRow>
             {#if aPlace.calculated_importance}
-              <tr>
-                <td>Importance</td>
-                <td>
+              <InfoRow title="Importance">
                   {aPlace.calculated_importance}
                   {#if !aPlace.importance} (estimated){/if}
-                </td>
-              </tr>
+              </InfoRow>
             {/if}
-            <tr>
-              <td>Coverage</td>
-              <td>{coverageType(aPlace)}</td>
-            </tr>
-            <tr>
-              <td>Centre Point (lat,lon)</td>
-              <td>
+            <InfoRow title="Coverage">{coverageType(aPlace)}</InfoRow>
+            <InfoRow title="Centre Point (lat,lon)">
                 {aPlace.centroid.coordinates[1]},{aPlace.centroid.coordinates[0]}
-              </td>
-            </tr>
-            <tr>
-              <td>OSM</td>
-              <td>{@html osmLink(aPlace)}
-            </tr>
-            <tr>
-              <td>
-                Place Id
-                (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">on this server</a>)
-              </td>
-              <td>{aPlace.place_id}</td>
-            </tr>
+            </InfoRow>
+            <InfoRow title="OSM">{@html osmLink(aPlace)}</InfoRow>
+            <InfoRow title="Place Id">
+               {aPlace.place_id}
+               (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">on this server</a>)
+            </InfoRow>
             {#if aPlace.calculated_wikipedia}
-              <tr>
-                <td>Wikipedia Calculated</td>
-                <td>{@html wikipediaLink(aPlace)}</td>
-              </tr>
+              <InfoRow title="Wikipedia Calculated">{@html wikipediaLink(aPlace)}</InfoRow>
             {/if}
-            <tr>
-              <td>Computed Postcode</td>
-              <td>{aPlace.calculated_postcode || ''}</td>
-            </tr>
-            <tr>
-              <td>Address Tags</td>
-              <td>
-                {#each Object.keys(aPlace.addresstags) as name}
-                  <div class="line">
-                    <span class="name">{aPlace.addresstags[name]}</span> ({name})
-                  </div>
-                {/each}
-              </td>
-            </tr>
-            <tr>
-              <td>Extra Tags</td>
-              <td>
-                {#each Object.keys(aPlace.extratags) as name}
-                  <div class="line">
-                    <span class="name">{aPlace.extratags[name]}</span> ({name})
-                  </div>
-                {/each}
-              </td>
-            </tr>
+            <InfoRow title="Computed Postcode">{aPlace.calculated_postcode || ''}</InfoRow>
+            <InfoRow title="Address Tags"><InfoRowList items={aPlace.addresstags} /></InfoRow>
+            <InfoRow title="Extra Tags"><InfoRowList items={aPlace.extratags} /></InfoRow>
           </tbody>
         </table>
       </div>
@@ -304,15 +243,6 @@
 
   .table {
     width: 100%;
-  }
-  .table td {
-    font-size: 0.9em;
-  }
-  .table>thead>tr>th, .table>tbody>tr>td {
-    padding: 2px 8px;
-  }
-  .name{
-    font-weight: bold;
   }
   #map-wrapper {
     width:100%;
