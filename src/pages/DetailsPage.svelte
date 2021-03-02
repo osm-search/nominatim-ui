@@ -80,7 +80,7 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <table id="locationdetails" class="table table-striped">
+        <table id="locationdetails" class="table table-striped table-responsive">
           <tbody>
             <InfoRow title="Name"><InfoRowList items={aPlace.names} /></InfoRow>
             <InfoRow title="Type">{aPlace.category}:{aPlace.type}</InfoRow>
@@ -241,9 +241,6 @@
     padding-left: 0 !important;
   }
 
-  .table {
-    width: 100%;
-  }
   #map-wrapper {
     width:100%;
     min-height: auto;

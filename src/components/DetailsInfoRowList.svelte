@@ -3,8 +3,9 @@
 </script>
 
 <style>
-  .name{
+  .name {
     font-weight: bold;
+    overflow-wrap: anywhere;
   }
 </style>
 
