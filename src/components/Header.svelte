@@ -67,20 +67,20 @@
       <!-- Left-aligned links -->
       <ul class="navbar-nav mr-auto">
         <li class="nav-item {view === 'search' ? 'active' : ''}">
-          <PageLink page="search" extra_classes="nav-link ">Search</PageLink>
+          <PageLink page="search" extra_classes="nav-link">Search</PageLink>
         </li>
         <li class="nav-item {view === 'reverse' ? 'active' : ''}">
           <ReverseLink extra_classes="nav-link ">Reverse</ReverseLink>
         </li>
         <li class="nav-item {view === 'details' ? 'active' : ''}">
-          <PageLink page="details" extra_classes="nav-link ">Search By ID</PageLink>
+          <PageLink page="details" extra_classes="nav-link">Search By ID</PageLink>
         </li>
       </ul>
     </div>
     <!-- Right aligned links -->
     <ul class="navbar-nav">
       <li class="nav-item {view === 'about' ? 'active' : ''}">
-        <PageLink page="about" extra_classes="nav-link ">About & Help</PageLink>
+        <PageLink page="about" extra_classes="nav-link">About & Help</PageLink>
       </li>
     </ul>
   </nav>

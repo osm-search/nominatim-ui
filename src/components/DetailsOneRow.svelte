@@ -7,12 +7,13 @@
 
   export let addressLine;
   export let bDistanceInMeters;
+  export let bMarkUnusedLines = false;
 
   $: bAddressLineUsed = addressLine.isaddress;
 
 </script>
 
-<tr class:notused={!bAddressLineUsed}>
+<tr class:notused={bMarkUnusedLines && !bAddressLineUsed}>
   <td class="name font-weight-bold">
     {#if addressLine.localname}
       {addressLine.localname}
@@ -29,9 +30,9 @@
     {#if addressLine.osm_id}
       <DetailsLink feature={addressLine}>details</DetailsLink>
     {:else if addressLine.type.match(/^country/)}
-      <PageLink page='search', params_hash={{ country: addressLine.localname }}>search by name</PageLink>
+      <PageLink page='search' params_hash={{ country: addressLine.localname }}>search by name</PageLink>
     {:else if addressLine.type === 'postcode'}
-      <PageLink page='search', params_hash={{ postalcode: addressLine.localname }}>search by name</PageLink>
+      <PageLink page='search' params_hash={{ postalcode: addressLine.localname }}>search by name</PageLink>
     {/if}
   </td>
 </tr>

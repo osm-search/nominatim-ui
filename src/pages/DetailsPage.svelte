@@ -16,7 +16,7 @@
   import Map from '../components/Map.svelte';
 
   let aPlace;
-  let base_url = window.location.search;
+  let base_url;
   let api_request_params;
   let api_request_finished = false;
 
@@ -57,6 +57,7 @@
     let pageinfo = $page;
     if (pageinfo.tab === 'details') {
       loaddata(pageinfo.params);
+      base_url = window.location.search;
     }
   }
 </script>
@@ -138,14 +139,14 @@
           <tbody>
             {#if aPlace.address}
               {#each aPlace.address as addressLine}
-                <DetailsOneRow addressLine={addressLine} bDistanceInMeters=false />
+                <DetailsOneRow addressLine={addressLine} bMarkUnusedLines=true bDistanceInMeters=false />
               {/each}
             {/if}
 
             {#if aPlace.linked_places}
               <tr class="all-columns"><td colspan="6"><h2>Linked Places</h2></td></tr>
               {#each aPlace.linked_places as addressLine}
-                <DetailsOneRow addressLine={addressLine} bDistanceInMeters=true />
+                <DetailsOneRow addressLine={addressLine} bMarkUnusedLines=true bDistanceInMeters=true />
               {/each}
             {/if}
 
@@ -161,15 +162,17 @@
                 </tr>
               {/each}
 
-              <tr class="all-columns"><td colspan="6"><h3>Address Keywords</h3></td></tr>
-              {#each aPlace.keywords.address as keyword}
-                <tr>
-                  <td>{formatKeywordToken(keyword.token)}</td>
-                  {#if keyword.id}
-                    <td>word id: {keyword.id}</td>
-                  {/if}
-              </tr>
-              {/each}
+              {#if aPlace.keywords.address}
+                <tr class="all-columns"><td colspan="6"><h3>Address Keywords</h3></td></tr>
+                {#each aPlace.keywords.address as keyword}
+                  <tr>
+                    <td>{formatKeywordToken(keyword.token)}</td>
+                    {#if keyword.id}
+                      <td>word id: {keyword.id}</td>
+                    {/if}
+                  </tr>
+                {/each}
+              {/if}
             {:else}
               <tr>
                 <td>
