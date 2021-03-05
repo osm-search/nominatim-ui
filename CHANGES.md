@@ -1,5 +1,15 @@
 # CHANGES
 
+* version 3.0.1 - 2021-03-05
+
+    * Details page: table is now responsive, no longer overflows
+    * Details page: don't print 'null' when postcode is missing
+    * Details page: make sure links to children,hierarcy update after pageload, thx LiteratimBi for the report
+    * Details page: in hierachy list all addresslines were marked unused (grayed out)
+    * Details page: API doesn't always return address keywords
+    * PageLinks/ReverseLink: fix warnings when properties not set
+    * Documentation: fix link to theme configuration file
+
 * version 3.0.0 - 2021-02-25
 
     Version 3 add a new directory dist/theme/. It changes the default welcome, about and
