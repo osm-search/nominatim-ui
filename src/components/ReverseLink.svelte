@@ -1,8 +1,8 @@
 <script>
 import { refresh_page } from '../lib/stores.js';
 
-export let lat;
-export let lon;
+export let lat = null;
+export let lon = null;
 export let zoom = null;
 export let extra_classes = '';
 
