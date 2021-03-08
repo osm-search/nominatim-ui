@@ -30,8 +30,9 @@ You can either
 
 ## Configuration
 
-Defaults are set in `dist/config.default.js`.
-You can overwrite settings in `dist/theme/config.theme.js`, for example:
+You can customize your installation by creating and editing `dist/theme/config.theme.js` which allows you to override the default values provided by `dist/config.default.js`.
+
+The following `config.theme.js` example file changes the location of the API endpoint:
 
 ```javascript
   Nominatim_Config.Nominatim_API_Endpoint = 'http://my-server:1234/';
