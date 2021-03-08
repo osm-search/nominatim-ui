@@ -8,8 +8,8 @@ Debugging user interface for [Nominatim](https://nominatim.org/)
 The frontend runs standalone as website and will request data
 from a separate Nominatim API running on http://localhost:80/nominatim/ (configurable, see below).
 
-Download a stable release from [https://github.com/osm-search/nominatim-ui/releases]().
-For technical background, how to develop and create a release see [CONTRIBUTE.md](CONTRIBUTE.md) file at [https://github.com/osm-search/nominatim-ui/]().
+Download a stable release from [https://github.com/osm-search/nominatim-ui/releases](https://github.com/osm-search/nominatim-ui/releases).
+For technical background, how to develop and create a release see [CONTRIBUTE.md](CONTRIBUTE.md) file at [https://github.com/osm-search/nominatim-ui/](https://github.com/osm-search/nominatim-ui).
 
 ![Screenshot](screenshot.png)
 
