@@ -10,6 +10,7 @@
   import DetailsPage from './pages/DetailsPage.svelte';
   import PolygonsPage from './pages/PolygonsPage.svelte';
   import DeletablePage from './pages/DeletablePage.svelte';
+  import StatusPage from './pages/StatusPage.svelte';
   import AboutPage from './pages/AboutPage.svelte';
 
   $: view = $page.tab;
@@ -30,6 +31,8 @@
 <DeletablePage />
 {:else if view === 'polygons'}
 <PolygonsPage />
+{:else if view === 'status'}
+<StatusPage />
 {:else if view === 'about'}
 <AboutPage />
 {/if}

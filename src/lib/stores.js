@@ -16,7 +16,7 @@ export const page = writable();
  * the requested query parameters. It may also be omitted completely for a
  * link without query parameters.
  */
-const pagenames = ['search', 'reverse', 'details', 'deletable', 'polygons', 'about'];
+const pagenames = ['search', 'reverse', 'details', 'deletable', 'polygons', 'status', 'about'];
 
 export function refresh_page(pagename, params) {
   if (typeof pagename === 'undefined') {
