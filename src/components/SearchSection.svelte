@@ -170,7 +170,7 @@
     <li>
       <label for="option_limit">Maximum number of results</label>
       <input type="number" class="form-control form-control-sm d-inline w-auto api-param-setting"
-             data-api-param="limit" id="option_limit" size="5" min="1" max="50"
+             data-api-param="limit" id="option_limit" min="1" max="50"
              value="{api_request_params.limit || ''}"
              on:change={set_api_param}>
     </li>
@@ -178,7 +178,7 @@
     <li>
       <label for="option_polygon_threshold">Polygon simplification</label>
       <input type="number" class="form-control form-control-sm d-inline w-auto api-param-setting"
-             data-api-param="polygon_threshold" id="option_polygon_threshold" size="5" min="0.0" step="0.01"
+             data-api-param="polygon_threshold" id="option_polygon_threshold" min="0.0"  max="1.0" step="0.001"
              value="{api_request_params.polygon_threshold || ''}"
              on:change={set_api_param}>
     </li>
