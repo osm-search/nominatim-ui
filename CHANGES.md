@@ -1,5 +1,10 @@
 # CHANGES
 
+* version 3.0.3 - 2021-03-12
+
+    * new Status page
+    * fixed vaidation of polygon simplification form field
+
 * version 3.0.2 - 2021-03-05
 
     * Details page: don't print 'null' when postcode is missing
