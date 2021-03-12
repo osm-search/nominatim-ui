@@ -1,4 +1,5 @@
 <script>
+  import PageLink from './PageLink.svelte';
   import * as timeago from 'timeago.js';
   import { last_api_request_url_store } from '../lib/stores.js';
   import { fetch_from_api } from '../lib/api_utils.js';
@@ -53,6 +54,7 @@
         Data last updated:
         <abbr id="data-date" title="{last_updated_date} (UTC timezone)">{timeago.format(new Date(last_updated_date))}</abbr>
       {/if}
+      (<PageLink page="status">Details</PageLink>)
     </div>
   </div>
 </div>
