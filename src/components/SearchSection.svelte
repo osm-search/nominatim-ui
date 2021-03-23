@@ -194,7 +194,7 @@
     <li>
       <label for="option_ccode">Country Codes</label>
       <input type="text" placeholder="e.g. de,gb" class="form-control form-control-sm d-inline w-auto api-param-setting"
-             data-api-param="countrycodes" id="option_ccode" size="15"
+             data-api-param="countrycodes" id="option_ccode" size="15" pattern="[a-zA-Z]{2}(,[a-zA-Z]{2})*"
              value="{api_request_params.countrycodes || ''}"
              on:change={set_api_param}>
     </li>
