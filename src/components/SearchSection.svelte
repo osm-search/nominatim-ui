@@ -101,7 +101,8 @@
       <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
       <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
       <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
-      <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}" />
+      <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}"
+                                                    pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$" />
       <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
       <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
     </UrlSubmitForm>
@@ -132,7 +133,8 @@
       <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
       <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
       <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
-      <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}" />
+      <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}"
+                                              pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$" />
       <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
       <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
     </UrlSubmitForm>
@@ -194,8 +196,9 @@
     <li>
       <label for="option_ccode">Country Codes</label>
       <input type="text" placeholder="e.g. de,gb" class="form-control form-control-sm d-inline w-auto api-param-setting"
-             data-api-param="countrycodes" id="option_ccode" size="15" pattern="[a-zA-Z]{2}(,[a-zA-Z]{2})*"
+             data-api-param="countrycodes" id="option_ccode" size="15"
              value="{api_request_params.countrycodes || ''}"
+             pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$"
              on:change={set_api_param}>
     </li>
   </ul>
