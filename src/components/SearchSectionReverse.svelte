@@ -44,6 +44,7 @@
            type="text"
            class="form-control form-control-sm"
            placeholder="latitude"
+           pattern="^-?\d+(\.\d+)?$"
            bind:value={lat}
            on:change={maybeSplitLatitude} />
   </div>
@@ -60,6 +61,7 @@
            type="text"
            class="form-control form-control-sm"
            placeholder="longitude"
+           pattern="^-?\d+(\.\d+)?$"
            bind:value={lon} />
   </div>
   <div class="form-group">
