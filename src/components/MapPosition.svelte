@@ -53,7 +53,7 @@
 
 
   map_store.subscribe(map => {
-    if (!map) { return; }
+    if (!map) return;
 
     map.on('move', function () {
       display_map_position(map);

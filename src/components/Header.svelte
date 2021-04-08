@@ -4,10 +4,22 @@
   import LastUpdated from './LastUpdated.svelte';
   import Error from './Error.svelte';
 
-  import { page } from '../lib/stores.js';
+  import { map_store, page } from '../lib/stores.js';
 
   $: view = $page.tab;
   $: page_title = Nominatim_Config.Page_Title;
+
+  let map_lat;
+  let map_lon;
+
+  map_store.subscribe(map => {
+    if (!map) return;
+
+    map.on('move', function () {
+      map_lat = map.getCenter().lat;
+      map_lon = map.getCenter().lng;
+    });
+  });
 </script>
 
 <style>
@@ -70,7 +82,7 @@
           <PageLink page="search" extra_classes="nav-link">Search</PageLink>
         </li>
         <li class="nav-item {view === 'reverse' ? 'active' : ''}">
-          <ReverseLink extra_classes="nav-link ">Reverse</ReverseLink>
+          <ReverseLink lat={map_lat} lon={map_lon} extra_classes="nav-link">Reverse</ReverseLink>
         </li>
         <li class="nav-item {view === 'details' ? 'active' : ''}">
           <PageLink page="details" extra_classes="nav-link">Search By ID</PageLink>
