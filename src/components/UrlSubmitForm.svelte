@@ -22,7 +22,9 @@
   // doesn't support hidden fields, so we check those in an extra step
   function validate_field(field) {
     if (field.type === 'hidden') {
-      if (field.pattern && !field.value.match(field.pattern)) return false;
+      if (field.value.length) {
+        if (field.pattern && !field.value.match(field.pattern)) return false;
+      }
     }
     return field.checkValidity(); // for hidden field always true
   }
