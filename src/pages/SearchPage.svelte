@@ -47,7 +47,12 @@
 
         update_html_title('Result for ' + api_request_params.q);
 
-        document.querySelector('input[name=q]').focus();
+        if (anyStructuredFieldsSet) {
+          document.querySelector(".nav-tabs a[href='#structured']").click();
+          document.querySelector('input[name=street]').focus();
+        } else {
+          document.querySelector('input[name=q]').focus();
+        }
       });
     } else {
       results_store.set(undefined);
