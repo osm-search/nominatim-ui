@@ -36,6 +36,11 @@ export default {
 		name: 'app',
 		file: 'dist/build/bundle.js'
 	},
+	onwarn(warning, warn) {
+		if (warning.plugin === 'svelte' && warning.message.match(/Nominatim_Config.* is not defined/)) return;
+
+    	warn(warning);
+	},
 	plugins: [
 		svelte({
 			compilerOptions: {
