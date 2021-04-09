@@ -11,6 +11,7 @@
   import SearchSectionDetails from '../components/SearchSectionDetails.svelte';
   import DetailsOneRow from '../components/DetailsOneRow.svelte';
   import DetailsLink from '../components/DetailsLink.svelte';
+  import DetailsPostcodeHint from '../components/DetailsPostcodeHint.svelte';
   import InfoRow from '../components/DetailsInfoRow.svelte';
   import InfoRowList from '../components/DetailsInfoRowList.svelte';
   import Map from '../components/Map.svelte';
@@ -109,7 +110,12 @@
             {#if aPlace.calculated_wikipedia}
               <InfoRow title="Wikipedia Calculated">{@html wikipediaLink(aPlace)}</InfoRow>
             {/if}
-            <InfoRow title="Computed Postcode">{aPlace.calculated_postcode || ''}</InfoRow>
+            <InfoRow title="Computed Postcode">
+              {#if aPlace.calculated_postcode}
+                {aPlace.calculated_postcode}
+                <DetailsPostcodeHint postcode={aPlace.calculated_postcode} lat={aPlace.centroid.coordinates[1]} lon={aPlace.centroid.coordinates[0]} />
+              {/if}
+            </InfoRow>
             <InfoRow title="Address Tags"><InfoRowList items={aPlace.addresstags} /></InfoRow>
             <InfoRow title="Extra Tags"><InfoRowList items={aPlace.extratags} /></InfoRow>
           </tbody>
