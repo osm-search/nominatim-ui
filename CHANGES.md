@@ -1,9 +1,18 @@
 # CHANGES
 
+* version 3.0.4 - 2021-03-12
+
+    * Search page: when clicking to reverse page keep the map position
+    * Search page: automatically switch to structured form when URL contains structured fields
+    * Search page: validate country-codes fields with a regular expression before form submission, thanks otbutz
+    * Reverse page: validate latitude and longitude fields before form submission
+    * Details page: help text next to 'calculated postcode'
+    * fix a build warning
+
 * version 3.0.3 - 2021-03-12
 
     * new Status page
-    * fixed vaidation of polygon simplification form field
+    * fixed validation of polygon simplification form field
 
 * version 3.0.2 - 2021-03-05
 
