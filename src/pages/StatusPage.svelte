@@ -5,6 +5,7 @@
   import Header from '../components/Header.svelte';
 
   let aStatusData = {};
+  let configuration = Nominatim_Config;
 
   function loaddata() {
     fetch_from_api('status', { format: 'json' }, function (data) {
@@ -23,7 +24,7 @@
 
       <dl>
         <dt>API Endpoint</dt>
-        <dd><a href={Nominatim_Config.Nominatim_API_Endpoint}>{Nominatim_Config.Nominatim_API_Endpoint}</a></dd>
+        <dd><a href={configuration.Nominatim_API_Endpoint}>{configuration.Nominatim_API_Endpoint}</a></dd>
 
         <dt>Software version</dt>
         <dd>{aStatusData.software_version}</dd>
