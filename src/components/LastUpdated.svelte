@@ -6,11 +6,17 @@
 
   let last_updated_date;
   let last_api_request_url;
+  let fetch_running = false; // prevent multiple parallel fetch runs
 
   last_api_request_url_store.subscribe(url => {
+    if (fetch_running || last_updated_date) return;
+
+    fetch_running = true;
+
     last_api_request_url = url;
     fetch_from_api('status', { format: 'json' }, function (data) {
       last_updated_date = data.data_updated;
+      fetch_running = false;
     });
   });
 </script>
