@@ -87,8 +87,9 @@
             <InfoRow title="Name">
             {#if (Array.isArray(aPlace.names)) }
               <span class="noname font-weight-bold">No Name</span>
-            {/if} 
-            <InfoRowList items={aPlace.names} />
+            {:else}
+              <InfoRowList items={aPlace.names} />
+            {/if}
             </InfoRow>
             <InfoRow title="Type">{aPlace.category}:{aPlace.type}</InfoRow>
             <InfoRow title="Last Updated">{aPlace.indexed_date}</InfoRow>
