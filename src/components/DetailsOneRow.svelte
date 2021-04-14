@@ -41,9 +41,6 @@
   .notused {
     color:#ddd;
   }
-  .noname{
-    color:#800;
-  }
 
   td {
     padding: 2px 8px;

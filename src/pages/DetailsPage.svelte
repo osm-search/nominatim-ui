@@ -4,7 +4,7 @@
 
   import {
     osmLink, wikipediaLink, coverageType, isAdminBoundary,
-    formatAddressRank, formatKeywordToken
+    formatAddressRank, formatKeywordToken, formatOSMType
   } from '../lib/helpers.js';
   import Header from '../components/Header.svelte';
   import MapIcon from '../components/MapIcon.svelte';
@@ -72,7 +72,7 @@
     <div class="row">
       <div class="col-sm-10">
         <h1>
-          {aPlace.localname}
+          {aPlace.localname || `${formatOSMType(aPlace.osm_type)} ${aPlace.osm_id}` }
           <small><DetailsLink feature={aPlace}>link to this page</DetailsLink></small>
         </h1>
       </div>
@@ -84,7 +84,12 @@
       <div class="col-md-6">
         <table id="locationdetails" class="table table-striped table-responsive">
           <tbody>
-            <InfoRow title="Name"><InfoRowList items={aPlace.names} /></InfoRow>
+            <InfoRow title="Name">
+            {#if (Array.isArray(aPlace.names)) }
+              <span class="noname font-weight-bold">No Name</span>
+            {/if} 
+            <InfoRowList items={aPlace.names} />
+            </InfoRow>
             <InfoRow title="Type">{aPlace.category}:{aPlace.type}</InfoRow>
             <InfoRow title="Last Updated">{aPlace.indexed_date}</InfoRow>
             {#if (isAdminBoundary(aPlace)) }
@@ -248,6 +253,9 @@
   tr.all-columns td {
     border-top: none !important;
     padding-left: 0 !important;
+  }
+  :global(span.noname){
+    color:#800;
   }
 
   #map-wrapper {
