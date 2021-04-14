@@ -1,6 +1,11 @@
 # CHANGES
 
-* version 3.0.4 - 2021-03-12
+* version 3.0.5 - 2021-04-14
+
+    * Details page: better indicate places having no name, thanks darkshredder
+    * Last updated: avoid race conditions, make less API requests
+
+* version 3.0.4 - 2021-04-12
 
     * Search page: when clicking to reverse page keep the map position
     * Search page: automatically switch to structured form when URL contains structured fields
