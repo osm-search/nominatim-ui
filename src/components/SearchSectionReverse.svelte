@@ -9,6 +9,8 @@
   export let zoom = '';
 
   function gotoCoordinates(newlat, newlon, newzoom) {
+    if (newlat === null || newlon === null) return;
+
     let params = new URLSearchParams();
     params.set('lat', newlat);
     params.set('lon', newlon);
