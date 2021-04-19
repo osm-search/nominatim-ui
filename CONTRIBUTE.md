@@ -38,6 +38,12 @@ Uses [svelte](https://svelte.dev/) framework,
    yarn lint
    ```
 
+* Run mocha test suite
+
+   ```
+   yarn test
+   ```
+
 ## Prepare a release
 
 1. Update version number in `package.json` file
