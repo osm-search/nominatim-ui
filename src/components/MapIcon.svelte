@@ -2,10 +2,9 @@
 
   export let aPlace;
 
-  let sIcon = getIcon(aPlace.category, aPlace.type);
-
-  let title = 'icon for ' + aPlace.category + ' ' + aPlace.type;
-  let url = Nominatim_Config.Images_Base_Url + sIcon + '.p.20.png';
+  $: sIcon = getIcon(aPlace.category, aPlace.type);
+  $: title = 'icon for ' + aPlace.category + ' ' + aPlace.type;
+  $: url = Nominatim_Config.Images_Base_Url + sIcon + '.p.20.png';
 
   function getIcon(category, type) {
     // equivalent to PHP Nominatim::ClassTypes::getIcon
