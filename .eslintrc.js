@@ -1,6 +1,7 @@
 module.exports = {
   extends: [
-    'airbnb-base/legacy'
+    'airbnb-base/legacy',
+    'plugin:mocha/recommended'
   ],
   parserOptions: {
     ecmaVersion: 2019,
@@ -11,7 +12,8 @@ module.exports = {
     jquery: true
   },
   plugins: [
-    'svelte3'
+    'svelte3',
+    'mocha'
   ],
   overrides: [
     {
@@ -45,6 +47,12 @@ module.exports = {
       processor: 'svelte3/svelte3',
       rules: {
         'no-label-var': 'off' // eslint thinks $: (https://svelte.dev/tutorial/reactive-statements) are labels
+      }
+    },
+    {
+      files: ['test/**'],
+      globals: {
+        browser: true
       }
     }
   ]
