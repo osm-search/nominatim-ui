@@ -36,6 +36,11 @@ describe('Search Page', function () {
       assert.equal(await page.title(), 'Result for City of London | Nominatim Demo');
     });
 
+    it('should display the API request and debug URL', async function () {
+      let link_titles = await page.$$eval('#api-request a', links => links.map(l => l.innerHTML));
+      assert.deepEqual(link_titles, ['API request', 'debug output']);
+    });
+
     it('should display a map', async function () {
       await page.waitForSelector('#map');
       assert.equal((await page.$$('#map')).length, 1);
