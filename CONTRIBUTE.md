@@ -4,14 +4,15 @@
 
 ## Background
 
+Uses [Svelte](https://svelte.dev/) framework,
+[Leaflet](https://leafletjs.com/) for map interaction,
+[Bootstrap](https://getbootstrap.com/) for layout styling.
+
 The user interface used to be included in the geocoder. Thus the
-first version avoid being a redesign and still uses some of the
+first version avoided being a redesign and still uses some of the
 same configuration values. Version 2 was a full refactor using
 Svelte. Version 3 added theme and easier configuration.
 
-Uses [svelte](https://svelte.dev/) framework,
-[leaflet](https://leafletjs.com/) for map interaction,
-[bootstrap](https://getbootstrap.com/) for layout styling.
 
 
 ## Building the frontend
@@ -28,21 +29,25 @@ Uses [svelte](https://svelte.dev/) framework,
    yarn dev
    ```
    which will start a webserver on port 9880 and auto-reloads
-   whenever you edit files.
+   whenever you edit files. Configuration in `rollup.config.js`.
 
 ## Testing
 
-* Run syntax linter
+The `test/` setup uses [Mocha](https://mochajs.org/) to run tests. Tests use [Puppeteer](https://pptr.dev/) to control a Google Chrome headless browser and evaluate with [Assert](https://nodejs.org/api/assert.html).
+
+
+* Run integration test suite (configuration in `.mocharc.js`)
+
+   ```
+   yarn test
+   ```
+
+* Run syntax linter (configuration in `.eslint.js`)
 
    ```
    yarn lint
    ```
 
-* Run mocha test suite
-
-   ```
-   yarn test
-   ```
 
 ## Prepare a release
 
