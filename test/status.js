@@ -5,7 +5,7 @@ describe('Status Page', function () {
 
   before(async function () {
     page = await browser.newPage();
-    await page.goto('http://localhost:9999/status.html');
+    await page.goto('http://localhost:9999/status.html', { waitUntil: 'networkidle0' });
   });
 
   after(async function () {
@@ -13,14 +13,9 @@ describe('Status Page', function () {
   });
 
   it('should have software version', async function () {
-    // waits for fetching status details
-    await page.waitForFunction(
-      'document.querySelector(".col-sm-12 dl dd:nth-child(4)").textContent !== "undefined"'
-    );
-    let status_name = await page.$$eval('.col-sm-12 dl dt', elements => elements[1].textContent);
-    let version = await page.$$eval('.col-sm-12 dl dd', elements => elements[1].textContent);
+    let status_details = await page.$eval('body',
+      el => el.textContent.match(/Software version.*\d+\.\d+/));
 
-    assert.deepStrictEqual(status_name, 'Software version');
-    assert.ok(version !== 'undefined' && version.length > 1);
+    assert.ok(!status_details[0].includes('undefined'));
   });
 });
