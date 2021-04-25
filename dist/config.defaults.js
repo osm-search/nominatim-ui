@@ -6,6 +6,12 @@ let Nominatim_Config = {
   // Where Nominatim API runs. Remember to add port if needed and trailing slash.
   Nominatim_API_Endpoint: 'http://localhost/nominatim/',
 
+  // Additional request headers for Nominatim API.
+  Nominatim_API_Endpoint_Headers: {},
+
+  // Additional query parameters for Nominatim API.
+  Nominatim_API_Endpoint_Params: {},
+
   // relative path or full URL
   Images_Base_Url: 'mapicons/',
 

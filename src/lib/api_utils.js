@@ -14,7 +14,7 @@ export async function fetch_from_api(endpoint_name, params, callback) {
   if (endpoint_name !== 'status') last_api_request_url_store.set(null);
 
   try {
-    await fetch(api_url)
+    await fetch(api_url, { headers: Nominatim_Config.Nominatim_API_Endpoint_Headers || {} })
       .then(response => response.json())
       .then(data => {
         if (data.error) {
@@ -57,12 +57,19 @@ export async function fetch_content_into_element(url, dom_element) {
 }
 
 function generate_nominatim_api_url(endpoint_name, params) {
+  extend_parameters(params, Nominatim_Config.Nominatim_API_Endpoint_Params);
   return Nominatim_Config.Nominatim_API_Endpoint + endpoint_name + '.php?'
          + Object.keys(clean_up_parameters(params)).map((k) => {
            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
          }).join('&');
 }
 
+function extend_parameters(params, params2) {
+  var param_names = Object.keys(params2);
+  for (var i = 0; i < param_names.length; i += 1) {
+    params[param_names[i]] = params2[param_names[i]];
+  }
+}
 
 function clean_up_parameters(params) {
   // `&a=&b=&c=1` => '&c=1'
