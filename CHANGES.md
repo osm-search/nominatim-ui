@@ -1,5 +1,13 @@
 # CHANGES
 
+* version 3.1.0 - 2021-04-26
+
+    * Configuration: new options to set API endpoint headers and additional paramters, thanks petoc
+    * Test suite: New test suite using a headless browser for UI interaction, thanks darkshredder
+    * Fix: Links to API URL weren't displayed after a search
+    * Fix: On result pages the map icons were not cleared between searches (caching issue)
+    * Fix: On reverse page switching empty coordinates no longer leads to string 'null' searches
+
 * version 3.0.5 - 2021-04-14
 
     * Details page: better indicate places having no name, thanks darkshredder
