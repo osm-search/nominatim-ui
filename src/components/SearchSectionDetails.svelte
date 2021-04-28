@@ -27,12 +27,12 @@
 <form on:submit|preventDefault={handleFormSubmit} class="form-inline" action="details.html">
   <input type="edit"
          class="form-control form-control-sm mr-1"
-         pattern="^[NWR]?[0-9]+$|.*openstreetmap.*"
+         pattern="^[NWRnwr]?[0-9]+$|.*openstreetmap.*"
          value="{api_request_params.osmtype || ''}{api_request_params.osmid || ''}{api_request_params.place_id || ''}" />
   <button type="submit" class="btn btn-primary btn-sm">Show</button>
 </form>
 <small class="form-text text-muted">
-  OSM type+id (<em>N123</em>, <em>W123</em>, <em>R123</em>),
+  OSM type+id (<em>N123</em>, <em>n123</em>, <em>W123</em>, <em>w123</em>, <em>R123</em>, <em>r123</em>),
   Place id (<em>1234</em>) or
   URL (<em>https://openstreetmap.org/way/123</em>)
 </small>

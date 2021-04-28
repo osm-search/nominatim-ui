@@ -68,5 +68,15 @@ describe('Details Page', function () {
       current_url = new URL(await page.url());
       assert.strictEqual(current_url.searchParams.get('hierarchy'), '1');
     });
+
+    it('should have case-insenstive input and can navigate to other details', async function () {
+      let input_field = await page.$('input[type=edit]');
+      await input_field.click({ clickCount: 3 });
+      await input_field.type('w375257537');
+      await page.click('button[type=submit]');
+
+      await page.waitForSelector('a[href="https://www.openstreetmap.org/way/375257537"]');
+      assert.ok((await page.$eval('.container h1', el => el.textContent)).includes('Taj Mahal'));
+    });
   });
 });
