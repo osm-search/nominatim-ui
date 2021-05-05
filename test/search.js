@@ -94,6 +94,15 @@ describe('Search Page', function () {
       assert.deepEqual(link_titles, ['API request', 'debug output']);
     });
 
+    it('should not have polygon params in API request and debug URL', async function () {
+      let links_href = await page.$$eval('#api-request a', links => links.map(l => l.href));
+      let api_request_url = new URL(links_href[0]);
+      let debug_url = new URL(links_href[1]);
+
+      assert.deepStrictEqual(api_request_url.searchParams.has('polygon_geojson'), false);
+      assert.deepStrictEqual(debug_url.searchParams.has('polygon_geojson'), false);
+    });
+
     it('should display a map', async function () {
       await page.waitForSelector('#map');
       assert.equal((await page.$$('#map')).length, 1);

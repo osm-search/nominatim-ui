@@ -11,6 +11,12 @@
   last_api_request_url_store.subscribe(url => {
     last_api_request_url = url;
 
+    if (last_api_request_url) {
+      last_api_request_url = new URL(last_api_request_url);
+      last_api_request_url.searchParams.delete('polygon_geojson');
+      last_api_request_url = last_api_request_url.toString();
+    }
+
     if (fetch_running || last_updated_date) return;
 
     fetch_running = true;
