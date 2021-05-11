@@ -46,5 +46,7 @@
 </script>
 
 <form on:submit|preventDefault={handle_submit} class="form-inline" role="search" accept-charset="UTF-8" action="">
-  <slot></slot>
+  <div class="row g-2">
+    <slot></slot>
+  </div>
 </form>

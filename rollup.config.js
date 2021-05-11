@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+import { readFileSync, writeFileSync } from 'fs';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -43,9 +44,18 @@ export default {
 				dev: !production
 			}
 		}),
-		// we'll extract any component CSS out into
-		// a separate file - better for performance
-		css({ output: 'bundle.css' }),
+		css({
+		  output: function (styles, styleNodes) {
+		  	// make sure global_styles.css gets appended to bundle.css,
+		  	// not prepended.
+		  	// The ':global()' rules (https://svelte.dev/docs#style) get
+		  	// prepended so we can't use them to overwrite bootstrap.css
+		  	// rules
+		  	let global_styles = readFileSync('src/global_style.css');
+		  	styles += global_styles;
+		    writeFileSync('dist/build/bundle.css', styles);
+		  }
+		}),
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In

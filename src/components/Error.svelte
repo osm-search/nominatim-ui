@@ -14,8 +14,6 @@
   <div id="error" class="container-fluid alert-danger py-3 px-4">
     {error_message}
 
-    <button type="button" class="close" aria-label="dismiss" on:click={dismiss_message}>
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" aria-label="dismiss" on:click={dismiss_message}></button>
   </div>
 {/if}

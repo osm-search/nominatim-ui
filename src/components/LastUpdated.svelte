@@ -48,7 +48,7 @@
 
 <div id="last-updated" class="container-fluid py-2 px-4 mb-3">
   <div id="loading" class="py-2 px-4">
-    <div class="spinner-border spinner-border-sm text-primary mr-1" role="status"></div>
+    <div class="spinner-border spinner-border-sm text-primary me-1" role="status"></div>
     Loading data from API ...
   </div>
   <div class="row">
@@ -62,7 +62,7 @@
         </div>
       {/if}
     </div>
-    <div class="col-sm-6 text-right">
+    <div class="col-sm-6 text-end">
       {#if last_updated_date}
         Data last updated:
         <abbr id="data-date" title="{last_updated_date} (UTC timezone)">{timeago.format(new Date(last_updated_date))}</abbr>

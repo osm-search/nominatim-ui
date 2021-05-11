@@ -64,37 +64,39 @@
 
 <header class="container-fluid">
   <nav class="navbar navbar-expand-sm navbar-light">
-    <!-- Brand -->
-    <div class="navbar-brand">
-      <PageLink page="search">
-        <img alt="logo" id="theme-logo" src="theme/logo.png" />
-        <h1>{page_title}</h1>
-      </PageLink>
-    </div>
-    <!-- Toggler (hamburger button) -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!-- Left-aligned links -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item {view === 'search' ? 'active' : ''}">
-          <PageLink page="search" extra_classes="nav-link">Search</PageLink>
-        </li>
-        <li class="nav-item {view === 'reverse' ? 'active' : ''}">
-          <ReverseLink lat={map_lat} lon={map_lon} extra_classes="nav-link">Reverse</ReverseLink>
-        </li>
-        <li class="nav-item {view === 'details' ? 'active' : ''}">
-          <PageLink page="details" extra_classes="nav-link">Search By ID</PageLink>
+    <div class="container-fluid">
+      <!-- Brand -->
+      <div class="navbar-brand">
+        <PageLink page="search">
+          <img alt="logo" id="theme-logo" src="theme/logo.png" />
+          <h1>{page_title}</h1>
+        </PageLink>
+      </div>
+      <!-- Toggler (hamburger button) -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Left-aligned links -->
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item {view === 'search' ? 'active' : ''}">
+            <PageLink page="search" extra_classes="nav-link">Search</PageLink>
+          </li>
+          <li class="nav-item {view === 'reverse' ? 'active' : ''}">
+            <ReverseLink lat={map_lat} lon={map_lon} extra_classes="nav-link">Reverse</ReverseLink>
+          </li>
+          <li class="nav-item {view === 'details' ? 'active' : ''}">
+            <PageLink page="details" extra_classes="nav-link">Search By ID</PageLink>
+          </li>
+        </ul>
+      </div>
+      <!-- Right aligned links -->
+      <ul class="navbar-nav">
+        <li class="nav-item {view === 'about' ? 'active' : ''}">
+          <PageLink page="about" extra_classes="nav-link">About & Help</PageLink>
         </li>
       </ul>
     </div>
-    <!-- Right aligned links -->
-    <ul class="navbar-nav">
-      <li class="nav-item {view === 'about' ? 'active' : ''}">
-        <PageLink page="about" extra_classes="nav-link">About & Help</PageLink>
-      </li>
-    </ul>
   </nav>
 </header>
 <section class="page-title-section">

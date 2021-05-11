@@ -14,7 +14,7 @@
 </script>
 
 <tr class:notused={bMarkUnusedLines && !bAddressLineUsed}>
-  <td class="name font-weight-bold">
+  <td class="name fw-bold">
     {#if addressLine.localname}
       {addressLine.localname}
     {:else}

@@ -1,0 +1,10 @@
+/*
+  Svelte allows to set ':global(rule)' in components which get added to the bundle.css
+  file. https://svelte.dev/docs#style But the rules get added to the top of bundle.css,
+  before we load the Bootstrap CSS rules. We want to have our rules at the end of
+  bundle.css
+*/
+
+a { text-decoration: none }
+a:hover { text-decoration: underline; }
+a.btn:hover { text-decoration: none; }

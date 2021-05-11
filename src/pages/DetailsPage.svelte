@@ -76,7 +76,7 @@
           <small><DetailsLink feature={aPlace}>link to this page</DetailsLink></small>
         </h1>
       </div>
-      <div class="col-sm-2 text-right">
+      <div class="col-sm-2 text-end">
         <MapIcon aPlace={aPlace} />
       </div>
     </div>
@@ -86,7 +86,7 @@
           <tbody>
             <InfoRow title="Name">
             {#if (Array.isArray(aPlace.names)) }
-              <span class="noname font-weight-bold">No Name</span>
+              <span class="noname fw-bold">No Name</span>
             {:else}
               <InfoRowList items={aPlace.names} />
             {/if}
