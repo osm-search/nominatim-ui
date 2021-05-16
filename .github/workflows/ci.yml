@@ -26,4 +26,6 @@ jobs:
         run: yarn build
       
       - name: Testing
-        run: yarn test
+        run: |
+          yarn test
+          API_ON_SAME_PORT=1 yarn test

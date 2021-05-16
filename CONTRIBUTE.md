@@ -40,7 +40,12 @@ The `test/` setup uses [Mocha](https://mochajs.org/) to run tests. Tests use [Pu
 
    ```
    yarn test
+   API_ON_SAME_PORT=1 yarn test
    ```
+
+   Setting API_ON_SAME_PORT simulates having both the API and UI on the same server
+   port. That's a rare setup but something https://nominatim.openstreetmap.org/ does
+   so worth testing.
 
 * Run syntax linter (configuration in `.eslint.js`)
 
