@@ -5,5 +5,5 @@
 module.exports = {
   ignore: ['test/_bootstrap.js'],
   require: ['test/_bootstrap.js'],
-  timeout: '5s'
+  timeout: '10s'
 };
