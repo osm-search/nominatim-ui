@@ -163,20 +163,11 @@
             {/if}
 
             <tr class="all-columns"><td colspan="6"><h2>Keywords</h2></td></tr>
-            {#if aPlace.keywords}
-              <tr class="all-columns"><td colspan="6"><h3>Name Keywords</h3></td></tr>
-              {#each aPlace.keywords.name as keyword}
-                <tr>
-                  <td>{formatKeywordToken(keyword.token)}</td>
-                  {#if keyword.id}
-                    <td>word id: {keyword.id}</td>
-                  {/if}
-                </tr>
-              {/each}
+            {#if api_request_params.keywords}
 
-              {#if aPlace.keywords.address}
-                <tr class="all-columns"><td colspan="6"><h3>Address Keywords</h3></td></tr>
-                {#each aPlace.keywords.address as keyword}
+              {#if aPlace.keywords && (aPlace.keywords.name || aPlace.keywords.address) }
+                <tr class="all-columns"><td colspan="6"><h3>Name Keywords</h3></td></tr>
+                {#each aPlace.keywords.name as keyword}
                   <tr>
                     <td>{formatKeywordToken(keyword.token)}</td>
                     {#if keyword.id}
@@ -184,6 +175,20 @@
                     {/if}
                   </tr>
                 {/each}
+
+                {#if aPlace.keywords.address}
+                  <tr class="all-columns"><td colspan="6"><h3>Address Keywords</h3></td></tr>
+                  {#each aPlace.keywords.address as keyword}
+                    <tr>
+                      <td>{formatKeywordToken(keyword.token)}</td>
+                      {#if keyword.id}
+                        <td>word id: {keyword.id}</td>
+                      {/if}
+                    </tr>
+                  {/each}
+                {/if}
+              {:else}
+                <tr><td>Place has no keywords</td></tr>
               {/if}
             {:else}
               <tr>
@@ -195,17 +200,21 @@
             {/if}
 
             <tr class="all-columns"><td colspan="6"><h2>Parent Of</h2></td></tr>
-            {#if aPlace.hierarchy}
+            {#if api_request_params.hierarchy}
+              {#if aPlace.hierarchy && aPlace.hierarchy.length}
 
-              {#each Object.keys(aPlace.hierarchy) as type}
-                <tr class="all-columns"><td colspan="6"><h3>{type}</h3></td></tr>
-                {#each aPlace.hierarchy[type] as line}
-                  <DetailsOneRow addressLine={line} bDistanceInMeters=true />
-               {/each}
-              {/each}
+                {#each Object.keys(aPlace.hierarchy) as type}
+                  <tr class="all-columns"><td colspan="6"><h3>{type}</h3></td></tr>
+                  {#each aPlace.hierarchy[type] as line}
+                    <DetailsOneRow addressLine={line} bDistanceInMeters=true />
+                 {/each}
+                {/each}
 
-              {#if Object.keys(aPlace.hierarchy) > 500}
-                <p>There are more child objects which are not shown.</p>
+                {#if Object.keys(aPlace.hierarchy) > 500}
+                  <p>There are more child objects which are not shown.</p>
+                {/if}
+              {:else}
+                <tr><td>Place is not parent of other places</td></tr>
               {/if}
             {:else}
               <tr>

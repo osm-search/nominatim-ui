@@ -18,7 +18,28 @@ describe('Details Page', function () {
     });
   });
 
-  describe('With search', function () {
+  describe('With search - no place found', function () {
+    before(async function () {
+      page = await browser.newPage();
+      await page.goto('http://localhost:9999/details.html');
+      await page.type('input[type=edit]', 'n3');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('#api-request');
+    });
+
+
+    it('should display error', async function () {
+      let page_content = await page.$eval('body', el => el.textContent);
+
+      assert.ok(page_content.includes('No place with that OSM ID found'));
+    });
+
+    after(async function () {
+      await page.close();
+    });
+  });
+
+  describe('With search - Eiffel Tower', function () {
     before(async function () {
       page = await browser.newPage();
       await page.goto('http://localhost:9999/details.html');
@@ -77,6 +98,27 @@ describe('Details Page', function () {
 
       await page.waitForSelector('a[href="https://www.openstreetmap.org/way/375257537"]');
       assert.ok((await page.$eval('.container h1', el => el.textContent)).includes('Taj Mahal'));
+    });
+  });
+
+  describe('Place without name, keywords, hierarchy', function () {
+    // e.g. a numeric house number
+    before(async function () {
+      page = await browser.newPage();
+      await page.goto('http://localhost:9999/details.html?osmtype=N&osmid=946563004&keywords=1&hierarchy=1');
+      await page.waitForSelector('.container .row');
+    });
+
+    after(async function () {
+      await page.close();
+    });
+
+    it('should display No Name, no keywords, no hierarchy', async function () {
+      let page_content = await page.$eval('body', el => el.textContent);
+
+      assert.ok(page_content.includes('Name No Name'));
+      assert.ok(page_content.includes('Place has no keywords'));
+      assert.ok(page_content.includes('Place is not parent of other places'));
     });
   });
 });
