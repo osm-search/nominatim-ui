@@ -118,7 +118,7 @@ describe('Search Page', function () {
       let results = await page.$$('#searchresults .result a');
 
       await results[0].click();
-      await page.waitForNavigation();
+      await page.waitForSelector('table#address');
 
       current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/details.html');
