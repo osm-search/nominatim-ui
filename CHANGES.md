@@ -1,5 +1,14 @@
 # CHANGES
 
+* version 3.2.0 - 2021-05-10
+
+    * Upgrade layout framework to Bootstrap version 5
+    * Removed polygon parameters from debug URLs, rarely needed. Thanks darkshredder
+    * Fix: Search page didn't load when Nominatim_API_Endpoint was set to a relative path. Thanks darkshredder
+    * Fix: Detail search allows lowercase OSM types, e.g. n123. Thanks darkshredder
+    * Fix: Better deal with empty child place responses from the API
+    * Fix: Make sure a full build happens before running tests
+
 * version 3.1.0 - 2021-04-26
 
     * Configuration: new options to set API endpoint headers and additional paramters, thanks petoc
