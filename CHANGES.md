@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 3.2.1 - 2021-05-11
+
+    * Fix: some npm modules no longer support node version 10
+
 * version 3.2.0 - 2021-05-10
 
     * Upgrade layout framework to Bootstrap version 5
