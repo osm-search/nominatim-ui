@@ -79,64 +79,80 @@
 
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link" class:active={!bStructuredSearch} data-toggle="tab" href="#simple">Simple</a>
+    <a class="nav-link" class:active={!bStructuredSearch} data-bs-toggle="tab" href="#simple">Simple</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" class:active={bStructuredSearch} data-toggle="tab" href="#structured">Structured</a>
+    <a class="nav-link" class:active={bStructuredSearch} data-bs-toggle="tab" href="#structured">Structured</a>
   </li>
 </ul>
 
 <div class="tab-content py-2">
   <div class="tab-pane" class:active={!bStructuredSearch} id="simple" role="tabpanel">
     <UrlSubmitForm page="search">
-      <input id="q"
-             name="q"
-             type="text"
-             class="form-control form-control-sm"
-             placeholder="Search"
-             value="{api_request_params.q || ''}" />
-
-      <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
-      <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
-      <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
-      <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
-      <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
-      <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}"
-                                                    pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$" />
-      <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
-      <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+      <div class="col-auto">
+        <input id="q"
+               name="q"
+               type="text"
+               class="form-control form-control-sm"
+               placeholder="Search"
+               value="{api_request_params.q || ''}" />
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
+        <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
+        <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
+        <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
+        <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
+        <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}"
+                                                      pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$" />
+        <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
+        <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+      </div>
     </UrlSubmitForm>
   </div>
   <div class="tab-pane" class:active={bStructuredSearch} id="structured" role="tabpanel">
     <UrlSubmitForm page="search">
-      <input name="street" type="text" class="form-control form-control-sm mr-1"
-             placeholder="House number/Street"
-             value="{api_request_params.street || ''}" />
-      <input name="city" type="text" class="form-control form-control-sm mr-1"
-             placeholder="City"
-             value="{api_request_params.city || ''}" />
-      <input id="county" name="county" type="text" class="form-control form-control-sm mr-1"
-             placeholder="County"
-             value="{api_request_params.county || ''}" />
-      <input name="state" type="text" class="form-control form-control-sm mr-1"
-             placeholder="State"
-             value="{api_request_params.state || ''}" />
-      <input name="country" type="text" class="form-control form-control-sm mr-1"
-             placeholder="Country"
-             value="{api_request_params.country || ''}" />
-      <input name="postalcode" type="text" class="form-control form-control-sm mr-1"
-             placeholder="Postal Code"
-             value="{api_request_params.postalcode || ''}" />
-
-      <button type="submit" class="btn btn-primary btn-sm">Search</button>
-      <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
-      <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
-      <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
-      <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
-      <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}"
-                                              pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$" />
-      <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
-      <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+      <div class="col-auto">
+        <input name="street" type="text" class="form-control form-control-sm me-1"
+               placeholder="House number/Street"
+               value="{api_request_params.street || ''}" />
+      </div>
+      <div class="col-auto">
+        <input name="city" type="text" class="form-control form-control-sm me-1"
+               placeholder="City"
+               value="{api_request_params.city || ''}" />
+      </div>
+      <div class="col-auto">
+        <input id="county" name="county" type="text" class="form-control form-control-sm me-1"
+               placeholder="County"
+               value="{api_request_params.county || ''}" />
+      </div>
+      <div class="col-auto">
+        <input name="state" type="text" class="form-control form-control-sm me-1"
+               placeholder="State"
+               value="{api_request_params.state || ''}" />
+      </div>
+      <div class="col-auto">
+        <input name="country" type="text" class="form-control form-control-sm me-1"
+               placeholder="Country"
+               value="{api_request_params.country || ''}" />
+      </div>
+      <div class="col-auto">
+        <input name="postalcode" type="text" class="form-control form-control-sm me-1"
+               placeholder="Postal Code"
+               value="{api_request_params.postalcode || ''}" />
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary btn-sm">Search</button>
+        <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
+        <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
+        <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
+        <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
+        <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}"
+                                                pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$" />
+        <input type="hidden" name="limit" value="{api_request_params.limit || ''}" />
+        <input type="hidden" name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+      </div>
     </UrlSubmitForm>
   </div>
 </div> <!-- /tab-content -->

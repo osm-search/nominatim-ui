@@ -68,7 +68,7 @@ describe('Details Page', function () {
       let display_headers;
       let [display_keywords_btn] = await page.$x("//a[contains(text(), 'display keywords')]");
 
-      await display_keywords_btn.click();
+      await display_keywords_btn.evaluate(node => node.click());
       await page.waitForNavigation();
 
       current_url = new URL(await page.url());
@@ -86,7 +86,7 @@ describe('Details Page', function () {
       let current_url;
       let [child_places_btn] = await page.$x("//a[contains(text(), 'display child places')]");
 
-      await child_places_btn.click();
+      await child_places_btn.evaluate(node => node.click());
       await page.waitForNavigation();
       await page.waitForSelector('table#address');
 

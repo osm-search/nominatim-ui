@@ -39,25 +39,29 @@
 </script>
 
 <UrlSubmitForm page="reverse">
-  <div class="form-group">
+  <div class="col-auto">
     <label for="reverse-lat">lat</label>
+  </div>
+  <div class="col-auto">
     <input id="reverse-lat"
            name="lat"
            type="text"
-           class="form-control form-control-sm"
+           class="form-control form-control-sm d-inline"
            placeholder="latitude"
            pattern="^-?\d+(\.\d+)?$"
            bind:value={lat}
            on:change={maybeSplitLatitude} />
   </div>
-  <div class="form-group">
+  <div class="col-auto">
     <a id="switch-coords"
        on:click|preventDefault|stopPropagation={() => gotoCoordinates(lon, lat)}
        class="btn btn-outline-secondary btn-sm"
        title="switch lat and lon">&lt;&gt;</a>
   </div>
-  <div class="form-group">
+  <div class="col-auto">
     <label for="reverse-lon">lon</label>
+  </div>
+  <div class="col-auto">
     <input id="reverse-lon"
            name="lon"
            type="text"
@@ -66,25 +70,26 @@
            pattern="^-?\d+(\.\d+)?$"
            bind:value={lon} />
   </div>
-  <div class="form-group">
+  <div class="col-auto">
     <label for="reverse-zoom">max zoom</label>
-    <select id="reverse-zoom" name="zoom" class="form-control form-control-sm" bind:value={zoom}>
+  </div>
+  <div class="col-auto">
+    <select id="reverse-zoom" name="zoom" class="form-select form-select-sm" bind:value={zoom}>
       <option value="">---</option>
       {#each zoomLevels() as zoomTitle, i}
         <option value="{i}">{i} - {zoomTitle}</option>
       {/each}
     </select>
   </div>
-  <div class="form-group">
+  <div class="col-auto">
     <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
   </div>
 </UrlSubmitForm>
 
 <style>
   label {
-    font-weight: normal;
-    margin-left: 0.4rem;
-    margin-right: 0.4rem;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
   }
 
   #switch-coords {
