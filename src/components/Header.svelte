@@ -79,21 +79,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Left-aligned links -->
         <ul class="navbar-nav me-auto">
-          <li class="nav-item {view === 'search' ? 'active' : ''}">
-            <PageLink page="search" extra_classes="nav-link">Search</PageLink>
+          <li class="nav-item">
+            <PageLink page="search" extra_classes="nav-link {view === 'search' ? 'active' : ''}">Search</PageLink>
           </li>
-          <li class="nav-item {view === 'reverse' ? 'active' : ''}">
-            <ReverseLink lat={map_lat} lon={map_lon} extra_classes="nav-link">Reverse</ReverseLink>
+          <li class="nav-item">
+            <ReverseLink lat={map_lat} lon={map_lon} extra_classes="nav-link {view === 'reverse' ? 'active' : ''}">Reverse</ReverseLink>
           </li>
-          <li class="nav-item {view === 'details' ? 'active' : ''}">
-            <PageLink page="details" extra_classes="nav-link">Search By ID</PageLink>
+          <li class="nav-item">
+            <PageLink page="details" extra_classes="nav-link {view === 'details' ? 'active' : ''}">Search By ID</PageLink>
           </li>
         </ul>
       </div>
       <!-- Right aligned links -->
       <ul class="navbar-nav">
-        <li class="nav-item {view === 'about' ? 'active' : ''}">
-          <PageLink page="about" extra_classes="nav-link">About & Help</PageLink>
+        <li class="nav-item">
+          <PageLink page="about" extra_classes="nav-link {view === 'about' ? 'active' : ''}">About & Help</PageLink>
         </li>
       </ul>
     </div>
