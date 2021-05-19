@@ -39,28 +39,28 @@ describe('Details Page', function () {
     });
   });
 
-  describe('With search - Eiffel Tower', function () {
+  describe('With search - Vaduz (Liechtenstein)', function () {
     before(async function () {
       page = await browser.newPage();
       await page.goto('http://localhost:9999/details.html');
-      await page.type('input[type=edit]', 'W5013364');
+      await page.type('input[type=edit]', 'R1155956');
       await page.click('button[type=submit]');
-      await page.waitForSelector('.container .row');
+      await page.waitForSelector('table#address');
     });
 
     after(async function () {
       await page.close();
     });
 
-    it('should have header title as Eiffel Tower', async function () {
+    it('should have header title', async function () {
       let page_header = await page.$eval('.container h1', el => el.textContent);
 
-      assert.ok(page_header.includes('Eiffel Tower'));
+      assert.ok(page_header.includes('Vaduz'));
     });
 
-    it('should have link to https://www.openstreetmap.org/way/5013364', async function () {
+    it('should have OSM link', async function () {
 
-      assert.strictEqual((await page.$$('a[href="https://www.openstreetmap.org/way/5013364"]')).length, 1);
+      assert.strictEqual((await page.$$('a[href="https://www.openstreetmap.org/relation/1155956"]')).length, 2);
     });
 
     it('should change page url and add new header on clicking display keywords', async function () {
@@ -77,6 +77,9 @@ describe('Details Page', function () {
       await page.waitForSelector('h3');
       display_headers = await page.$$eval('h3', elements => elements.map(el => el.textContent));
       assert.deepStrictEqual(display_headers, ['Name Keywords', 'Address Keywords']);
+
+      let page_content = await page.$eval('body', el => el.textContent);
+      assert.ok(page_content.includes('qwaansshe')); // one of the name keywords
     });
 
     it('should change page url on clicking display child places', async function () {
@@ -85,12 +88,16 @@ describe('Details Page', function () {
 
       await child_places_btn.click();
       await page.waitForNavigation();
+      await page.waitForSelector('table#address');
 
       current_url = new URL(await page.url());
       assert.strictEqual(current_url.searchParams.get('hierarchy'), '1');
+
+      let page_content = await page.$eval('body', el => el.textContent);
+      assert.ok(page_content.includes('Alte Landstrasse')); // one of the streets
     });
 
-    it('should have case-insenstive input and can navigate to other details', async function () {
+    it('should support case-insenstive search, can navigate to new page', async function () {
       let input_field = await page.$('input[type=edit]');
       await input_field.click({ clickCount: 3 });
       await input_field.type('w375257537');
