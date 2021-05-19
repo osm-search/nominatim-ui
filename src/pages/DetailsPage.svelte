@@ -201,8 +201,7 @@
 
             <tr class="all-columns"><td colspan="6"><h2>Parent Of</h2></td></tr>
             {#if api_request_params.hierarchy}
-              {#if aPlace.hierarchy && aPlace.hierarchy.length}
-
+              {#if aPlace.hierarchy && typeof (aPlace.hierarchy) === 'object' && Object.keys(aPlace.hierarchy).length}
                 {#each Object.keys(aPlace.hierarchy) as type}
                   <tr class="all-columns"><td colspan="6"><h3>{type}</h3></td></tr>
                   {#each aPlace.hierarchy[type] as line}
