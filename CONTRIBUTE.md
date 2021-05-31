@@ -47,6 +47,12 @@ The `test/` setup uses [Mocha](https://mochajs.org/) to run tests. Tests use [Pu
    port. That's a rare setup but something https://nominatim.openstreetmap.org/ does
    so worth testing.
 
+   To run a single test file only
+
+   ```
+   yarn run rollup -c && yarn run mocha test/details.js
+   ```
+
 * Run syntax linter (configuration in `.eslint.js`)
 
    ```
