@@ -54,6 +54,14 @@
     }
   }
 
+  function place_has_keywords(aThisPlace) {
+    // Return false if Nominatim API sends 'keywords: { name: [], address: [] }'
+    return (
+      aThisPlace.keywords && aThisPlace.keywords.name && aThisPlace.keywords.address
+      && (aThisPlace.keywords.name.length > 0 || aThisPlace.keywords.address.length > 0)
+    );
+  }
+
   $: {
     let pageinfo = $page;
     if (pageinfo.tab === 'details') {
@@ -165,7 +173,7 @@
             <tr class="all-columns"><td colspan="6"><h2>Keywords</h2></td></tr>
             {#if api_request_params.keywords}
 
-              {#if aPlace.keywords && (aPlace.keywords.name || aPlace.keywords.address) }
+              {#if place_has_keywords(aPlace)}
                 <tr class="all-columns"><td colspan="6"><h3>Name Keywords</h3></td></tr>
                 {#each aPlace.keywords.name as keyword}
                   <tr>
