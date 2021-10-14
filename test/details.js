@@ -22,7 +22,7 @@ describe('Details Page', function () {
     before(async function () {
       page = await browser.newPage();
       await page.goto('http://localhost:9999/details.html');
-      await page.type('input[type=edit]', 'n3');
+      await page.type('input[type=edit]', 'N6');
       await page.click('button[type=submit]');
       await page.waitForSelector('#api-request');
     });
