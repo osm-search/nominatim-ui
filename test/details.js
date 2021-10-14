@@ -1,5 +1,7 @@
 const assert = require('assert');
 
+const reverse_only = !!process.env.REVERSE_ONLY;
+
 describe('Details Page', function () {
   let page;
 
@@ -63,24 +65,27 @@ describe('Details Page', function () {
       assert.strictEqual((await page.$$('a[href="https://www.openstreetmap.org/relation/1155956"]')).length, 2);
     });
 
-    it('should change page url and add new header on clicking display keywords', async function () {
-      let current_url;
-      let display_headers;
-      let [display_keywords_btn] = await page.$x("//a[contains(text(), 'display keywords')]");
+    // Reverse-only installation have no search index, therefor no keywords
+    if (!reverse_only) {
+      it('should change url and add new header on clicking display keywords', async function () {
+        let current_url;
+        let display_headers;
+        let [display_keywords_btn] = await page.$x("//a[contains(text(), 'display keywords')]");
 
-      await display_keywords_btn.evaluate(node => node.click());
-      await page.waitForNavigation();
+        await display_keywords_btn.evaluate(node => node.click());
+        await page.waitForNavigation();
 
-      current_url = new URL(await page.url());
-      assert.strictEqual(current_url.searchParams.get('keywords'), '1');
+        current_url = new URL(await page.url());
+        assert.strictEqual(current_url.searchParams.get('keywords'), '1');
 
-      await page.waitForSelector('h3');
-      display_headers = await page.$$eval('h3', elements => elements.map(el => el.textContent));
-      assert.deepStrictEqual(display_headers, ['Name Keywords', 'Address Keywords']);
+        await page.waitForSelector('h3');
+        display_headers = await page.$$eval('h3', elements => elements.map(el => el.textContent));
+        assert.deepStrictEqual(display_headers, ['Name Keywords', 'Address Keywords']);
 
-      let page_content = await page.$eval('body', el => el.textContent);
-      assert.ok(page_content.includes('qwaansshe')); // one of the name keywords
-    });
+        let page_content = await page.$eval('body', el => el.textContent);
+        assert.ok(page_content.includes('qwaansshe')); // one of the name keywords
+      });
+    }
 
     it('should change page url on clicking display child places', async function () {
       let current_url;
@@ -124,7 +129,9 @@ describe('Details Page', function () {
       let page_content = await page.$eval('body', el => el.textContent);
 
       assert.ok(page_content.includes('Name No Name'));
-      assert.ok(page_content.includes('Place has no keywords'));
+      if (!process.env.REVERSE_ONLY) {
+        assert.ok(page_content.includes('Place has no keywords'));
+      }
       assert.ok(page_content.includes('Place is not parent of other places'));
     });
   });

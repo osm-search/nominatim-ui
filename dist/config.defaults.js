@@ -12,6 +12,9 @@ let Nominatim_Config = {
   // Additional query parameters for Nominatim API.
   Nominatim_API_Endpoint_Params: {},
 
+  // If database has no search index, then hide search page
+  Reverse_Only: false,
+
   // relative path or full URL
   Images_Base_Url: 'mapicons/',
 

@@ -69,6 +69,7 @@
       base_url = window.location.search;
     }
   }
+  $: reverse_only = Nominatim_Config.Reverse_Only;
 </script>
 
 <Header>
@@ -170,23 +171,13 @@
               {/each}
             {/if}
 
-            <tr class="all-columns"><td colspan="6"><h2>Keywords</h2></td></tr>
-            {#if api_request_params.keywords}
+            {#if !reverse_only}
+              <tr class="all-columns"><td colspan="6"><h2>Keywords</h2></td></tr>
+              {#if api_request_params.keywords}
 
-              {#if place_has_keywords(aPlace)}
-                <tr class="all-columns"><td colspan="6"><h3>Name Keywords</h3></td></tr>
-                {#each aPlace.keywords.name as keyword}
-                  <tr>
-                    <td>{formatKeywordToken(keyword.token)}</td>
-                    {#if keyword.id}
-                      <td>word id: {keyword.id}</td>
-                    {/if}
-                  </tr>
-                {/each}
-
-                {#if aPlace.keywords.address}
-                  <tr class="all-columns"><td colspan="6"><h3>Address Keywords</h3></td></tr>
-                  {#each aPlace.keywords.address as keyword}
+                {#if place_has_keywords(aPlace)}
+                  <tr class="all-columns"><td colspan="6"><h3>Name Keywords</h3></td></tr>
+                  {#each aPlace.keywords.name as keyword}
                     <tr>
                       <td>{formatKeywordToken(keyword.token)}</td>
                       {#if keyword.id}
@@ -194,17 +185,29 @@
                       {/if}
                     </tr>
                   {/each}
+
+                  {#if aPlace.keywords.address}
+                    <tr class="all-columns"><td colspan="6"><h3>Address Keywords</h3></td></tr>
+                    {#each aPlace.keywords.address as keyword}
+                      <tr>
+                        <td>{formatKeywordToken(keyword.token)}</td>
+                        {#if keyword.id}
+                          <td>word id: {keyword.id}</td>
+                        {/if}
+                      </tr>
+                    {/each}
+                  {/if}
+                {:else}
+                  <tr><td>Place has no keywords</td></tr>
                 {/if}
               {:else}
-                <tr><td>Place has no keywords</td></tr>
+                <tr>
+                  <td>
+                     <a class="btn btn-outline-secondary btn-sm"
+                      href="{base_url}&keywords=1">display keywords</a>
+                  </td>
+                </tr>
               {/if}
-            {:else}
-              <tr>
-                <td>
-                   <a class="btn btn-outline-secondary btn-sm"
-                    href="{base_url}&keywords=1">display keywords</a>
-                </td>
-              </tr>
             {/if}
 
             <tr class="all-columns"><td colspan="6"><h2>Parent Of</h2></td></tr>
