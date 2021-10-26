@@ -10,17 +10,43 @@ function api_request_progress(status) {
 export async function fetch_from_api(endpoint_name, params, callback) {
   var api_url = generate_nominatim_api_url(endpoint_name, params);
 
+  // For the test suite:
+  // If httpbin_status URL parameter is set we call https://httpbin.org/#/Status_codes
+  var tmp_params = new URLSearchParams(window.location.search);
+  if (tmp_params && tmp_params.get('httpbin_status')) {
+    api_url = 'https://httpbin.org/status/' + parseInt(tmp_params.get('httpbin_status'), 10);
+  }
+
   api_request_progress('start');
   if (endpoint_name !== 'status') last_api_request_url_store.set(null);
 
   try {
     await fetch(api_url, { headers: Nominatim_Config.Nominatim_API_Endpoint_Headers || {} })
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          error_store.set(data.error.message);
+      .then(async (response) => {
+        if (!((response.status >= 200 && response.status < 300) || response.status === 404)) {
+          error_store.set(`Error fetching data from ${api_url} (${response.statusText})`);
+          return undefined;
         }
-        callback(data);
+
+        // Parse JSON here instead of returning a promise so we can catch possible
+        // errors.
+        var data;
+        try {
+          data = await response.json();
+        } catch (err) {
+          // e.g. 'JSON.parse: unexpected non-whitespace character after JSON data at line 1'
+          error_store.set(`Error parsing JSON data from ${api_url} (${err})`);
+          return undefined;
+        }
+        return data;
+      })
+      .then((data) => {
+        if (data) {
+          if (data.error) {
+            error_store.set(data.error.message);
+          }
+          callback(data);
+        }
         api_request_progress('finish');
       });
   } catch (error) {
