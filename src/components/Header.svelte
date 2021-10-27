@@ -8,6 +8,7 @@
 
   $: view = $page.tab;
   $: page_title = Nominatim_Config.Page_Title;
+  $: reverse_only = Nominatim_Config.Reverse_Only;
 
   let map_lat;
   let map_lon;
@@ -67,7 +68,7 @@
     <div class="container-fluid">
       <!-- Brand -->
       <div class="navbar-brand">
-        <PageLink page="search">
+        <PageLink page={reverse_only ? 'reverse' : 'search'}>
           <img alt="logo" id="theme-logo" src="theme/logo.png" />
           <h1>{page_title}</h1>
         </PageLink>
@@ -79,9 +80,11 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Left-aligned links -->
         <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <PageLink page="search" extra_classes="nav-link {view === 'search' ? 'active' : ''}">Search</PageLink>
-          </li>
+          {#if !reverse_only}
+            <li class="nav-item">
+              <PageLink page="search" extra_classes="nav-link {view === 'search' ? 'active' : ''}">Search</PageLink>
+            </li>
+          {/if}
           <li class="nav-item">
             <ReverseLink lat={map_lat} lon={map_lon} extra_classes="nav-link {view === 'reverse' ? 'active' : ''}">Reverse</ReverseLink>
           </li>

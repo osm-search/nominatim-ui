@@ -10,7 +10,7 @@
   export let bMarkUnusedLines = false;
 
   $: bAddressLineUsed = addressLine.isaddress;
-
+  $: reverse_only = Nominatim_Config.Reverse_Only;
 </script>
 
 <tr class:notused={bMarkUnusedLines && !bAddressLineUsed}>
@@ -29,9 +29,9 @@
   <td>
     {#if addressLine.osm_id}
       <DetailsLink feature={addressLine}>details</DetailsLink>
-    {:else if addressLine.type.match(/^country/)}
+    {:else if !reverse_only && addressLine.type.match(/^country/)}
       <PageLink page='search' params_hash={{ country: addressLine.localname }}>search by name</PageLink>
-    {:else if addressLine.type === 'postcode'}
+    {:else if !reverse_only && addressLine.type === 'postcode'}
       <PageLink page='search' params_hash={{ postalcode: addressLine.localname }}>search by name</PageLink>
     {/if}
   </td>

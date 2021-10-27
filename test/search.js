@@ -3,6 +3,9 @@ const assert = require('assert');
 describe('Search Page', function () {
   let page;
 
+  // eslint-disable-next-line mocha/no-setup-in-describe
+  if (process.env.REVERSE_ONLY) return;
+
   describe('No search', function () {
     before(async function () {
       page = await browser.newPage();

@@ -16,16 +16,27 @@ export const page = writable();
  * the requested query parameters. It may also be omitted completely for a
  * link without query parameters.
  */
-const pagenames = ['search', 'reverse', 'details', 'deletable', 'polygons', 'status', 'about'];
+const default_pagename = Nominatim_Config.Reverse_Only ? 'reverse' : 'search';
+const pagenames = [
+  default_pagename,
+  'reverse',
+  'details',
+  'deletable',
+  'polygons',
+  'status',
+  'about'
+];
 
 export function refresh_page(pagename, params) {
   if (typeof pagename === 'undefined') {
     pagename = window.location.pathname.replace('.html', '').replace(/^.*\//, '');
 
-    if (!pagenames.includes(pagename)) pagename = 'search';
+    if (!pagenames.includes(pagename)) pagename = default_pagename;
 
     params = new URLSearchParams(window.location.search);
   } else {
+    if (!pagenames.includes(pagename)) pagename = default_pagename;
+
     if (typeof params === 'undefined') {
       params = new URLSearchParams();
     }

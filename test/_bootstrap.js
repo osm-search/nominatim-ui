@@ -13,7 +13,7 @@ const testing_port = 9999; // this is the port all tests expect nominatim-ui to 
 // We can simulate that with a proxy.
 const use_proxy = !!process.env.API_ON_SAME_PORT;
 const static_port = use_proxy ? 9998 : 9999;
-
+const reverse_only = !!process.env.REVERSE_ONLY;
 
 // Methods to run at the start and end of the mocha testsuite run
 // https://mochajs.org/#global-setup-fixtures
@@ -28,6 +28,7 @@ exports.mochaGlobalSetup = async function () {
 
   fse.outputFile(workdir + '/theme/config.theme.js', `
 Nominatim_Config.Nominatim_API_Endpoint = '${api_endpoint}';
+Nominatim_Config.Reverse_Only = ${reverse_only};
   `);
 
 
