@@ -59,11 +59,11 @@ describe('Search Page', function () {
     });
   });
 
-  describe('Search for City of London', function () {
+  describe('Search for Paris', function () {
     before(async function () {
       page = await browser.newPage();
       await page.goto('http://localhost:9999/search.html');
-      await page.type('input[name=q]', 'City of London');
+      await page.type('input[name=q]', 'Paris');
       await page.click('button[type=submit]');
       await page.waitForSelector('#searchresults');
       // await page.screenshot({ path: "./screen.png", fullPage: true });
@@ -74,12 +74,12 @@ describe('Search Page', function () {
     });
 
     it('should have a HTML page title', async function () {
-      assert.equal(await page.title(), 'Result for City of London | Nominatim Demo');
+      assert.equal(await page.title(), 'Result for Paris | Nominatim Demo');
     });
 
     it('should have added search params', async function () {
       let current_url = new URL(await page.url());
-      assert.strictEqual(current_url.searchParams.get('q'), 'City of London');
+      assert.strictEqual(current_url.searchParams.get('q'), 'Paris');
     });
 
     it('should atleast one result', async function () {
@@ -128,7 +128,7 @@ describe('Search Page', function () {
 
       await page.waitForSelector('.container h1');
       page_header = await page.$eval('.container h1', el => el.textContent);
-      assert.ok(page_header.includes('City of London'));
+      assert.ok(page_header.includes('Paris'));
     });
   });
 });
