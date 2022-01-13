@@ -165,18 +165,18 @@
             {/if}
 
             {#if aPlace.linked_places}
-              <tr class="all-columns"><td colspan="6"><h2>Linked Places</h2></td></tr>
+              <tr class="all-columns"><td colspan="7"><h2>Linked Places</h2></td></tr>
               {#each aPlace.linked_places as addressLine}
                 <DetailsOneRow addressLine={addressLine} bMarkUnusedLines=true bDistanceInMeters=true />
               {/each}
             {/if}
 
             {#if !reverse_only}
-              <tr class="all-columns"><td colspan="6"><h2>Keywords</h2></td></tr>
+              <tr class="all-columns"><td colspan="7"><h2>Keywords</h2></td></tr>
               {#if api_request_params.keywords}
 
                 {#if place_has_keywords(aPlace)}
-                  <tr class="all-columns"><td colspan="6"><h3>Name Keywords</h3></td></tr>
+                  <tr class="all-columns"><td colspan="7"><h3>Name Keywords</h3></td></tr>
                   {#each aPlace.keywords.name as keyword}
                     <tr>
                       <td>{formatKeywordToken(keyword.token)}</td>
@@ -187,7 +187,7 @@
                   {/each}
 
                   {#if aPlace.keywords.address}
-                    <tr class="all-columns"><td colspan="6"><h3>Address Keywords</h3></td></tr>
+                    <tr class="all-columns"><td colspan="7"><h3>Address Keywords</h3></td></tr>
                     {#each aPlace.keywords.address as keyword}
                       <tr>
                         <td>{formatKeywordToken(keyword.token)}</td>
@@ -210,11 +210,11 @@
               {/if}
             {/if}
 
-            <tr class="all-columns"><td colspan="6"><h2>Parent Of</h2></td></tr>
+            <tr class="all-columns"><td colspan="7"><h2>Parent Of</h2></td></tr>
             {#if api_request_params.hierarchy}
               {#if aPlace.hierarchy && typeof (aPlace.hierarchy) === 'object' && Object.keys(aPlace.hierarchy).length}
                 {#each Object.keys(aPlace.hierarchy) as type}
-                  <tr class="all-columns"><td colspan="6"><h3>{type}</h3></td></tr>
+                  <tr class="all-columns"><td colspan="7"><h3>{type}</h3></td></tr>
                   {#each aPlace.hierarchy[type] as line}
                     <DetailsOneRow addressLine={line} bDistanceInMeters=true />
                  {/each}
