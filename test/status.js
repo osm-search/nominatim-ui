@@ -13,8 +13,10 @@ describe('Status Page', function () {
   });
 
   it('should have software version', async function () {
-    let status_details = await page.$eval('body',
-      el => el.textContent.match(/Software version.*\d+\.\d+/));
+    let status_details = await page.$eval(
+      'body',
+      el => el.textContent.match(/Software version.*\d+\.\d+/)
+    );
 
     assert.ok(!status_details[0].includes('undefined'));
   });
