@@ -28,7 +28,7 @@ Svelte. Version 3 added theme and easier configuration.
    ```
    yarn dev
    ```
-   which will start a webserver on port 9880 and auto-reloads
+   which will start a webserver on port 9080 and auto-reloads
    whenever you edit files. Configuration in `rollup.config.js`.
 
 ## Testing
