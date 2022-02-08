@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 3.2.2 - 2022-02-08
+
+    * NPM package updates
+
 * version 3.2.1 - 2021-05-11
 
     * Fix: some npm modules no longer support node version 10
