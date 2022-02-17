@@ -38,8 +38,8 @@
 </tr>
 
 <style>
-  .notused {
-    color:#ddd;
+  .notused td {
+    color: #ccc;
   }
 
   td {
