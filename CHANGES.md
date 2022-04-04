@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 3.2.2 - 2022-04-05
+
+    * Fix: On Search page the 'deduplication' checkbox needs to be checked by default
+
 * version 3.2.1 - 2021-05-11
 
     * Fix: some npm modules no longer support node version 10

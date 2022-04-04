@@ -25,7 +25,7 @@
       polygon_geojson: Nominatim_Config.Search_AreaPolygons ? 1 : 0,
       viewbox: search_params.get('viewbox'),
       bounded: search_params.get('bounded'),
-      dedupe: search_params.get('dedupe'),
+      dedupe: (!search_params.has('dedupe') || search_params.get('dedupe') === '1') ? 1 : 0,
       'accept-language': search_params.get('accept-language'),
       countrycodes: search_params.get('countrycodes'),
       limit: search_params.get('limit'),

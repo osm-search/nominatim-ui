@@ -69,7 +69,7 @@
   }
 
   function set_dedupe(e) {
-    document.querySelector('input[name=dedupe]').value = e.target.checked ? 1 : '';
+    document.querySelector('input[name=dedupe]').value = e.target.checked ? 1 : 0;
   }
 
   function set_api_param(e) {
@@ -100,7 +100,7 @@
       <div class="col-auto">
         <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
         <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
-        <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
+        <input type="hidden" name="dedupe" value="{api_request_params.dedupe === 0 ? 0 : 1}" />
         <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
         <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
         <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}"
@@ -145,7 +145,7 @@
       <div class="col-auto">
         <button type="submit" class="btn btn-primary btn-sm">Search</button>
         <input type="hidden" name="viewbox" value="{sViewBox || ''}" />
-        <input type="hidden" name="dedupe" value="{!api_request_params.dedupe ? '' : 1}" />
+        <input type="hidden" name="dedupe" value="{api_request_params.dedupe === 0 ? 0 : 1}" />
         <input type="hidden" name="bounded" value="{api_request_params.bounded ? 1 : ''}" />
         <input type="hidden" name="accept-language" value="{api_request_params['accept-language'] || ''}" />
         <input type="hidden" name="countrycodes" value="{api_request_params.countrycodes || ''}"
@@ -181,7 +181,7 @@
       <div class="form-check form-check-inline">
         <label class="form-check-label" for="option_dedupe">deduplicate results</label>
         <input type="checkbox" class="form-check-input api-param-setting"
-               id="option_dedupe" checked={!!api_request_params.dedupe} on:change={set_dedupe}>
+               id="option_dedupe" checked={api_request_params.dedupe === 0 ? 0 : 1} on:change={set_dedupe}>
       </div>
     </li>
 

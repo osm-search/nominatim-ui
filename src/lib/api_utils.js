@@ -83,6 +83,9 @@ export async function fetch_content_into_element(url, dom_element) {
 }
 
 function generate_nominatim_api_url(endpoint_name, params) {
+  // default value for /search
+  if (params.dedupe === 1) delete params.dedupe;
+
   extend_parameters(params, Nominatim_Config.Nominatim_API_Endpoint_Params);
   return Nominatim_Config.Nominatim_API_Endpoint + endpoint_name + '.php?'
          + Object.keys(clean_up_parameters(params)).map((k) => {
