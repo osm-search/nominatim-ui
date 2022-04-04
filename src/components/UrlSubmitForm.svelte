@@ -12,6 +12,9 @@
       if (['checkbox', 'radio'].indexOf(field.type) > -1 && !field.checked) return;
       if (typeof field.value === 'undefined' || field.value === '') return;
 
+      // Default value for /search endpoint
+      if (field.name === 'dedupe' && (field.value === 1 || field.value === '1')) return;
+
       params.set(field.name, field.value);
     });
 

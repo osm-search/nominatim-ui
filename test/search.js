@@ -111,6 +111,18 @@ describe('Search Page', function () {
       assert.equal((await page.$$('#map')).length, 1);
     });
 
+    it('should default to dedupe=1', async function () {
+      const checkbox_checked = await page.$eval('#option_dedupe', el => el.checked);
+      assert.equal(checkbox_checked, true);
+
+      const links_href = await page.$$eval('#api-request a', links => links.map(l => l.href));
+      let api_request_url = new URL(links_href[0]);
+      let debug_url = new URL(links_href[1]);
+
+      assert.deepStrictEqual(api_request_url.searchParams.has('dedupe'), false);
+      assert.deepStrictEqual(debug_url.searchParams.has('dedupe'), false);
+    });
+
     it('should have polygon and marker in map and minimap', async function () {
       assert.strictEqual((await page.$$('#map .leaflet-overlay-pane path')).length, 4);
     });
