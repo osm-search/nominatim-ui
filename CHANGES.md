@@ -1,8 +1,12 @@
 # CHANGES
 
-* version 3.2.2 - 2022-04-05
+* version 3.2.3 - 2022-04-05
 
     * Fix: On Search page the 'deduplication' checkbox needs to be checked by default
+
+* version 3.2.2 - 2022-02-08
+
+    * NPM package updates
 
 * version 3.2.1 - 2021-05-11
 
