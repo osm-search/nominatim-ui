@@ -160,14 +160,14 @@
           <tbody>
             {#if aPlace.address}
               {#each aPlace.address as addressLine}
-                <DetailsOneRow addressLine={addressLine} bMarkUnusedLines=true bDistanceInMeters=false />
+                <DetailsOneRow addressLine={addressLine} bMarkUnusedLines={true} bDistanceInMeters={false} />
               {/each}
             {/if}
 
             {#if aPlace.linked_places}
               <tr class="all-columns"><td colspan="7"><h2>Linked Places</h2></td></tr>
               {#each aPlace.linked_places as addressLine}
-                <DetailsOneRow addressLine={addressLine} bMarkUnusedLines=true bDistanceInMeters=true />
+                <DetailsOneRow addressLine={addressLine} bMarkUnusedLines={true} bDistanceInMeters={true} />
               {/each}
             {/if}
 
@@ -216,7 +216,7 @@
                 {#each Object.keys(aPlace.hierarchy) as type}
                   <tr class="all-columns"><td colspan="7"><h3>{type}</h3></td></tr>
                   {#each aPlace.hierarchy[type] as line}
-                    <DetailsOneRow addressLine={line} bDistanceInMeters=true />
+                    <DetailsOneRow addressLine={line} bDistanceInMeters={true} />
                  {/each}
                 {/each}
 
