@@ -5,6 +5,12 @@ let Nominatim_Config = {
 
   // Where Nominatim API runs. Remember to add port if needed and trailing slash.
   Nominatim_API_Endpoint: 'http://localhost/nominatim/',
+  // Alternatively provide a function callback
+  // Nominatim_API_Endpoint: function (endpoint) {
+  //   var url = 'http://localhost/nominatim/';
+  //   if (endpoint) { url += endpoint + '.php' };
+  //   return url;
+  // }
 
   // Additional request headers for Nominatim API.
   Nominatim_API_Endpoint_Headers: {},

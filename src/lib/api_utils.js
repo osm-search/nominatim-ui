@@ -73,7 +73,7 @@ export async function fetch_content_into_element(url, dom_element) {
     await fetch(url)
       .then(response => response.text())
       .then(html => {
-        html = html.replace('Nominatim_API_Endpoint', Nominatim_Config.Nominatim_API_Endpoint);
+        html = html.replace('Nominatim_API_Endpoint', generate_nominatim_endpoint_url());
         dom_element.innerHTML = html;
         fetch_content_cache[url] = html;
       });
@@ -82,12 +82,25 @@ export async function fetch_content_into_element(url, dom_element) {
   }
 }
 
+function generate_nominatim_endpoint_url(endpoint_name) {
+  var conf_endpoint = Nominatim_Config.Nominatim_API_Endpoint;
+
+  if (typeof conf_endpoint === 'function') {
+    return conf_endpoint(endpoint_name);
+  }
+
+  if (!endpoint_name) return conf_endpoint;
+
+  return conf_endpoint + endpoint_name + '.php';
+}
+
 function generate_nominatim_api_url(endpoint_name, params) {
   // default value for /search
   if (params.dedupe === 1) delete params.dedupe;
 
   extend_parameters(params, Nominatim_Config.Nominatim_API_Endpoint_Params);
-  return Nominatim_Config.Nominatim_API_Endpoint + endpoint_name + '.php?'
+  return generate_nominatim_endpoint_url(endpoint_name)
+         + '?'
          + Object.keys(clean_up_parameters(params)).map((k) => {
            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
          }).join('&');
