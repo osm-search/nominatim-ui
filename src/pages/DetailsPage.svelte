@@ -279,6 +279,7 @@
   }
 
   #map-wrapper {
+    position: relative;
     width:100%;
     min-height: auto;
     height:300px;
