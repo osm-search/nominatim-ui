@@ -108,6 +108,7 @@
           clickable: false
         }
       );
+      cm.bindTooltip(`Search (${position_marker[0]},${position_marker[1]})`).openTooltip();
       cm.addTo(map);
       dataLayers.push(cm);
     }
@@ -136,6 +137,9 @@
       let circle = L.circleMarker([lat, lon], {
         radius: 10, weight: 2, fillColor: '#ff7800', color: 'blue', opacity: 0.75
       });
+      if (position_marker) { // reverse result
+        circle.bindTooltip('Result').openTooltip();
+      }
       map.addLayer(circle);
       dataLayers.push(circle);
     }
