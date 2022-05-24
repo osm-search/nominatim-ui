@@ -1,13 +1,13 @@
 # CHANGES
 
+* version 3.2.5 - 2022-05-24
+
+    * Reverse map: add tooltips to circles as hint what is the search and what is result position
+
 * version 3.2.4 - 2022-05-05
 
     * Configuration: Nominatim_API_Endpoint can now also be a callback
     * NPM package updates
-
-* version 3.2.3 - 2022-04-05
-
-    * Fix: On Search page the 'deduplication' checkbox needs to be checked by default
 
 * version 3.2.3 - 2022-04-05
 
