@@ -52,7 +52,7 @@
   </button>
 
   Nightly calculated from nearby places having this postcode.
-  <a href="https://nominatim.org/release-docs/latest/develop/Postcodes/">Documentation</a>.
+  <a href="https://nominatim.org/release-docs/latest/admin/Maintenance/#updating-postcodes">Documentation</a>.
   You can search for those with an <a href={url} target="_blank">Overpass Turbo query</a>.
 </div>
 
