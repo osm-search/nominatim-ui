@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 3.2.6 - 2022-07-14
+
+    * Fix: New URL for postcode documentation. Thanks otbutz
+
 * version 3.2.5 - 2022-05-24
 
     * Reverse map: add tooltips to circles as hint what is the search and what is result position
