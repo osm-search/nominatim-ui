@@ -17,8 +17,9 @@
 
   function createMap(container) {
     const attribution = Nominatim_Config.Map_Tile_Attribution;
+
     let map = new L.map(container, {
-      attributionControl: (attribution && attribution.length),
+      attributionControl: false,
       scrollWheelZoom: true, // !L.Browser.touch,
       touchZoom: false,
       center: [
@@ -27,6 +28,10 @@
       ],
       zoom: Nominatim_Config.Map_Default_Zoom
     });
+
+    if (attribution && attribution.length) {
+      L.control.attribution({ prefix: '<a href="https://leafletjs.com/">Leaflet</a>' }).addTo(map);
+    }
 
     L.tileLayer(Nominatim_Config.Map_Tile_URL, {
       attribution: attribution
