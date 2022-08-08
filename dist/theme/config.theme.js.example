@@ -1,0 +1,5 @@
+// Example file how to overwrite defaults from config.default.js
+// The file should be named 'config.theme.js'
+
+Nominatim_Config.Nominatim_API_Endpoint = 'http://myserver.example.com:1234/nominatim/';
+Nominatim_Config.Page_Title = 'My Server demo;
