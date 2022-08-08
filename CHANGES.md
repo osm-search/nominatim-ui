@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 3.2.7 - 2022-08-07
+
+    * Documentation: Add a config.theme.js.example file. Thanks coleman-rik
+
 * version 3.2.6 - 2022-07-14
 
     * Fix: New URL for postcode documentation. Thanks otbutz
