@@ -83,7 +83,7 @@ describe('Details Page', function () {
         assert.deepStrictEqual(display_headers, ['Name Keywords', 'Address Keywords']);
 
         let page_content = await page.$eval('body', el => el.textContent);
-        assert.ok(page_content.includes('qwaansshe')); // one of the name keywords
+        assert.ok(page_content.includes('vadouz')); // one of the name keywords
       });
     }
 
