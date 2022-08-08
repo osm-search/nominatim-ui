@@ -1,4 +1,5 @@
-// You can overwrite any defaults in dist/theme/config.theme.js
+// You can overwrite any defaults in dist/theme/config.theme.js (see
+// *.js.example file in that directory)
 
 let Nominatim_Config = {
   Page_Title: 'Nominatim Demo',

@@ -30,13 +30,7 @@ You can either
 
 ## Configuration
 
-You can customize your installation by creating and editing `dist/theme/config.theme.js` which allows you to override the default values provided by `dist/config.default.js`.
-
-The following `config.theme.js` example file changes the location of the API endpoint:
-
-```javascript
-  Nominatim_Config.Nominatim_API_Endpoint = 'http://my-server:1234/';
-```
+You can customize your installation by creating and editing `dist/theme/config.theme.js` which allows you to override the default values provided by `dist/config.default.js`. See the `config.theme.js.example` in the same directory for examples.
 
 The `dist/theme/` directory also contains files make it easy to set a different
 logo image, colors, welcome and help text.
