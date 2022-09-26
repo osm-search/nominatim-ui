@@ -1,5 +1,10 @@
 # CHANGES
 
+* version 3.2.8 - 2022-09-26
+
+    * Use OSM's preferred tile URL for faster map loading
+    * NPM package updates
+
 * version 3.2.7 - 2022-08-07
 
     * Documentation: Add a config.theme.js.example file. Thanks coleman-rik
