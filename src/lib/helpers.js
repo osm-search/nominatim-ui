@@ -41,8 +41,8 @@ function formatLabel(aPlace) {
     return s && s[0].toUpperCase() + s.slice(1);
   }
 
-  if (aPlace.type && aPlace.type === 'yes' && aPlace.class) {
-    return capitalize(aPlace.class.replace(/_/g, ' '));
+  if (aPlace.type && aPlace.type === 'yes' && aPlace.category) {
+    return capitalize(aPlace.category.replace(/_/g, ' '));
   }
   if (aPlace.type) {
     return capitalize(aPlace.type.replace(/_/g, ' '));
