@@ -84,7 +84,7 @@
 <div id="map-position">
   <div id="map-position-inner">
     map center: {map_center}
-    <a target="_blank" href="{view_on_osm_link}">view on osm.org</a>
+    <a target="_blank" rel="noreferrer" href="{view_on_osm_link}">view on osm.org</a>
     <br>
     map zoom: {map_zoom}
     <br>
