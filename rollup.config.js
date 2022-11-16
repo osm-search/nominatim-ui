@@ -5,6 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 import { readFileSync, writeFileSync } from 'fs';
+import { spawn } from 'child_process';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -18,7 +19,7 @@ function serve() {
   return {
     writeBundle() {
       if (server) return;
-      server = require('child_process').spawn('yarn', ['start', '-d'], {
+      server = spawn('yarn', ['start', '-d'], {
         stdio: ['ignore', 'inherit', 'inherit'],
         shell: true
       });
@@ -45,7 +46,8 @@ export default {
       }
     }),
     css({
-      output: function (styles, styleNodes) {
+      // output: function (styles, styleNodes) {
+      output: function (styles) {
         // make sure global_styles.css gets appended to bundle.css,
         // not prepended.
         // The ':global()' rules (https://svelte.dev/docs#style) get

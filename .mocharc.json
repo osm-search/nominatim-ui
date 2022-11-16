@@ -1,0 +1,6 @@
+// https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.json
+{
+  "ignore": ["test/_bootstrap.js"],
+  "require": ["test/_bootstrap.js"],
+  "timeout": "5s"
+}
