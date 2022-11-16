@@ -1,19 +1,6 @@
-module.exports.formatOSMType = formatOSMType;
-module.exports.osmLink = osmLink;
-module.exports.formatLabel = formatLabel;
-module.exports.wikipediaLink = wikipediaLink;
-module.exports.coverageType = coverageType;
-module.exports.isAdminBoundary = isAdminBoundary;
-module.exports.formatAddressRank = formatAddressRank;
-module.exports.formatPlaceType = formatPlaceType;
-module.exports.formatAdminLevel = formatAdminLevel;
-module.exports.formatDistance = formatDistance;
-module.exports.formatKeywordToken = formatKeywordToken;
-module.exports.zoomLevels = zoomLevels;
+import escapeHtml from 'escape-html';
 
-const escapeHtml = require('escape-html');
-
-function formatOSMType(sType, bExcludeExternal) {
+export function formatOSMType(sType, bExcludeExternal) {
   if (sType === 'N') return 'node';
   if (sType === 'W') return 'way';
   if (sType === 'R') return 'relation';
@@ -26,7 +13,7 @@ function formatOSMType(sType, bExcludeExternal) {
   return '';
 }
 
-function osmLink(aPlace) {
+export function osmLink(aPlace) {
   if (!aPlace.osm_type) return '';
   var sOSMType = formatOSMType(aPlace.osm_type, false);
   if (!sOSMType) return '';
@@ -34,7 +21,7 @@ function osmLink(aPlace) {
   return '<a href="https://www.openstreetmap.org/' + sOSMType + '/' + aPlace.osm_id + '">' + sOSMType + ' ' + aPlace.osm_id + '</a>';
 }
 
-function formatLabel(aPlace) {
+export function formatLabel(aPlace) {
   if (aPlace.label) return aPlace.label;
 
   function capitalize(s) {
@@ -51,7 +38,7 @@ function formatLabel(aPlace) {
 }
 
 /* en:London_Borough_of_Redbridge => https://en.wikipedia.org/wiki/London_Borough_of_Redbridge */
-function wikipediaLink(aPlace) {
+export function wikipediaLink(aPlace) {
   if (!aPlace.calculated_wikipedia) return '';
 
   var parts = aPlace.calculated_wikipedia.split(':', 2);
@@ -63,15 +50,15 @@ function wikipediaLink(aPlace) {
   return '<a href="https://' + sLanguage + '.wikipedia.org/wiki/' + sArticle + '" target="_blank">' + sTitle + '</a>';
 }
 
-function coverageType(aPlace) {
+export function coverageType(aPlace) {
   return (aPlace.isarea ? 'Polygon' : 'Point');
 }
 
-function isAdminBoundary(aPlace) {
+export function isAdminBoundary(aPlace) {
   return aPlace.category === 'boundary' && aPlace.type === 'administrative';
 }
 
-function formatAddressRank(iRank) {
+export function formatAddressRank(iRank) {
   if (iRank < 4) return 'other';
   if (iRank < 6) return 'country';
   if (iRank < 8) return 'region';
@@ -90,7 +77,7 @@ function formatAddressRank(iRank) {
   return 'other';
 }
 
-function formatPlaceType(aPlace) {
+export function formatPlaceType(aPlace) {
   var sOut = aPlace.class + ':' + aPlace.type;
   if (aPlace.type && aPlace.type === 'administrative' && aPlace.place_type) {
     sOut = sOut + ' (' + aPlace.place_type + ')';
@@ -99,11 +86,11 @@ function formatPlaceType(aPlace) {
 }
 
 // Any over 15 are invalid data in OSM anyway
-function formatAdminLevel(iLevel) {
+export function formatAdminLevel(iLevel) {
   return (iLevel && iLevel < 15 ? iLevel : '');
 }
 
-function formatDistance(fDistance, bInMeters) {
+export function formatDistance(fDistance, bInMeters) {
   if (bInMeters) {
     if (fDistance < 1) return '0';
     var sFormatted = (fDistance >= 1000)
@@ -122,11 +109,11 @@ function formatDistance(fDistance, bInMeters) {
 }
 
 // mark partial tokens (those starting with a space) with a star for readability
-function formatKeywordToken(sToken) {
+export function formatKeywordToken(sToken) {
   return (sToken[0] === ' ' ? '*' : '') + escapeHtml(sToken);
 }
 
-function zoomLevels() {
+export function zoomLevels() {
   const aZoomLevels = [
     /*  0 */ 'Continent / Sea',
     /*  1 */ '',
