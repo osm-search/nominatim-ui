@@ -20,7 +20,7 @@
     "http-proxy": "^1.18.1",
     "mocha": "^10.0",
     "puppeteer": "^19.0",
-    "rollup": "^2.3.4",
+    "rollup": "^3.3.0",
     "rollup-plugin-css-only": "^4.3.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.0.0",
@@ -38,5 +38,6 @@
     "leaflet": "1.9.2",
     "leaflet-minimap": "^3.6.1",
     "timeago.js": "^4.0.2"
-  }
+  },
+  "type": "module"
 }

@@ -1,8 +1,8 @@
-const static_server = require('static-server');
-const http = require('http');
-const httpProxy = require('http-proxy');
-const puppeteer = require('puppeteer');
-const fse = require('fs-extra');
+import static_server from 'static-server';
+import http from 'node:http';
+import httpProxy from 'http-proxy';
+import puppeteer from 'puppeteer';
+import fse from 'fs-extra';
 
 const testing_port = 9999; // this is the port all tests expect nominatim-ui to listen to
 
@@ -17,7 +17,7 @@ const reverse_only = !!process.env.REVERSE_ONLY;
 
 // Methods to run at the start and end of the mocha testsuite run
 // https://mochajs.org/#global-setup-fixtures
-exports.mochaGlobalSetup = async function () {
+export async function mochaGlobalSetup() {
   const workdir = 'dist_for_testing';
 
   // 1. Prepare build directory
@@ -68,10 +68,10 @@ Nominatim_Config.Reverse_Only = ${reverse_only};
       '--user-agent=Nominatim UI test suite Mozilla/5.0 Gecko/20100101 HeadlessChrome/90.0'
     ]
   });
-};
+}
 
 
-exports.mochaGlobalTeardown = async function () {
+export async function mochaGlobalTeardown() {
   global.browser.close();
 
   await this.static_http_server.stop();
@@ -83,4 +83,4 @@ exports.mochaGlobalTeardown = async function () {
 
     this.proxy_server.close(() => console.log('proxy server stopped'));
   }
-};
+}

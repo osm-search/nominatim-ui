@@ -1,4 +1,4 @@
-const assert = require('assert');
+import assert from 'assert';
 
 const reverse_only = !!process.env.REVERSE_ONLY;
 
