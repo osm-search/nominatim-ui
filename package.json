@@ -6,8 +6,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "lint": "eslint --quiet .*.js src/ test/",
-    "lint:fix": "eslint --fix .*.js src/ test/",
+    "lint": "eslint --quiet *.js src/ test/",
+    "lint:fix": "eslint --fix *.js src/ test/",
     "test": "rollup -c && mocha --recursive test/",
     "start": "static-server dist"
   },
