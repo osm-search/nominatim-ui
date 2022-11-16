@@ -1,5 +1,13 @@
 # CHANGES
 
+* version 3.2.9 - 2022-11-16
+
+    * Fix: For places tagged bulding=yes display the formatted label 'Building', not 'Yes'
+    * migrate remaining modules to ESM style (import instead of require)
+    * NPM package updates
+    * test suite: use JSON files for mocha and eslint configuration
+    * test suite: update outdated Github Actions
+
 * version 3.2.8 - 2022-09-26
 
     * Use OSM's preferred tile URL for faster map loading
