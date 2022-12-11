@@ -143,4 +143,23 @@ describe('Search Page', function () {
       assert.ok(page_header.includes('Paris'));
     });
   });
+
+  describe('Search for OSM URL', function () {
+    before(async function () {
+      page = await browser.newPage();
+      await page.goto('http://localhost:9999/search.html');
+      await page.type('input[name=q]', 'https://www.openstreetmap.org/relation/3459013#map=11/41.2388/-8.3867');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('table#address');
+    });
+
+    after(async function () {
+      await page.close();
+    });
+
+    it('should redirect to detail page search', async function () {
+      assert.equal(await page.title(), 'Details for R3459013 | Nominatim Demo');
+      assert.ok((await page.$eval('.container h1', el => el.textContent)).includes('Porto'));
+    });
+  });
 });
