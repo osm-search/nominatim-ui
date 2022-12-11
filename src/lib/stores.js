@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { identifyLinkInQuery } from './helpers.js';
 
 export const map_store = writable();
 export const results_store = writable();
@@ -51,6 +52,16 @@ export function refresh_page(pagename, params) {
       window.history.pushState([], '', new_url);
     } else {
       window.location.href = new_url;
+    }
+  }
+
+  if (pagename === 'search' && params.has('q')) {
+    const arrTypeAndId = identifyLinkInQuery(params.get('q'));
+    if (arrTypeAndId instanceof Array) {
+      pagename = 'details';
+      params = new URLSearchParams();
+      params.set('osmtype', arrTypeAndId[0]);
+      params.set('osmid', arrTypeAndId[1]);
     }
   }
 
