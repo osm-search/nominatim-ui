@@ -49,6 +49,7 @@
            class="form-control form-control-sm d-inline"
            placeholder="latitude"
            pattern="^-?\d+(\.\d+)?$"
+           autofocus
            bind:value={lat}
            on:change={maybeSplitLatitude} />
   </div>
