@@ -1,7 +1,7 @@
 {
   "name": "nominatim-ui",
   "description": "Debug web interface for Nominatim geocoder",
-  "version": "3.2.9",
+  "version": "3.2.10",
   "license": "GPL-2.0",
   "scripts": {
     "build": "rollup -c",
@@ -12,7 +12,7 @@
     "start": "static-server dist"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^23.0",
+    "@rollup/plugin-commonjs": "^24.0",
     "@rollup/plugin-node-resolve": "^15.0",
     "eslint-plugin-mocha": "^10.0",
     "fs-extra": "^11.0.0",
