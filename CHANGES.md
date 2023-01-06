@@ -1,5 +1,12 @@
 # CHANGES
 
+* version 3.2.10 - 2023-01-06
+
+    * Search page: When searching for OSM URL redirect to detail page automatically
+    * Reverse page: Search for "12.34%2C56.78" now also auto-splits into two fields
+    * Detail page: Another link to documentation about postcodes
+    * NPM package updates
+
 * version 3.2.9 - 2022-11-16
 
     * Fix: For places tagged bulding=yes display the formatted label 'Building', not 'Yes'

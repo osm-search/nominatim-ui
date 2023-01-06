@@ -47,13 +47,17 @@
 (<a href="#openHint" on:click|preventDefault|stopPropagation={openHint}>how?</a>)
 
 <div id="postcode-hint" class="my-2 p-2">
-  <button type="button" class="close" aria-label="Close" on:click|stopPropagation={closeHint}>
-    <span aria-hidden="true">&times;</span>
-  </button>
+  <button type="button" class="btn-close float-end m-1" aria-label="Close" on:click|stopPropagation={closeHint} />
 
-  Nightly calculated from nearby places having this postcode.
-  <a href="https://nominatim.org/release-docs/latest/develop/Postcodes/">Documentation</a>.
-  You can search for those with an <a href={url} target="_blank" rel="noreferrer">Overpass Turbo query</a>.
+  <p>
+    Nightly calculated from nearby places having this postcode.
+    <a href="https://nominatim.org/release-docs/latest/admin/Maintenance/#updating-postcodes">Documentation</a>.
+  </p>
+  <p>
+    You can search for those with an <a href={url} target="_blank" rel="noreferrer">Overpass Turbo query</a>.
+  </p>
+  <p>
+    <a href="https://nominatim.org/2022/06/26/state-of-postcodes.html" target="_blank" rel="noreferrer">How Nominatim uses postcodes</a>.
 </div>
 
 <style>
@@ -61,8 +65,5 @@
     font-size: 0.9em;
     background-color: #ededff;
     display: none;
-  }
-  .close {
-    font-size: 1rem;
   }
 </style>
