@@ -33,6 +33,7 @@ let Nominatim_Config = {
   Map_Default_Lat: 20.0,
   Map_Default_Lon: 0.0,
   Map_Default_Zoom: 2,
+  Map_Default_Bounds: null,
 
   // For what {x}, {y} etc stand for see
   // https://leafletjs.com/reference-1.9.1.html#tilelayer
