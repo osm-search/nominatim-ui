@@ -28,7 +28,8 @@
       ],
       zoom: Nominatim_Config.Map_Default_Zoom
     });
-    if (typeof Nominatim_Config.Map_Default_Bounds !== 'undefined' && Nominatim_Config.Map_Default_Bounds) {
+    if (typeof Nominatim_Config.Map_Default_Bounds !== 'undefined'
+      && Nominatim_Config.Map_Default_Bounds) {
       map.fitBounds(Nominatim_Config.Map_Default_Bounds);
     }
 
