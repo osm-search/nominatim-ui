@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 3.2.11 - 2023-03-08
+    * Configuration: You can now set Map_Default_Bounds als alternative to lat,lon, zoom. Thanks Piskvor
+    * NPM package updates
+
 * version 3.2.10 - 2023-01-06
 
     * Search page: When searching for OSM URL redirect to detail page automatically

@@ -66,7 +66,7 @@ The `test/` setup uses [Mocha](https://mochajs.org/) to run tests. Tests use [Pu
 
 2. Update `CHANGES.md` file
 
-3. Commit your changes: `git add... `, `git commit ...`, `git push ...` etc
+3. Commit your changes: `git add ... `, `git commit ...`, `git push ...` etc
 
 4. Tag release: `git tag THE_VERSION_NUMBER`, `git push --tags`
 
