@@ -142,10 +142,7 @@ export function zoomLevels() {
     /* 15 */ '',
     /* 16 */ 'Street',
     /* 17 */ '',
-    /* 18 */ 'Building',
-    /* 19 */ '',
-    /* 20 */ '',
-    /* 21 */ ''
+    /* 18 */ 'Building'
   ];
   return aZoomLevels;
 }
