@@ -136,12 +136,12 @@ export function zoomLevels() {
     /*  9 */ '',
     /* 10 */ 'City',
     /* 11 */ '',
-    /* 12 */ 'Town / Village',
-    /* 13 */ '',
-    /* 14 */ 'Suburb',
-    /* 15 */ '',
-    /* 16 */ 'Street',
-    /* 17 */ '',
+    /* 12 */ 'Town / Borough',
+    /* 13 */ 'Village / Suburb',
+    /* 14 */ 'Neighbourhood',
+    /* 15 */ 'Locality',
+    /* 16 */ 'Major Street',
+    /* 17 */ 'Minor Street',
     /* 18 */ 'Building'
   ];
   return aZoomLevels;
