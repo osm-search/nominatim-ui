@@ -1,5 +1,9 @@
 # CHANGES
 
+* version 3.2.12 - 2023-04-04
+    * Reverse page: remove uncommon zoom labels, align with Nominatim 4.x
+    * NPM package updates
+
 * version 3.2.11 - 2023-03-08
     * Configuration: You can now set Map_Default_Bounds als alternative to lat,lon, zoom. Thanks Piskvor
     * NPM package updates
