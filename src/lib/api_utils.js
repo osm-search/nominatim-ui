@@ -11,10 +11,13 @@ export async function fetch_from_api(endpoint_name, params, callback) {
   var api_url = generate_nominatim_api_url(endpoint_name, params);
 
   // For the test suite:
-  // If httpbin_status URL parameter is set we call https://httpbin.org/#/Status_codes
+  // If mock_http_status URL parameter is set we call an external webservice. First
+  // https://httpbin.org/#/Status_codes but we saw timeouts. Now beeceptor.com
+  // If that turns out unreliable or expensive (only 50/day free) we might have to
+  // start running a local webserver for the test suite
   var tmp_params = new URLSearchParams(window.location.search);
-  if (tmp_params && tmp_params.get('httpbin_status')) {
-    api_url = 'https://httpbin.org/status/' + parseInt(tmp_params.get('httpbin_status'), 10);
+  if (tmp_params && tmp_params.get('mock_http_status')) {
+    api_url = 'https://nominatim-ui.free.beeceptor.com/status/' + parseInt(tmp_params.get('mock_http_status'), 10);
   }
 
   api_request_progress('start');
