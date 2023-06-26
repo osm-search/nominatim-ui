@@ -1,6 +1,6 @@
 # CHANGES
 
-* version 3.2.13 - 2023-06-26
+* version 3.3.0 - 2023-06-26
     * Reverse map: show search position (red circle) also when no search results
     * test-suite: remove httpbin HTTP calls, server is unreliable
     * test-suite: replace eslint-plugin-svelte3 with eslint-plugin-svelte plus lint fixes
