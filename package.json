@@ -12,14 +12,14 @@
     "start": "static-server dist"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.0",
+    "@rollup/plugin-commonjs": "^25.0",
     "@rollup/plugin-node-resolve": "^15.0",
     "eslint-plugin-mocha": "^10.0",
     "fs-extra": "^11.0.0",
     "http": "^0.0.1-security",
     "http-proxy": "^1.18.1",
     "mocha": "^10.0",
-    "puppeteer": "^19.0",
+    "puppeteer": "^20.0",
     "rollup": "^3.3.0",
     "rollup-plugin-css-only": "^4.3.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -35,7 +35,7 @@
     "eslint-config-airbnb-base": "^15.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-svelte3": "^4.0",
-    "leaflet": "1.9.3",
+    "leaflet": "1.9.4",
     "leaflet-minimap": "^3.6.1",
     "timeago.js": "^4.0.2"
   },
