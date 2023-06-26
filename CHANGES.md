@@ -3,7 +3,9 @@
 * version 3.2.13 - 2023-06-26
     * Reverse map: show search position (red circle) also when no search results
     * test-suite: remove httpbin HTTP calls, server is unreliable
+    * test-suite: replace eslint-plugin-svelte3 with eslint-plugin-svelte plus lint fixes
     * NPM package updates (Bootstrap 5.3, Leaflet 1.9.4)
+    * NPM package updates (Svelte 3.x => 4.0)
 
 * version 3.2.12 - 2023-04-04
     * Reverse page: remove uncommon zoom labels, align with Nominatim 4.x
