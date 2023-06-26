@@ -11,7 +11,9 @@
 
 <footer>
   <p class="disclaimer">
-    Addresses and postcodes are approximate
+    Addresses and postcodes are approximate.
+    Blue circle is search result,
+    smaller red circle is search position (reverse geocoding).
   </p>
   <p class="copyright">
     &copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors

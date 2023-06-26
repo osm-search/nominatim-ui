@@ -26,8 +26,8 @@
     if (api_request_params.lat || api_request_params.lat) {
 
       fetch_from_api('reverse', api_request_params, function (data) {
+        position_marker = [api_request_params.lat, api_request_params.lon];
         if (data && !data.error) {
-          position_marker = [api_request_params.lat, api_request_params.lon];
           results_store.set([data]);
         } else {
           results_store.set([]);
