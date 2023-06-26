@@ -64,6 +64,7 @@ Nominatim_Config.Reverse_Only = ${reverse_only};
     defaultViewport: { width: 1024, height: 768 },
     timeout: 10000,
     // latency: 1000,
+    headless: 'new',
     args: [
       '--user-agent=Nominatim UI test suite Mozilla/5.0 Gecko/20100101 HeadlessChrome/90.0'
     ]
