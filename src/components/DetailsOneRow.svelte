@@ -22,9 +22,11 @@
     {/if}
   </td>
   <td>{formatPlaceType(addressLine)}</td>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   <td>{@html osmLink(addressLine)}</td>
   <td>{addressLine.rank_address}</td>
   <td>{formatAdminLevel(addressLine.admin_level)}</td>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   <td>{@html formatDistance(addressLine.distance, bDistanceInMeters)}</td>
   <td>
     {#if addressLine.osm_id}

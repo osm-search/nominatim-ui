@@ -42,6 +42,7 @@
           {#each aPolygons as polygon}
             <tr>
               <td>{polygon.osm_type}</td>
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <td>{@html osmLink(polygon)}</td>
               <td>{polygon.class}</td>
               <td>{polygon.type}</td>

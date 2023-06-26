@@ -24,7 +24,8 @@
       <h1>Deletable</h1>
 
       <p>
-          {aPolygons.length} objects have been deleted in OSM but are still in the Nominatim database.
+        {aPolygons.length} objects have been deleted in OSM but
+        are still in the Nominatim database.
       </p>
 
       <table class="table table-striped table-hover">
@@ -43,6 +44,7 @@
             <td><DetailsLink feature={polygon}>{polygon.place_id}</DetailsLink></td>
             <td>{polygon.country_code}</td>
             <td>{polygon.name}</td>
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <td>{@html osmLink(polygon)}</td>
             <td>{polygon.osm_type}</td>
             <td>{polygon.class}</td>

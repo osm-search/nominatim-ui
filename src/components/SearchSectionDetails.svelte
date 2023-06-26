@@ -27,10 +27,15 @@
 <form on:submit|preventDefault={handleFormSubmit} class="form-inline" action="details.html">
   <div class="row g-1">
     <div class="col-auto">
+      <!-- eslint-disable-next-line max-len -->
       <input type="edit"
              class="form-control form-control-sm me-1"
              pattern="^[NWRnwr]?[0-9]+$|.*openstreetmap.*"
-             value="{api_request_params.osmtype || ''}{api_request_params.osmid || ''}{api_request_params.place_id || ''}" />
+             value="{
+              (api_request_params.osmtype || '')
+              + (api_request_params.osmid || '')
+              + (api_request_params.place_id || '')
+            }" />
       </div>
     <div class="col-auto">
       <button type="submit" class="btn btn-primary btn-sm">Show</button>

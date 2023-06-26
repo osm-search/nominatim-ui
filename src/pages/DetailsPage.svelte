@@ -119,6 +119,7 @@
             <InfoRow title="Centre Point (lat,lon)">
                 {aPlace.centroid.coordinates[1]},{aPlace.centroid.coordinates[0]}
             </InfoRow>
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <InfoRow title="OSM">{@html osmLink(aPlace)}</InfoRow>
             <InfoRow title="Place Id">
                {aPlace.place_id}
@@ -127,6 +128,7 @@
                </a>)
             </InfoRow>
             {#if aPlace.calculated_wikipedia}
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <InfoRow title="Wikipedia Calculated">{@html wikipediaLink(aPlace)}</InfoRow>
             {/if}
             <InfoRow title="Computed Postcode">
@@ -222,7 +224,8 @@
 
             <tr class="all-columns"><td colspan="7"><h2>Parent Of</h2></td></tr>
             {#if api_request_params.hierarchy}
-              {#if aPlace.hierarchy && typeof (aPlace.hierarchy) === 'object' && Object.keys(aPlace.hierarchy).length}
+              {#if aPlace.hierarchy && typeof (aPlace.hierarchy) === 'object'
+                && Object.keys(aPlace.hierarchy).length}
                 {#each Object.keys(aPlace.hierarchy) as type}
                   <tr class="all-columns"><td colspan="7"><h3>{type}</h3></td></tr>
                   {#each aPlace.hierarchy[type] as line}

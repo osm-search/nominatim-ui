@@ -7,8 +7,9 @@
   export let bStructuredSearch = false;
   export let api_request_params = {};
   let sViewBox;
-  let lat;
-  let lon;
+  // lat,lon are later set in update_reverse_link()
+  let lat; // eslint-disable-line no-unused-vars
+  let lon; // eslint-disable-line no-unused-vars
 
   function map_viewbox_as_string(map) {
     var bounds = map.getBounds();
