@@ -59,7 +59,8 @@
       <div class="result"
            class:highlight={iResNum === iHighlightNum}
            data-position="{iResNum}"
-           on:click|stopPropagation={handleClick}>
+           on:click|stopPropagation={handleClick}
+           on:keypress|stopPropagation={handleClick}>
         <div style="float:right">
           <MapIcon aPlace={aResult} />
         </div>

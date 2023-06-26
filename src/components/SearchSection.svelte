@@ -99,8 +99,7 @@
                type="text"
                class="form-control form-control-sm"
                placeholder="Search"
-               value="{api_request_params.q || ''}"
-               autofocus />
+               value="{api_request_params.q || ''}" />
       </div>
       <div class="col-auto">
         <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
