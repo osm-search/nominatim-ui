@@ -10,15 +10,7 @@ function api_request_progress(status) {
 export async function fetch_from_api(endpoint_name, params, callback) {
   var api_url = generate_nominatim_api_url(endpoint_name, params);
 
-  // For the test suite:
-  // If mock_http_status URL parameter is set we call an external webservice. First
-  // https://httpbin.org/#/Status_codes but we saw timeouts. Now beeceptor.com
-  // If that turns out unreliable or expensive (only 50/day free) we might have to
-  // start running a local webserver for the test suite
-  var tmp_params = new URLSearchParams(window.location.search);
-  if (tmp_params && tmp_params.get('mock_http_status')) {
-    api_url = 'https://nominatim-ui.free.beeceptor.com/status/' + parseInt(tmp_params.get('mock_http_status'), 10);
-  }
+  const mock_api_error = (new URLSearchParams(window.location.search)).get('mock_api_error');
 
   api_request_progress('start');
   if (endpoint_name !== 'status') last_api_request_url_store.set(null);
@@ -26,7 +18,9 @@ export async function fetch_from_api(endpoint_name, params, callback) {
   try {
     await fetch(api_url, { headers: Nominatim_Config.Nominatim_API_Endpoint_Headers || {} })
       .then(async (response) => {
-        if (!((response.status >= 200 && response.status < 300) || response.status === 404)) {
+        if ((!((response.status >= 200 && response.status < 300) || response.status === 404))
+            || mock_api_error === 'fetch'
+        ) {
           error_store.set(`Error fetching data from ${api_url} (${response.statusText})`);
           return undefined;
         }
@@ -35,7 +29,11 @@ export async function fetch_from_api(endpoint_name, params, callback) {
         // errors.
         var data;
         try {
-          data = await response.json();
+          if (mock_api_error === 'parse') {
+            data = JSON.parse('{');
+          } else {
+            data = await response.json();
+          }
         } catch (err) {
           // e.g. 'JSON.parse: unexpected non-whitespace character after JSON data at line 1'
           error_store.set(`Error parsing JSON data from ${api_url} (${err})`);

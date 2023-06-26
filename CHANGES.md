@@ -2,7 +2,7 @@
 
 * version 3.2.13 - 2023-06-26
     * Reverse map: show search position (red circle) also when no search results
-    * text-suite: replace httpbin with beeceptor for mocking HTTP error codes
+    * test-suite: remove httpbin HTTP calls, server is unreliable
     * NPM package updates (Bootstrap 5.3, Leaflet 1.9.4)
 
 * version 3.2.12 - 2023-04-04
