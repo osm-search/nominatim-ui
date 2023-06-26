@@ -49,15 +49,14 @@
            class="form-control form-control-sm d-inline"
            placeholder="latitude"
            pattern="^-?\d+(\.\d+)?$"
-           autofocus
            bind:value={lat}
            on:change={maybeSplitLatitude} />
   </div>
   <div class="col-auto">
-    <a id="switch-coords"
+    <button id="switch-coords"
        on:click|preventDefault|stopPropagation={() => gotoCoordinates(lon, lat)}
        class="btn btn-outline-secondary btn-sm"
-       title="switch lat and lon">&lt;&gt;</a>
+       title="switch lat and lon">&lt;&gt;</button>
   </div>
   <div class="col-auto">
     <label for="reverse-lon">lon</label>

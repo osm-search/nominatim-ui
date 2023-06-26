@@ -30,8 +30,7 @@
       <input type="edit"
              class="form-control form-control-sm me-1"
              pattern="^[NWRnwr]?[0-9]+$|.*openstreetmap.*"
-             value="{api_request_params.osmtype || ''}{api_request_params.osmid || ''}{api_request_params.place_id || ''}"
-             autofocus />
+             value="{api_request_params.osmtype || ''}{api_request_params.osmid || ''}{api_request_params.place_id || ''}" />
       </div>
     <div class="col-auto">
       <button type="submit" class="btn btn-primary btn-sm">Show</button>
