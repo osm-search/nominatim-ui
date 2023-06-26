@@ -26,7 +26,7 @@
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
     "static-server": "^2.2.1",
-    "svelte": "^3.49.0"
+    "svelte": "^4.0.0"
   },
   "dependencies": {
     "bootstrap": "^5.0.0",
@@ -34,7 +34,7 @@
     "eslint": "^8.0",
     "eslint-config-airbnb-base": "^15.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-svelte3": "^4.0",
+    "eslint-plugin-svelte": "^2.31",
     "leaflet": "1.9.4",
     "leaflet-minimap": "^3.6.1",
     "timeago.js": "^4.0.2"

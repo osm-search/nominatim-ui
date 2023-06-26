@@ -115,9 +115,6 @@
     text-align: right;
   }
 
-  
-  
-
   @media (max-width: 768px) {
     #map-position {
       top: 20px;

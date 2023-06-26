@@ -267,7 +267,7 @@
   }
 
   tr.all-columns {
-    background-color: white !important; 
+    background-color: white !important;
     border: none;
   }
   tr.all-columns td {

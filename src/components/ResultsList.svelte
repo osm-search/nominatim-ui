@@ -119,7 +119,7 @@
   }
 
   .result .coords {
-    display: none;  
+    display: none;
   }
 
   .noresults{

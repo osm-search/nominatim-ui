@@ -2,7 +2,8 @@
 {
   "extends": [
     "airbnb-base/legacy",
-    "plugin:mocha/recommended"
+    "plugin:mocha/recommended",
+    "plugin:svelte/recommended"
   ],
   "parserOptions": {
     "ecmaVersion": 2019,
@@ -12,7 +13,6 @@
     "browser": true
   },
   "plugins": [
-    "svelte3",
     "mocha"
   ],
   "overrides": [
@@ -44,9 +44,9 @@
     },
     {
       "files": ["*.svelte"],
-      "processor": "svelte3/svelte3",
+      "processor": "svelte/svelte",
       "rules": {
-        "no-label-var": "off" // eslint thinks $: (https://svelte.dev/tutorial/reactive-statements) are labels
+        "max-len": "off"
       }
     },
     {
