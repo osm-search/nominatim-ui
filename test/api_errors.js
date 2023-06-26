@@ -6,7 +6,7 @@ describe('Nominatim API errors', function () {
   describe('HTTP 503 - service unavailable', function () {
     before(async function () {
       page = await browser.newPage();
-      await page.goto('http://localhost:9999/search.html?q=london&httpbin_status=503');
+      await page.goto('http://localhost:9999/search.html?q=london&mock_http_status=503');
     });
 
     after(async function () {
@@ -17,7 +17,7 @@ describe('Nominatim API errors', function () {
       await page.waitForSelector('#error');
 
       let message = await page.$eval('#error', el => el.textContent);
-      assert.ok(message.includes('httpbin.org'));
+      assert.ok(message.includes('/status/503'));
       assert.ok(message.includes('Error fetching data from'));
     });
   });
@@ -25,7 +25,7 @@ describe('Nominatim API errors', function () {
   describe('HTTP 200 - JSON parsing fails', function () {
     before(async function () {
       page = await browser.newPage();
-      await page.goto('http://localhost:9999/search.html?q=london&httpbin_status=200');
+      await page.goto('http://localhost:9999/search.html?q=london&mock_http_status=200');
     });
 
     after(async function () {
@@ -36,7 +36,7 @@ describe('Nominatim API errors', function () {
       await page.waitForSelector('#error');
 
       let message = await page.$eval('#error', el => el.textContent);
-      assert.ok(message.includes('httpbin.org'));
+      assert.ok(message.includes('/status/200'));
       assert.ok(message.includes('Error parsing JSON data from'));
     });
   });
