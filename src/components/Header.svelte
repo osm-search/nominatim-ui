@@ -74,7 +74,13 @@
         </PageLink>
       </div>
       <!-- Toggler (hamburger button) -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -82,21 +88,34 @@
         <ul class="navbar-nav me-auto">
           {#if !reverse_only}
             <li class="nav-item">
-              <PageLink page="search" extra_classes="nav-link {view === 'search' ? 'active' : ''}">Search</PageLink>
+              <PageLink page="search"
+                        extra_classes="nav-link {view === 'search' ? 'active' : ''}">
+                Search
+              </PageLink>
             </li>
           {/if}
           <li class="nav-item">
-            <ReverseLink lat={map_lat} lon={map_lon} extra_classes="nav-link {view === 'reverse' ? 'active' : ''}">Reverse</ReverseLink>
+            <ReverseLink lat={map_lat}
+                         lon={map_lon}
+                         extra_classes="nav-link {view === 'reverse' ? 'active' : ''}">
+              Reverse
+            </ReverseLink>
           </li>
           <li class="nav-item">
-            <PageLink page="details" extra_classes="nav-link {view === 'details' ? 'active' : ''}">Search By ID</PageLink>
+            <PageLink page="details"
+                      extra_classes="nav-link {view === 'details' ? 'active' : ''}">
+              Search By ID
+            </PageLink>
           </li>
         </ul>
       </div>
       <!-- Right aligned links -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <PageLink page="about" extra_classes="nav-link {view === 'about' ? 'active' : ''}">About & Help</PageLink>
+          <PageLink page="about"
+                    extra_classes="nav-link {view === 'about' ? 'active' : ''}">
+            About & Help
+          </PageLink>
         </li>
       </ul>
     </div>

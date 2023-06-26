@@ -16,4 +16,6 @@
   }
 </script>
 
-<a on:click|preventDefault|stopPropagation={handleClick} href={href} class={extra_classes}><slot></slot></a>
+<a on:click|preventDefault|stopPropagation={handleClick} href={href} class={extra_classes}>
+  <slot></slot>
+</a>

@@ -28,11 +28,17 @@
   <td>{@html formatDistance(addressLine.distance, bDistanceInMeters)}</td>
   <td>
     {#if addressLine.osm_id}
-      <DetailsLink feature={addressLine}>details</DetailsLink>
+      <DetailsLink feature={addressLine}>
+        details
+      </DetailsLink>
     {:else if !reverse_only && addressLine.type.match(/^country/)}
-      <PageLink page='search' params_hash={{ country: addressLine.localname }}>search by name</PageLink>
+      <PageLink page='search' params_hash={{ country: addressLine.localname }}>
+        search by name
+      </PageLink>
     {:else if !reverse_only && addressLine.type === 'postcode'}
-      <PageLink page='search' params_hash={{ postalcode: addressLine.localname }}>search by name</PageLink>
+      <PageLink page='search' params_hash={{ postalcode: addressLine.localname }}>
+        search by name
+      </PageLink>
     {/if}
   </td>
 </tr>

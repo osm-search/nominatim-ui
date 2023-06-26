@@ -24,7 +24,11 @@
 
       <dl>
         <dt>API Endpoint</dt>
-        <dd><a href={configuration.Nominatim_API_Endpoint}>{configuration.Nominatim_API_Endpoint}</a></dd>
+        <dd>
+          <a href={configuration.Nominatim_API_Endpoint}>
+            {configuration.Nominatim_API_Endpoint}
+          </a>
+        </dd>
 
         <dt>Software version</dt>
         <dd>{aStatusData.software_version}</dd>

@@ -65,7 +65,9 @@
     <div class="col-sm-6 text-end">
       {#if last_updated_date}
         Data last updated:
-        <abbr id="data-date" title="{last_updated_date} (UTC timezone)">{timeago.format(new Date(last_updated_date))}</abbr>
+        <abbr id="data-date" title="{last_updated_date} (UTC timezone)">
+          {timeago.format(new Date(last_updated_date))}
+        </abbr>
       {/if}
       (<PageLink page="status">Details</PageLink>)
     </div>

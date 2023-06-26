@@ -39,7 +39,12 @@
   </div>
 </form>
 <small class="form-text text-muted">
-  OSM type+id (<em>N123</em>, <em>n123</em>, <em>W123</em>, <em>w123</em>, <em>R123</em>, <em>r123</em>),
+  OSM type+id (<em>N123</em>,
+               <em>n123</em>,
+               <em>W123</em>,
+               <em>w123</em>,
+               <em>R123</em>,
+               <em>r123</em>),
   Place id (<em>1234</em>) or
   URL (<em>https://openstreetmap.org/way/123</em>)
 </small>

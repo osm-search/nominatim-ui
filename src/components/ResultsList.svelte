@@ -56,7 +56,10 @@
   <div id="searchresults">
 
     {#each aSearchResults as aResult, iResNum}
-      <div class="result" class:highlight={iResNum === iHighlightNum} data-position="{iResNum}" on:click|stopPropagation={handleClick}>
+      <div class="result"
+           class:highlight={iResNum === iHighlightNum}
+           data-position="{iResNum}"
+           on:click|stopPropagation={handleClick}>
         <div style="float:right">
           <MapIcon aPlace={aResult} />
         </div>
@@ -64,7 +67,9 @@
         <span class="type">{formatLabel(aResult)}</span>
         <p class="coords">{aResult.lat},{aResult.lon}</p>
 
-        <DetailsLink extra_classes="btn btn-outline-secondary btn-sm" feature={aResult}>details</DetailsLink>
+        <DetailsLink extra_classes="btn btn-outline-secondary btn-sm" feature={aResult}>
+          details
+        </DetailsLink>
       </div>
     {/each}
 
@@ -119,7 +124,7 @@
   }
 
   .result .coords {
-    display: none;  
+    display: none;
   }
 
   .noresults{

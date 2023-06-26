@@ -106,7 +106,9 @@
               <InfoRow title="Admin Level">{aPlace.admin_level}</InfoRow>
             {/if}
             <InfoRow title="Search Rank">{aPlace.rank_search}</InfoRow>
-            <InfoRow title="Address Rank">{aPlace.rank_address} ({formatAddressRank(aPlace.rank_address)})</InfoRow>
+            <InfoRow title="Address Rank">
+              {aPlace.rank_address} ({formatAddressRank(aPlace.rank_address)})
+            </InfoRow>
             {#if aPlace.calculated_importance}
               <InfoRow title="Importance">
                   {aPlace.calculated_importance}
@@ -120,7 +122,9 @@
             <InfoRow title="OSM">{@html osmLink(aPlace)}</InfoRow>
             <InfoRow title="Place Id">
                {aPlace.place_id}
-               (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">on this server</a>)
+               (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">
+                 on this server
+               </a>)
             </InfoRow>
             {#if aPlace.calculated_wikipedia}
               <InfoRow title="Wikipedia Calculated">{@html wikipediaLink(aPlace)}</InfoRow>
@@ -128,7 +132,9 @@
             <InfoRow title="Computed Postcode">
               {#if aPlace.calculated_postcode}
                 {aPlace.calculated_postcode}
-                <DetailsPostcodeHint postcode={aPlace.calculated_postcode} lat={aPlace.centroid.coordinates[1]} lon={aPlace.centroid.coordinates[0]} />
+                <DetailsPostcodeHint postcode={aPlace.calculated_postcode}
+                                     lat={aPlace.centroid.coordinates[1]}
+                                     lon={aPlace.centroid.coordinates[0]} />
               {/if}
             </InfoRow>
             <InfoRow title="Address Tags"><InfoRowList items={aPlace.addresstags} /></InfoRow>
@@ -160,14 +166,18 @@
           <tbody>
             {#if aPlace.address}
               {#each aPlace.address as addressLine}
-                <DetailsOneRow addressLine={addressLine} bMarkUnusedLines={true} bDistanceInMeters={false} />
+                <DetailsOneRow addressLine={addressLine}
+                               bMarkUnusedLines={true}
+                               bDistanceInMeters={false} />
               {/each}
             {/if}
 
             {#if aPlace.linked_places}
               <tr class="all-columns"><td colspan="7"><h2>Linked Places</h2></td></tr>
               {#each aPlace.linked_places as addressLine}
-                <DetailsOneRow addressLine={addressLine} bMarkUnusedLines={true} bDistanceInMeters={true} />
+                <DetailsOneRow addressLine={addressLine}
+                               bMarkUnusedLines={true}
+                               bDistanceInMeters={true} />
               {/each}
             {/if}
 
@@ -267,7 +277,7 @@
   }
 
   tr.all-columns {
-    background-color: white !important; 
+    background-color: white !important;
     border: none;
   }
   tr.all-columns td {

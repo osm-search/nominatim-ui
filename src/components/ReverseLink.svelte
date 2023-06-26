@@ -30,4 +30,8 @@ $: {
 }
 </script>
 
-<a on:click|preventDefault|stopPropagation={() => refresh_page('reverse', params)} href={href} class={extra_classes}><slot></slot></a>
+<a on:click|preventDefault|stopPropagation={() => refresh_page('reverse', params)}
+    href={href}
+    class={extra_classes}>
+  <slot></slot>
+</a>
