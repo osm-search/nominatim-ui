@@ -53,11 +53,13 @@
 </script>
 
 {#if aSearchResults && aSearchResults.length > 0}
-  <div id="searchresults">
+  <div id="searchresults" role="list">
 
     {#each aSearchResults as aResult, iResNum}
+      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
       <div class="result"
            class:highlight={iResNum === iHighlightNum}
+           role="listitem"
            data-position="{iResNum}"
            on:click|stopPropagation={handleClick}
            on:keypress|stopPropagation={handleClick}>
