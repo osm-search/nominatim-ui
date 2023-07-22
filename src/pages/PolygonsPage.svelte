@@ -28,8 +28,7 @@
 
       <table class="table table-striped table-hover">
         <thead>
-          <th>OSM type</th>
-          <th>OSM id</th>
+          <th>OSM object</th>
           <th>Class</th>
           <th>Type</th>
           <th>Name</th>
@@ -41,7 +40,6 @@
         <tbody>
           {#each aPolygons as polygon}
             <tr>
-              <td>{polygon.osm_type}</td>
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               <td>{@html osmLink(polygon)}</td>
               <td>{polygon.class}</td>

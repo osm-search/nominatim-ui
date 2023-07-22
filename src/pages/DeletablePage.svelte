@@ -33,8 +33,7 @@
           <th>Place id</th>
           <th>Country Code</th>
           <th>Name</th>
-          <th>OSM id</th>
-          <th>OSM type</th>
+          <th>OSM object</th>
           <th>Class</th>
           <th>Type</th>
         </thead>
@@ -46,7 +45,6 @@
             <td>{polygon.name}</td>
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             <td>{@html osmLink(polygon)}</td>
-            <td>{polygon.osm_type}</td>
             <td>{polygon.class}</td>
             <td>{polygon.type}</td>
           </tr>
