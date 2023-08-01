@@ -17,8 +17,8 @@
     if (!map) return;
 
     map.on('move', function () {
-      map_lat = map.getCenter().lat;
-      map_lon = map.getCenter().lng;
+      map_lat = map.getCenter().lat.toFixed(5);
+      map_lon = map.getCenter().lng.toFixed(5);
     });
   });
 </script>
