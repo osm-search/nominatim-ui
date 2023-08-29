@@ -56,6 +56,7 @@
 
   function place_has_keywords(aThisPlace) {
     // Return false if Nominatim API sends 'keywords: { name: [], address: [] }'
+    // Like no longer needed after Nominatim version 4.3
     return (
       aThisPlace.keywords && aThisPlace.keywords.name && aThisPlace.keywords.address
       && (aThisPlace.keywords.name.length > 0 || aThisPlace.keywords.address.length > 0)
@@ -94,10 +95,11 @@
         <table id="locationdetails" class="table table-striped table-responsive">
           <tbody>
             <InfoRow title="Name">
-            {#if (Array.isArray(aPlace.names)) }
-              <span class="noname fw-bold">No Name</span>
-            {:else}
+            {#if aPlace.names && typeof (aPlace.names) === 'object'
+              && Object.keys(aPlace.names).length}
               <InfoRowList items={aPlace.names} />
+            {:else}
+              <span class="noname fw-bold">No Name</span>
             {/if}
             </InfoRow>
             <InfoRow title="Type">{aPlace.category}:{aPlace.type}</InfoRow>
