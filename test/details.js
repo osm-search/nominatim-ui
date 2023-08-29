@@ -87,7 +87,33 @@ describe('Details Page', function () {
       });
     }
 
+
+    it('should support case-insenstive search, can navigate to new page', async function () {
+      let input_field = await page.$('input[type=edit]');
+      await input_field.click({ clickCount: 3 });
+      await input_field.type('w375257537');
+      await page.click('button[type=submit]');
+
+      await page.waitForSelector('a[href="https://www.openstreetmap.org/way/375257537"]');
+      assert.ok((await page.$eval('.container h1', el => el.textContent)).includes('Taj Mahal'));
+    });
+  });
+
+  describe('With street search - a place that is parent of buildings', function () {
+    before(async function () {
+      page = await browser.newPage();
+      await page.goto('http://localhost:9999/details.html?osmtype=W&osmid=32703083');
+      await page.waitForSelector('.container .row');
+    });
+
+    after(async function () {
+      await page.close();
+    });
+
     it('should change page url on clicking display child places', async function () {
+      let page_content = await page.$eval('body', el => el.textContent);
+      assert.ok(page_content.includes('Gafleistrasse'));
+
       let current_url;
       let [child_places_btn] = await page.$x("//a[contains(text(), 'display child places')]");
 
@@ -98,18 +124,8 @@ describe('Details Page', function () {
       current_url = new URL(await page.url());
       assert.strictEqual(current_url.searchParams.get('hierarchy'), '1');
 
-      let page_content = await page.$eval('body', el => el.textContent);
-      assert.ok(page_content.includes('Alte Landstrasse')); // one of the streets
-    });
-
-    it('should support case-insenstive search, can navigate to new page', async function () {
-      let input_field = await page.$('input[type=edit]');
-      await input_field.click({ clickCount: 3 });
-      await input_field.type('w375257537');
-      await page.click('button[type=submit]');
-
-      await page.waitForSelector('a[href="https://www.openstreetmap.org/way/375257537"]');
-      assert.ok((await page.$eval('.container h1', el => el.textContent)).includes('Taj Mahal'));
+      page_content = await page.$eval('body', el => el.textContent);
+      assert.ok(page_content.includes('bus_stop')); // parent of several bus stops
     });
   });
 
