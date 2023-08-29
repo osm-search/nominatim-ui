@@ -1,7 +1,7 @@
 {
   "name": "nominatim-ui",
   "description": "Debug web interface for Nominatim geocoder",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "license": "GPL-2.0",
   "scripts": {
     "build": "rollup -c",
@@ -19,7 +19,7 @@
     "http": "^0.0.1-security",
     "http-proxy": "^1.18.1",
     "mocha": "^10.0",
-    "puppeteer": "^20.0",
+    "puppeteer": "^21.0",
     "rollup": "^3.3.0",
     "rollup-plugin-css-only": "^4.3.0",
     "rollup-plugin-livereload": "^2.0.0",

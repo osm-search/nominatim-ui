@@ -1,5 +1,14 @@
 # CHANGES
 
+* version 3.4.0 - 2023-08-29
+    * Search map: delete old viewbox rectangle before adding a new one
+    * Details page: Allow searching for negative OSM ids.
+    * Details page: Nominatim started returning empty hash instead of empty array when a place has no
+       names
+    * test-suite: Nominatim no longer returns streets as children of a city. Adjusted test to
+       look for children of a street instead
+    * NPM package updates
+
 * version 3.3.0 - 2023-06-26
     * Reverse map: show search position (red circle) also when no search results
     * test-suite: remove httpbin HTTP calls, server is unreliable
