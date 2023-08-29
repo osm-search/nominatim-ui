@@ -49,7 +49,7 @@ Nominatim_Config.Reverse_Only = ${reverse_only};
       let api_url_match = req.url.match(/\/(\w+\.php)/);
 
       let target = api_url_match
-        ? 'http://nominatim.openstreetmap.org/' + api_url_match[1]
+        ? 'https://nominatim.openstreetmap.org'
         : 'http://localhost:' + static_port;
 
       // console.log(`http proxy ${req.url} => ${target + req.url}`)
