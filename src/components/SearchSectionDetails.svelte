@@ -6,8 +6,8 @@
   function handleFormSubmit(event) {
     let form_el = event.target;
     let val = form_el.querySelector('input[type=edit]').value.trim();
-    let type_and_id_match = val.match(/^\s*([NWR])(\d+)\s*$/i)
-                            || val.match(/\/(relation|way|node)\/(\d+)\s*$/);
+    let type_and_id_match = val.match(/^\s*([NWR])(-?\d+)\s*$/i)
+                            || val.match(/\/(relation|way|node)\/(-?\d+)\s*$/);
 
     var params = new URLSearchParams();
     if (type_and_id_match) {
@@ -30,7 +30,7 @@
       <!-- eslint-disable-next-line max-len -->
       <input type="edit"
              class="form-control form-control-sm me-1"
-             pattern="^[NWRnwr]?[0-9]+$|.*openstreetmap.*"
+             pattern="^[1-9][0-9]*$|^[NWRnwr]-?[1-9][0-9]*$|.*openstreetmap.*"
              value="{
               (api_request_params.osmtype || '')
               + (api_request_params.osmid || '')
