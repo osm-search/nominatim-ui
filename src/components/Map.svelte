@@ -127,13 +127,16 @@
     if (viewbox) {
       let coords = viewbox.split(','); // <x1>,<y1>,<x2>,<y2>
       let bounds = L.latLngBounds([coords[1], coords[0]], [coords[3], coords[2]]);
-      L.rectangle(bounds, {
+      let viewbox_on_map = L.rectangle(bounds, {
         color: '#69d53e',
         weight: 3,
         dashArray: '5 5',
         opacity: 0.8,
-        fill: false
-      }).addTo(map);
+        fill: false,
+        interactive: false
+      });
+      map.addLayer(viewbox_on_map);
+      dataLayers.push(viewbox_on_map);
     }
 
     if (!aFeature) return;
