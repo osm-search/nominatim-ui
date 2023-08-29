@@ -17,7 +17,7 @@ export function formatOSMType(sType, bExcludeExternal) {
 // w123 => ['W', 123]
 export function identifyLinkInQuery(query) {
   if (!query) return undefined;
-  const m = query.match(/\/(relation|way|node)\/(\d+)/) || query.match(/^([nwr])(\d+)$/i);
+  const m = query.match(/\/(relation|way|node)\/(-?\d+)/) || query.match(/^([nwr])(-?\d+)$/i);
   if (!m) return undefined;
   return [m[1][0].toUpperCase(), Number(m[2])];
 }
