@@ -35,6 +35,10 @@ You can customize your installation by creating and editing `dist/theme/config.t
 The `dist/theme/` directory also contains files make it easy to set a different
 logo image, colors, welcome and help text.
 
+## Nominatim Docker
+
+You have to set the permissions for the webserver group(default www-data) at /nominatim/website to 755.
+
 ## License
 
 The source code is available under a [GPLv2 license](LICENSE).
