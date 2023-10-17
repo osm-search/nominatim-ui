@@ -27,7 +27,7 @@ You can either
 
 * start a webserver using ([Big list of http static server one-liners](https://gist.github.com/willurd/5720255)) or configure Apache, nginx or other webservers to serve the `dist` directory.
 
-* to add the files into a nominatim-docker container see [README-nominatim-docker.md]() file
+* to add the files into a nominatim-docker container see [README-nominatim-docker](README-nominatim-docker.md) file
 
 ## Configuration
 

@@ -6,7 +6,7 @@ nominatim-ui is a separate project and it's not planned to add the UI to the nom
 
 The following instructions might still be useful and/or help futher automate such an installation.
 
-```
+```bash
 # Log into the running container
 docker exec -it nominatim /bin/bash
 
