@@ -7,6 +7,7 @@
   export let lat = '';
   export let lon = '';
   export let zoom = '';
+  export let api_request_params = {};
 
   function gotoCoordinates(newlat, newlon, newzoom) {
     if (newlat === null || newlon === null) return;
@@ -36,6 +37,9 @@
     }
   }
 
+  function set_api_param(e) {
+    document.querySelector('input[name=' + e.target.dataset.apiParam + ']').value = e.target.value;
+  }
 </script>
 
 <UrlSubmitForm page="reverse">
@@ -81,10 +85,26 @@
       {/each}
     </select>
   </div>
+  <input type="hidden"
+         name="layer" value="{api_request_params.layer || ''}" />
   <div class="col-auto">
     <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
   </div>
 </UrlSubmitForm>
+
+<!-- Additional options -->
+<details id="searchAdvancedOptions" class="mt-2">
+  <summary><small>Advanced options</small></summary>
+  <ul>
+    <li>
+      <label for="option_layer">Layer</label>
+      <input id="option_layer" name="layer" placeholder="e.g. address,poi,railway,natural,manmade"
+        value="{api_request_params.layer || ''}"
+        data-api-param="layer" on:change={set_api_param}
+        class="form-control form-control-sm d-inline w-auto api-param-setting">
+    </li>
+  </ul>
+</details>
 
 <style>
   label {
@@ -98,6 +118,24 @@
     cursor: pointer;
     padding: 2px;
     margin: 5px;
+  }
+
+  #searchAdvancedOptions ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 0.85rem;
+  }
+
+  #searchAdvancedOptions li {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: 1px dotted #ccc;
+    margin-right: 1em;
+  }
+
+  #searchAdvancedOptions label {
+    margin-right: 0.5em;
   }
 
   @media (max-width: 850px) {
