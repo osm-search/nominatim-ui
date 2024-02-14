@@ -19,7 +19,7 @@
     "http": "^0.0.1-security",
     "http-proxy": "^1.18.1",
     "mocha": "^10.0",
-    "puppeteer": "^21.0",
+    "puppeteer": "^22.0",
     "rollup": "^4.9.0",
     "rollup-plugin-css-only": "^4.3.0",
     "rollup-plugin-livereload": "^2.0.0",

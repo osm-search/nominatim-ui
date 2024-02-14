@@ -88,7 +88,9 @@ describe('Search Page', function () {
     });
 
     it('should have show more results button', async function () {
-      let [search_more_btn] = await page.$x("//a[contains(text(), 'Search for more results')]");
+      let [search_more_btn] = await page.$$(
+        "xpath/.//a[contains(text(), 'Search for more results')]"
+      );
       assert.ok(search_more_btn);
     });
 

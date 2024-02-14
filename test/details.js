@@ -61,8 +61,9 @@ describe('Details Page', function () {
     });
 
     it('should have OSM link', async function () {
+      const url = 'https://www.openstreetmap.org/relation/1155956';
 
-      assert.strictEqual((await page.$$('a[href="https://www.openstreetmap.org/relation/1155956"]')).length, 2);
+      assert.strictEqual((await page.$$eval(`a[href="${url}"]`, (links) => links.length)), 2);
     });
 
     // Reverse-only installation have no search index, therefor no keywords
@@ -70,7 +71,9 @@ describe('Details Page', function () {
       it('should change url and add new header on clicking display keywords', async function () {
         let current_url;
         let display_headers;
-        let [display_keywords_btn] = await page.$x("//a[contains(text(), 'display keywords')]");
+        let [display_keywords_btn] = await page.$$(
+          "xpath/.//a[contains(text(), 'display keywords')]"
+        );
 
         await display_keywords_btn.evaluate(node => node.click());
         await page.waitForNavigation();
@@ -115,7 +118,9 @@ describe('Details Page', function () {
       assert.ok(page_content.includes('Gafleistrasse'));
 
       let current_url;
-      let [child_places_btn] = await page.$x("//a[contains(text(), 'display child places')]");
+      let [child_places_btn] = await page.$$(
+        "xpath/.//a[contains(text(), 'display child places')]"
+      );
 
       await child_places_btn.evaluate(node => node.click());
       await page.waitForNavigation();
