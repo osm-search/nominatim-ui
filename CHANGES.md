@@ -1,5 +1,8 @@
 # CHANGES
 
+* version 3.5.1 - 2024-02-14
+    * Automatic release creation for 3.5.0 failed on Github Actions
+
 * version 3.5.0 - 2024-02-14
     * Requires nodejs version 18 now
     * Reverse page: add optional 'layer' parameter
