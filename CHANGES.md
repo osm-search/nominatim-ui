@@ -1,5 +1,11 @@
 # CHANGES
 
+* version 3.5.0 - 2024-02-14
+    * Requires nodejs version 18 now
+    * Reverse page: add optional 'layer' parameter
+    * NPM package updates (Puppeteer 21 => 22, Rollup 3 => 4)
+    * Documentation: Show how to install into a nominatim-docker installation
+
 * version 3.4.0 - 2023-08-29
     * Search map: delete old viewbox rectangle before adding a new one
     * Details page: Allow searching for negative OSM ids.
