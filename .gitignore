@@ -1,5 +1,4 @@
 .DS_Store
 dist/theme/config.theme.js
-dist/build/bundle.*
 node_modules
 dist_for_testing
