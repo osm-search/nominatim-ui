@@ -7,7 +7,7 @@ import fse from 'fs-extra';
 const testing_port = 9999; // this is the port all tests expect nominatim-ui to listen to
 
 // The installation on https://nominatim.openstreetmap.org/ui/ is a bit more complex as
-// for backward compatiblity they run the API and the UI on the same port. Nominatim-UI
+// for backward compatibility they run the API and the UI on the same port. Nominatim-UI
 // is installed in the /ui subdirectory plus their webserver has custom redirect rules.
 //
 // We can simulate that with a proxy.

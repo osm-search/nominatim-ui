@@ -82,7 +82,7 @@ describe('Search Page', function () {
       assert.strictEqual(current_url.searchParams.get('q'), 'Paris');
     });
 
-    it('should atleast one result', async function () {
+    it('should have at least one result', async function () {
       let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
       assert.ok(results_count > 1);
     });

@@ -4,14 +4,14 @@ This document assumes you followed the [nominatim-docker](https://github.com/med
 
 nominatim-ui is a separate project and it's not planned to add the UI to the nominatim-docker installation.
 
-The following instructions might still be useful and/or help futher automate such an installation.
+The following instructions might still be useful and/or help further automate such an installation.
 
 ```bash
 # Log into the running container
 docker exec -it nominatim /bin/bash
 
 # Download stable nominatim-ui release
-# available verions: https://github.com/osm-search/nominatim-ui/releases
+# available versions: https://github.com/osm-search/nominatim-ui/releases
 VERSION=3.4.0
 cd /tmp
 curl -L --fail -o nominatim-ui.tar.gz https://github.com/osm-search/nominatim-ui/releases/download/v${VERSION}/nominatim-ui-${VERSION}.tar.gz
