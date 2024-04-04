@@ -8,6 +8,7 @@
   export let addressLine;
   export let bDistanceInMeters;
   export let bMarkUnusedLines = false;
+  export let sCountryCode;
 
   $: bAddressLineUsed = addressLine.isaddress;
   $: reverse_only = Nominatim_Config.Reverse_Only;
@@ -38,7 +39,8 @@
         search by name
       </PageLink>
     {:else if !reverse_only && addressLine.type === 'postcode'}
-      <PageLink page='search' params_hash={{ postalcode: addressLine.localname }}>
+      <PageLink page='search'
+                params_hash={{ postalcode: addressLine.localname, country: sCountryCode }}>
         search by name
       </PageLink>
     {/if}
