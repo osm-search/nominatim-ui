@@ -66,14 +66,14 @@ describe('Details Page', function () {
       assert.strictEqual((await page.$$eval(`a[href="${url}"]`, (links) => links.length)), 2);
     });
 
-    it('should have a link to postcode which includes country code', async function () {
-      const url = 'search.html?postalcode=9490&country=li';
-
-      assert.strictEqual((await page.$$eval(`a[href="${url}"]`, (links) => links.length)), 1);
-    });
-
     // Reverse-only installation have no search index, therefore no keywords
     if (!reverse_only) {
+      it('should have a link to postcode which includes country code', async function () {
+        const url = 'search.html?postalcode=9490&country=li';
+
+        assert.strictEqual((await page.$$eval(`a[href="${url}"]`, (links) => links.length)), 1);
+      });
+
       it('should change url and add new header on clicking display keywords', async function () {
         let current_url;
         let display_headers;
