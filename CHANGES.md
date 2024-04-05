@@ -1,5 +1,10 @@
 # CHANGES
 
+* version 3.5.2 - 2024-04-05
+    * Detail page: Link to postcode search not includes the country code
+    * test-suite: fix typos based on a codespell run
+    * NPM package updates (Svelte 4.2)
+
 * version 3.5.1 - 2024-02-14
     * Automatic release creation for 3.5.0 failed on Github Actions
 
