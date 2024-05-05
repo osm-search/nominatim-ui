@@ -1,5 +1,7 @@
 # CHANGES
 
+    * Search page: Set HTML page title for structured searches, too
+
 * version 3.5.2 - 2024-04-05
     * Detail page: Link to postcode search not includes the country code
     * test-suite: fix typos based on a codespell run
