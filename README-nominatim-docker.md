@@ -4,7 +4,7 @@ This document assumes you followed the [nominatim-docker](https://github.com/med
 
 nominatim-ui is a separate project and it's not planned to add the UI to the nominatim-docker installation.
 
-The following instructions might still be useful and/or help futher automate such an installation.
+The following instructions might still be useful and/or help further automate such an installation.
 
 ```bash
 # Log into the running container

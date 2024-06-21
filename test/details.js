@@ -66,8 +66,14 @@ describe('Details Page', function () {
       assert.strictEqual((await page.$$eval(`a[href="${url}"]`, (links) => links.length)), 2);
     });
 
-    // Reverse-only installation have no search index, therefor no keywords
+    // Reverse-only installation have no search index, therefore no keywords
     if (!reverse_only) {
+      it('should have a link to postcode which includes country code', async function () {
+        const url = 'search.html?postalcode=9490&country=li';
+
+        assert.strictEqual((await page.$$eval(`a[href="${url}"]`, (links) => links.length)), 1);
+      });
+
       it('should change url and add new header on clicking display keywords', async function () {
         let current_url;
         let display_headers;
@@ -91,7 +97,7 @@ describe('Details Page', function () {
     }
 
 
-    it('should support case-insenstive search, can navigate to new page', async function () {
+    it('should support case-insensitive search, can navigate to new page', async function () {
       let input_field = await page.$('input[type=edit]');
       await input_field.click({ clickCount: 3 });
       await input_field.type('w375257537');

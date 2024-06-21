@@ -63,6 +63,11 @@
     );
   }
 
+  function country_code(aThisPlace) {
+    let aLine = aThisPlace.address.find((address_line) => address_line.type === 'country_code');
+    return aLine ? aLine.localname : null;
+  }
+
   $: {
     let pageinfo = $page;
     if (pageinfo.tab === 'details') {
@@ -155,7 +160,7 @@
     <div class="row">
       <div class="col-md-12">
         <h2>Address</h2>
-         <table id="address" class="table table-striped table-small">
+        <table id="address" class="table table-striped table-small">
           <thead>
             <tr>
               <th>Local name</th>
@@ -172,7 +177,8 @@
               {#each aPlace.address as addressLine}
                 <DetailsOneRow addressLine={addressLine}
                                bMarkUnusedLines={true}
-                               bDistanceInMeters={false} />
+                               bDistanceInMeters={false}
+                               sCountryCode={country_code(aPlace)} />
               {/each}
             {/if}
 

@@ -1,5 +1,10 @@
 # CHANGES
 
+* version 3.5.2 - 2024-04-05
+    * Detail page: Link to postcode search not includes the country code
+    * test-suite: fix typos based on a codespell run
+    * NPM package updates (Svelte 4.2)
+
 * version 3.5.1 - 2024-02-14
     * Automatic release creation for 3.5.0 failed on Github Actions
 
@@ -30,7 +35,7 @@
     * NPM package updates
 
 * version 3.2.11 - 2023-03-08
-    * Configuration: You can now set Map_Default_Bounds als alternative to lat,lon, zoom. Thanks Piskvor
+    * Configuration: You can now set Map_Default_Bounds as alternative to lat,lon, zoom. Thanks Piskvor
     * NPM package updates
 
 * version 3.2.10 - 2023-01-06
@@ -42,7 +47,7 @@
 
 * version 3.2.9 - 2022-11-16
 
-    * Fix: For places tagged bulding=yes display the formatted label 'Building', not 'Yes'
+    * Fix: For places tagged building=yes display the formatted label 'Building', not 'Yes'
     * migrate remaining modules to ESM style (import instead of require)
     * NPM package updates
     * test suite: use JSON files for mocha and eslint configuration
@@ -93,7 +98,7 @@
 
 * version 3.1.0 - 2021-04-26
 
-    * Configuration: new options to set API endpoint headers and additional paramters, thanks petoc
+    * Configuration: new options to set API endpoint headers and additional parameters, thanks petoc
     * Test suite: New test suite using a headless browser for UI interaction, thanks darkshredder
     * Fix: Links to API URL weren't displayed after a search
     * Fix: On result pages the map icons were not cleared between searches (caching issue)
@@ -121,8 +126,8 @@
 * version 3.0.2 - 2021-03-05
 
     * Details page: don't print 'null' when postcode is missing
-    * Details page: make sure links to children,hierarcy update after pageload, thx LiteratimBi for the report
-    * Details page: in hierachy list all addresslines were marked unused (grayed out)
+    * Details page: make sure links to children,hierarchy update after pageload, thx LiteratimBi for the report
+    * Details page: in hierarchy list all addresslines were marked unused (grayed out)
     * Details page: API doesn't always return address keywords
     * PageLinks/ReverseLink: fix warnings when properties not set
 
@@ -177,7 +182,7 @@
 
     * Reverse search: click on map triggers new search
     * Report-issue modal from version 1 was missing
-    * Removed search-url-params polyfill. Svelte doesnt support MSIE11 either
+    * Removed search-url-params polyfill. Svelte doesn't support MSIE11 either
 
 * version 2.0.1 - 2021-01-31
 
