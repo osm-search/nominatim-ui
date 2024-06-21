@@ -1,4 +1,5 @@
 <script>
+  import { onDestroy } from 'svelte';
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
 
   import { zoomLevels } from '../lib/helpers.js';
@@ -19,7 +20,7 @@
     refresh_page('reverse', params);
   }
 
-  map_store.subscribe(map => {
+  const unsubscribe = map_store.subscribe(map => {
     if (map) {
       map.on('click', (e) => {
         let coords = e.latlng.wrap();
@@ -40,6 +41,8 @@
   function set_api_param(e) {
     document.querySelector('input[name=' + e.target.dataset.apiParam + ']').value = e.target.value;
   }
+
+  onDestroy(unsubscribe);
 </script>
 
 <UrlSubmitForm page="reverse">

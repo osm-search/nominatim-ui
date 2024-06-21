@@ -146,6 +146,39 @@ describe('Search Page', function () {
     });
   });
 
+  describe('Structured search for Paris', function () {
+    before(async function () {
+      page = await browser.newPage();
+      await page.goto('http://localhost:9999/search.html');
+      await page.click(".nav-link[href='#structured']");
+      // await page.screenshot({ path: "./screen.png", fullPage: true });
+      await page.type('input[name=city]', 'Paris');
+      await page.type('input[name=country]', 'USA');
+      await page.click('#structured button[type=submit]');
+      await page.waitForSelector('#searchresults');
+    });
+
+    after(async function () {
+      await page.close();
+    });
+
+    it('should have a HTML page title', async function () {
+      assert.equal(await page.title(), 'Result for Paris, USA | Nominatim Demo');
+    });
+
+    it('should have added search params', async function () {
+      let current_url = new URL(await page.url());
+      assert.strictEqual(current_url.searchParams.get('q'), null);
+      assert.strictEqual(current_url.searchParams.get('city'), 'Paris');
+      assert.strictEqual(current_url.searchParams.get('country'), 'USA');
+    });
+
+    it('should have at least one result', async function () {
+      let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
+      assert.ok(results_count > 1);
+    });
+  });
+
   describe('Search for OSM URL', function () {
     before(async function () {
       page = await browser.newPage();

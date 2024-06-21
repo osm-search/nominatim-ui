@@ -1,5 +1,12 @@
 # CHANGES
 
+    * Reverse page: Remove click handler when switching other page. Thanks ericgrosso
+    * Reverse page: Fix test that longitude is filled on form submit. Thanks ericgrosso
+
+* version 3.5.3 - 2024-05-06
+    * Search page: Set HTML page title for structured searches, too
+    * NPM package updates (not eslint 8->9, that requires a lot of work)
+
 * version 3.5.2 - 2024-04-05
     * Detail page: Link to postcode search not includes the country code
     * test-suite: fix typos based on a codespell run
