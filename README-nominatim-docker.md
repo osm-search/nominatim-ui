@@ -11,7 +11,7 @@ The following instructions might still be useful and/or help futher automate suc
 docker exec -it nominatim /bin/bash
 
 # Download stable nominatim-ui release
-# available verions: https://github.com/osm-search/nominatim-ui/releases
+# available versions: https://github.com/osm-search/nominatim-ui/releases
 VERSION=3.4.0
 cd /tmp
 curl -L --fail -o nominatim-ui.tar.gz https://github.com/osm-search/nominatim-ui/releases/download/v${VERSION}/nominatim-ui-${VERSION}.tar.gz
