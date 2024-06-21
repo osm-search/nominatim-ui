@@ -12,7 +12,7 @@
     "start": "static-server dist"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0",
+    "@rollup/plugin-commonjs": "^26.0",
     "@rollup/plugin-node-resolve": "^15.0",
     "eslint-plugin-mocha": "^10.0",
     "fs-extra": "^11.0.0",

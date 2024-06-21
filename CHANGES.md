@@ -2,6 +2,7 @@
 
     * Reverse page: Remove click handler when switching other page. Thanks ericgrosso
     * Reverse page: Fix test that longitude is filled on form submit. Thanks ericgrosso
+    * NPM package updates
 
 * version 3.5.3 - 2024-05-06
     * Search page: Set HTML page title for structured searches, too
