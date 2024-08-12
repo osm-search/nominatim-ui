@@ -62,7 +62,7 @@ Nominatim_Config.Reverse_Only = ${reverse_only};
   // 3. Create browser instance
   global.browser = await puppeteer.launch({
     defaultViewport: { width: 1024, height: 768 },
-    timeout: 10000,
+    timeout: 20000,
     // latency: 1000,
     headless: 'new',
     args: [
