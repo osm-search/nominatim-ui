@@ -41,6 +41,11 @@ let Nominatim_Config = {
   // For what {x}, {y} etc stand for see
   // https://leafletjs.com/reference-1.9.1.html#tilelayer
   Map_Tile_URL: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+  Map_isWMS: true,
+  WMSMap_Tile_URL: 'http://localhost:8080/geoserver/wms?',
+  WMSMap_layer: 'osm:osm',
+  WMSMap_format: 'image/png',
+  WMSMap_attribution: 'Local OSM server by Geoserver',
 
   // Can be text or HTML. To hide set to ''
   Map_Tile_Attribution: '<a href="https://osm.org/copyright">OpenStreetMap contributors</a>'
