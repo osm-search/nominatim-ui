@@ -155,7 +155,7 @@ describe('Details Page', function () {
     it('should display No Name, no keywords, no hierarchy', async function () {
       let page_content = await page.$eval('body', el => el.textContent);
 
-      assert.ok(page_content.includes('Name No Name'));
+      assert.ok(page_content.includes('NameNo Name'));
       if (!process.env.REVERSE_ONLY) {
         assert.ok(page_content.includes('Place has no keywords'));
       }

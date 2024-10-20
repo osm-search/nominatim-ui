@@ -242,7 +242,7 @@
                 {/each}
 
                 {#if Object.keys(aPlace.hierarchy) > 500}
-                  <p>There are more child objects which are not shown.</p>
+                  <tr><td><p>There are more child objects which are not shown.</p></td></tr>
                 {/if}
               {:else}
                 <tr><td>Place is not parent of other places</td></tr>

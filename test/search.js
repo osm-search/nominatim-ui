@@ -41,18 +41,24 @@ describe('Search Page', function () {
       assert.strictEqual(await map_pos_handle.evaluate(node => node.style.display), 'block');
 
       let map_pos_details = await page.$eval('#map-position-inner', el => el.textContent);
-      map_pos_details = map_pos_details.split(' \n');
-
-      let map_center_coor = map_pos_details[0]
+      map_pos_details = map_pos_details.split('  ');
+      // [
+      //   'map center: 20.00000,0.00000 view on osm.org',
+      //   'map zoom: 2',
+      //   'viewbox: -131.48438,69.16256,131.48438,-48.69096',
+      //   'last click:',
+      //   ' mouse position: 65.69612,103.71094'
+      // ]
+      let map_center_coords = map_pos_details[0]
         .split('map center: ')[1].split(' view')[0].split(',');
       let map_zoom = map_pos_details[1].split('map zoom: ')[1];
       let map_viewbox = map_pos_details[2].split('viewbox: ')[1].split(',');
       let last_click = map_pos_details[3].split('last click: ')[1];
 
-      assert.deepStrictEqual(map_center_coor.length, 2);
+      assert.deepStrictEqual(map_center_coords.length, 2);
       assert.ok(map_zoom);
       assert.deepStrictEqual(map_viewbox.length, 4);
-      assert.deepStrictEqual(last_click, 'undefined');
+      assert.deepStrictEqual(last_click, undefined);
 
       await page.click('#map-position-close a');
       assert.strictEqual(await map_pos_handle.evaluate(node => node.style.display), 'none');

@@ -30,12 +30,14 @@
 
       <table class="table table-striped table-hover">
         <thead>
-          <th>Place id</th>
-          <th>Country Code</th>
-          <th>Name</th>
-          <th>OSM object</th>
-          <th>Class</th>
-          <th>Type</th>
+          <tr>
+            <th>Place id</th>
+            <th>Country Code</th>
+            <th>Name</th>
+            <th>OSM object</th>
+            <th>Class</th>
+            <th>Type</th>
+          </tr>
         </thead>
         <tbody>
           {#each aPolygons as polygon}
