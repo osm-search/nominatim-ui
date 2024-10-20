@@ -186,7 +186,7 @@
 </script>
 
 <MapPosition />
-<div id="map" use:mapAction />
+<div id="map" use:mapAction></div>
 <button id="show-map-position" class="leaflet-bar btn btn-sm btn-outline-secondary"
       on:click|stopPropagation={show_map_position_click}
 >show map bounds</button>

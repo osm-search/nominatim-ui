@@ -28,14 +28,16 @@
 
       <table class="table table-striped table-hover">
         <thead>
-          <th>OSM object</th>
-          <th>Class</th>
-          <th>Type</th>
-          <th>Name</th>
-          <th>Country Code</th>
-          <th>Error message</th>
-          <th>Updated</th>
-          <th></th>
+          <tr>
+            <th>OSM object</th>
+            <th>Class</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Country Code</th>
+            <th>Error message</th>
+            <th>Updated</th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
           {#each aPolygons as polygon}

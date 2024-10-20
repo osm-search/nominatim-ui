@@ -51,7 +51,7 @@
           class="btn-close float-end m-1"
           aria-label="Close"
           on:click|stopPropagation={closeHint}
-  />
+  ></button>
   <p>
     Nightly calculated from nearby places having this postcode.
     <a href="https://nominatim.org/release-docs/latest/admin/Maintenance/#updating-postcodes">
