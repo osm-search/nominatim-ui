@@ -1,8 +1,8 @@
-# CHANGES
-
+* version 3.6.0 - 2024-10-20
     * Reverse page: Remove click handler when switching other page. Thanks ericgrosso
     * Reverse page: Fix test that longitude is filled on form submit. Thanks ericgrosso
-    * NPM package updates
+    * NPM package updates: eslint 8->9, Svelte 4->5
+    * Minimum required nodejs version to compile (rollup) is now 16
 
 * version 3.5.3 - 2024-05-06
     * Search page: Set HTML page title for structured searches, too
