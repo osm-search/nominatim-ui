@@ -28,6 +28,7 @@
       dedupe: (!search_params.has('dedupe') || search_params.get('dedupe') === '1') ? 1 : 0,
       'accept-language': search_params.get('accept-language'),
       countrycodes: search_params.get('countrycodes'),
+      layer: search_params.get('layer'),
       limit: search_params.get('limit'),
       polygon_threshold: search_params.get('polygon_threshold'),
       exclude_place_ids: search_params.get('exclude_place_ids'),

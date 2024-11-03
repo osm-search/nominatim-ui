@@ -119,6 +119,8 @@
                name="limit" value="{api_request_params.limit || ''}" />
         <input type="hidden"
                name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+        <input type="hidden"
+               name="layer" value="{api_request_params.layer || ''}" />
       </div>
     </UrlSubmitForm>
   </div>
@@ -171,6 +173,8 @@
                name="limit" value="{api_request_params.limit || ''}" />
         <input type="hidden"
                name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+        <input type="hidden"
+               name="layer" value="{api_request_params.layer || ''}" />
       </div>
     </UrlSubmitForm>
   </div>
@@ -243,6 +247,13 @@
              value="{api_request_params.countrycodes || ''}"
              pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$"
              on:change={set_api_param}>
+    </li>
+    <li>
+      <label for="option_layer">Layer</label>
+      <input id="option_layer" name="layer" placeholder="e.g. address,poi,railway,natural,manmade"
+        value="{api_request_params.layer || ''}"
+        data-api-param="layer" on:change={set_api_param}
+        class="form-control form-control-sm d-inline w-auto api-param-setting">
     </li>
   </ul>
 </details>
