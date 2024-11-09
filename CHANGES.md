@@ -1,3 +1,7 @@
+* version 3.6.1 - 2024-11-09
+    * Search page: add 'layer' as advanced option (already exists on reverse page)
+    * NPM package updates: Svelte 5.1
+
 * version 3.6.0 - 2024-10-20
     * Reverse page: Remove click handler when switching other page. Thanks ericgrosso
     * Reverse page: Fix test that longitude is filled on form submit. Thanks ericgrosso
