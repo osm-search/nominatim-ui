@@ -1,3 +1,6 @@
+* unlreleased
+    * Map: add scale in bottom left corner
+
 * version 3.6.1 - 2024-11-09
     * Search page: add 'layer' as advanced option (already exists on reverse page)
     * NPM package updates: Svelte 5.1

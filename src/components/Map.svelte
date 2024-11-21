@@ -37,6 +37,8 @@
       L.control.attribution({ prefix: '<a href="https://leafletjs.com/">Leaflet</a>' }).addTo(map);
     }
 
+    L.control.scale().addTo(map);
+
     L.tileLayer(Nominatim_Config.Map_Tile_URL, {
       attribution: attribution
     }).addTo(map);

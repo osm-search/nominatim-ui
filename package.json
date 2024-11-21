@@ -3,8 +3,7 @@
     "description": "Debug web interface for Nominatim geocoder",
     "version": "3.6.1",
     "license": "GPL-2.0",
-    "scripts":
-    {
+    "scripts": {
         "build": "rollup -c",
         "dev": "rollup -c -w",
         "lint": "eslint --quiet *.js src/ test/",
@@ -12,8 +11,7 @@
         "test": "rollup -c && mocha --recursive test/",
         "start": "static-server dist"
     },
-    "devDependencies":
-    {
+    "devDependencies": {
         "@eslint/eslintrc": "^3.1.0",
         "@eslint/js": "^9.12.0",
         "@rollup/plugin-commonjs": "^28.0",
@@ -37,8 +35,7 @@
         "static-server": "^2.2.1",
         "svelte": "^5.0.0"
     },
-    "dependencies":
-    {
+    "dependencies": {
         "bootstrap": "^5.0.0",
         "escape-html": "^1.0.3",
         "leaflet": "1.9.4",
