@@ -1,41 +1,79 @@
-# Adding nominatim-ui to a nominatim-docker container
+# How to run nominatim-ui together with a Nominatim docker container
 
-This document assumes you followed the [nominatim-docker](https://github.com/mediagis/nominatim-docker/) instructions.
+Nominatim starting version 4.5 uses the [gunicorn](https://gunicorn.org/) webserver
+returning JSON (or XML) content. Nominatim no longer returns HTML and one cannot add
+files to the webserver configuration. In other words it's no longer easy to add
+nominatim-ui into an existing Nominatim docker container.
 
-nominatim-ui is a separate project and it's not planned to add the UI to the nominatim-docker installation.
 
-The following instructions might still be useful and/or help further automate such an installation.
+Install Nominatim, for example:
 
 ```bash
-# Log into the running container
-docker exec -it nominatim /bin/bash
-
-# Download stable nominatim-ui release
-# available versions: https://github.com/osm-search/nominatim-ui/releases
-VERSION=3.4.0
-cd /tmp
-curl -L --fail -o nominatim-ui.tar.gz https://github.com/osm-search/nominatim-ui/releases/download/v${VERSION}/nominatim-ui-${VERSION}.tar.gz
-tar -xzf nominatim-ui.tar.gz && rm nominatim-ui.tar.gz
-mv nominatim-ui-$VERSION nominatim-ui
-
-# Set the configuration. In this case the UI website should access the API
-# from the same host and port
-tee nominatim-ui/dist/theme/config.theme.js << 'EOF'
-Nominatim_Config.Nominatim_API_Endpoint = '/';
-EOF
-
-# Apache configuration has an entry 'DirectoryIndex search.php'. To make
-# /ui work we just create such a file. Alternatively change the entry for
-# /ui directory. 
-# Apache configuration is in /etc/apache2/sites-enabled/000-default.conf
-cd nominatim-ui/dist/ && ln -s index.html search.php && cd -
-
-# Move files to Apache webserver directory
-mkdir /nominatim/website/ui
-mv nominatim-ui/dist/* /nominatim/website/ui/
-rm -r nominatim-ui
-chown -R nominatim:nominatim /nominatim/website/ui/
+docker run -it \
+  -e PBF_URL=https://download.geofabrik.de/europe/monaco-latest.osm.pbf \
+  -p 8085:8080 \
+  --name nominatim-monaco \
+  mediagis/nominatim:4.5
 ```
 
-If the API runs on http://some-host.example.org:8080/ then http://some-host.example.org:8080/ui
-will now display a website including map and search box.
+Nominatim now runs on port 8085 (http://localhost:8085/status)
+
+## Create a nominatim-ui Docker container
+
+   1. Go to nominatim-ui directory
+
+    Download the latest nominatim-ui release, then
+    
+    ```
+    cd nominatim-ui
+    ```
+
+   2. Create nominatim-ui configuration
+
+   ```bash
+   tee dist/theme/config.theme.js << EOFUICONF > /dev/null
+   Nominatim_Config.Nominatim_API_Endpoint = 'http://localhost:8085/';
+   EOFUICONF
+   ```
+
+   3. Create a webserver configuration
+   
+   ```bash
+   tee nginx.conf << EOFNGINXCONF > /dev/null
+   server {
+       listen 80;
+
+       server_name _;
+
+       location / {
+           root /usr/share/nginx/html;
+           index index.html;
+       }
+   }
+   EOFNGINXCONF
+   ```
+
+   4. Create Docker configuration
+
+   ```bash
+   tee Dockerfile << EOFDOCKERFILE > /dev/null
+   FROM nginx:alpine
+
+   COPY dist /usr/share/nginx/html
+
+   COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+   EXPOSE 80
+   EOFDOCKERFILE
+   ```
+
+   5. Start the Docker container
+
+   ```bash
+   docker build --tag nominatim-ui-service .
+   docker run -it -p 8081:80 nominatim-ui-service
+   ```
+
+nominatim-ui now runs on port 8081 (http://localhost:8081/). Your browser will try
+to access the Nominatim API on http://localhost:8085/ If that's not reachable you
+might need to use the server's IP address or hostname.
