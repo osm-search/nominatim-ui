@@ -71,7 +71,7 @@
 <style>
   #postcode-hint {
     font-size: 0.9em;
-    background-color: #ededff;
+    background-color: var(--bs-secondary-bg);
     display: none;
   }
 </style>

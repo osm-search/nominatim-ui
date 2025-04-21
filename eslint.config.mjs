@@ -68,4 +68,10 @@ export default [...compat.extends(
             browser: true,
         },
     },
+}, {
+    files: ["src/color-mode-toggler.js"],
+    rules: {
+        "semi": "off",
+        "max-len": "off"
+    }
 }];

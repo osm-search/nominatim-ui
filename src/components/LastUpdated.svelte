@@ -41,7 +41,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #eee;
+    background-color: var(--bs-primary-bg-subtle);
     z-index: 100;
   }
 </style>

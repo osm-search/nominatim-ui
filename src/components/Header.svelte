@@ -31,7 +31,7 @@
   .navbar-brand h1 {
     display: inline;
     font-size: 1.2em;
-    color: #333;
+    color: var(--bs-body-color);
   }
 
   .navbar-brand img {
@@ -57,10 +57,11 @@
 
   .search-section {
     padding: 1em 30px;
-    background-color: #f5f5f5;
-    border-top: 2px solid #ddd;
-    border-bottom: 2px solid #ddd;
+    background-color: var(--bs-tertiary-bg);
+    border-top: 2px solid var(--bs-border-color);
+    border-bottom: 2px solid var(--bs-border-color);
   }
+
 </style>
 
 <header class="container-fluid">
@@ -111,6 +112,29 @@
       </div>
       <!-- Right aligned links -->
       <ul class="navbar-nav">
+        <li class="nav-item position-relative">
+          <button class="btn nav-link dropdown-toggle" id="bd-theme" type="button"
+                  data-bs-toggle="dropdown" aria-label="Toggle color theme">
+            <span id="bd-theme-text">Color</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+            <li>
+              <button type="button" class="dropdown-item" data-bs-theme-value="light">
+                Light
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item" data-bs-theme-value="dark">
+                Dark
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item" data-bs-theme-value="auto">
+                Auto
+              </button>
+            </li>
+          </ul>
+        </li>
         <li class="nav-item">
           <PageLink page="about"
                     extra_classes="nav-link {view === 'about' ? 'active' : ''}">

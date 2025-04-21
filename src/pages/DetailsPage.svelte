@@ -280,7 +280,7 @@
   h2 {
     font-size: 2em;
     padding-left: 8px;
-    background-color: white;
+    background-color: var(--bs-body-bg);
   }
   h3 {
     font-size: 1.5em;
@@ -288,7 +288,7 @@
   }
 
   tr.all-columns {
-    background-color: white !important;
+    background-color: var(--bs-body-bg) !important;
     border: none;
   }
   tr.all-columns td {
@@ -296,7 +296,7 @@
     padding-left: 0 !important;
   }
   :global(span.noname){
-    color:#800;
+    color: var(--bs-danger);
   }
 
   #map-wrapper {
