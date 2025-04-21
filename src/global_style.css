@@ -8,3 +8,9 @@
 a { text-decoration: none }
 a:hover { text-decoration: underline; }
 a.btn:hover { text-decoration: none; }
+
+html[data-bs-theme=dark] img.mapicon {
+  /* invert the image colors */
+  filter: invert(1) hue-rotate(180deg);
+  background-color: transparent;
+}

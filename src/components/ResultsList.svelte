@@ -98,28 +98,29 @@
   .result {
     font-size: 0.8em;
     margin: 5px;
-    margin-top:0px;
+    margin-top: 0;
     padding: 4px 8px;
     border-radius: 2px;
-    background:#F0F7FF;
-    border: 2px solid #D7E7FF;
-    cursor:pointer;
+    background: var(--bs-secondary-bg);
+    border: 1px solid var(--bs-secondary-color);
+    cursor: pointer;
     min-height: 5em;
   }
 
   .result.highlight {
-    background-color: #D9E7F7;
-    border-color: #9DB9E4;
+    background-color: var(--bs-primary-bg-subtle);
+    border-color: var(--bs-primary-color-subtle);
   }
   .result.highlight :global(a) {
     margin: 10px auto;
     display: block;
     max-width: 10em;
     padding: 1px;
-    background-color: white;
+    color: var(--bs-secondary-color);
+    background-color: var(--bs-secondary-bg);
   }
-  .result .type{
-    color: gray;
+  .result .type {
+    color: var(--bs-secondary-color);
     font-size: 0.8em;
   }
   .result :global(a) {
@@ -141,6 +142,6 @@
   }
 
   .result.highlight :global(a):hover {
-    color: #111;
+    background-color: var(--bs-primary-bg-subtle);
   }
 </style>

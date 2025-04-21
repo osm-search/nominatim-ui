@@ -49,7 +49,8 @@
 
 <style>
   .notused td {
-    color: #ccc;
+    color: var(--bs-secondary-color);
+    font-style: italic;
   }
 
   td {
