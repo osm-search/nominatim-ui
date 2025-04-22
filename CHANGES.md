@@ -1,3 +1,7 @@
+* version 3.7.0 - 2025-04-22
+    * Dark mode
+    * NPM package updates
+
 * version 3.6.1 - 2024-11-09
     * Search page: add 'layer' as advanced option (already exists on reverse page)
     * NPM package updates: Svelte 5.1
