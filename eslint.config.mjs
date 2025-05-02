@@ -16,6 +16,7 @@ export default [
         svelte,
         mocha,
         prettier,
+        security,
     },
 
     languageOptions: {
