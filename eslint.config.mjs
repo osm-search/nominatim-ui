@@ -1,5 +1,7 @@
 import svelte from "eslint-plugin-svelte";
 import mocha from "eslint-plugin-mocha";
+import prettier from "eslint-plugin-prettier/recommended";
+import security from 'eslint-plugin-security';
 import globals from "globals";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -7,13 +9,13 @@ import js from "@eslint/js";
 
 export default [
     js.configs.recommended,
-    // "airbnb-base/legacy", // https://github.com/airbnb/javascript/issues/2961 
     mocha.configs.flat.recommended,
     ...svelte.configs.recommended,
 {
     plugins: {
         svelte,
         mocha,
+        prettier,
     },
 
     languageOptions: {
@@ -22,7 +24,7 @@ export default [
             ...globals.node
         },
 
-        ecmaVersion: 2019,
+        ecmaVersion: 2022,
         sourceType: "module",
     },
 }, {
