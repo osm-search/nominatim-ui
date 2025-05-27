@@ -86,13 +86,14 @@ export async function fetch_content_into_element(url, dom_element) {
 function generate_nominatim_endpoint_url(endpoint_name) {
   var conf_endpoint = Nominatim_Config.Nominatim_API_Endpoint;
 
+  console.log(typeof conf_endpoint);
   if (typeof conf_endpoint === 'function') {
     return conf_endpoint(endpoint_name);
   }
 
   if (!endpoint_name) return conf_endpoint;
 
-  return conf_endpoint + endpoint_name + '.php';
+  return conf_endpoint + endpoint_name;
 }
 
 function generate_nominatim_api_url(endpoint_name, params) {

@@ -46,7 +46,7 @@ Nominatim_Config.Reverse_Only = ${reverse_only};
 
     this.proxy_server = await http.createServer((req, res) => {
       // identify if the requests should be served by the (remote) API or static webserver
-      let api_url_match = req.url.match(/\/(\w+\.php)/);
+      let api_url_match = !req.url.match(/(.html|.css|.js|.ico|.png)(\?|$)/);
 
       let target = api_url_match
         ? 'https://nominatim.openstreetmap.org'
