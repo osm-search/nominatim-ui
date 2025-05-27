@@ -7,6 +7,10 @@
   let aStatusData = {};
   let configuration = Nominatim_Config;
 
+  let endpoint_url = (typeof configuration.Nominatim_API_Endpoint === 'function') ?
+                      configuration.Nominatim_API_Endpoint() :
+                      configuration.Nominatim_API_Endpoint;
+
   function loaddata() {
     fetch_from_api('status', { format: 'json' }, function (data) {
       aStatusData = data;
@@ -24,11 +28,7 @@
 
       <dl>
         <dt>API Endpoint</dt>
-        <dd>
-          <a href={configuration.Nominatim_API_Endpoint}>
-            {configuration.Nominatim_API_Endpoint}
-          </a>
-        </dd>
+        <dd><a href={endpoint_url}>{endpoint_url}</a></dd>
 
         <dt>Software version</dt>
         <dd>{aStatusData.software_version}</dd>

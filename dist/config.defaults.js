@@ -9,7 +9,7 @@ let Nominatim_Config = {
   // Alternatively provide a function callback
   // Nominatim_API_Endpoint: function (endpoint) {
   //   var url = 'http://localhost/nominatim/';
-  //   if (endpoint) { url += endpoint + '.php' };
+  //   if (endpoint) { url += endpoint };
   //   return url;
   // }
 
