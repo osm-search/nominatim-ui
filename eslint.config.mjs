@@ -9,7 +9,7 @@ import js from "@eslint/js";
 
 export default [
     js.configs.recommended,
-    mocha.configs.flat.recommended,
+    mocha.configs.recommended,
     ...svelte.configs.recommended,
 {
     plugins: {

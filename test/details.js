@@ -68,6 +68,7 @@ describe('Details Page', function () {
 
     // Reverse-only installation have no search index, therefore no keywords
     if (!reverse_only) {
+
       it('should have a link to postcode which includes country code', async function () {
         const url = 'search.html?postalcode=9490&country=li';
 
