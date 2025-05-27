@@ -1,3 +1,8 @@
+* version 3.7.1 - 2025-05-27
+    * Remove .php from endpoint URLs. Nominatim no longer uses them
+    * Status page: when endpoint is a callback, then call it
+    * NPM package updates
+
 * version 3.7.0 - 2025-04-22
     * Dark mode
     * NPM package updates
