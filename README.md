@@ -39,3 +39,7 @@ logo image, colors, welcome and help text.
 ## License
 
 The source code is available under a [GPLv2 license](LICENSE).
+
+## Public instance
+
+One runs at https://nominatim.openstreetmap.org/
