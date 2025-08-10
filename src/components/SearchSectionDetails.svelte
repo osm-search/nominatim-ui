@@ -1,5 +1,6 @@
 <script>
   import { refresh_page } from '../lib/stores.js';
+  import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   export let api_request_params = {};
 
@@ -9,7 +10,7 @@
     let type_and_id_match = val.match(/^\s*([NWR])(-?\d+)\s*$/i)
                             || val.match(/\/(relation|way|node)\/(-?\d+)\s*$/);
 
-    var params = new URLSearchParams();
+    var params = new SvelteURLSearchParams();
     if (type_and_id_match) {
       params.set('osmtype', type_and_id_match[1].charAt(0).toUpperCase());
       params.set('osmid', type_and_id_match[2]);

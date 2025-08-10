@@ -1,6 +1,7 @@
 <script>
   import { results_store } from '../lib/stores.js';
   import { formatLabel } from '../lib/helpers.js';
+  import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   import DetailsLink from './DetailsLink.svelte';
   import Welcome from './Welcome.svelte';
@@ -20,7 +21,7 @@
     current_result = aSearchResults[0];
 
 
-    let search_params = new URLSearchParams(window.location.search);
+    let search_params = new SvelteURLSearchParams(window.location.search);
 
     let aResults = data;
     // lonvia wrote: https://github.com/osm-search/nominatim-ui/issues/24
@@ -34,7 +35,7 @@
     for (var i = 0; i < aResults.length; i += 1) {
       aExcludePlaceIds.push(aResults[i].place_id);
     }
-    var parsed_url = new URLSearchParams(window.location.search);
+    var parsed_url = new SvelteURLSearchParams(window.location.search);
     parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
     sMoreURL = '?' + parsed_url.toString();
   });
