@@ -1,6 +1,7 @@
 <script>
   import { onDestroy } from 'svelte';
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
+  import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   import { zoomLevels } from '../lib/helpers.js';
   import { map_store, refresh_page } from '../lib/stores.js';
@@ -13,7 +14,7 @@
   function gotoCoordinates(newlat, newlon, newzoom) {
     if (newlat === null || newlon === null) return;
 
-    let params = new URLSearchParams();
+    let params = new SvelteURLSearchParams();
     params.set('lat', newlat);
     params.set('lon', newlon);
     params.set('zoom', newzoom || zoom);
