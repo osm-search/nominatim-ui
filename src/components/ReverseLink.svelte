@@ -1,16 +1,17 @@
 <script>
 import { refresh_page } from '../lib/stores.js';
+import { SvelteURLSearchParams } from 'svelte/reactivity';
 
 export let lat = null;
 export let lon = null;
 export let zoom = null;
 export let extra_classes = '';
 
-let params = new URLSearchParams();
+let params = new SvelteURLSearchParams();
 let href = 'reverse.html';
 
 $: {
-  let new_params = new URLSearchParams();
+  let new_params = new SvelteURLSearchParams();
 
   if (lat && lon) {
     new_params.set('lat', lat);

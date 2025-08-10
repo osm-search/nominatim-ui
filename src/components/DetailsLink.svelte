@@ -1,10 +1,11 @@
 <script>
   import { refresh_page } from '../lib/stores.js';
+  import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   export let extra_classes = '';
   export let feature = null;
 
-  let url_params = new URLSearchParams();
+  let url_params = new SvelteURLSearchParams();
   let href = 'details.html';
 
   function formatShortOSMType(sType) {
@@ -19,7 +20,7 @@
   }
 
   $: {
-    let new_params = new URLSearchParams();
+    let new_params = new SvelteURLSearchParams();
 
     if (feature !== null) {
       if (feature.osm_type) {

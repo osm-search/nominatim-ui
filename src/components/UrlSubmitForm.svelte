@@ -1,10 +1,11 @@
 <script>
   import { refresh_page } from '../lib/stores.js';
+  import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   export let page;
 
   function serialize_form(form) {
-    var params = new URLSearchParams();
+    var params = new SvelteURLSearchParams();
 
     Array.prototype.slice.call(form.elements).forEach(function (field) {
       if (!field.name || field.disabled || ['submit', 'button'].indexOf(field.type) > -1) return;
