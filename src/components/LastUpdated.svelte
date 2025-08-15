@@ -70,7 +70,7 @@
           {timeago.format(new Date(last_updated_date))}
         </abbr>
       {/if}
-      (<PageLink page="status">Details</PageLink>)
+      (<PageLink page="status" text="Details" />)
     </div>
   </div>
 </div>

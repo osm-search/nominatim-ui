@@ -68,15 +68,17 @@
 
 </style>
 
+{#snippet mainPageLink()}
+  <img alt="logo" id="theme-logo" src="theme/logo.png" />
+  <h1>{page_title}</h1>
+{/snippet}
+
 <header class="container-fluid">
   <nav class="navbar navbar-expand-sm navbar-light">
     <div class="container-fluid">
       <!-- Brand -->
       <div class="navbar-brand">
-        <PageLink page={reverse_only ? 'reverse' : 'search'}>
-          <img alt="logo" id="theme-logo" src="theme/logo.png" />
-          <h1>{page_title}</h1>
-        </PageLink>
+        <PageLink text_snippet={mainPageLink} page={reverse_only ? 'reverse' : 'search'} />
       </div>
       <!-- Toggler (hamburger button) -->
       <button class="navbar-toggler"
@@ -94,9 +96,8 @@
           {#if !reverse_only}
             <li class="nav-item">
               <PageLink page="search"
-                        extra_classes="nav-link {view === 'search' ? 'active' : ''}">
-                Search
-              </PageLink>
+                        text="Search"
+                        extra_classes="nav-link {view === 'search' ? 'active' : ''}" />
             </li>
           {/if}
           <li class="nav-item">
@@ -108,9 +109,8 @@
           </li>
           <li class="nav-item">
             <PageLink page="details"
-                      extra_classes="nav-link {view === 'details' ? 'active' : ''}">
-              Search By ID
-            </PageLink>
+                      text="Search By ID"
+                      extra_classes="nav-link {view === 'details' ? 'active' : ''}" />
           </li>
         </ul>
       </div>
@@ -141,9 +141,8 @@
         </li>
         <li class="nav-item">
           <PageLink page="about"
-                    extra_classes="nav-link {view === 'about' ? 'active' : ''}">
-            About & Help
-          </PageLink>
+                    text="Abount & Help"
+                    extra_classes="nav-link {view === 'about' ? 'active' : ''}" />
         </li>
       </ul>
     </div>

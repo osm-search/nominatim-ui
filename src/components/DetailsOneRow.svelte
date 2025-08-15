@@ -37,14 +37,13 @@
         details
       </DetailsLink>
     {:else if !reverse_only && addressLine.type.match(/^country/)}
-      <PageLink page='search' params_hash={{ country: addressLine.localname }}>
-        search by name
-      </PageLink>
+      <PageLink page='search'
+                text='search by name'
+                params_hash={{ country: addressLine.localname }} />
     {:else if !reverse_only && addressLine.type === 'postcode'}
       <PageLink page='search'
-                params_hash={{ postalcode: addressLine.localname, country: sCountryCode }}>
-        search by name
-      </PageLink>
+                text='search by name'
+                params_hash={{ postalcode: addressLine.localname, country: sCountryCode }} />
     {/if}
   </td>
 </tr>

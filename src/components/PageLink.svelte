@@ -1,7 +1,12 @@
 <script>
   import { refresh_page } from '../lib/stores.js';
 
-  let { page, params_hash = {}, extra_classes = '' } = $props();
+  let {
+    page,
+    text,
+    text_snippet,
+    params_hash = {},
+    extra_classes = '' } = $props();
 
   function handleClick(e) {
     e.preventDefault();
@@ -16,5 +21,5 @@
 </script>
 
 <a onclick={handleClick} href={href} class={extra_classes}>
-  <slot></slot>
+  {#if text_snippet}{@render text_snippet()}{:else}{text}{/if}
 </a>
