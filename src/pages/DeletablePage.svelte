@@ -6,7 +6,7 @@
   import Header from '../components/Header.svelte';
   import DetailsLink from '../components/DetailsLink.svelte';
 
-  let aPolygons = [];
+  let aPolygons = $state([]);
 
   function loaddata() {
     fetch_from_api('deletable', { format: 'json' }, function (data) {

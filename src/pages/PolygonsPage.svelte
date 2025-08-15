@@ -5,7 +5,7 @@
 
   import Header from '../components/Header.svelte';
 
-  let aPolygons = [];
+  let aPolygons = $state([]);
 
   function loaddata() {
     fetch_from_api('polygons', { format: 'json' }, function (data) {

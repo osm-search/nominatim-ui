@@ -7,9 +7,9 @@
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
-  let api_request_params;
-  let bStructuredSearch;
-  let current_result;
+  let api_request_params = $state();
+  let bStructuredSearch = $state();
+  let current_result = $state();
 
   function loaddata(search_params) {
     update_html_title();
@@ -69,12 +69,11 @@
     }
   }
 
-  $: {
-    let pageinfo = $page;
+  page.subscribe((pageinfo) => {
     if (pageinfo.tab === 'search') {
       loaddata(pageinfo.params);
     }
-  }
+  });
 </script>
 
 <Header>

@@ -16,10 +16,10 @@
   import InfoRowList from '../components/DetailsInfoRowList.svelte';
   import Map from '../components/Map.svelte';
 
-  let aPlace;
-  let base_url;
-  let api_request_params;
-  let api_request_finished = false;
+  let aPlace = $state();
+  let base_url = $state();
+  let api_request_params = $state();
+  let api_request_finished = $state(false);
 
   function loaddata(search_params) {
     api_request_params = {
@@ -68,14 +68,14 @@
     return aLine ? aLine.localname : null;
   }
 
-  $: {
-    let pageinfo = $page;
+  page.subscribe((pageinfo) => {
     if (pageinfo.tab === 'details') {
       loaddata(pageinfo.params);
       base_url = window.location.search;
     }
-  }
-  $: reverse_only = Nominatim_Config.Reverse_Only;
+  });
+
+  const reverse_only = Nominatim_Config.Reverse_Only;
 </script>
 
 <Header>
