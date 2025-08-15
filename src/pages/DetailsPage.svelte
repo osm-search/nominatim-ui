@@ -89,7 +89,7 @@
       <div class="col-sm-10">
         <h1>
           {aPlace.localname || `${formatOSMType(aPlace.osm_type)} ${aPlace.osm_id}` }
-          <small><DetailsLink feature={aPlace}>link to this page</DetailsLink></small>
+          <small><DetailsLink feature={aPlace} text="link to this page" /></small>
         </h1>
       </div>
       <div class="col-sm-2 text-end">

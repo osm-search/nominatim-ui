@@ -42,7 +42,7 @@
         <tbody>
           {#each aPolygons as polygon}
           <tr>
-            <td><DetailsLink feature={polygon}>{polygon.place_id}</DetailsLink></td>
+            <td><DetailsLink feature={polygon} text={polygon.place_id} /></td>
             <td>{polygon.country_code}</td>
             <td>{polygon.name}</td>
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->

@@ -2,7 +2,7 @@
   import { refresh_page } from '../lib/stores.js';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
-  let { extra_classes = '', feature = null } = $props();
+  let { text = 'details', extra_classes = '', feature = null } = $props();
 
   function formatShortOSMType(sType) {
     if (sType === 'node') return 'N';
@@ -48,6 +48,4 @@
   }
 </script>
 
-<a onclick={handleClick} href={href} class={extra_classes}>
-  <slot></slot>
-</a>
+<a onclick={handleClick} href={href} class={extra_classes}>{text}</a>

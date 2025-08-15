@@ -33,9 +33,7 @@
   <td>{@html formatDistance(addressLine.distance, bDistanceInMeters)}</td>
   <td>
     {#if addressLine.osm_id}
-      <DetailsLink feature={addressLine}>
-        details
-      </DetailsLink>
+      <DetailsLink feature={addressLine} />
     {:else if !reverse_only && addressLine.type.match(/^country/)}
       <PageLink page='search'
                 text='search by name'

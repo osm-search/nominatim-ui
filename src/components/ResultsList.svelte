@@ -71,9 +71,7 @@
         <span class="type">{formatLabel(aResult)}</span>
         <p class="coords">{aResult.lat},{aResult.lon}</p>
 
-        <DetailsLink extra_classes="btn btn-outline-secondary btn-sm" feature={aResult}>
-          details
-        </DetailsLink>
+        <DetailsLink extra_classes="btn btn-outline-secondary btn-sm" feature={aResult} />
       </div>
     {/each}
 
