@@ -5,13 +5,15 @@
     formatPlaceType, osmLink, formatAdminLevel, formatDistance
   } from '../lib/helpers.js';
 
-  export let addressLine;
-  export let bDistanceInMeters;
-  export let bMarkUnusedLines = false;
-  export let sCountryCode;
+  let {
+    addressLine,
+    bDistanceInMeters,
+    bMarkUnusedLines = false,
+    sCountryCode
+  } = $props();
 
-  $: bAddressLineUsed = addressLine.isaddress;
-  $: reverse_only = Nominatim_Config.Reverse_Only;
+  const bAddressLineUsed = $derived(addressLine.isaddress);
+  const reverse_only = $derived(Nominatim_Config.Reverse_Only);
 </script>
 
 <tr class:notused={bMarkUnusedLines && !bAddressLineUsed}>

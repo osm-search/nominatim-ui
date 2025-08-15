@@ -4,9 +4,10 @@
   import { map_store } from '../lib/stores.js';
   import { get } from 'svelte/store';
 
-  export let bStructuredSearch = false;
-  export let api_request_params = {};
-  let sViewBox;
+  let { bStructuredSearch = false, api_request_params = {} } = $props();
+
+  let sViewBox = $state();
+
   // lat,lon are later set in update_reverse_link()
   let lat; // eslint-disable-line no-unused-vars
   let lon; // eslint-disable-line no-unused-vars
@@ -188,7 +189,7 @@
       <div class="form-check form-check-inline">
         <label class="form-check-label" for="use_viewbox">apply viewbox</label>
         <input type="checkbox" class="form-check-input api-param-setting"
-               id="use_viewbox" checked={api_request_params.viewbox} on:change={reset_viewbox}>
+               id="use_viewbox" checked={api_request_params.viewbox} onchange={reset_viewbox}>
       </div>
     </li>
 
@@ -196,7 +197,7 @@
       <div class="form-check form-check-inline">
         <label class="form-check-label" for="option_bounded">bounded to viewbox</label>
         <input type="checkbox" class="form-check-input api-param-setting"
-               id="option_bounded" checked={!!api_request_params.bounded} on:change={set_bounded}>
+               id="option_bounded" checked={!!api_request_params.bounded} onchange={set_bounded}>
       </div>
     </li>
 
@@ -207,7 +208,7 @@
                class="form-check-input api-param-setting"
                id="option_dedupe"
                checked={api_request_params.dedupe === 0 ? 0 : 1}
-               on:change={set_dedupe}>
+               onchange={set_dedupe}>
       </div>
     </li>
 
@@ -217,7 +218,7 @@
              class="form-control form-control-sm d-inline w-auto api-param-setting"
              data-api-param="limit" id="option_limit" min="1" max="50"
              value="{api_request_params.limit || ''}"
-             on:change={set_api_param}>
+             onchange={set_api_param}>
     </li>
 
     <li>
@@ -227,7 +228,7 @@
              data-api-param="polygon_threshold" id="option_polygon_threshold"
              min="0.0" max="1.0" step="0.001"
              value="{api_request_params.polygon_threshold || ''}"
-             on:change={set_api_param}>
+             onchange={set_api_param}>
     </li>
 
     <li>
@@ -236,7 +237,7 @@
              class="form-control form-control-sm d-inline w-auto api-param-setting"
              data-api-param="accept-language" id="accept_lang" size="15"
              value="{api_request_params['accept-language'] || ''}"
-             on:change={set_api_param}>
+             onchange={set_api_param}>
     </li>
 
     <li>
@@ -246,13 +247,13 @@
              data-api-param="countrycodes" id="option_ccode" size="15"
              value="{api_request_params.countrycodes || ''}"
              pattern="^[a-zA-Z]{'{2}'}(,[a-zA-Z]{'{2}'})*$"
-             on:change={set_api_param}>
+             onchange={set_api_param}>
     </li>
     <li>
       <label for="option_layer">Layer</label>
       <input id="option_layer" name="layer" placeholder="e.g. address,poi,railway,natural,manmade"
         value="{api_request_params.layer || ''}"
-        data-api-param="layer" on:change={set_api_param}
+        data-api-param="layer" onchange={set_api_param}
         class="form-control form-control-sm d-inline w-auto api-param-setting">
     </li>
   </ul>

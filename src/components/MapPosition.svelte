@@ -1,14 +1,13 @@
 <script>
 
   import { map_store } from '../lib/stores.js';
-  let last_click_latlng;
 
-  let map_center;
-  let map_zoom;
-  let map_viewbox;
-  let view_on_osm_link;
-  let last_click;
-  let mouse_position;
+  let map_center = $state();
+  let map_zoom = $state();
+  let map_viewbox = $state();
+  let view_on_osm_link = $state();
+  let last_click = $state();
+  let mouse_position = $state();
 
   function map_link_to_osm(map) {
     var zoom = map.getZoom();
@@ -46,9 +45,6 @@
     if (mouse_lat_lng) {
       mouse_position = [mouse_lat_lng.lat.toFixed(5), mouse_lat_lng.lng.toFixed(5)].join(',');
     }
-    if (last_click_latlng) {
-      last_click = [last_click_latlng.lat.toFixed(5), last_click_latlng.lng.toFixed(5)].join(',');
-    }
   }
 
 
@@ -65,7 +61,10 @@
     });
 
     map.on('click', function (e) {
-      last_click_latlng = e.latlng;
+      const last_click_latlng = e.latlng;
+      if (last_click_latlng) {
+        last_click = [last_click_latlng.lat.toFixed(5), last_click_latlng.lng.toFixed(5)].join(',');
+      }
       display_map_position(map);
     });
 
@@ -94,7 +93,7 @@
     <br>
     mouse position: {mouse_position}
   </div>
-  <div id="map-position-close"><a href="#hide" on:click={handleHideClick}>hide</a></div>
+  <div id="map-position-close"><a href="#hide" onclick={handleHideClick}>hide</a></div>
 </div>
 
 

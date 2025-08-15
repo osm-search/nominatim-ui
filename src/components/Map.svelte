@@ -9,9 +9,11 @@
   import { map_store } from '../lib/stores.js';
   import MapPosition from '../components/MapPosition.svelte';
 
-  export let display_minimap = false;
-  export let current_result = null;
-  export let position_marker = null;
+  let {
+    display_minimap = false,
+    current_result = null,
+    position_marker = null
+  } = $props();
 
   let dataLayers = [];
 
@@ -177,9 +179,10 @@
     }
   }
 
-  $: setMapData(current_result);
+  $effect(() => { setMapData(current_result); });
 
   function show_map_position_click(e) {
+    e.stopPropagation();
     e.target.style.display = 'none';
     document.getElementById('map-position').style.display = 'block';
   }
@@ -188,7 +191,7 @@
 <MapPosition />
 <div id="map" use:mapAction></div>
 <button id="show-map-position" class="leaflet-bar btn btn-sm btn-outline-secondary"
-      on:click|stopPropagation={show_map_position_click}
+      onclick={show_map_position_click}
 >show map bounds</button>
 
 <style>

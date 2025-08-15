@@ -1,21 +1,20 @@
 <script>
   import { refresh_page } from '../lib/stores.js';
 
-  export let page;
-  export let params_hash = {};
-  export let extra_classes = '';
-  let href = page + '.html';
+  let { page, params_hash = {}, extra_classes = '' } = $props();
 
-  function handleClick() {
+  function handleClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
     refresh_page(page, new URLSearchParams(params_hash));
   }
 
-  $: {
-    let param_str = new URLSearchParams(params_hash).toString();
-    href = page + '.html' + (param_str ? '?' : '') + param_str;
-  }
+  const href = $derived.by(() => {
+    const param_str = new URLSearchParams(params_hash).toString();
+    return page + '.html' + (param_str ? '?' : '') + param_str;
+  });
 </script>
 
-<a on:click|preventDefault|stopPropagation={handleClick} href={href} class={extra_classes}>
+<a onclick={handleClick} href={href} class={extra_classes}>
   <slot></slot>
 </a>

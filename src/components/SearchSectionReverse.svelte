@@ -6,10 +6,7 @@
   import { zoomLevels } from '../lib/helpers.js';
   import { map_store, refresh_page } from '../lib/stores.js';
 
-  export let lat = '';
-  export let lon = '';
-  export let zoom = '';
-  export let api_request_params = {};
+  let { lat = '', lon = '', zoom = '', api_request_params = {} } = $props();
 
   function gotoCoordinates(newlat, newlon, newzoom) {
     if (newlat === null || newlon === null) return;
@@ -43,6 +40,12 @@
     document.querySelector('input[name=' + e.target.dataset.apiParam + ']').value = e.target.value;
   }
 
+  function onSwitchCoords(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    gotoCoordinates(lon, lat);
+  }
+
   onDestroy(unsubscribe);
 </script>
 
@@ -58,11 +61,11 @@
            placeholder="latitude"
            pattern="^-?\d+(\.\d+)?$"
            bind:value={lat}
-           on:change={maybeSplitLatitude} />
+           onchange={maybeSplitLatitude} />
   </div>
   <div class="col-auto">
     <button id="switch-coords"
-       on:click|preventDefault|stopPropagation={() => gotoCoordinates(lon, lat)}
+       onclick={onSwitchCoords}
        class="btn btn-outline-secondary btn-sm"
        title="switch lat and lon">&lt;&gt;</button>
   </div>
@@ -104,7 +107,7 @@
       <label for="option_layer">Layer</label>
       <input id="option_layer" name="layer" placeholder="e.g. address,poi,railway,natural,manmade"
         value="{api_request_params.layer || ''}"
-        data-api-param="layer" on:change={set_api_param}
+        data-api-param="layer" onchange={set_api_param}
         class="form-control form-control-sm d-inline w-auto api-param-setting">
     </li>
   </ul>

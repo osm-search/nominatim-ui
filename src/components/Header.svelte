@@ -6,12 +6,12 @@
 
   import { map_store, page } from '../lib/stores.js';
 
-  $: view = $page.tab;
-  $: page_title = Nominatim_Config.Page_Title;
-  $: reverse_only = Nominatim_Config.Reverse_Only;
+  const page_title = Nominatim_Config.Page_Title;
+  const reverse_only = Nominatim_Config.Reverse_Only;
 
-  let map_lat;
-  let map_lon;
+  let view = $state();
+  let map_lat = $state();
+  let map_lon = $state();
 
   map_store.subscribe(map => {
     if (!map) return;
@@ -21,6 +21,8 @@
       map_lon = map.getCenter().lng.toFixed(5);
     });
   });
+
+  page.subscribe(pg => { view = pg.tab; });
 </script>
 
 <style>

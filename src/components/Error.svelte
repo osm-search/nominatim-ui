@@ -1,7 +1,7 @@
 <script>
   import { error_store } from '../lib/stores.js';
 
-  let error_message;
+  let error_message = $state();
 
   error_store.subscribe(text => { error_message = text; });
 
@@ -17,6 +17,6 @@
     <button type="button"
             class="btn-close float-end"
             aria-label="dismiss"
-            on:click={dismiss_message}></button>
+            onclick={dismiss_message}></button>
   </div>
 {/if}

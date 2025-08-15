@@ -58,7 +58,7 @@ describe('Search Page', function () {
       assert.deepStrictEqual(map_center_coords.length, 2);
       assert.ok(map_zoom);
       assert.deepStrictEqual(map_viewbox.length, 4);
-      assert.deepStrictEqual(last_click, undefined);
+      assert.deepStrictEqual(last_click, '65.62128,104.41406');
 
       await page.click('#map-position-close a');
       assert.strictEqual(await map_pos_handle.evaluate(node => node.style.display), 'none');

@@ -1,5 +1,5 @@
 <script>
-    export let title;
+    let { title } = $props();
 </script>
 
 <style>

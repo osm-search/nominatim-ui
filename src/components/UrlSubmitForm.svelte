@@ -2,7 +2,7 @@
   import { refresh_page } from '../lib/stores.js';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
-  export let page;
+  let { page } = $props();
 
   function serialize_form(form) {
     var params = new SvelteURLSearchParams();
@@ -34,6 +34,8 @@
   }
 
   function handle_submit(event) {
+    event.preventDefault();
+
     let form = event.target;
 
     let allow_submit = true;
@@ -49,7 +51,7 @@
   }
 </script>
 
-<form on:submit|preventDefault={handle_submit}
+<form onsubmit={handle_submit}
       class="form-inline"
       role="search"
       accept-charset="UTF-8"
