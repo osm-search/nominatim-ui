@@ -52,12 +52,13 @@
   });
 </script>
 
-<Header>
+{#snippet subheader()}
   <SearchSectionReverse lat={api_request_params.lat}
                         lon={api_request_params.lon}
                         zoom={api_request_params.zoom}
                         api_request_params={api_request_params} />
-</Header>
+{/snippet}
+<Header {subheader} />
 
 <div id="content">
   <div class="sidebar">

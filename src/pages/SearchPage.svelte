@@ -76,9 +76,10 @@
   });
 </script>
 
-<Header>
+{#snippet subheader()}
   <SearchSection api_request_params={api_request_params} bStructuredSearch={bStructuredSearch} />
-</Header>
+{/snippet}
+<Header {subheader} />
 
 <div id="content">
   <div class="sidebar">

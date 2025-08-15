@@ -2,7 +2,7 @@
   import { refresh_page } from '../lib/stores.js';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
-  let { page } = $props();
+  let { page, content } = $props();
 
   function serialize_form(form) {
     var params = new SvelteURLSearchParams();
@@ -57,6 +57,6 @@
       accept-charset="UTF-8"
       action="">
   <div class="row g-2">
-    <slot></slot>
+    {@render content?.()}
   </div>
 </form>

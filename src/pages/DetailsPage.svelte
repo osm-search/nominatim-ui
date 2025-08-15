@@ -78,9 +78,10 @@
   const reverse_only = Nominatim_Config.Reverse_Only;
 </script>
 
-<Header>
+{#snippet subheader()}
   <SearchSectionDetails api_request_params={api_request_params}/>
-</Header>
+{/snippet}
+<Header {subheader} />
 
 <div class="container">
   {#if aPlace}

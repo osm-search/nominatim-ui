@@ -6,6 +6,8 @@
 
   import { map_store, page } from '../lib/stores.js';
 
+  let { subheader } = $props();
+
   const page_title = Nominatim_Config.Page_Title;
   const reverse_only = Nominatim_Config.Reverse_Only;
 
@@ -151,7 +153,7 @@
   <h2>{view}</h2>
 </section>
 <section class="search-section">
-  <slot/>
+  {@render subheader?.()}
 </section>
 <Error/>
 <LastUpdated/>

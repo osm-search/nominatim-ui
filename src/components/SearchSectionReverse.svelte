@@ -49,7 +49,7 @@
   onDestroy(unsubscribe);
 </script>
 
-<UrlSubmitForm page="reverse">
+{#snippet content()}
   <div class="col-auto">
     <label for="reverse-lat">lat</label>
   </div>
@@ -97,7 +97,8 @@
   <div class="col-auto">
     <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
   </div>
-</UrlSubmitForm>
+{/snippet}
+<UrlSubmitForm page="reverse" {content} />
 
 <!-- Additional options -->
 <details id="searchAdvancedOptions" class="mt-2">
