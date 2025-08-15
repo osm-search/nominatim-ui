@@ -2,7 +2,13 @@
 import { refresh_page } from '../lib/stores.js';
 import { SvelteURLSearchParams } from 'svelte/reactivity';
 
-let { lat = null, lon = null, zoom = null, extra_classes = '' } = $props();
+let {
+  lat = null,
+  lon = null,
+  zoom = null,
+  text,
+  extra_classes = ''
+} = $props();
 
 const params = $derived.by(() => {
   let new_params = new SvelteURLSearchParams();
@@ -32,6 +38,4 @@ function onClick(e) {
 
 </script>
 
-<a onclick={onClick} href={href} class={extra_classes}>
-  <slot></slot>
-</a>
+<a onclick={onClick} href={href} class={extra_classes}>{text}</a>

@@ -103,9 +103,8 @@
           <li class="nav-item">
             <ReverseLink lat={map_lat}
                          lon={map_lon}
-                         extra_classes="nav-link {view === 'reverse' ? 'active' : ''}">
-              Reverse
-            </ReverseLink>
+                         text="Reverse"
+                         extra_classes="nav-link {view === 'reverse' ? 'active' : ''}" />
           </li>
           <li class="nav-item">
             <PageLink page="details"
