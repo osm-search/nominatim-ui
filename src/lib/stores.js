@@ -7,6 +7,7 @@ export const last_api_request_url_store = writable();
 export const error_store = writable();
 export const page = writable();
 
+
 /**
  * Update the global page state.
  *

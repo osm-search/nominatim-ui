@@ -3,8 +3,9 @@
   import ReverseLink from './ReverseLink.svelte';
   import LastUpdated from './LastUpdated.svelte';
   import Error from './Error.svelte';
-
+  import { onMount } from 'svelte';
   import { map_store, page } from '../lib/stores.js';
+  import { initColorToggler } from '../color-mode-toggler.js';
 
   let { subheader } = $props();
 
@@ -25,6 +26,8 @@
   });
 
   page.subscribe(pg => { view = pg.tab; });
+
+  onMount(initColorToggler);
 </script>
 
 <style>
