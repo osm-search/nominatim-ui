@@ -12,9 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: enable corepack
+        run: corepack enable
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '20.x'
+          cache: 'yarn'
 
       - uses: browser-actions/setup-chrome@v1
       - run: chrome --version
@@ -30,7 +34,7 @@ jobs:
 
       - name: Build
         run: yarn build
-      
+
       - name: Testing
         run: yarn test
 
