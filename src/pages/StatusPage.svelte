@@ -4,10 +4,10 @@
 
   import Header from '../components/Header.svelte';
 
-  let aStatusData = {};
-  let configuration = Nominatim_Config;
+  let aStatusData = $state({});
+  const configuration = Nominatim_Config;
 
-  let endpoint_url = (typeof configuration.Nominatim_API_Endpoint === 'function') ?
+  const endpoint_url = (typeof configuration.Nominatim_API_Endpoint === 'function') ?
                       configuration.Nominatim_API_Endpoint() :
                       configuration.Nominatim_API_Endpoint;
 

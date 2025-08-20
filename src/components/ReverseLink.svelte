@@ -2,15 +2,15 @@
 import { refresh_page } from '../lib/stores.js';
 import { SvelteURLSearchParams } from 'svelte/reactivity';
 
-export let lat = null;
-export let lon = null;
-export let zoom = null;
-export let extra_classes = '';
+let {
+  lat = null,
+  lon = null,
+  zoom = null,
+  text,
+  extra_classes = ''
+} = $props();
 
-let params = new SvelteURLSearchParams();
-let href = 'reverse.html';
-
-$: {
+const params = $derived.by(() => {
   let new_params = new SvelteURLSearchParams();
 
   if (lat && lon) {
@@ -22,17 +22,20 @@ $: {
     }
   }
 
-  params = new_params;
+  return new_params;
+});
+
+const href = $derived.by(() => {
+  let param_str = params.toString();
+  return 'reverse.html' + (param_str ? '?' : '') + param_str;
+});
+
+function onClick(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  refresh_page('reverse', params);
 }
 
-$: {
-  let param_str = params.toString();
-  href = 'reverse.html' + (param_str ? '?' : '') + param_str;
-}
 </script>
 
-<a on:click|preventDefault|stopPropagation={() => refresh_page('reverse', params)}
-    href={href}
-    class={extra_classes}>
-  <slot></slot>
-</a>
+<a onclick={onClick} href={href} class={extra_classes}>{text}</a>

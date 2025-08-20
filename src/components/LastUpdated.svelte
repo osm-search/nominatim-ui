@@ -4,8 +4,9 @@
   import { last_api_request_url_store } from '../lib/stores.js';
   import { fetch_from_api } from '../lib/api_utils.js';
 
-  let last_updated_date;
-  let last_api_request_url;
+  let last_updated_date = $state();
+  let last_api_request_url = $state();
+
   let fetch_running = false; // prevent multiple parallel fetch runs
 
   last_api_request_url_store.subscribe(url => {
@@ -69,7 +70,7 @@
           {timeago.format(new Date(last_updated_date))}
         </abbr>
       {/if}
-      (<PageLink page="status">Details</PageLink>)
+      (<PageLink page="status" text="Details" />)
     </div>
   </div>
 </div>

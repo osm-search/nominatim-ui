@@ -5,13 +5,15 @@
     formatPlaceType, osmLink, formatAdminLevel, formatDistance
   } from '../lib/helpers.js';
 
-  export let addressLine;
-  export let bDistanceInMeters;
-  export let bMarkUnusedLines = false;
-  export let sCountryCode;
+  let {
+    addressLine,
+    bDistanceInMeters,
+    bMarkUnusedLines = false,
+    sCountryCode
+  } = $props();
 
-  $: bAddressLineUsed = addressLine.isaddress;
-  $: reverse_only = Nominatim_Config.Reverse_Only;
+  const bAddressLineUsed = $derived(addressLine.isaddress);
+  const reverse_only = $derived(Nominatim_Config.Reverse_Only);
 </script>
 
 <tr class:notused={bMarkUnusedLines && !bAddressLineUsed}>
@@ -31,18 +33,15 @@
   <td>{@html formatDistance(addressLine.distance, bDistanceInMeters)}</td>
   <td>
     {#if addressLine.osm_id}
-      <DetailsLink feature={addressLine}>
-        details
-      </DetailsLink>
+      <DetailsLink feature={addressLine} />
     {:else if !reverse_only && addressLine.type.match(/^country/)}
-      <PageLink page='search' params_hash={{ country: addressLine.localname }}>
-        search by name
-      </PageLink>
+      <PageLink page='search'
+                text='search by name'
+                params_hash={{ country: addressLine.localname }} />
     {:else if !reverse_only && addressLine.type === 'postcode'}
       <PageLink page='search'
-                params_hash={{ postalcode: addressLine.localname, country: sCountryCode }}>
-        search by name
-      </PageLink>
+                text='search by name'
+                params_hash={{ postalcode: addressLine.localname, country: sCountryCode }} />
     {/if}
   </td>
 </tr>

@@ -2,11 +2,7 @@
   import { refresh_page } from '../lib/stores.js';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
-  export let extra_classes = '';
-  export let feature = null;
-
-  let url_params = new SvelteURLSearchParams();
-  let href = 'details.html';
+  let { text = 'details', extra_classes = '', feature = null } = $props();
 
   function formatShortOSMType(sType) {
     if (sType === 'node') return 'N';
@@ -15,12 +11,8 @@
     return '';
   }
 
-  function handleClick() {
-    refresh_page('details', url_params);
-  }
-
-  $: {
-    let new_params = new SvelteURLSearchParams();
+  const url_params = $derived.by(() => {
+    const new_params = new SvelteURLSearchParams();
 
     if (feature !== null) {
       if (feature.osm_type) {
@@ -41,15 +33,19 @@
         new_params.set('place_id', feature.place_id);
       }
     }
-    url_params = new_params;
-  }
+    return new_params;
+  });
 
-  $: {
-    let param_str = url_params.toString();
-    href = 'details.html' + (param_str ? '?' : '') + param_str;
+  const href = $derived.by(() => {
+    const param_str = url_params.toString();
+    return 'details.html' + (param_str ? '?' : '') + param_str;
+  });
+
+  function handleClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    refresh_page('details', url_params);
   }
 </script>
 
-<a on:click|preventDefault|stopPropagation={handleClick} href={href} class={extra_classes}>
-  <slot></slot>
-</a>
+<a onclick={handleClick} href={href} class={extra_classes}>{text}</a>

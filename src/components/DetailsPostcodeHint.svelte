@@ -1,9 +1,7 @@
 <script>
-  export let postcode;
-  export let lat;
-  export let lon;
+  let { postcode, lat, lon } = $props();
 
-  let overpass_query = `
+  const overpass_query = $derived(`
     // Based on the map bounds, you can zoom out and rerun the query
 
     [timeout:30]; // in seconds
@@ -25,32 +23,35 @@
     out body;
     >;
     out skel qt;
-  `.replace(/^ {4}/gm, '');
+  `.replace(/^ {4}/gm, ''));
 
   // https://wiki.openstreetmap.org/wiki/Overpass_turbo/Development#URL_Parameters
   // Q: the query
   // C: map position
   // R: run the query
-  let url = 'https://overpass-turbo.eu/'
+  const url = $derived('https://overpass-turbo.eu/'
     + '?Q=' + encodeURIComponent(overpass_query)
     + '&C=' + encodeURIComponent([lat, lon, 15].join(';'))
-    + '&R';
+    + '&R');
 
-  function openHint() {
+  function openHint(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
     document.getElementById('postcode-hint').style.display = 'block';
   }
-  function closeHint() {
+  function closeHint(ev) {
+    ev.stopPropagation();
     document.getElementById('postcode-hint').style.display = 'none';
   }
 </script>
 
-(<a href="#openHint" on:click|preventDefault|stopPropagation={openHint}>how?</a>)
+(<a href="#openHint" onclick={openHint}>how?</a>)
 
 <div id="postcode-hint" class="my-2 p-2">
   <button type="button"
           class="btn-close float-end m-1"
           aria-label="Close"
-          on:click|stopPropagation={closeHint}
+          onclick={closeHint}
   ></button>
   <p>
     Nightly calculated from nearby places having this postcode.

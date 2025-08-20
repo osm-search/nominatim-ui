@@ -7,12 +7,11 @@
   import Welcome from './Welcome.svelte';
   import MapIcon from './MapIcon.svelte';
 
-  export let reverse_search = false;
-  export let current_result = null;
+  let { reverse_search = false, current_result = $bindable() } = $props();
 
-  let aSearchResults;
-  let iHighlightNum;
-  let sMoreURL;
+  let aSearchResults = $state();
+  let iHighlightNum = $state();
+  let sMoreURL = $state();
 
   results_store.subscribe(data => {
     if (!data) { return; }
@@ -41,6 +40,7 @@
   });
 
   function handleClick(e) {
+    e.stopPropagation();
     let result_el = e.target;
     if (!result_el.className.match('result')) {
       result_el = result_el.parentElement;
@@ -57,13 +57,13 @@
   <div id="searchresults" role="list">
 
     {#each aSearchResults as aResult, iResNum}
-      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <div class="result"
            class:highlight={iResNum === iHighlightNum}
            role="listitem"
            data-position="{iResNum}"
-           on:click|stopPropagation={handleClick}
-           on:keypress|stopPropagation={handleClick}>
+           onclick={handleClick}
+           onkeypress={handleClick}>
         <div style="float:right">
           <MapIcon aPlace={aResult} />
         </div>
@@ -71,9 +71,7 @@
         <span class="type">{formatLabel(aResult)}</span>
         <p class="coords">{aResult.lat},{aResult.lon}</p>
 
-        <DetailsLink extra_classes="btn btn-outline-secondary btn-sm" feature={aResult}>
-          details
-        </DetailsLink>
+        <DetailsLink extra_classes="btn btn-outline-secondary btn-sm" feature={aResult} />
       </div>
     {/each}
 

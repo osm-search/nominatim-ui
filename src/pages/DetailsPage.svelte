@@ -12,14 +12,13 @@
   import DetailsOneRow from '../components/DetailsOneRow.svelte';
   import DetailsLink from '../components/DetailsLink.svelte';
   import DetailsPostcodeHint from '../components/DetailsPostcodeHint.svelte';
-  import InfoRow from '../components/DetailsInfoRow.svelte';
   import InfoRowList from '../components/DetailsInfoRowList.svelte';
   import Map from '../components/Map.svelte';
 
-  let aPlace;
-  let base_url;
-  let api_request_params;
-  let api_request_finished = false;
+  let aPlace = $state();
+  let base_url = $state();
+  let api_request_params = $state();
+  let api_request_finished = $state(false);
 
   function loaddata(search_params) {
     api_request_params = {
@@ -68,19 +67,20 @@
     return aLine ? aLine.localname : null;
   }
 
-  $: {
-    let pageinfo = $page;
+  page.subscribe((pageinfo) => {
     if (pageinfo.tab === 'details') {
       loaddata(pageinfo.params);
       base_url = window.location.search;
     }
-  }
-  $: reverse_only = Nominatim_Config.Reverse_Only;
+  });
+
+  const reverse_only = Nominatim_Config.Reverse_Only;
 </script>
 
-<Header>
+{#snippet subheader()}
   <SearchSectionDetails api_request_params={api_request_params}/>
-</Header>
+{/snippet}
+<Header {subheader} />
 
 <div class="container">
   {#if aPlace}
@@ -88,7 +88,7 @@
       <div class="col-sm-10">
         <h1>
           {aPlace.localname || `${formatOSMType(aPlace.osm_type)} ${aPlace.osm_id}` }
-          <small><DetailsLink feature={aPlace}>link to this page</DetailsLink></small>
+          <small><DetailsLink feature={aPlace} text="link to this page" /></small>
         </h1>
       </div>
       <div class="col-sm-2 text-end">
@@ -99,55 +99,61 @@
       <div class="col-md-6">
         <table id="locationdetails" class="table table-striped table-responsive">
           <tbody>
-            <InfoRow title="Name">
+            <tr class="info-row"><td>Name</td><td>
             {#if aPlace.names && typeof (aPlace.names) === 'object'
               && Object.keys(aPlace.names).length}
               <InfoRowList items={aPlace.names} />
             {:else}
               <span class="noname fw-bold">No Name</span>
             {/if}
-            </InfoRow>
-            <InfoRow title="Type">{aPlace.category}:{aPlace.type}</InfoRow>
-            <InfoRow title="Last Updated">{aPlace.indexed_date}</InfoRow>
+            </td></tr>
+            <tr class="info-row"><td>Type</td><td>{aPlace.category}:{aPlace.type}</td></tr>
+            <tr class="info-row"><td>Last Updated</td><td>{aPlace.indexed_date}</td></tr>
             {#if (isAdminBoundary(aPlace)) }
-              <InfoRow title="Admin Level">{aPlace.admin_level}</InfoRow>
+              <tr class="info-row"><td>Admin Level</td><td>{aPlace.admin_level}</td></tr>
             {/if}
-            <InfoRow title="Search Rank">{aPlace.rank_search}</InfoRow>
-            <InfoRow title="Address Rank">
+            <tr class="info-row"><td>Search Rank</td><td>{aPlace.rank_search}</td></tr>
+            <tr class="info-row"><td>Address Rank</td><td>
               {aPlace.rank_address} ({formatAddressRank(aPlace.rank_address)})
-            </InfoRow>
+            </td></tr>
             {#if aPlace.calculated_importance}
-              <InfoRow title="Importance">
+              <tr class="info-row"><td>Importance</td><td>
                   {aPlace.calculated_importance}
                   {#if !aPlace.importance} (estimated){/if}
-              </InfoRow>
+              </td></tr>
             {/if}
-            <InfoRow title="Coverage">{coverageType(aPlace)}</InfoRow>
-            <InfoRow title="Centre Point (lat,lon)">
+            <tr class="info-row"><td>Coverage</td><td>{coverageType(aPlace)}</td></tr>
+            <tr class="info-row"><td>Centre Point (lat,lon)</td><td>
                 {aPlace.centroid.coordinates[1]},{aPlace.centroid.coordinates[0]}
-            </InfoRow>
+            </td></tr>
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <InfoRow title="OSM">{@html osmLink(aPlace)}</InfoRow>
-            <InfoRow title="Place Id">
+            <tr class="info-row"><td>OSM</td><td>{@html osmLink(aPlace)}</td></tr>
+            <tr class="info-row"><td>Place Id</td><td>
                {aPlace.place_id}
                (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">
                  on this server
                </a>)
-            </InfoRow>
+            </td></tr>
             {#if aPlace.calculated_wikipedia}
+              <tr class="info-row"><td>Wikipedia Calculated</td><td>
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              <InfoRow title="Wikipedia Calculated">{@html wikipediaLink(aPlace)}</InfoRow>
+                {@html wikipediaLink(aPlace)}
+              </td></tr>
             {/if}
-            <InfoRow title="Computed Postcode">
+            <tr class="info-row"><td>Computed Postcode</td><td>
               {#if aPlace.calculated_postcode}
                 {aPlace.calculated_postcode}
                 <DetailsPostcodeHint postcode={aPlace.calculated_postcode}
                                      lat={aPlace.centroid.coordinates[1]}
                                      lon={aPlace.centroid.coordinates[0]} />
               {/if}
-            </InfoRow>
-            <InfoRow title="Address Tags"><InfoRowList items={aPlace.addresstags} /></InfoRow>
-            <InfoRow title="Extra Tags"><InfoRowList items={aPlace.extratags} /></InfoRow>
+            </td></tr>
+            <tr class="info-row"><td>Address Tags</td><td>
+              <InfoRowList items={aPlace.addresstags} />
+            </td></tr>
+            <tr class="info-row"><td>Extra Tags</td><td>
+              <InfoRowList items={aPlace.extratags} />
+            </td></tr>
           </tbody>
         </table>
       </div>
@@ -297,6 +303,11 @@
   }
   :global(span.noname){
     color: var(--bs-danger);
+  }
+
+  tr.info-row td {
+    padding: 2px 8px;
+    font-size: 0.9em;
   }
 
   #map-wrapper {

@@ -1,10 +1,10 @@
 <script>
 
-  export let aPlace;
+  let { aPlace } = $props();
 
-  $: sIcon = getIcon(aPlace.category, aPlace.type);
-  $: title = 'icon for ' + aPlace.category + ' ' + aPlace.type;
-  $: url = Nominatim_Config.Images_Base_Url + sIcon + '.p.20.png';
+  const sIcon = $derived(getIcon(aPlace.category, aPlace.type));
+  const title = $derived('icon for ' + aPlace.category + ' ' + aPlace.type);
+  const url = $derived(Nominatim_Config.Images_Base_Url + sIcon + '.p.20.png');
 
   function getIcon(category, type) {
     // equivalent to PHP Nominatim::ClassTypes::getIcon

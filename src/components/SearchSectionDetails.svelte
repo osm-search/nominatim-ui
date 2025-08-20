@@ -2,9 +2,11 @@
   import { refresh_page } from '../lib/stores.js';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
-  export let api_request_params = {};
+  let { api_request_params = {} } = $props();
 
   function handleFormSubmit(event) {
+    event.preventDefault();
+
     let form_el = event.target;
     let val = form_el.querySelector('input[type=edit]').value.trim();
     let type_and_id_match = val.match(/^\s*([NWR])(-?\d+)\s*$/i)
@@ -25,7 +27,7 @@
   }
 </script>
 
-<form on:submit|preventDefault={handleFormSubmit} class="form-inline" action="details.html">
+<form onsubmit={handleFormSubmit} class="form-inline" action="details.html">
   <div class="row g-1">
     <div class="col-auto">
       <!-- eslint-disable-next-line max-len -->
