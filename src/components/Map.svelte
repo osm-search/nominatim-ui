@@ -39,9 +39,18 @@
       L.control.attribution({ prefix: '<a href="https://leafletjs.com/">Leaflet</a>' }).addTo(map);
     }
 
-    L.tileLayer(Nominatim_Config.Map_Tile_URL, {
-      attribution: attribution
-    }).addTo(map);
+    if (Nominatim_Config.Map_isWMS) {
+      L.tileLayer.wms(Nominatim_Config.WMSMap_Tile_URL, {
+          layers: Nominatim_Config.WMSMap_layer,
+          format: Nominatim_Config.WMSMap_format,
+          transparent: true,
+          attribution: Nominatim_Config.WMSMap_attribution
+      }).addTo(map);
+    } else {
+      L.tileLayer(Nominatim_Config.Map_Tile_URL, {
+        attribution: attribution
+      }).addTo(map);
+    }
 
     if (display_minimap) {
       let osm2 = new L.TileLayer(Nominatim_Config.Map_Tile_URL, {
