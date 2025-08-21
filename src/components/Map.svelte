@@ -15,7 +15,34 @@
     position_marker = null
   } = $props();
 
+  let center = $state(L.latLng(Nominatim_Config.Map_Default_Lat,
+                               Nominatim_Config.Map_Default_Lon));
+  let zoom = $state(Nominatim_Config.Map_Default_Zoom);
+  let viewboxStr = $state();
+  let lastClick = $state();
+  let mousePos = $state();
+
   let dataLayers = [];
+
+  function mapViewboxAsString(map) {
+    var bounds = map.getBounds();
+    var west = bounds.getWest();
+    var east = bounds.getEast();
+
+    if ((east - west) >= 360) { // covers more than whole planet
+      west = map.getCenter().lng - 179.999;
+      east = map.getCenter().lng + 179.999;
+    }
+    east = L.latLng(77, east).wrap().lng;
+    west = L.latLng(77, west).wrap().lng;
+
+    return [
+      west.toFixed(5), // left
+      bounds.getNorth().toFixed(5), // top
+      east.toFixed(5), // right
+      bounds.getSouth().toFixed(5) // bottom
+    ].join(',');
+  }
 
   function createMap(container) {
     const attribution = Nominatim_Config.Map_Tile_Attribution;
@@ -24,11 +51,8 @@
       attributionControl: false,
       scrollWheelZoom: true, // !L.Browser.touch,
       touchZoom: false,
-      center: [
-        Nominatim_Config.Map_Default_Lat,
-        Nominatim_Config.Map_Default_Lon
-      ],
-      zoom: Nominatim_Config.Map_Default_Zoom
+      center: center,
+      zoom: zoom
     });
     if (typeof Nominatim_Config.Map_Default_Bounds !== 'undefined'
       && Nominatim_Config.Map_Default_Bounds) {
@@ -38,6 +62,8 @@
     if (attribution && attribution.length) {
       L.control.attribution({ prefix: '<a href="https://leafletjs.com/">Leaflet</a>' }).addTo(map);
     }
+
+    viewboxStr = mapViewboxAsString(map);
 
     L.control.scale().addTo(map);
 
@@ -53,6 +79,15 @@
       });
       new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
     }
+
+    map.on('move', () => {
+      center = map.getCenter();
+      zoom = map.getZoom();
+      viewboxStr = mapViewboxAsString(map);
+    });
+
+    map.on('mousemove', (e) => { mousePos = e.latlng; });
+    map.on('click', (e) => { lastClick = e.latlng; });
 
     return map;
   }
@@ -180,7 +215,7 @@
 </script>
 
 <div id="map" use:mapAction></div>
-<MapPosition />
+<MapPosition {center} {zoom} {viewboxStr} {lastClick} {mousePos}/>
 
 <style>
   #map {
