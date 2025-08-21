@@ -1,3 +1,6 @@
+* unlreleased
+    * Map: add scale in bottom left corner
+
 * version 3.7.1 - 2025-05-27
     * Remove .php from endpoint URLs. Nominatim no longer uses them
     * Status page: when endpoint is a callback, then call it
