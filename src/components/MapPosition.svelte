@@ -2,6 +2,7 @@
 
   import { map_store } from '../lib/stores.js';
 
+  let visible = $state(false);
   let map_center = $state();
   let map_zoom = $state();
   let map_viewbox = $state();
@@ -73,14 +74,10 @@
     });
   });
 
-  function handleHideClick() {
-    document.getElementById('map-position').style.display = 'none';
-    document.getElementById('show-map-position').style.display = 'block';
-  }
-
 </script>
 
 <div id="map-position">
+{#if visible}
   <div id="map-position-inner">
     map center: {map_center}
     <a target="_blank" rel="noreferrer" href="{view_on_osm_link}">view on osm.org</a>
@@ -93,21 +90,28 @@
     <br>
     mouse position: {mouse_position}
   </div>
-  <div id="map-position-close"><a href="#hide" onclick={handleHideClick}>hide</a></div>
+  <div id="map-position-close"><a href="#hide" onclick={() => visible = false}>hide</a></div>
+{:else}
+<button class="btn btn-sm btn-outline-secondary" onclick={() => visible = true}
+>show map bounds</button>
+{/if}
 </div>
-
 
 <style>
   #map-position {
-    display: none;
+    display: block;
     position: absolute;
     top: 0;
     right: 20px;
-    padding: 0 5px;
     color: #333;
     font-size: 11px;
     background-color: rgba(255, 255, 255, 0.7);
     z-index: 1000;
+    margin: 5px
+  }
+
+  #map-position-inner {
+    padding: 0 5px;
   }
 
   #map-position-close {
@@ -120,4 +124,14 @@
       right: 20px;
     }
   }
+
+  .btn-outline-secondary {
+    background-color: white;
+  }
+
+  .btn-outline-secondary:hover {
+    color: #111;
+  }
+
+
 </style>

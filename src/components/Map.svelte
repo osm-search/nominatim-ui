@@ -54,12 +54,6 @@
       new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
     }
 
-    const MapPositionControl = L.Control.extend({
-      options: { position: 'topright' },
-      onAdd: () => { return document.getElementById('show-map-position'); }
-    });
-    map.addControl(new MapPositionControl());
-
     return map;
   }
 
@@ -183,31 +177,15 @@
 
   $effect(() => { setMapData(current_result); });
 
-  function show_map_position_click(e) {
-    e.stopPropagation();
-    e.target.style.display = 'none';
-    document.getElementById('map-position').style.display = 'block';
-  }
 </script>
 
-<MapPosition />
 <div id="map" use:mapAction></div>
-<button id="show-map-position" class="leaflet-bar btn btn-sm btn-outline-secondary"
-      onclick={show_map_position_click}
->show map bounds</button>
+<MapPosition />
 
 <style>
   #map {
     height: 100%;
     background:#eee;
-  }
-
-  .btn-outline-secondary {
-    background-color: white;
-  }
-
-  .btn-outline-secondary:hover {
-    color: #111;
   }
 
   @media (max-width: 768px) {
