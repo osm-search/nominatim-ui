@@ -5,8 +5,7 @@
   import 'leaflet/dist/leaflet.css';
   import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 
-  import { get } from 'svelte/store';
-  import { map_store } from '../lib/stores.js';
+  import { mapState } from '../state/MapState.svelte.js';
   import MapPosition from '../components/MapPosition.svelte';
 
   let {
@@ -15,20 +14,38 @@
     position_marker = null
   } = $props();
 
+  let map;
   let dataLayers = [];
+
+  function mapViewboxAsString(map) {
+    var bounds = map.getBounds();
+    var west = bounds.getWest();
+    var east = bounds.getEast();
+
+    if ((east - west) >= 360) { // covers more than whole planet
+      west = map.getCenter().lng - 179.999;
+      east = map.getCenter().lng + 179.999;
+    }
+    east = L.latLng(77, east).wrap().lng;
+    west = L.latLng(77, west).wrap().lng;
+
+    return [
+      west.toFixed(5), // left
+      bounds.getNorth().toFixed(5), // top
+      east.toFixed(5), // right
+      bounds.getSouth().toFixed(5) // bottom
+    ].join(',');
+  }
 
   function createMap(container) {
     const attribution = Nominatim_Config.Map_Tile_Attribution;
 
-    let map = new L.map(container, {
+    map = new L.map(container, {
       attributionControl: false,
       scrollWheelZoom: true, // !L.Browser.touch,
       touchZoom: false,
-      center: [
-        Nominatim_Config.Map_Default_Lat,
-        Nominatim_Config.Map_Default_Lon
-      ],
-      zoom: Nominatim_Config.Map_Default_Zoom
+      center: mapState.center,
+      zoom: mapState.zoom
     });
     if (typeof Nominatim_Config.Map_Default_Bounds !== 'undefined'
       && Nominatim_Config.Map_Default_Bounds) {
@@ -38,6 +55,8 @@
     if (attribution && attribution.length) {
       L.control.attribution({ prefix: '<a href="https://leafletjs.com/">Leaflet</a>' }).addTo(map);
     }
+
+    mapState.viewboxStr = mapViewboxAsString(map);
 
     L.control.scale().addTo(map);
 
@@ -54,23 +73,22 @@
       new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
     }
 
-    const MapPositionControl = L.Control.extend({
-      options: { position: 'topright' },
-      onAdd: () => { return document.getElementById('show-map-position'); }
+    map.on('move', () => {
+      mapState.center = map.getCenter();
+      mapState.zoom = map.getZoom();
+      mapState.viewboxStr = mapViewboxAsString(map);
     });
-    map.addControl(new MapPositionControl());
 
-    return map;
+    map.on('mousemove', (e) => { mapState.mousePos = e.latlng; });
+    map.on('click', (e) => { mapState.lastClick = e.latlng; });
   }
 
   function mapAction(container) {
-    let map = createMap(container);
-    map_store.set(map);
-    setMapData(current_result);
+    createMap(container);
+    setMapData(position_marker, current_result);
 
     return {
       destroy: () => {
-        map_store.set(null);
         map.remove();
       }
     };
@@ -93,7 +111,6 @@
   }
 
   function resetMapData() {
-    let map = get(map_store);
     if (!map) { return; }
 
     dataLayers.forEach(function (layer) {
@@ -101,16 +118,15 @@
     });
   }
 
-  function setMapData(aFeature) {
-    let map = get(map_store);
+  function setMapData(marker, aFeature) {
     if (!map) { return; }
 
     resetMapData();
 
-    if (position_marker) {
+    if (marker) {
       // We don't need a marker, but L.circle would change radius when you zoom in/out
       let cm = L.circleMarker(
-        position_marker,
+        marker,
         {
           radius: 5,
           weight: 2,
@@ -121,7 +137,7 @@
           clickable: false
         }
       );
-      cm.bindTooltip(`Search (${position_marker[0]},${position_marker[1]})`).openTooltip();
+      cm.bindTooltip(`Search (${marker[0]},${marker[1]})`).openTooltip();
       cm.addTo(map);
       dataLayers.push(cm);
     }
@@ -153,7 +169,7 @@
       let circle = L.circleMarker([lat, lon], {
         radius: 10, weight: 2, fillColor: '#ff7800', color: 'blue', opacity: 0.75
       });
-      if (position_marker) { // reverse result
+      if (marker) { // reverse result
         circle.bindTooltip('Result').openTooltip();
       }
       map.addLayer(circle);
@@ -174,40 +190,26 @@
       map.addLayer(geojson_layer);
       dataLayers.push(geojson_layer);
       map.fitBounds(geojson_layer.getBounds());
-    } else if (lat && lon && position_marker) {
-      map.fitBounds([[lat, lon], position_marker], { padding: [50, 50] });
+    } else if (lat && lon && marker) {
+      map.fitBounds([[lat, lon], marker], { padding: [50, 50] });
     } else if (lat && lon) {
       map.setView([lat, lon], 10);
     }
   }
 
-  $effect(() => { setMapData(current_result); });
+  $effect(() => {
+    setMapData(position_marker, current_result);
+  });
 
-  function show_map_position_click(e) {
-    e.stopPropagation();
-    e.target.style.display = 'none';
-    document.getElementById('map-position').style.display = 'block';
-  }
 </script>
 
-<MapPosition />
 <div id="map" use:mapAction></div>
-<button id="show-map-position" class="leaflet-bar btn btn-sm btn-outline-secondary"
-      onclick={show_map_position_click}
->show map bounds</button>
+<MapPosition />
 
 <style>
   #map {
     height: 100%;
     background:#eee;
-  }
-
-  .btn-outline-secondary {
-    background-color: white;
-  }
-
-  .btn-outline-secondary:hover {
-    color: #111;
   }
 
   @media (max-width: 768px) {

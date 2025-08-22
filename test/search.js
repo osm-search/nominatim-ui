@@ -35,10 +35,9 @@ describe('Search Page', function () {
     it('should show map bounds buttons', async function () {
       await page.waitForSelector('#map');
       let show_map_pos_handle = await page.$('#show-map-position');
-      let map_pos_handle = await page.$('#map-position');
+      assert.strictEqual(await page.$('#map-position-inner'), null);
 
       await show_map_pos_handle.click();
-      assert.strictEqual(await map_pos_handle.evaluate(node => node.style.display), 'block');
 
       let map_pos_details = await page.$eval('#map-position-inner', el => el.textContent);
       map_pos_details = map_pos_details.split('  ');
@@ -58,10 +57,11 @@ describe('Search Page', function () {
       assert.deepStrictEqual(map_center_coords.length, 2);
       assert.ok(map_zoom);
       assert.deepStrictEqual(map_viewbox.length, 4);
-      assert.deepStrictEqual(last_click, '65.62128,104.41406');
+      assert.deepStrictEqual(last_click, '-');
 
       await page.click('#map-position-close a');
-      assert.strictEqual(await map_pos_handle.evaluate(node => node.style.display), 'none');
+      assert.strictEqual(await page.$('#map-position-inner'), null);
+      assert.ok(await page.$('#show-map-position'));
     });
   });
 

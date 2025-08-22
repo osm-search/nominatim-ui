@@ -1,70 +1,10 @@
 <script>
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
-
-  import { map_store } from '../lib/stores.js';
-  import { get } from 'svelte/store';
+  import { mapState } from '../state/MapState.svelte.js';
 
   let { bStructuredSearch = false, api_request_params = {} } = $props();
 
-  let sViewBox = $state();
-
-  // lat,lon are later set in update_reverse_link()
-  let lat; // eslint-disable-line no-unused-vars
-  let lon; // eslint-disable-line no-unused-vars
-
-  function map_viewbox_as_string(map) {
-    var bounds = map.getBounds();
-    var west = bounds.getWest();
-    var east = bounds.getEast();
-
-    if ((east - west) >= 360) { // covers more than whole planet
-      west = map.getCenter().lng - 179.999;
-      east = map.getCenter().lng + 179.999;
-    }
-    east = L.latLng(77, east).wrap().lng;
-    west = L.latLng(77, west).wrap().lng;
-
-    return [
-      west.toFixed(5), // left
-      bounds.getNorth().toFixed(5), // top
-      east.toFixed(5), // right
-      bounds.getSouth().toFixed(5) // bottom
-    ].join(',');
-  }
-
-  function set_viewbox(map) {
-    let use_viewbox = document.getElementById('use_viewbox');
-    if (use_viewbox && use_viewbox.checked) {
-      sViewBox = map_viewbox_as_string(map);
-    } else {
-      sViewBox = '';
-    }
-  }
-
-  function update_reverse_link(map) {
-    let center_lat_lng = map.wrapLatLng(map.getCenter());
-    lat = center_lat_lng.lat.toFixed(5);
-    lon = center_lat_lng.lng.toFixed(5);
-  }
-
-  map_store.subscribe(map => {
-    if (!map) { return; }
-
-    map.on('move', function () {
-      set_viewbox(map);
-      update_reverse_link(map);
-    });
-
-    map.on('load', function () {
-      set_viewbox(map);
-      update_reverse_link(map);
-    });
-  });
-
-  function reset_viewbox() {
-    let map = get(map_store);
-    if (map) { set_viewbox(map); }
-  }
+  let useViewbox = $state(api_request_params.viewbox || false);
 
   function set_bounded(e) {
     document.querySelector('input[name=bounded]').value = e.target.checked ? 1 : '';
@@ -83,7 +23,7 @@
 <div class="col-auto">
   <button type="submit" class="btn btn-primary btn-sm">Search</button>
   <input type="hidden"
-         name="viewbox" value="{sViewBox || ''}" />
+         name="viewbox" value="{useViewbox ? mapState.viewboxStr : ''}" />
   <input type="hidden"
          name="dedupe" value="{api_request_params.dedupe === 0 ? 0 : 1}" />
   <input type="hidden"
@@ -178,7 +118,8 @@
       <div class="form-check form-check-inline">
         <label class="form-check-label" for="use_viewbox">apply viewbox</label>
         <input type="checkbox" class="form-check-input api-param-setting"
-               id="use_viewbox" checked={api_request_params.viewbox} onchange={reset_viewbox}>
+               id="use_viewbox" checked={api_request_params.viewbox}
+               onchange={() => useViewbox = !useViewbox}>
       </div>
     </li>
 
