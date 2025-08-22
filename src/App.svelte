@@ -2,6 +2,7 @@
   import 'bootstrap/dist/css/bootstrap.css';
   import 'bootstrap/dist/js/bootstrap.bundle.js';
 
+  import { onMount } from 'svelte';
   import { page, refresh_page } from './lib/stores.js';
 
   import Footer from './components/Footer.svelte';
@@ -13,7 +14,15 @@
   import StatusPage from './pages/StatusPage.svelte';
   import AboutPage from './pages/AboutPage.svelte';
 
-  $: view = $page.tab;
+  let view = $state();
+
+  onMount(() => {
+    page.subscribe((pageinfo) => {
+      if (pageinfo.tab !== view) {
+        view = pageinfo.tab;
+      }
+    })
+  });
 
   refresh_page();
 </script>
