@@ -5,8 +5,7 @@
   import 'leaflet/dist/leaflet.css';
   import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 
-  import { get } from 'svelte/store';
-  import { map_store } from '../lib/stores.js';
+  import { mapState } from '../state/MapState.svelte.js';
   import MapPosition from '../components/MapPosition.svelte';
 
   let {
@@ -15,13 +14,7 @@
     position_marker = null
   } = $props();
 
-  let center = $state(L.latLng(Nominatim_Config.Map_Default_Lat,
-                               Nominatim_Config.Map_Default_Lon));
-  let zoom = $state(Nominatim_Config.Map_Default_Zoom);
-  let viewboxStr = $state();
-  let lastClick = $state();
-  let mousePos = $state();
-
+  let map;
   let dataLayers = [];
 
   function mapViewboxAsString(map) {
@@ -47,12 +40,12 @@
   function createMap(container) {
     const attribution = Nominatim_Config.Map_Tile_Attribution;
 
-    let map = new L.map(container, {
+    map = new L.map(container, {
       attributionControl: false,
       scrollWheelZoom: true, // !L.Browser.touch,
       touchZoom: false,
-      center: center,
-      zoom: zoom
+      center: mapState.center,
+      zoom: mapState.zoom
     });
     if (typeof Nominatim_Config.Map_Default_Bounds !== 'undefined'
       && Nominatim_Config.Map_Default_Bounds) {
@@ -63,7 +56,7 @@
       L.control.attribution({ prefix: '<a href="https://leafletjs.com/">Leaflet</a>' }).addTo(map);
     }
 
-    viewboxStr = mapViewboxAsString(map);
+    mapState.viewboxStr = mapViewboxAsString(map);
 
     L.control.scale().addTo(map);
 
@@ -81,25 +74,21 @@
     }
 
     map.on('move', () => {
-      center = map.getCenter();
-      zoom = map.getZoom();
-      viewboxStr = mapViewboxAsString(map);
+      mapState.center = map.getCenter();
+      mapState.zoom = map.getZoom();
+      mapState.viewboxStr = mapViewboxAsString(map);
     });
 
-    map.on('mousemove', (e) => { mousePos = e.latlng; });
-    map.on('click', (e) => { lastClick = e.latlng; });
-
-    return map;
+    map.on('mousemove', (e) => { mapState.mousePos = e.latlng; });
+    map.on('click', (e) => { mapState.lastClick = e.latlng; });
   }
 
   function mapAction(container) {
-    let map = createMap(container);
-    map_store.set(map);
-    setMapData(current_result);
+    createMap(container);
+    setMapData(position_marker, current_result);
 
     return {
       destroy: () => {
-        map_store.set(null);
         map.remove();
       }
     };
@@ -122,7 +111,6 @@
   }
 
   function resetMapData() {
-    let map = get(map_store);
     if (!map) { return; }
 
     dataLayers.forEach(function (layer) {
@@ -130,16 +118,15 @@
     });
   }
 
-  function setMapData(aFeature) {
-    let map = get(map_store);
+  function setMapData(marker, aFeature) {
     if (!map) { return; }
 
     resetMapData();
 
-    if (position_marker) {
+    if (marker) {
       // We don't need a marker, but L.circle would change radius when you zoom in/out
       let cm = L.circleMarker(
-        position_marker,
+        marker,
         {
           radius: 5,
           weight: 2,
@@ -150,7 +137,7 @@
           clickable: false
         }
       );
-      cm.bindTooltip(`Search (${position_marker[0]},${position_marker[1]})`).openTooltip();
+      cm.bindTooltip(`Search (${marker[0]},${marker[1]})`).openTooltip();
       cm.addTo(map);
       dataLayers.push(cm);
     }
@@ -182,7 +169,7 @@
       let circle = L.circleMarker([lat, lon], {
         radius: 10, weight: 2, fillColor: '#ff7800', color: 'blue', opacity: 0.75
       });
-      if (position_marker) { // reverse result
+      if (marker) { // reverse result
         circle.bindTooltip('Result').openTooltip();
       }
       map.addLayer(circle);
@@ -203,19 +190,21 @@
       map.addLayer(geojson_layer);
       dataLayers.push(geojson_layer);
       map.fitBounds(geojson_layer.getBounds());
-    } else if (lat && lon && position_marker) {
-      map.fitBounds([[lat, lon], position_marker], { padding: [50, 50] });
+    } else if (lat && lon && marker) {
+      map.fitBounds([[lat, lon], marker], { padding: [50, 50] });
     } else if (lat && lon) {
       map.setView([lat, lon], 10);
     }
   }
 
-  $effect(() => { setMapData(current_result); });
+  $effect(() => {
+    setMapData(position_marker, current_result);
+  });
 
 </script>
 
 <div id="map" use:mapAction></div>
-<MapPosition {center} {zoom} {viewboxStr} {lastClick} {mousePos}/>
+<MapPosition />
 
 <style>
   #map {

@@ -4,7 +4,8 @@
   import LastUpdated from './LastUpdated.svelte';
   import Error from './Error.svelte';
   import { onMount } from 'svelte';
-  import { map_store, page } from '../lib/stores.js';
+  import { page } from '../lib/stores.js';
+  import { mapState } from '../state/MapState.svelte.js';
   import { initColorToggler } from '../color-mode-toggler.js';
 
   let { subheader } = $props();
@@ -13,17 +14,6 @@
   const reverse_only = Nominatim_Config.Reverse_Only;
 
   let view = $state();
-  let map_lat = $state();
-  let map_lon = $state();
-
-  map_store.subscribe(map => {
-    if (!map) return;
-
-    map.on('move', function () {
-      map_lat = map.getCenter().lat.toFixed(5);
-      map_lon = map.getCenter().lng.toFixed(5);
-    });
-  });
 
   page.subscribe(pg => { view = pg.tab; });
 
@@ -104,8 +94,8 @@
             </li>
           {/if}
           <li class="nav-item">
-            <ReverseLink lat={map_lat}
-                         lon={map_lon}
+            <ReverseLink lat={mapState.center.lat}
+                         lon={mapState.center.lng}
                          text="Reverse"
                          extra_classes="nav-link {view === 'reverse' ? 'active' : ''}" />
           </li>

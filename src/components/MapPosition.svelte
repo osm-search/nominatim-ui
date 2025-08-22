@@ -1,14 +1,10 @@
 <script>
-  let { center,
-        zoom,
-        viewboxStr,
-        lastClick,
-        mousePos } = $props();
+  import { mapState } from '../state/MapState.svelte.js';
 
   let visible = $state(false);
 
   const view_on_osm_link = $derived(
-      `https://openstreetmap.org/#map=${zoom}/${center.lat.toFixed(5)}/${center.lng.toFixed(5)}`
+      `https://openstreetmap.org/#map=${mapState.zoom}/${mapState.center.lat.toFixed(5)}/${mapState.center.lng.toFixed(5)}`
   );
 
   function coordToString(c) {
@@ -19,21 +15,24 @@
 <div id="map-position">
 {#if visible}
   <div id="map-position-inner">
-    map center: {coordToString(center)}
+    map center: {coordToString(mapState.center)}
     <a target="_blank" rel="noreferrer" href="{view_on_osm_link}">view on osm.org</a>
     <br>
-    map zoom: {zoom}
+    map zoom: {mapState.zoom}
     <br>
-    viewbox: {viewboxStr}
+    viewbox: {mapState.viewboxStr}
     <br>
-    last click: {coordToString(lastClick)}
+    last click: {coordToString(mapState.lastClick)}
     <br>
-    mouse position: {coordToString(mousePos)}
+    mouse position: {coordToString(mapState.mousePos)}
   </div>
   <div id="map-position-close"><a href="#hide" onclick={() => visible = false}>hide</a></div>
 {:else}
-<button class="btn btn-sm btn-outline-secondary" onclick={() => visible = true}
->show map bounds</button>
+<button id="show-map-position"
+        class="btn btn-sm btn-outline-secondary"
+        onclick={() => visible = true}>
+  show map bounds
+</button>
 {/if}
 </div>
 

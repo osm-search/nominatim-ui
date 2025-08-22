@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
+import { untrack } from 'svelte';
 import { identifyLinkInQuery } from './helpers.js';
 
-export const map_store = writable();
 export const results_store = writable();
 export const last_api_request_url_store = writable();
 export const error_store = writable();
@@ -66,7 +66,9 @@ export function refresh_page(pagename, params) {
     }
   }
 
-  page.set({ tab: pagename, params: params });
-  last_api_request_url_store.set(null);
-  error_store.set(null);
+  untrack(() => {
+    page.set({ tab: pagename, params: params });
+    last_api_request_url_store.set(null);
+    error_store.set(null);
+  });
 }

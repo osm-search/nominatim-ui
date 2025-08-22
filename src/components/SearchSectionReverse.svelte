@@ -1,29 +1,20 @@
 <script>
-  import { onDestroy } from 'svelte';
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
-  import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   import { zoomLevels } from '../lib/helpers.js';
-  import { map_store, refresh_page } from '../lib/stores.js';
+  import { refresh_page } from '../lib/stores.js';
+  import { mapState } from '../state/MapState.svelte.js';
 
   let { lat = '', lon = '', zoom = '', api_request_params = {} } = $props();
 
-  function gotoCoordinates(newlat, newlon, newzoom) {
-    if (newlat === null || newlon === null) return;
-
-    let params = new SvelteURLSearchParams();
-    params.set('lat', newlat);
-    params.set('lon', newlon);
-    params.set('zoom', newzoom || zoom);
-    refresh_page('reverse', params);
-  }
-
-  const unsubscribe = map_store.subscribe(map => {
-    if (map) {
-      map.on('click', (e) => {
-        let coords = e.latlng.wrap();
-        gotoCoordinates(coords.lat.toFixed(5), coords.lng.toFixed(5));
-      });
+  $effect(() => {
+    const newCenter = mapState.lastClick;
+    if (newCenter) {
+      refresh_page('reverse', new URLSearchParams({
+        'lat': newCenter.lat,
+        'lon': newCenter.lng,
+        'zoom': zoom
+      }));
     }
   });
 
@@ -43,10 +34,12 @@
   function onSwitchCoords(e) {
     e.preventDefault();
     e.stopPropagation();
-    gotoCoordinates(lon, lat);
+    refresh_page('reverse', new URLSearchParams({
+        lat: lon || '',
+        lon: lat || '',
+        zoom: zoom
+      }));
   }
-
-  onDestroy(unsubscribe);
 </script>
 
 {#snippet content()}

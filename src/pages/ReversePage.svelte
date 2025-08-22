@@ -7,7 +7,7 @@
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
-  let api_request_params = $state();
+  let api_request_params = $state.raw();
   let current_result = $state();
   let position_marker = $state(); // what the user searched for
 
@@ -25,9 +25,9 @@
     };
 
     if (api_request_params.lat && api_request_params.lon) {
+      position_marker = [api_request_params.lat, api_request_params.lon];
 
       fetch_from_api('reverse', api_request_params, function (data) {
-        position_marker = [api_request_params.lat, api_request_params.lon];
         if (data && !data.error) {
           results_store.set([data]);
         } else {
