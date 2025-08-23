@@ -1,6 +1,8 @@
 <script>
-  import { page, results_store } from '../lib/stores.js';
-  import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
+  import { untrack } from 'svelte';
+  import { results_store } from '../lib/stores.js';
+  import { update_html_title } from '../lib/api_utils.js';
+  import { appState } from '../state/AppState.svelte.js';
 
   import Header from '../components/Header.svelte';
   import SearchSectionReverse from '../components/SearchSectionReverse.svelte';
@@ -27,7 +29,7 @@
     if (api_request_params.lat && api_request_params.lon) {
       position_marker = [api_request_params.lat, api_request_params.lon];
 
-      fetch_from_api('reverse', api_request_params, function (data) {
+      appState.fetchFromApi('reverse', api_request_params, function (data) {
         if (data && !data.error) {
           results_store.set([data]);
         } else {
@@ -45,17 +47,18 @@
     }
   }
 
-  page.subscribe((pageinfo) => {
-    if (pageinfo.tab === 'reverse') {
-      loaddata(pageinfo.params);
+  $effect(() => {
+    if (appState.page.tab === 'reverse') {
+      const params = appState.page.params;
+      untrack(() => loaddata(params));
     }
   });
 </script>
 
 {#snippet subheader()}
-  <SearchSectionReverse lat={api_request_params.lat}
-                        lon={api_request_params.lon}
-                        zoom={api_request_params.zoom}
+  <SearchSectionReverse lat={api_request_params?.lat}
+                        lon={api_request_params?.lon}
+                        zoom={api_request_params?.zoom}
                         api_request_params={api_request_params} />
 {/snippet}
 <Header {subheader} />

@@ -1,5 +1,5 @@
 <script>
-  import { refresh_page } from '../lib/stores.js';
+  import { appState } from '../state/AppState.svelte.js';
 
   let {
     page,
@@ -11,7 +11,7 @@
   function handleClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    refresh_page(page, new URLSearchParams(params_hash));
+    appState.refreshPage(page, new URLSearchParams(params_hash));
   }
 
   const href = $derived.by(() => {

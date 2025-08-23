@@ -1,13 +1,15 @@
 <script>
-  import { page, results_store } from '../lib/stores.js';
-  import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
+  import { untrack } from 'svelte';
+  import { results_store } from '../lib/stores.js';
+  import { update_html_title } from '../lib/api_utils.js';
+  import { appState } from '../state/AppState.svelte.js';
 
   import Header from '../components/Header.svelte';
   import SearchSection from '../components/SearchSection.svelte';
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
-  let api_request_params = $state();
+  let api_request_params = $state.raw();
   let bStructuredSearch = $state();
   let current_result = $state();
 
@@ -43,7 +45,7 @@
                                 || api_request_params.postalcode);
 
     if (api_request_params.q || anyStructuredFieldsSet) {
-      fetch_from_api('search', api_request_params, function (data) {
+      appState.fetchFromApi('search', api_request_params, function (data) {
         results_store.set(data);
 
         if (anyStructuredFieldsSet) {
@@ -69,9 +71,10 @@
     }
   }
 
-  page.subscribe((pageinfo) => {
-    if (pageinfo.tab === 'search') {
-      loaddata(pageinfo.params);
+  $effect(() => {
+    if (appState.page.tab === 'search') {
+      const params = appState.page.params;
+      untrack(() => loaddata(params));
     }
   });
 </script>

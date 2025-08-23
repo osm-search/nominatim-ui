@@ -1,6 +1,7 @@
 <script>
-  import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
-  import { page } from '../lib/stores.js';
+  import { untrack } from 'svelte';
+  import { update_html_title } from '../lib/api_utils.js';
+  import { appState } from '../state/AppState.svelte.js';
 
   import {
     osmLink, wikipediaLink, coverageType, isAdminBoundary,
@@ -17,7 +18,7 @@
 
   let aPlace = $state();
   let base_url = $state();
-  let api_request_params = $state();
+  let api_request_params = $state.raw();
   let api_request_finished = $state(false);
 
   function loaddata(search_params) {
@@ -43,7 +44,7 @@
         update_html_title('Details for ' + api_request_params.osmtype + api_request_params.osmid);
       }
 
-      fetch_from_api('details', api_request_params, function (data) {
+      appState.fetchFromApi('details', api_request_params, function (data) {
         window.scrollTo(0, 0);
         api_request_finished = true;
         aPlace = (data && !data.error) ? data : undefined;
@@ -67,10 +68,13 @@
     return aLine ? aLine.localname : null;
   }
 
-  page.subscribe((pageinfo) => {
-    if (pageinfo.tab === 'details') {
-      loaddata(pageinfo.params);
-      base_url = window.location.search;
+  $effect(() => {
+    if (appState.page.tab === 'details') {
+      const params = appState.page.params;
+      untrack(() => {
+        loaddata(params);
+        base_url = window.location.search;
+      });
     }
   });
 

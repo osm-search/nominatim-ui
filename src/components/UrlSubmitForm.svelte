@@ -1,5 +1,5 @@
 <script>
-  import { refresh_page } from '../lib/stores.js';
+  import { appState } from '../state/AppState.svelte.js';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   let { page, content } = $props();
@@ -47,7 +47,7 @@
       }
     });
 
-    if (allow_submit) refresh_page(page, serialize_form(form));
+    if (allow_submit) appState.refreshPage(page, serialize_form(form));
   }
 </script>
 
