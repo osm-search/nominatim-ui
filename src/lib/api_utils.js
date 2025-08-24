@@ -1,63 +1,3 @@
-import { last_api_request_url_store, error_store } from './stores.js';
-
-function api_request_progress(status) {
-  var loading_el = document.getElementById('loading');
-  if (!loading_el) return; // might not be on page yet
-
-  loading_el.style.display = (status === 'start') ? 'block' : null;
-}
-
-export async function fetch_from_api(endpoint_name, params, callback) {
-  var api_url = generate_nominatim_api_url(endpoint_name, params);
-
-  const mock_api_error = (new URLSearchParams(window.location.search)).get('mock_api_error');
-
-  api_request_progress('start');
-  if (endpoint_name !== 'status') last_api_request_url_store.set(null);
-
-  try {
-    await fetch(api_url, { headers: Nominatim_Config.Nominatim_API_Endpoint_Headers || {} })
-      .then(async (response) => {
-        if ((!((response.status >= 200 && response.status < 300) || response.status === 404))
-            || mock_api_error === 'fetch'
-        ) {
-          error_store.set(`Error fetching data from ${api_url} (${response.statusText})`);
-          return undefined;
-        }
-
-        // Parse JSON here instead of returning a promise so we can catch possible
-        // errors.
-        var data;
-        try {
-          if (mock_api_error === 'parse') {
-            data = JSON.parse('{');
-          } else {
-            data = await response.json();
-          }
-        } catch (err) {
-          // e.g. 'JSON.parse: unexpected non-whitespace character after JSON data at line 1'
-          error_store.set(`Error parsing JSON data from ${api_url} (${err})`);
-          return undefined;
-        }
-        return data;
-      })
-      .then((data) => {
-        if (data) {
-          if (data.error) {
-            error_store.set(data.error.message);
-          }
-          callback(data);
-        }
-        api_request_progress('finish');
-      });
-  } catch (error) {
-    error_store.set(`Error fetching data from ${api_url} (${error})`);
-    api_request_progress('finish');
-  }
-
-  if (endpoint_name !== 'status') last_api_request_url_store.set(api_url);
-}
-
 var fetch_content_cache = {};
 export async function fetch_content_into_element(url, dom_element) {
   if (!window.location.protocol.match(/^http/)) {
@@ -95,7 +35,7 @@ function generate_nominatim_endpoint_url(endpoint_name) {
   return conf_endpoint + endpoint_name;
 }
 
-function generate_nominatim_api_url(endpoint_name, params) {
+export function generate_nominatim_api_url(endpoint_name, params) {
   // default value for /search
   if (params.dedupe === 1) delete params.dedupe;
 

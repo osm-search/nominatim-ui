@@ -1,6 +1,5 @@
 <script>
-  import { refresh_page } from '../lib/stores.js';
-  import { SvelteURLSearchParams } from 'svelte/reactivity';
+  import { appState } from '../state/AppState.svelte.js';
 
   let { text = 'details', extra_classes = '', feature = null } = $props();
 
@@ -12,28 +11,28 @@
   }
 
   const url_params = $derived.by(() => {
-    const new_params = new SvelteURLSearchParams();
+    const new_params = {};
 
     if (feature !== null) {
       if (feature.osm_type) {
         if (feature.osm_type.length === 1) {
-          new_params.set('osmtype', feature.osm_type);
+          new_params.osmtype = feature.osm_type;
         } else {
-          new_params.set('osmtype', formatShortOSMType(feature.osm_type));
+          new_params.osmtype = formatShortOSMType(feature.osm_type);
         }
 
-        new_params.set('osmid', feature.osm_id);
+        new_params.osmid = feature.osm_id;
 
         if (feature.class) {
-          new_params.set('class', feature.class);
+          new_params.class = feature.class;
         } else if (feature.category) {
-          new_params.set('class', feature.category);
+          new_params.class = feature.category;
         }
       } else if (feature.place_id) {
-        new_params.set('place_id', feature.place_id);
+        new_params.place_id = feature.place_id;
       }
     }
-    return new_params;
+    return new URLSearchParams(new_params);
   });
 
   const href = $derived.by(() => {
@@ -44,7 +43,7 @@
   function handleClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    refresh_page('details', url_params);
+    appState.refreshPage('details', url_params);
   }
 </script>
 

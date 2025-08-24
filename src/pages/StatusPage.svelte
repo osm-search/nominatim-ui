@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
-  import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
+  import { update_html_title } from '../lib/api_utils.js';
+  import { appState } from '../state/AppState.svelte.js';
 
   import Header from '../components/Header.svelte';
 
@@ -12,7 +13,7 @@
                       configuration.Nominatim_API_Endpoint;
 
   function loaddata() {
-    fetch_from_api('status', { format: 'json' }, function (data) {
+    appState.fetchFromApi('status', { format: 'json' }, function (data) {
       aStatusData = data;
     });
     update_html_title('Server status');

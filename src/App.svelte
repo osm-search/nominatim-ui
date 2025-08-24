@@ -2,8 +2,7 @@
   import 'bootstrap/dist/css/bootstrap.css';
   import 'bootstrap/dist/js/bootstrap.bundle.js';
 
-  import { onMount } from 'svelte';
-  import { page, refresh_page } from './lib/stores.js';
+  import { appState } from './state/AppState.svelte.js';
 
   import Footer from './components/Footer.svelte';
   import SearchPage from './pages/SearchPage.svelte';
@@ -13,36 +12,24 @@
   import DeletablePage from './pages/DeletablePage.svelte';
   import StatusPage from './pages/StatusPage.svelte';
   import AboutPage from './pages/AboutPage.svelte';
-
-  let view = $state();
-
-  onMount(() => {
-    page.subscribe((pageinfo) => {
-      if (pageinfo.tab !== view) {
-        view = pageinfo.tab;
-      }
-    })
-  });
-
-  refresh_page();
 </script>
 
 <!-- deal with back-button and other user action -->
-<svelte:window on:popstate={() => refresh_page()} />
+<svelte:window on:popstate={() => appState.refreshPage()} />
 
-{#if view === 'search'}
+{#if appState.page.tab === 'search'}
 <SearchPage />
-{:else if view === 'reverse'}
+{:else if appState.page.tab === 'reverse'}
 <ReversePage />
-{:else if view === 'details'}
+{:else if appState.page.tab === 'details'}
 <DetailsPage />
-{:else if view === 'deletable'}
+{:else if appState.page.tab === 'deletable'}
 <DeletablePage />
-{:else if view === 'polygons'}
+{:else if appState.page.tab === 'polygons'}
 <PolygonsPage />
-{:else if view === 'status'}
+{:else if appState.page.tab === 'status'}
 <StatusPage />
-{:else if view === 'about'}
+{:else if appState.page.tab === 'about'}
 <AboutPage />
 {/if}
 <Footer/>

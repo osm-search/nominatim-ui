@@ -4,7 +4,7 @@
   import LastUpdated from './LastUpdated.svelte';
   import Error from './Error.svelte';
   import { onMount } from 'svelte';
-  import { page } from '../lib/stores.js';
+  import { appState } from '../state/AppState.svelte.js';
   import { mapState } from '../state/MapState.svelte.js';
   import { initColorToggler } from '../color-mode-toggler.js';
 
@@ -13,9 +13,7 @@
   const page_title = Nominatim_Config.Page_Title;
   const reverse_only = Nominatim_Config.Reverse_Only;
 
-  let view = $state();
-
-  page.subscribe(pg => { view = pg.tab; });
+  let view = $derived(appState.page.tab);
 
   onMount(initColorToggler);
 </script>

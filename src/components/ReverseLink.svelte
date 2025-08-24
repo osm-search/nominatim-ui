@@ -1,6 +1,5 @@
 <script>
-import { refresh_page } from '../lib/stores.js';
-import { SvelteURLSearchParams } from 'svelte/reactivity';
+import { appState } from '../state/AppState.svelte.js';
 
 let {
   lat = null,
@@ -11,18 +10,18 @@ let {
 } = $props();
 
 const params = $derived.by(() => {
-  let new_params = new SvelteURLSearchParams();
+  const new_params = {};
 
   if (lat && lon) {
-    new_params.set('lat', lat);
-    new_params.set('lon', lon);
+    new_params.lat = lat;
+    new_params.lon = lon;
 
     if (zoom) {
       new_params.set('zoom', zoom);
     }
   }
 
-  return new_params;
+  return new URLSearchParams(new_params);
 });
 
 const href = $derived.by(() => {
@@ -33,7 +32,7 @@ const href = $derived.by(() => {
 function onClick(e) {
   e.preventDefault();
   e.stopPropagation();
-  refresh_page('reverse', params);
+  appState.refreshPage('reverse', params);
 }
 
 </script>

@@ -1,14 +1,15 @@
 <script>
   import { onMount } from 'svelte';
-  import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
+  import { update_html_title } from '../lib/api_utils.js';
   import { formatOSMType, osmLink } from '../lib/helpers.js';
+  import { appState } from '../state/AppState.svelte.js';
 
   import Header from '../components/Header.svelte';
 
   let aPolygons = $state([]);
 
   function loaddata() {
-    fetch_from_api('polygons', { format: 'json' }, function (data) {
+    appState.fetchFromApi('polygons', { format: 'json' }, function (data) {
       aPolygons = data;
     });
     update_html_title('Broken polygons');
