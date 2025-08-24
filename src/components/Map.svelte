@@ -37,6 +37,12 @@
     ].join(',');
   }
 
+  function setMapState() {
+    mapState.viewboxStr = mapViewboxAsString(map);
+    mapState.center = map.getCenter();
+    mapState.zoom = map.getZoom();
+  }
+
   function createMap(container) {
     const attribution = Nominatim_Config.Map_Tile_Attribution;
 
@@ -44,8 +50,9 @@
       attributionControl: false,
       scrollWheelZoom: true, // !L.Browser.touch,
       touchZoom: false,
-      center: mapState.center,
-      zoom: mapState.zoom
+      center: L.latLng(Nominatim_Config.Map_Default_Lat,
+                       Nominatim_Config.Map_Default_Lon),
+      zoom: Nominatim_Config.Map_Default_Zoom
     });
     if (typeof Nominatim_Config.Map_Default_Bounds !== 'undefined'
       && Nominatim_Config.Map_Default_Bounds) {
@@ -56,7 +63,7 @@
       L.control.attribution({ prefix: '<a href="https://leafletjs.com/">Leaflet</a>' }).addTo(map);
     }
 
-    mapState.viewboxStr = mapViewboxAsString(map);
+    setMapState();
 
     L.control.scale().addTo(map);
 
@@ -73,12 +80,7 @@
       new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
     }
 
-    map.on('move', () => {
-      mapState.center = map.getCenter();
-      mapState.zoom = map.getZoom();
-      mapState.viewboxStr = mapViewboxAsString(map);
-    });
-
+    map.on('move', setMapState);
     map.on('mousemove', (e) => { mapState.mousePos = e.latlng; });
     map.on('click', (e) => { mapState.lastClick = e.latlng; });
   }
@@ -89,6 +91,7 @@
 
     return {
       destroy: () => {
+        mapState.reset();
         map.remove();
       }
     };

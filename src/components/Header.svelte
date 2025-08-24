@@ -94,8 +94,8 @@
             </li>
           {/if}
           <li class="nav-item">
-            <ReverseLink lat={mapState.center.lat}
-                         lon={mapState.center.lng}
+            <ReverseLink lat={mapState.center?.lat}
+                         lon={mapState.center?.lng}
                          text="Reverse"
                          extra_classes="nav-link {view === 'reverse' ? 'active' : ''}" />
           </li>
