@@ -1,6 +1,5 @@
 <script>
   import { untrack } from 'svelte';
-  import { results_store } from '../lib/stores.js';
   import { update_html_title } from '../lib/api_utils.js';
   import { appState } from '../state/AppState.svelte.js';
 
@@ -9,6 +8,7 @@
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
+  let results = $state();
   let api_request_params = $state.raw();
   let bStructuredSearch = $state();
   let current_result = $state();
@@ -46,7 +46,7 @@
 
     if (api_request_params.q || anyStructuredFieldsSet) {
       appState.fetchFromApi('search', api_request_params, function (data) {
-        results_store.set(data);
+        results = data;
 
         if (anyStructuredFieldsSet) {
           update_html_title('Result for ' + [
@@ -67,7 +67,7 @@
         }
       });
     } else {
-      results_store.set(undefined);
+      results = undefined;
     }
   }
 
@@ -86,7 +86,7 @@
 
 <div id="content">
   <div class="sidebar">
-    <ResultsList bind:current_result reverse_search={false} />
+    <ResultsList {results} bind:current_result reverse_search={false} />
   </div>
   <div id="map-wrapper">
     <Map {current_result} display_minimap={true} />

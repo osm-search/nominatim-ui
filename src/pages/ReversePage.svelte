@@ -1,6 +1,5 @@
 <script>
   import { untrack } from 'svelte';
-  import { results_store } from '../lib/stores.js';
   import { update_html_title } from '../lib/api_utils.js';
   import { appState } from '../state/AppState.svelte.js';
 
@@ -9,6 +8,7 @@
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
+  let results = $state.raw();
   let api_request_params = $state.raw();
   let current_result = $state();
   let position_marker = $state(); // what the user searched for
@@ -31,9 +31,9 @@
 
       appState.fetchFromApi('reverse', api_request_params, function (data) {
         if (data && !data.error) {
-          results_store.set([data]);
+          results = [data];
         } else {
-          results_store.set([]);
+          results = [];
         }
 
         update_html_title('Reverse result for '
@@ -43,7 +43,7 @@
         document.querySelector('input[name=lat]').focus();
       });
     } else {
-      results_store.set(undefined);
+      results = undefined;
     }
   }
 
@@ -65,7 +65,7 @@
 
 <div id="content">
   <div class="sidebar">
-    <ResultsList bind:current_result reverse_search={true} />
+    <ResultsList {results} bind:current_result reverse_search={true} />
   </div>
   <div id="map-wrapper">
     <Map {current_result} {position_marker} display_minimap={true} />
