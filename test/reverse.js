@@ -70,12 +70,14 @@ describe('Reverse Page', function () {
       assert.deepStrictEqual(current_url.pathname, '/details.html');
     });
 
-    it('should clear results when switching to search page', async function () {
-      await page.click('nav a[href="search.html"]');
+    if (!process.env.REVERSE_ONLY) {
+      it('should clear results when switching to search page', async function () {
+        await page.click('nav a[href="search.html"]');
 
-      let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
+        let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
 
-      assert.deepStrictEqual(results_count, 0);
-    });
+        assert.deepStrictEqual(results_count, 0);
+      });
+    }
   });
 });
