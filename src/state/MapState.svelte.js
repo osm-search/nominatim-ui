@@ -1,12 +1,17 @@
-import {latLng } from 'leaflet';
-
 class MapState {
-  center = $state(latLng(Nominatim_Config.Map_Default_Lat,
-                         Nominatim_Config.Map_Default_Lon));
-  zoom = $state(Nominatim_Config.Map_Default_Zoom);
+  center = $state();
+  zoom = $state();
   viewboxStr = $state();
   lastClick = $state();
   mousePos = $state();
+
+  reset() {
+    this.center = undefined;
+    this.zoom = undefined;
+    this.viewboxStr = '';
+    this.lastClick = undefined;
+    this.mousePos = undefined;
+  }
 }
 
 export const mapState = new MapState();
