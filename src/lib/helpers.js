@@ -46,19 +46,6 @@ export function formatLabel(aPlace) {
   return '';
 }
 
-/* en:London_Borough_of_Redbridge => https://en.wikipedia.org/wiki/London_Borough_of_Redbridge */
-export function wikipediaLink(aPlace) {
-  if (!aPlace.calculated_wikipedia) return '';
-
-  var parts = aPlace.calculated_wikipedia.split(':', 2);
-
-  var sTitle = escapeHtml(aPlace.calculated_wikipedia);
-  var sLanguage = escapeHtml(parts[0]);
-  var sArticle = escapeHtml(parts[1]);
-
-  return '<a href="https://' + sLanguage + '.wikipedia.org/wiki/' + sArticle + '" target="_blank">' + sTitle + '</a>';
-}
-
 export function coverageType(aPlace) {
   return (aPlace.isarea ? 'Polygon' : 'Point');
 }

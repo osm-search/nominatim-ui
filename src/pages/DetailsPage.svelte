@@ -4,7 +4,7 @@
   import { appState } from '../state/AppState.svelte.js';
 
   import {
-    osmLink, wikipediaLink, coverageType, isAdminBoundary,
+    osmLink, coverageType, isAdminBoundary,
     formatAddressRank, formatKeywordToken, formatOSMType
   } from '../lib/helpers.js';
   import Header from '../components/Header.svelte';
@@ -14,6 +14,7 @@
   import DetailsLink from '../components/DetailsLink.svelte';
   import DetailsPostcodeHint from '../components/DetailsPostcodeHint.svelte';
   import InfoRowList from '../components/DetailsInfoRowList.svelte';
+  import WikipediaLink from '../components/WikipediaLink.svelte';
   import Map from '../components/Map.svelte';
 
   let aPlace = $state();
@@ -140,8 +141,7 @@
             </td></tr>
             {#if aPlace.calculated_wikipedia}
               <tr class="info-row"><td>Wikipedia Calculated</td><td>
-              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html wikipediaLink(aPlace)}
+              <WikipediaLink wikipedia={aPlace.calculated_wikipedia} />
               </td></tr>
             {/if}
             <tr class="info-row"><td>Computed Postcode</td><td>
