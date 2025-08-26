@@ -4,7 +4,7 @@
   import { appState } from '../state/AppState.svelte.js';
 
   import {
-    osmLink, coverageType, isAdminBoundary,
+    coverageType, isAdminBoundary,
     formatAddressRank, formatKeywordToken, formatOSMType
   } from '../lib/helpers.js';
   import Header from '../components/Header.svelte';
@@ -15,6 +15,7 @@
   import DetailsPostcodeHint from '../components/DetailsPostcodeHint.svelte';
   import InfoRowList from '../components/DetailsInfoRowList.svelte';
   import WikipediaLink from '../components/WikipediaLink.svelte';
+  import OsmLink from '../components/OsmLink.svelte';
   import Map from '../components/Map.svelte';
 
   let aPlace = $state();
@@ -131,8 +132,9 @@
             <tr class="info-row"><td>Centre Point (lat,lon)</td><td>
                 {aPlace.centroid.coordinates[1]},{aPlace.centroid.coordinates[0]}
             </td></tr>
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <tr class="info-row"><td>OSM</td><td>{@html osmLink(aPlace)}</td></tr>
+            <tr class="info-row"><td>OSM</td><td>
+              <OsmLink osmType={aPlace.osm_type} osmId={aPlace.osm_id}/>
+            </td></tr>
             <tr class="info-row"><td>Place Id</td><td>
                {aPlace.place_id}
                (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">

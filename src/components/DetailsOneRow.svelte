@@ -1,8 +1,9 @@
 <script>
   import DetailsLink from '../components/DetailsLink.svelte';
   import PageLink from '../components/PageLink.svelte';
+  import OsmLink from '../components/OsmLink.svelte';
   import {
-    formatPlaceType, osmLink, formatAdminLevel, formatDistance
+    formatPlaceType, formatAdminLevel, formatDistance
   } from '../lib/helpers.js';
 
   let {
@@ -25,8 +26,7 @@
     {/if}
   </td>
   <td>{formatPlaceType(addressLine)}</td>
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <td>{@html osmLink(addressLine)}</td>
+  <td><OsmLink osmType={addressLine.osm_type} osmId={addressLine.osm_id} /></td>
   <td>{addressLine.rank_address}</td>
   <td>{formatAdminLevel(addressLine.admin_level)}</td>
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->

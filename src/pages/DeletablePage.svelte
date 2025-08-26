@@ -1,11 +1,11 @@
 <script>
   import { onMount } from 'svelte';
   import { update_html_title } from '../lib/api_utils.js';
-  import { osmLink } from '../lib/helpers.js';
   import { appState } from '../state/AppState.svelte.js';
 
   import Header from '../components/Header.svelte';
   import DetailsLink from '../components/DetailsLink.svelte';
+  import OsmLink from '../components/OsmLink.svelte';
 
   let aPolygons = $state([]);
 
@@ -46,8 +46,7 @@
             <td><DetailsLink feature={polygon} text={polygon.place_id} /></td>
             <td>{polygon.country_code}</td>
             <td>{polygon.name}</td>
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <td>{@html osmLink(polygon)}</td>
+            <td><OsmLink osmType={polygon.osm_type} osmId={polygon.osm_id} /></td>
             <td>{polygon.class}</td>
             <td>{polygon.type}</td>
           </tr>

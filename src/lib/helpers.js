@@ -22,14 +22,6 @@ export function identifyLinkInQuery(query) {
   return [m[1][0].toUpperCase(), Number(m[2])];
 }
 
-export function osmLink(aPlace) {
-  if (!aPlace.osm_type) return '';
-  var sOSMType = formatOSMType(aPlace.osm_type, false);
-  if (!sOSMType) return '';
-
-  return '<a href="https://www.openstreetmap.org/' + sOSMType + '/' + aPlace.osm_id + '">' + sOSMType + ' ' + aPlace.osm_id + '</a>';
-}
-
 export function formatLabel(aPlace) {
   if (aPlace.label) return aPlace.label;
 
