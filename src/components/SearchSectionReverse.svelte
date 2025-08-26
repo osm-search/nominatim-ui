@@ -2,15 +2,15 @@
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
 
   import { zoomLevels } from '../lib/helpers.js';
-  import { refresh_page } from '../lib/stores.js';
   import { mapState } from '../state/MapState.svelte.js';
+  import { appState } from '../state/AppState.svelte.js';
 
   let { lat = '', lon = '', zoom = '', api_request_params = {} } = $props();
 
   $effect(() => {
     const newCenter = mapState.lastClick;
     if (newCenter) {
-      refresh_page('reverse', new URLSearchParams({
+      appState.refreshPage('reverse', new URLSearchParams({
         'lat': newCenter.lat,
         'lon': newCenter.lng,
         'zoom': zoom
@@ -34,7 +34,7 @@
   function onSwitchCoords(e) {
     e.preventDefault();
     e.stopPropagation();
-    refresh_page('reverse', new URLSearchParams({
+    appState.refreshPage('reverse', new URLSearchParams({
         lat: lon || '',
         lon: lat || '',
         zoom: zoom

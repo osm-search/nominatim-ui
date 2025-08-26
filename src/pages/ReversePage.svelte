@@ -1,12 +1,14 @@
 <script>
-  import { page, results_store } from '../lib/stores.js';
-  import { fetch_from_api, update_html_title } from '../lib/api_utils.js';
+  import { untrack } from 'svelte';
+  import { update_html_title } from '../lib/api_utils.js';
+  import { appState } from '../state/AppState.svelte.js';
 
   import Header from '../components/Header.svelte';
   import SearchSectionReverse from '../components/SearchSectionReverse.svelte';
   import ResultsList from '../components/ResultsList.svelte';
   import Map from '../components/Map.svelte';
 
+  let results = $state.raw();
   let api_request_params = $state.raw();
   let current_result = $state();
   let position_marker = $state(); // what the user searched for
@@ -27,11 +29,11 @@
     if (api_request_params.lat && api_request_params.lon) {
       position_marker = [api_request_params.lat, api_request_params.lon];
 
-      fetch_from_api('reverse', api_request_params, function (data) {
+      appState.fetchFromApi('reverse', api_request_params, function (data) {
         if (data && !data.error) {
-          results_store.set([data]);
+          results = [data];
         } else {
-          results_store.set([]);
+          results = [];
         }
 
         update_html_title('Reverse result for '
@@ -41,28 +43,29 @@
         document.querySelector('input[name=lat]').focus();
       });
     } else {
-      results_store.set(undefined);
+      results = undefined;
     }
   }
 
-  page.subscribe((pageinfo) => {
-    if (pageinfo.tab === 'reverse') {
-      loaddata(pageinfo.params);
+  $effect(() => {
+    if (appState.page.tab === 'reverse') {
+      const params = appState.page.params;
+      untrack(() => loaddata(params));
     }
   });
 </script>
 
 {#snippet subheader()}
-  <SearchSectionReverse lat={api_request_params.lat}
-                        lon={api_request_params.lon}
-                        zoom={api_request_params.zoom}
+  <SearchSectionReverse lat={api_request_params?.lat}
+                        lon={api_request_params?.lon}
+                        zoom={api_request_params?.zoom}
                         api_request_params={api_request_params} />
 {/snippet}
 <Header {subheader} />
 
 <div id="content">
   <div class="sidebar">
-    <ResultsList bind:current_result reverse_search={true} />
+    <ResultsList {results} bind:current_result reverse_search={true} />
   </div>
   <div id="map-wrapper">
     <Map {current_result} {position_marker} display_minimap={true} />

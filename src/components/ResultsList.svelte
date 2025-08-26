@@ -1,5 +1,4 @@
 <script>
-  import { results_store } from '../lib/stores.js';
   import { formatLabel } from '../lib/helpers.js';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
@@ -7,27 +6,18 @@
   import Welcome from './Welcome.svelte';
   import MapIcon from './MapIcon.svelte';
 
-  let { reverse_search = false, current_result = $bindable() } = $props();
+  let { results, reverse_search = false, current_result = $bindable() } = $props();
 
-  let aSearchResults = $state();
   let iHighlightNum = $state();
-  let sMoreURL = $state();
 
-  results_store.subscribe(data => {
-    if (!data) { return; }
-    aSearchResults = data;
-    iHighlightNum = 0;
-    current_result = aSearchResults[0];
-
-
-    let search_params = new SvelteURLSearchParams(window.location.search);
-
-    let aResults = data;
+  let sMoreURL = $derived.by(() => {
+    const search_params = new URLSearchParams(window.location.search);
+    const aResults = results;
     // lonvia wrote: https://github.com/osm-search/nominatim-ui/issues/24
     // I would suggest to remove the guessing and always show the link. Nominatim only returns
     // one or two results when it believes the result to be a good enough match.
     // if (aResults.length >= 10) {
-    var aExcludePlaceIds = [];
+    let aExcludePlaceIds = [];
     if (search_params.has('exclude_place_ids')) {
       aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
     }
@@ -36,7 +26,7 @@
     }
     var parsed_url = new SvelteURLSearchParams(window.location.search);
     parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
-    sMoreURL = '?' + parsed_url.toString();
+    return '?' + parsed_url.toString();
   });
 
   function handleClick(e) {
@@ -47,16 +37,25 @@
     }
     let pos = Number(result_el.dataset.position);
 
-    current_result = aSearchResults[pos];
     iHighlightNum = pos;
   }
 
+  $effect(() => {
+    if (results) {
+      iHighlightNum = 0;
+    }
+  });
+
+  $effect(() => {
+    current_result = (results && results.length > iHighlightNum) ? results[iHighlightNum] : null;
+  });
+
 </script>
 
-{#if aSearchResults && aSearchResults.length > 0}
+{#if results && results.length > 0}
   <div id="searchresults" role="list">
 
-    {#each aSearchResults as aResult, iResNum}
+    {#each results as aResult, iResNum}
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <div class="result"
            class:highlight={iResNum === iHighlightNum}
@@ -83,7 +82,7 @@
       </div>
     {/if}
   </div>
-{:else if aSearchResults}
+{:else if results}
   {#if reverse_search}
     <div id="intro" class="sidebar">Search for coordinates or click anywhere on the map.</div>
   {:else}
