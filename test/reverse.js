@@ -1,5 +1,7 @@
 import assert from 'assert';
 
+const reverse_only = !!process.env.REVERSE_ONLY;
+
 describe('Reverse Page', function () {
   let page;
 
@@ -69,5 +71,17 @@ describe('Reverse Page', function () {
       current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/details.html');
     });
+
+    if (!reverse_only) {
+
+      it('should clear results when switching to search page', async function () {
+        await page.click('nav a[href="search.html"]');
+
+        const results_count =
+          await page.$$eval('#searchresults .result', elements => elements.length);
+
+        assert.deepStrictEqual(results_count, 0);
+      });
+    }
   });
 });
