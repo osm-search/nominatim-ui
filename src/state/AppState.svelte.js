@@ -20,6 +20,8 @@ class AppState {
   errorMessage = $state(null);
   requestProgress = $state('finish');
 
+  #abortController;
+
   constructor() {
     this.refreshPage();
   }
@@ -60,6 +62,10 @@ class AppState {
     }
 
     untrack(() => {
+      if (this.page?.tab !== pagename && this.#abortController) {
+        this.#abortController.abort();
+        this.#abortController = undefined;
+      }
       this.page = { tab: pagename, params: params };
       this.lastApiRequestURL = null;
       this.errorMessage = null;
@@ -71,11 +77,23 @@ class AppState {
 
     const mock_api_error = (new URLSearchParams(window.location.search)).get('mock_api_error');
 
+    const fetchOptions = {};
+
     this.requestProgress = 'start';
-    if (endpoint_name !== 'status') this.lastApiRequestURL = null;
+    if (endpoint_name !== 'status') {
+      this.lastApiRequestURL = null;
+      // avoid API requests running in parallel
+      this.#abortController?.abort();
+      this.#abortController = new AbortController();
+      fetchOptions.signal = this.#abortController.signal;
+    }
+
+    if (Nominatim_Config.Nominatim_API_Endpoint_Headers) {
+      fetchOptions.headers = Nominatim_Config.Nominatim_API_Endpoint_Headers;
+    }
 
     try {
-      await fetch(api_url, { headers: Nominatim_Config.Nominatim_API_Endpoint_Headers || {} })
+      await fetch(api_url, fetchOptions)
         .then(async (response) => {
           if ((!((response.status >= 200 && response.status < 300) || response.status === 404))
               || mock_api_error === 'fetch'
@@ -110,8 +128,10 @@ class AppState {
           this.requestProgress = 'finish';
         });
     } catch (error) {
-      this.errorMessage = `Error fetching data from ${api_url} (${error})`;
-      this.requestProgress = 'finish';
+      if (error.name !== 'AbortError') {
+        this.errorMessage = `Error fetching data from ${api_url} (${error})`;
+        this.requestProgress = 'finish';
+      }
     }
 
     if (endpoint_name !== 'status') this.lastApiRequestURL = api_url;
