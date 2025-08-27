@@ -22,14 +22,6 @@ export function identifyLinkInQuery(query) {
   return [m[1][0].toUpperCase(), Number(m[2])];
 }
 
-export function osmLink(aPlace) {
-  if (!aPlace.osm_type) return '';
-  var sOSMType = formatOSMType(aPlace.osm_type, false);
-  if (!sOSMType) return '';
-
-  return '<a href="https://www.openstreetmap.org/' + sOSMType + '/' + aPlace.osm_id + '">' + sOSMType + ' ' + aPlace.osm_id + '</a>';
-}
-
 export function formatLabel(aPlace) {
   if (aPlace.label) return aPlace.label;
 
@@ -44,19 +36,6 @@ export function formatLabel(aPlace) {
     return capitalize(aPlace.type.replace(/_/g, ' '));
   }
   return '';
-}
-
-/* en:London_Borough_of_Redbridge => https://en.wikipedia.org/wiki/London_Borough_of_Redbridge */
-export function wikipediaLink(aPlace) {
-  if (!aPlace.calculated_wikipedia) return '';
-
-  var parts = aPlace.calculated_wikipedia.split(':', 2);
-
-  var sTitle = escapeHtml(aPlace.calculated_wikipedia);
-  var sLanguage = escapeHtml(parts[0]);
-  var sArticle = escapeHtml(parts[1]);
-
-  return '<a href="https://' + sLanguage + '.wikipedia.org/wiki/' + sArticle + '" target="_blank">' + sTitle + '</a>';
 }
 
 export function coverageType(aPlace) {

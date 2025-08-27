@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { identifyLinkInQuery, formatLabel, wikipediaLink } from '../../src/lib/helpers.js';
+import { identifyLinkInQuery, formatLabel } from '../../src/lib/helpers.js';
 
 describe('Helpers', function () {
 
@@ -25,23 +25,5 @@ describe('Helpers', function () {
 
     // type=yes, so we use the category
     assert.equal(formatLabel({ category: 'building', type: 'yes' }), 'Building');
-  });
-
-  it('.wikipediaLink', function () {
-    assert.equal(
-      wikipediaLink({}),
-      ''
-    );
-
-    assert.equal(
-      wikipediaLink({ calculated_wikipedia: 'de:Brandenburg Gate' }),
-      '<a href="https://de.wikipedia.org/wiki/Brandenburg Gate" target="_blank">de:Brandenburg Gate</a>'
-    );
-
-    // title includes HTML
-    assert.equal(
-      wikipediaLink({ calculated_wikipedia: 'en:Slug & Lattuce' }),
-      '<a href="https://en.wikipedia.org/wiki/Slug &amp; Lattuce" target="_blank">en:Slug &amp; Lattuce</a>'
-    );
   });
 });
