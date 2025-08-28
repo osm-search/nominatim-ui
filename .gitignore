@@ -2,4 +2,6 @@
 dist/theme/config.theme.js
 dist/build/bundle.*
 node_modules
+.yarn
+.pnp*
 dist_for_testing

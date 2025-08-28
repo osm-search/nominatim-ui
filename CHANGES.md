@@ -1,5 +1,11 @@
-* unlreleased
-    * Map: add scale in bottom left corner
+* version 3.8.0 - 2025-08-28
+    * Lots of changes around Svelte stores, introducing new app state, and map state. Thanks lonvia
+    * Leaflet object no longer accessible global. Thanks lonvia
+    * API fetches get aborted when switching pages. Thanks lonvia
+    * Map shows a scale (kilometers, miles) in bottom left corner
+    * Bug fix: Color switcher buttons stopped working after switching pages
+    * NPM package updates: Svelte 5.2
+    * Use yarn 4.x for package management
 
 * version 3.7.1 - 2025-05-27
     * Remove .php from endpoint URLs. Nominatim no longer uses them
