@@ -1,3 +1,6 @@
+* version 3.8.1 - 2025-08-28
+    * Github Action was missing a dependency for the 3.8.0 release
+
 * version 3.8.0 - 2025-08-28
     * Lots of changes around Svelte stores, introducing new app state, and map state. Thanks lonvia
     * Leaflet object no longer accessible global. Thanks lonvia
