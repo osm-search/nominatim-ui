@@ -33,6 +33,7 @@
       addressdetails: 1,
       hierarchy: (search_params.get('hierarchy') === '1' ? 1 : 0),
       group_hierarchy: 1,
+      entrances: (search_params.get('entrances') === '1' ? 1 : 0),
       polygon_geojson: 1,
       format: 'json'
     };
@@ -267,6 +268,38 @@
                 </td>
               </tr>
             {/if}
+
+            <tr class="all-columns"><td colspan="7"><h2>Entrances</h2></td></tr>
+            {#if api_request_params.entrances}
+              {#if aPlace.entrances && aPlace.entrances.length}
+                <tr>
+                  <td></td>
+                  <td>Entrance Type</td>
+                  <td>OSM</td>
+                  <td>Extra Tags</td>
+                </tr>
+                {#each aPlace.entrances as entrance, i}
+                  <tr class="all-columns">
+                    <td>{i + 1}</td>
+                    <td>{entrance.type}</td>
+                    <td><OsmLink osmType='N' osmId={entrance.osm_id} /></td>
+                    <td><InfoRowList items={entrance.extratags} /></td>
+                  </tr>
+                {/each}
+              {:else}
+                <tr><td>Place does not have entrances</td></tr>
+              {/if}
+            {:else}
+              <tr>
+                <td>
+                   <a class="btn btn-outline-secondary btn-sm"
+                    href="{base_url}&entrances=1">display entraces</a>
+                </td>
+              </tr>
+            {/if}
+
+
+
           </tbody>
         </table>
       </div>

@@ -167,6 +167,7 @@
     let lat = aFeature.centroid ? aFeature.centroid.coordinates[1] : aFeature.lat;
     let lon = aFeature.centroid ? aFeature.centroid.coordinates[0] : aFeature.lon;
     let geojson = aFeature.geometry || aFeature.geojson;
+    let entrances = aFeature.entrances;
 
     if (lat && lon) {
       let circle = L.circleMarker([lat, lon], {
@@ -197,6 +198,17 @@
       map.fitBounds([[lat, lon], marker], { padding: [50, 50] });
     } else if (lat && lon) {
       map.setView([lat, lon], 10);
+    }
+
+    if (entrances) {
+      entrances.forEach((entrance, i) => {
+        let entranceCircle = L.circleMarker([entrance.lat, entrance.lon], {
+          radius: 5, weight: 2, fillColor: '#ff7800', color: 'red', opacity: 0.75
+        });
+        entranceCircle.bindTooltip(`Entrance ${i + 1} (type=${entrance.type})`).openTooltip();
+        map.addLayer(entranceCircle);
+        dataLayers.push(entranceCircle);
+      });
     }
   }
 
