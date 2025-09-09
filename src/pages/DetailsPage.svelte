@@ -10,6 +10,7 @@
   import Header from '../components/Header.svelte';
   import MapIcon from '../components/MapIcon.svelte';
   import SearchSectionDetails from '../components/SearchSectionDetails.svelte';
+  import DetailsTableHeader from '../components/DetailsTableHeader.svelte';
   import DetailsOneRow from '../components/DetailsOneRow.svelte';
   import DetailsLink from '../components/DetailsLink.svelte';
   import DetailsPostcodeHint from '../components/DetailsPostcodeHint.svelte';
@@ -106,7 +107,7 @@
       <div class="col-md-6">
         <table id="locationdetails" class="table table-striped table-responsive">
           <tbody>
-            <tr class="info-row"><td>Name</td><td>
+            <tr><td>Name</td><td>
             {#if aPlace.names && typeof (aPlace.names) === 'object'
               && Object.keys(aPlace.names).length}
               <InfoRowList items={aPlace.names} />
@@ -114,40 +115,40 @@
               <span class="noname fw-bold">No Name</span>
             {/if}
             </td></tr>
-            <tr class="info-row"><td>Type</td><td>{aPlace.category}:{aPlace.type}</td></tr>
-            <tr class="info-row"><td>Last Updated</td><td>{aPlace.indexed_date}</td></tr>
+            <tr><td>Type</td><td>{aPlace.category}:{aPlace.type}</td></tr>
+            <tr><td>Last Updated</td><td>{aPlace.indexed_date}</td></tr>
             {#if (isAdminBoundary(aPlace)) }
-              <tr class="info-row"><td>Admin Level</td><td>{aPlace.admin_level}</td></tr>
+              <tr><td>Admin Level</td><td>{aPlace.admin_level}</td></tr>
             {/if}
-            <tr class="info-row"><td>Search Rank</td><td>{aPlace.rank_search}</td></tr>
-            <tr class="info-row"><td>Address Rank</td><td>
+            <tr><td>Search Rank</td><td>{aPlace.rank_search}</td></tr>
+            <tr><td>Address Rank</td><td>
               {aPlace.rank_address} ({formatAddressRank(aPlace.rank_address)})
             </td></tr>
             {#if aPlace.calculated_importance}
-              <tr class="info-row"><td>Importance</td><td>
+              <tr><td>Importance</td><td>
                   {aPlace.calculated_importance}
                   {#if !aPlace.importance} (estimated){/if}
               </td></tr>
             {/if}
-            <tr class="info-row"><td>Coverage</td><td>{coverageType(aPlace)}</td></tr>
-            <tr class="info-row"><td>Centre Point (lat,lon)</td><td>
+            <tr><td>Coverage</td><td>{coverageType(aPlace)}</td></tr>
+            <tr><td>Centre Point (lat,lon)</td><td>
                 {aPlace.centroid.coordinates[1]},{aPlace.centroid.coordinates[0]}
             </td></tr>
-            <tr class="info-row"><td>OSM</td><td>
+            <tr><td>OSM</td><td>
               <OsmLink osmType={aPlace.osm_type} osmId={aPlace.osm_id}/>
             </td></tr>
-            <tr class="info-row"><td>Place Id</td><td>
+            <tr><td>Place Id</td><td>
                {aPlace.place_id}
                (<a href="https://nominatim.org/release-docs/develop/api/Output/#place_id-is-not-a-persistent-id">
                  on this server
                </a>)
             </td></tr>
             {#if aPlace.calculated_wikipedia}
-              <tr class="info-row"><td>Wikipedia Calculated</td><td>
+              <tr><td>Wikipedia Calculated</td><td>
               <WikipediaLink wikipedia={aPlace.calculated_wikipedia} />
               </td></tr>
             {/if}
-            <tr class="info-row"><td>Computed Postcode</td><td>
+            <tr><td>Computed Postcode</td><td>
               {#if aPlace.calculated_postcode}
                 {aPlace.calculated_postcode}
                 <DetailsPostcodeHint postcode={aPlace.calculated_postcode}
@@ -155,10 +156,10 @@
                                      lon={aPlace.centroid.coordinates[0]} />
               {/if}
             </td></tr>
-            <tr class="info-row"><td>Address Tags</td><td>
+            <tr><td>Address Tags</td><td>
               <InfoRowList items={aPlace.addresstags} />
             </td></tr>
-            <tr class="info-row"><td>Extra Tags</td><td>
+            <tr><td>Extra Tags</td><td>
               <InfoRowList items={aPlace.extratags} />
             </td></tr>
           </tbody>
@@ -170,48 +171,55 @@
         </div>
       </div>
     </div>
+  {:else if (window.location.search !== '' && api_request_finished)}
+    No such place found.
+  {/if}
+
+  {#if aPlace}
     <div class="row">
       <div class="col-md-12">
+
         <h2>Address</h2>
-        <table id="address" class="table table-striped table-small">
-          <thead>
-            <tr>
-              <th>Local name</th>
-              <th>Type</th>
-              <th>OSM</th>
-              <th>Address rank</th>
-              <th>Admin level</th>
-              <th>Distance</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {#if aPlace.address}
+        {#if aPlace.address}
+          <table id="address" class="table table-striped table-small">
+            <DetailsTableHeader />
+            <tbody>
               {#each aPlace.address as addressLine}
                 <DetailsOneRow addressLine={addressLine}
                                bMarkUnusedLines={true}
                                bDistanceInMeters={false}
                                sCountryCode={country_code(aPlace)} />
               {/each}
-            {/if}
+            </tbody>
+          </table>
+        {/if}
 
-            {#if aPlace.linked_places}
-              <tr class="all-columns"><td colspan="7"><h2>Linked Places</h2></td></tr>
+        <h2>Linked Places</h2>
+        {#if aPlace.linked_places}
+          <table class="table table-striped table-small">
+            <DetailsTableHeader />
+            <tbody>
               {#each aPlace.linked_places as addressLine}
                 <DetailsOneRow addressLine={addressLine}
                                bMarkUnusedLines={true}
                                bDistanceInMeters={true} />
               {/each}
-            {/if}
+            </tbody>
+          </table>
+        {/if}
 
-            <tr class="all-columns"><td colspan="7"><h2>Entrances</h2></td></tr>
-            {#if aPlace.entrances && aPlace.entrances.length}
+        <h2>Entrances</h2>
+        {#if aPlace.entrances && aPlace.entrances.length}
+          <table class="table table-striped table-small">
+            <thead>
               <tr>
-                <td></td>
-                <td>Entrance Type</td>
-                <td>OSM</td>
-                <td>Extra Tags</td>
+                <th></th>
+                <th>Entrance Type</th>
+                <th>OSM</th>
+                <th>Extra Tags</th>
               </tr>
+            </thead>
+            <tbody>
               {#each aPlace.entrances as entrance, i}
                 <tr class="all-columns">
                   <td>{i + 1}</td>
@@ -220,81 +228,81 @@
                   <td><InfoRowList items={entrance.extratags || {}} /></td>
                 </tr>
               {/each}
-            {:else}
-              <tr><td>Place does not have entrances</td></tr>
-            {/if}
+            </tbody>
+          </table>
+        {:else}
+          <p>Place does not have entrances</p>
+        {/if}
 
-            {#if !reverse_only}
-              <tr class="all-columns"><td colspan="7"><h2>Keywords</h2></td></tr>
-              {#if api_request_params.keywords}
+      {#if !reverse_only}
+        <h2>Keywords</h2>
+        {#if api_request_params.keywords}
+          {#if place_has_keywords(aPlace)}
+            <h3>Name Keywords</h3>
 
-                {#if place_has_keywords(aPlace)}
-                  <tr class="all-columns"><td colspan="7"><h3>Name Keywords</h3></td></tr>
-                  {#each aPlace.keywords.name as keyword}
+            <table class="table table-striped table-small">
+              <tbody>
+                {#each aPlace.keywords.name as keyword}
+                  <tr>
+                    <td>{formatKeywordToken(keyword.token)}</td>
+                    {#if keyword.id}
+                      <td>word id: {keyword.id}</td>
+                    {/if}
+                  </tr>
+                {/each}
+              </tbody>
+            </table>
+            {#if aPlace.keywords.address}
+              <h3>Address Keywords</h3>
+
+              <table class="table table-striped table-small">
+                <tbody>
+                  {#each aPlace.keywords.address as keyword}
                     <tr>
                       <td>{formatKeywordToken(keyword.token)}</td>
-                      {#if keyword.id}
-                        <td>word id: {keyword.id}</td>
-                      {/if}
+                      <td>word id: {keyword.id || '?'}</td>
                     </tr>
                   {/each}
-
-                  {#if aPlace.keywords.address}
-                    <tr class="all-columns"><td colspan="7"><h3>Address Keywords</h3></td></tr>
-                    {#each aPlace.keywords.address as keyword}
-                      <tr>
-                        <td>{formatKeywordToken(keyword.token)}</td>
-                        {#if keyword.id}
-                          <td>word id: {keyword.id}</td>
-                        {/if}
-                      </tr>
-                    {/each}
-                  {/if}
-                {:else}
-                  <tr><td>Place has no keywords</td></tr>
-                {/if}
-              {:else}
-                <tr>
-                  <td>
-                     <a class="btn btn-outline-secondary btn-sm"
-                      href="{base_url}&keywords=1">display keywords</a>
-                  </td>
-                </tr>
-              {/if}
+                </tbody>
+              </table>
             {/if}
+          {:else}
+            <p>Place has no keywords</p>
+          {/if}
+        {:else}
+          <a class="btn btn-outline-secondary btn-sm"
+            href="{base_url}&keywords=1">display keywords</a>
+        {/if}
+      {/if}
 
-            <tr class="all-columns"><td colspan="7"><h2>Parent Of</h2></td></tr>
-            {#if api_request_params.hierarchy}
-              {#if aPlace.hierarchy && typeof (aPlace.hierarchy) === 'object'
-                && Object.keys(aPlace.hierarchy).length}
-                {#each Object.keys(aPlace.hierarchy) as type}
-                  <tr class="all-columns"><td colspan="7"><h3>{type}</h3></td></tr>
-                  {#each aPlace.hierarchy[type] as line}
-                    <DetailsOneRow addressLine={line} bDistanceInMeters={true} />
-                 {/each}
+      <h2>Parent Of</h2>
+      {#if api_request_params.hierarchy}
+        {#if aPlace.hierarchy && typeof (aPlace.hierarchy) === 'object'
+          && Object.keys(aPlace.hierarchy).length}
+
+          {#each Object.keys(aPlace.hierarchy) as type}
+            <h3>{type}</h3>
+            <table class="table table-striped table-small">
+              <DetailsTableHeader />
+              <tbody>
+                {#each aPlace.hierarchy[type] as line}
+                  <DetailsOneRow addressLine={line} bDistanceInMeters={true} />
                 {/each}
-
-                {#if Object.keys(aPlace.hierarchy) > 500}
-                  <tr><td><p>There are more child objects which are not shown.</p></td></tr>
-                {/if}
-              {:else}
-                <tr><td>Place is not parent of other places</td></tr>
-              {/if}
-            {:else}
-              <tr>
-                <td>
-                   <a class="btn btn-outline-secondary btn-sm"
-                    href="{base_url}&hierarchy=1">display child places</a>
-                </td>
-              </tr>
-            {/if}
-
-          </tbody>
-        </table>
-      </div>
+              </tbody>
+            </table>
+          {/each}
+          {#if Object.keys(aPlace.hierarchy) > 500}
+            <p>There are more child objects which are not shown.</p>
+          {/if}
+        {:else}
+          <p>Place is not parent of other places</p>
+        {/if}
+      {:else}
+        <a class="btn btn-outline-secondary btn-sm"
+            href="{base_url}&hierarchy=1">display child places</a>
+      {/if}
     </div>
-  {:else if (window.location.search !== '' && api_request_finished)}
-    No such place found.
+  </div>
   {/if}
 </div>
 
@@ -313,12 +321,18 @@
 
   h2 {
     font-size: 2em;
-    padding-left: 8px;
     background-color: var(--bs-body-bg);
+    border-bottom: 2px solid silver;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
   }
   h3 {
     font-size: 1.5em;
-    padding-left: 8px;
+  }
+
+  table#locationdetails td {
+    padding: 2px 8px;
+    font-size: 0.9em;
   }
 
   tr.all-columns {
@@ -331,11 +345,6 @@
   }
   :global(span.noname){
     color: var(--bs-danger);
-  }
-
-  tr.info-row td {
-    padding: 2px 8px;
-    font-size: 0.9em;
   }
 
   #map-wrapper {
