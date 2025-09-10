@@ -131,7 +131,7 @@
         </li>
         <li class="nav-item">
           <PageLink page="about"
-                    text="Abount & Help"
+                    text="About & Help"
                     extra_classes="nav-link {view === 'about' ? 'active' : ''}" />
         </li>
       </ul>
