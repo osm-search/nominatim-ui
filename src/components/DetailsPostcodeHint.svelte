@@ -1,5 +1,5 @@
 <script>
-  let { postcode, lat, lon } = $props();
+  let { postcode, lat, lon, country_code } = $props();
 
   const overpass_query = $derived(`
     // Based on the map bounds, you can zoom out and rerun the query
@@ -67,6 +67,17 @@
     <a href="https://nominatim.org/2022/06/26/state-of-postcodes.html"
        target="_blank" rel="noreferrer">How Nominatim uses postcodes</a>.
   </p>
+  {#if country_code === 'gb'}
+    <p>
+      Additionally supplemented by Ordnance Survey Code-Point® Open data.
+      <a href="https://github.com/osm-search/gb-postcode-data" target="_blank">UK Postcode data for Nominatim</a>
+    </p>
+  {/if}
+  {#if country_code === 'us'}
+    <p>
+      Additionally supplemented by data derived from US Census (TIGER) data.
+    </p>
+  {/if}
 </div>
 
 <style>

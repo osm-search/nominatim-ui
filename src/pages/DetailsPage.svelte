@@ -149,11 +149,12 @@
               </td></tr>
             {/if}
             <tr><td>Computed Postcode</td><td>
-              {#if aPlace.calculated_postcode}
-                {aPlace.calculated_postcode}
-                <DetailsPostcodeHint postcode={aPlace.calculated_postcode}
+              {#if aPlace.calculated_postcode || (aPlace.type === 'postcode' || !aPlace.osm_id)}
+                {aPlace.calculated_postcode || aPlace.names.ref}
+                <DetailsPostcodeHint postcode={aPlace.calculated_postcode || aPlace.names.ref}
                                      lat={aPlace.centroid.coordinates[1]}
-                                     lon={aPlace.centroid.coordinates[0]} />
+                                     lon={aPlace.centroid.coordinates[0]}
+                                     country_code={aPlace.country_code} />
               {/if}
             </td></tr>
             <tr><td>Address Tags</td><td>
