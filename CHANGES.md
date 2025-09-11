@@ -1,3 +1,10 @@
+* version 3.9.0 - 2025-09-12
+    * Details page: Also show entrances on map and in list
+    * Details page: display help text we use for calculated postcodes also for type=postcode
+       unless its in OSM data
+    * Fixed one typo in header. Thanks Babou
+    * Minor NPM package updates
+
 * version 3.8.1 - 2025-08-28
     * Github Action was missing a dependency for the 3.8.0 release
 
