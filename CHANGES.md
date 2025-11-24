@@ -1,3 +1,8 @@
+* version 3.9.1 - 2025-11-24
+    * Reverse page: When clicking map the advanced options are now kept
+    * Search/Revere page: Print a note which default browser language is used
+    * Minor NPM package updates
+
 * version 3.9.0 - 2025-09-12
     * Details page: Also show entrances on map and in list
     * Details page: display help text we use for calculated postcodes also for type=postcode
