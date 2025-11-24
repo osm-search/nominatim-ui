@@ -160,6 +160,8 @@
       });
       map.addLayer(viewbox_on_map);
       dataLayers.push(viewbox_on_map);
+
+      if (!aFeature) map.fitBounds(bounds);
     }
 
     if (!aFeature) return;
