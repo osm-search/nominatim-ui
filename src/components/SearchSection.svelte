@@ -1,5 +1,6 @@
 <script>
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
+  import DefaultLanguage from './DefaultLanguage.svelte';
   import { mapState } from '../state/MapState.svelte.js';
 
   let { bStructuredSearch = false, api_request_params = {} } = $props();
@@ -187,6 +188,7 @@
         class="form-control form-control-sm d-inline w-auto api-param-setting">
     </li>
   </ul>
+  <DefaultLanguage />
 </details>
 
 <style>

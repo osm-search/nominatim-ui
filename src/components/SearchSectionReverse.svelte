@@ -1,5 +1,6 @@
 <script>
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
+  import DefaultLanguage from './DefaultLanguage.svelte';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   import { zoomLevels } from '../lib/helpers.js';
@@ -116,6 +117,7 @@
         class="form-control form-control-sm d-inline w-auto api-param-setting">
     </li>
   </ul>
+  <DefaultLanguage />
 </details>
 
 <style>
