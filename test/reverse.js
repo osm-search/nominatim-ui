@@ -61,6 +61,35 @@ describe('Reverse Page', function () {
       assert.equal((await page.$$('#map')).length, 1);
     });
 
+   it('should preserve advanced options when searching from a map click', async function () {
+      // Set layer=address, submit form
+      await page.click('#searchAdvancedOptions summary');
+      await page.waitForSelector('input[name=layer]');
+      await page.$eval('#option_layer', (input) => { input.value = ''; });
+      await page.type('#option_layer', 'address');
+      await page.click('button[type=submit]');
+      await page.waitForFunction(() => {
+        return new URLSearchParams(location.search).get('layer') === 'address';
+      });
+
+      const initialUrl = new URL(await page.url());
+      const initialLat = initialUrl.searchParams.get('lat');
+
+      // Click on new position
+      await page.click('#map', { offset: { x: 50, y: 50 } });
+
+      // Wait until latitude in URL changed
+      await page.waitForFunction(
+        (previousLat) => new URL(window.location.href).searchParams.get('lat') !== previousLat,
+        {},
+        initialLat
+      );
+
+      // Confirm the layer=address is still in URL
+      const refreshedUrl = new URL(await page.url());
+      assert.strictEqual(refreshedUrl.searchParams.get('layer'), 'address');
+    });
+
     it('should redirect to details page on clicking details button', async function () {
       let current_url;
       let results = await page.$$('#searchresults .result a');
