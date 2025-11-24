@@ -60,6 +60,10 @@ The `test/` setup uses [Mocha](https://mochajs.org/) to run tests. Tests use [Pu
    ```
 
 
+## Upgrade dependencies
+
+With yarn 4 that's `yarn outdated; yarn up '*'`.
+
 ## Prepare a release
 
 1. Update version number in `package.json` file
