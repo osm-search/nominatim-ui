@@ -1,5 +1,6 @@
 <script>
   import UrlSubmitForm from '../components/UrlSubmitForm.svelte';
+  import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   import { zoomLevels } from '../lib/helpers.js';
   import { mapState } from '../state/MapState.svelte.js';
@@ -9,12 +10,22 @@
 
   $effect(() => {
     const newCenter = mapState.lastClick;
-    if (newCenter) {
-      appState.refreshPage('reverse', new URLSearchParams({
-        'lat': newCenter.lat,
-        'lon': newCenter.lng,
-        'zoom': zoom
-      }));
+    const latChanged = Number(lat) !== newCenter?.lat;
+    const lonChanged = Number(lon) !== newCenter?.lng;
+
+    if (newCenter && (latChanged || lonChanged)) {
+      const params = new SvelteURLSearchParams(appState.page?.params || {});
+
+      params.set('lat', newCenter.lat);
+      params.set('lon', newCenter.lng);
+
+      if (zoom) {
+        params.set('zoom', zoom);
+      } else {
+        params.delete('zoom');
+      }
+
+      appState.refreshPage('reverse', params);
     }
   });
 
