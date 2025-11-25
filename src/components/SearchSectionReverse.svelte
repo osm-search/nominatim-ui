@@ -99,6 +99,10 @@
   </div>
   <input type="hidden"
          name="layer" value="{api_request_params.layer || ''}" />
+  <input type="hidden"
+         name="polygon_threshold" value="{api_request_params.polygon_threshold || ''}" />
+  <input type="hidden"
+         name="accept-language" value="{api_request_params['accept-language'] || ''}" />
   <div class="col-auto">
     <button type="submit" class="btn btn-primary btn-sm mx-1">Search</button>
   </div>
@@ -112,9 +116,28 @@
     <li>
       <label for="option_layer">Layer</label>
       <input id="option_layer" name="layer" placeholder="e.g. address,poi,railway,natural,manmade"
-        value="{api_request_params.layer || ''}"
-        data-api-param="layer" onchange={set_api_param}
-        class="form-control form-control-sm d-inline w-auto api-param-setting">
+             class="form-control form-control-sm d-inline w-auto api-param-setting"
+             data-api-param="layer" onchange={set_api_param}
+             value="{api_request_params.layer || ''}">
+    </li>
+
+    <li>
+      <label for="option_polygon_threshold">Polygon simplification</label>
+      <input type="number"
+             class="form-control form-control-sm d-inline w-auto api-param-setting"
+             data-api-param="polygon_threshold" id="option_polygon_threshold"
+             min="0.0" max="1.0" step="0.001"
+             value="{api_request_params.polygon_threshold || ''}"
+             onchange={set_api_param}>
+    </li>
+
+    <li>
+      <label for="accept_lang">Languages</label>
+      <input type="text" placeholder="e.g. en,zh-Hant"
+             class="form-control form-control-sm d-inline w-auto api-param-setting"
+             data-api-param="accept-language" id="accept_lang" size="15"
+             value="{api_request_params['accept-language'] || ''}"
+             onchange={set_api_param}>
     </li>
   </ul>
   <DefaultLanguage />
