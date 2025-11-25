@@ -18,6 +18,7 @@
 
     api_request_params = {
       q: search_params.get('q'),
+      amenity: search_params.get('amenity'),
       street: search_params.get('street'),
       city: search_params.get('city'),
       county: search_params.get('county'),
@@ -37,7 +38,8 @@
       format: 'jsonv2'
     };
 
-    let anyStructuredFieldsSet = (api_request_params.street
+    let anyStructuredFieldsSet = (api_request_params.amenity
+                                || api_request_params.street
                                 || api_request_params.city
                                 || api_request_params.county
                                 || api_request_params.state
@@ -50,6 +52,7 @@
 
         if (anyStructuredFieldsSet) {
           update_html_title('Result for ' + [
+            api_request_params.amenity,
             api_request_params.street,
             api_request_params.city,
             api_request_params.county,
