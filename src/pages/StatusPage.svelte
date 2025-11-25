@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { update_html_title } from '../lib/api_utils.js';
+  import { update_html_title, fetch_content_into_element } from '../lib/api_utils.js';
   import { appState } from '../state/AppState.svelte.js';
 
   import Header from '../components/Header.svelte';
@@ -19,6 +19,10 @@
     update_html_title('Server status');
   }
   onMount(loaddata);
+
+  onMount(() => {
+    fetch_content_into_element('theme/status-help.html', document.getElementById('status-help'));
+  });
 </script>
 
 <Header/>
@@ -26,6 +30,8 @@
   <div class="row">
     <div class="col-sm-12">
       <h1>Server status</h1>
+
+      <div id="status-help" class="bg-secondary-subtle"></div>
 
       <dl>
         <dt>API Endpoint</dt>
@@ -43,3 +49,9 @@
     </div>
   </div>
 </div>
+
+<style>
+  #status-help {
+    margin: 2em 0;
+  }
+</style>
