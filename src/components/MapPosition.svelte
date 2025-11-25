@@ -7,6 +7,10 @@
       `https://openstreetmap.org/#map=${mapState.zoom}/${mapState.center.lat.toFixed(5)}/${mapState.center.lng.toFixed(5)}`
   );
 
+  const view_on_overpass_link = $derived(
+      `https://overpass-turbo.eu/?lat=${mapState.center.lat.toFixed(5)}&lon=${mapState.center.lng.toFixed(5)}`
+  );
+
   function coordToString(c) {
     return c ? `${c.lat.toFixed(5)},${c.lng.toFixed(5)}` : '-';
   }
@@ -16,7 +20,8 @@
 {#if visible}
   <div id="map-position-inner">
     map center: {coordToString(mapState.center)}
-    <a target="_blank" rel="noreferrer" href="{view_on_osm_link}">view on osm.org</a>
+    <a target="_blank" rel="noreferrer" href="{view_on_osm_link}">view on osm.org</a>,
+    <a target="_blank" rel="noreferrer" href="{view_on_overpass_link}">overpass</a>
     <br>
     map zoom: {mapState.zoom}
     <br>
