@@ -22,7 +22,10 @@
       zoom: (search_params.get('zoom') > 1
         ? Number(search_params.get('zoom'))
         : Number(Nominatim_Config.Reverse_Default_Search_Zoom)),
+      polygon_geojson: Nominatim_Config.Search_AreaPolygons ? 1 : 0,
       layer: search_params.get('layer'),
+      polygon_threshold: search_params.get('polygon_threshold'),
+      'accept-language': search_params.get('accept-language'),
       format: 'jsonv2'
     };
 
