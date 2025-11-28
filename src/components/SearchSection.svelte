@@ -57,6 +57,11 @@
 
 {#snippet structuredSearchForm()}
 <div class="col-auto">
+  <input name="amenity" type="text" class="form-control form-control-sm me-1"
+         placeholder="Amenity (name and/or type of POI)"
+         value="{api_request_params.amenity || ''}" />
+</div>
+<div class="col-auto">
   <input name="street" type="text" class="form-control form-control-sm me-1"
          placeholder="House number/Street"
          value="{api_request_params.street || ''}" />
