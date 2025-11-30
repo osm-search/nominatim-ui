@@ -1,3 +1,12 @@
+* version 3.10.0 - 2025-11-30
+    * Theming: You can now customize a help section on the status page
+    * Search: When no results and viewbox is set, then pan map to viewbox (instead of whole world)
+    * Search: Add amenity field to the structured search. Not sure why we left it out
+    * Search: Tone down font color of placeholder text in forms
+    * Search: The map infobox now includes a link to Overpass Turbo tool of the shown region
+    * Reverse: Add 2 more advanced fields: polygon simplification, language
+    * Reverse: Request polygon by default (similar to th Search page)
+
 * version 3.9.1 - 2025-11-24
     * Reverse page: When clicking map the advanced options are now kept
     * Search/Revere page: Print a note which default browser language is used
