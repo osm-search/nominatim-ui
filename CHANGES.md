@@ -1,3 +1,6 @@
+* version 3.10.1 - 2025-12-12
+    * Bug: When building the wikipedia URL the path was HTML, not URL escaped, Thanks tomhughes
+
 * version 3.10.0 - 2025-11-30
     * Theming: You can now customize a help section on the status page
     * Search: When no results and viewbox is set, then pan map to viewbox (instead of whole world)
