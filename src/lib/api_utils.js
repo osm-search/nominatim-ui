@@ -1,8 +1,21 @@
+import escapeHtml from 'escape-html';
+
+const ALLOWED_THEME_FILES = [
+  'theme/welcome.html',
+  'theme/about-help.html',
+  'theme/status-help.html'
+];
+
 var fetch_content_cache = {};
 export async function fetch_content_into_element(url, dom_element) {
   if (!window.location.protocol.match(/^http/)) {
-    dom_element.innerHTML = `Cannot display data from ${url} here. `
+    dom_element.textContent = `Cannot display data from ${url} here. `
       + 'Browser security prevents loading content from file:// URLs.';
+    return;
+  }
+
+  if (!ALLOWED_THEME_FILES.includes(url)) {
+    dom_element.textContent = 'Loading content from ' + url + ' is not allowed.';
     return;
   }
 
@@ -14,12 +27,13 @@ export async function fetch_content_into_element(url, dom_element) {
     await fetch(url)
       .then(response => response.text())
       .then(html => {
-        html = html.replace('Nominatim_API_Endpoint', generate_nominatim_endpoint_url());
+        var endpoint = escapeHtml(generate_nominatim_endpoint_url());
+        html = html.replace('Nominatim_API_Endpoint', endpoint);
         dom_element.innerHTML = html;
         fetch_content_cache[url] = html;
       });
   } catch (error) {
-    dom_element.innerHTML = `Error fetching content from ${url} (${error})`;
+    dom_element.textContent = `Error fetching content from ${url} (${error})`;
   }
 }
 

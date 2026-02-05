@@ -40,7 +40,8 @@
   }
 
   function set_api_param(e) {
-    document.querySelector('input[name=' + e.target.dataset.apiParam + ']').value = e.target.value;
+    const selector = `input[name="${CSS.escape(e.target.dataset.apiParam)}"]`;
+    document.querySelector(selector).value = e.target.value;
   }
 
   function onSwitchCoords(e) {
