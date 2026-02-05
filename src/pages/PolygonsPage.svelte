@@ -52,7 +52,7 @@
               <td>{polygon.errormessage}</td>
               <td>{polygon.updated}</td>
               <td>
-                <a href="http://localhost:8111/import?url=https://www.openstreetmap.org/api/0.6/{formatOSMType(polygon.osm_type)}/{polygon.osm_id}/full" target="josm">josm</a>
+                <a href="//localhost:8111/import?url=https://www.openstreetmap.org/api/0.6/{formatOSMType(polygon.osm_type)}/{polygon.osm_id}/full" target="josm">josm</a>
               </td>
             </tr>
           {/each}

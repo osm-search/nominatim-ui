@@ -85,14 +85,15 @@ export function formatDistance(fDistance, bInMeters) {
       ? Math.round(fDistance / 1000, 1) + ' km'
       : Math.round(fDistance, 0) + ' m';
 
-    return '<abbr class="distance" title="' + fDistance + ' meters">~' + sFormatted + '</abbr>';
+    return '<abbr class="distance" title="' + escapeHtml(String(fDistance))
+      + ' meters">~' + escapeHtml(sFormatted) + '</abbr>';
   }
 
   // spheric distance, http://postgis.net/docs/ST_Distance_Spheroid.html
   if (fDistance === 0) return '0';
 
-  return '<abbr class="distance" title="spheric distance ' + fDistance + '">~'
-      + (Math.round(fDistance * 1000, 4) / 1000)
+  return '<abbr class="distance" title="spheric distance ' + escapeHtml(String(fDistance)) + '">~'
+      + escapeHtml(String(Math.round(fDistance * 1000, 4) / 1000))
       + '</abbr>';
 }
 

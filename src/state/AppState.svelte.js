@@ -75,7 +75,11 @@ class AppState {
   async fetchFromApi(endpoint_name, params, callback) {
     const api_url = generate_nominatim_api_url(endpoint_name, params);
 
-    const mock_api_error = (new URLSearchParams(window.location.search)).get('mock_api_error');
+    const search = new URLSearchParams(window.location.search);
+    const mock_api_error_param = search.get('mock_api_error');
+    const mock_api_error = ['fetch', 'parse'].includes(mock_api_error_param)
+      ? mock_api_error_param
+      : null;
 
     const fetchOptions = {};
 
