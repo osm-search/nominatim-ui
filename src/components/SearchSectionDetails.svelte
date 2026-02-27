@@ -1,14 +1,14 @@
 <script>
   import { appState } from '../state/AppState.svelte.js';
 
-  let { api_request_params = {} } = $props();
+  const { api_request_params = {} } = $props();
 
   function handleFormSubmit(event) {
     event.preventDefault();
 
-    let form_el = event.target;
-    let val = form_el.querySelector('input[type=edit]').value.trim();
-    let type_and_id_match = val.match(/^\s*([NWR])(-?\d+)\s*$/i)
+    const form_el = event.target;
+    const val = form_el.querySelector('input[type=edit]').value.trim();
+    const type_and_id_match = val.match(/^\s*([NWR])(-?\d+)\s*$/i)
                             || val.match(/\/(relation|way|node)\/(-?\d+)\s*$/);
 
     const params = {};

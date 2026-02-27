@@ -6,7 +6,7 @@
     formatPlaceType, formatAdminLevel, formatDistance
   } from '../lib/helpers.js';
 
-  let {
+  const {
     addressLine,
     bDistanceInMeters,
     bMarkUnusedLines = false,

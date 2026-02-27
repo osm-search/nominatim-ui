@@ -16,8 +16,8 @@ describe('Reverse Page', function () {
     });
 
     it('should allow switching coordinates', async function () {
-      let lat_handle = await page.$('input[name=lat]');
-      let lon_handle = await page.$('input[name=lon]');
+      const lat_handle = await page.$('input[name=lat]');
+      const lon_handle = await page.$('input[name=lon]');
 
       assert.equal(await lat_handle.evaluate(node => node.value), '');
       assert.equal(await lon_handle.evaluate(node => node.value), '');
@@ -51,7 +51,9 @@ describe('Reverse Page', function () {
     });
 
     it('should return single result', async function () {
-      let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
+      const results_count = await page.$$eval(
+        '#searchresults .result', elements => elements.length
+      );
 
       assert.deepStrictEqual(results_count, 1);
     });
@@ -91,13 +93,12 @@ describe('Reverse Page', function () {
     });
 
     it('should redirect to details page on clicking details button', async function () {
-      let current_url;
-      let results = await page.$$('#searchresults .result a');
+      const results = await page.$$('#searchresults .result a');
 
       await results[0].click();
       await page.waitForSelector('table#address');
 
-      current_url = new URL(await page.url());
+      const current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/details.html');
     });
 

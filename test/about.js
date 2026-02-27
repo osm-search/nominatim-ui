@@ -14,7 +14,7 @@ describe('About Page', function () {
 
   it('should contain Nominatim description', async function () {
     await page.waitForSelector('#about-help');
-    let description = await page.$eval('#about-help', el => el.textContent);
+    const description = await page.$eval('#about-help', el => el.textContent);
 
     assert.ok(description.includes('Nominatim is a search engine'));
   });

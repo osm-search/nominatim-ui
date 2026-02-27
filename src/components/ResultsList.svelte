@@ -6,11 +6,12 @@
   import Welcome from './Welcome.svelte';
   import MapIcon from './MapIcon.svelte';
 
+  // eslint-disable-next-line prefer-const
   let { results, reverse_search = false, current_result = $bindable() } = $props();
 
   let iHighlightNum = $state();
 
-  let sMoreURL = $derived.by(() => {
+  const sMoreURL = $derived.by(() => {
     const search_params = new URLSearchParams(window.location.search);
     const aResults = results;
     // lonvia wrote: https://github.com/osm-search/nominatim-ui/issues/24
@@ -21,10 +22,10 @@
     if (search_params.has('exclude_place_ids')) {
       aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
     }
-    for (var i = 0; i < aResults.length; i += 1) {
+    for (let i = 0; i < aResults.length; i += 1) {
       aExcludePlaceIds.push(aResults[i].place_id);
     }
-    var parsed_url = new SvelteURLSearchParams(window.location.search);
+    const parsed_url = new SvelteURLSearchParams(window.location.search);
     parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
     return '?' + parsed_url.toString();
   });
@@ -35,7 +36,7 @@
     if (!result_el.className.match('result')) {
       result_el = result_el.parentElement;
     }
-    let pos = Number(result_el.dataset.position);
+    const pos = Number(result_el.dataset.position);
 
     iHighlightNum = pos;
   }

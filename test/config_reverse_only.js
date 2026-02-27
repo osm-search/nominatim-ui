@@ -19,12 +19,12 @@ describe('Reverse Only', function () {
     it('should redirect to /reverse', async function () {
       // await page.waitForSelector('footer');
 
-      let current_url = new URL(await page.url());
+      const current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/reverse.html');
     });
 
     it('no navigation link', async function () {
-      let nav_item = await page.$('nav ul li a[href="search.html"]');
+      const nav_item = await page.$('nav ul li a[href="search.html"]');
       assert.equal(nav_item, null);
     });
   });

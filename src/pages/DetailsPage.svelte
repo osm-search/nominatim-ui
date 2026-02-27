@@ -68,7 +68,7 @@
   }
 
   function country_code(aThisPlace) {
-    let aLine = aThisPlace.address.find((address_line) => address_line.type === 'country_code');
+    const aLine = aThisPlace.address.find((address_line) => address_line.type === 'country_code');
     return aLine ? aLine.localname : null;
   }
 

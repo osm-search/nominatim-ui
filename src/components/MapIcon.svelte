@@ -1,6 +1,6 @@
 <script>
 
-  let { aPlace } = $props();
+  const { aPlace } = $props();
 
   const sIcon = $derived(getIcon(aPlace.category, aPlace.type));
   const title = $derived('icon for ' + aPlace.category + ' ' + aPlace.type);
@@ -11,7 +11,7 @@
     // covers 83 of 214 available icon filenames, e.g. transport_roundabout_anticlockwise
     // transport_rental_bicycle or place_of_worship_christian would need more data from
     // the place.
-    var aIcons = {
+    const aIcons = {
       'boundary:administrative': 'poi_boundary_administrative',
       'place:city': 'poi_place_city',
       'place:town': 'poi_place_town',

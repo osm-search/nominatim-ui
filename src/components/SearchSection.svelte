@@ -3,7 +3,7 @@
   import DefaultLanguage from './DefaultLanguage.svelte';
   import { mapState } from '../state/MapState.svelte.js';
 
-  let { bStructuredSearch = false, api_request_params = {} } = $props();
+  const { bStructuredSearch = false, api_request_params = {} } = $props();
 
   let useViewbox = $derived(!!api_request_params.viewbox);
 

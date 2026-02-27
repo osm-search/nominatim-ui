@@ -8,12 +8,12 @@
   import { mapState } from '../state/MapState.svelte.js';
   import { initColorToggler } from '../color-mode-toggler.js';
 
-  let { subheader } = $props();
+  const { subheader } = $props();
 
   const page_title = Nominatim_Config.Page_Title;
   const reverse_only = Nominatim_Config.Reverse_Only;
 
-  let view = $derived(appState.page.tab);
+  const view = $derived(appState.page.tab);
 
   onMount(initColorToggler);
 </script>

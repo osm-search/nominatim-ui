@@ -31,7 +31,7 @@ describe('Details Page', function () {
 
 
     it('should display error', async function () {
-      let page_content = await page.$eval('body', el => el.textContent);
+      const page_content = await page.$eval('body', el => el.textContent);
 
       assert.ok(page_content.includes('No place with that OSM ID found'));
     });
@@ -55,7 +55,7 @@ describe('Details Page', function () {
     });
 
     it('should have header title', async function () {
-      let page_header = await page.$eval('.container h1', el => el.textContent);
+      const page_header = await page.$eval('.container h1', el => el.textContent);
 
       assert.ok(page_header.includes('Vaduz'));
     });
@@ -76,30 +76,30 @@ describe('Details Page', function () {
       });
 
       it('should change url and add new header on clicking display keywords', async function () {
-        let current_url;
-        let display_headers;
-        let [display_keywords_btn] = await page.$$(
+        const [display_keywords_btn] = await page.$$(
           "xpath/.//a[contains(text(), 'display keywords')]"
         );
 
         await display_keywords_btn.evaluate(node => node.click());
         await page.waitForNavigation();
 
-        current_url = new URL(await page.url());
+        const current_url = new URL(await page.url());
         assert.strictEqual(current_url.searchParams.get('keywords'), '1');
 
         await page.waitForSelector('h3');
-        display_headers = await page.$$eval('h3', elements => elements.map(el => el.textContent));
+        const display_headers = await page.$$eval(
+          'h3', elements => elements.map(el => el.textContent)
+        );
         assert.deepStrictEqual(display_headers, ['Name Keywords', 'Address Keywords']);
 
-        let page_content = await page.$eval('body', el => el.textContent);
+        const page_content = await page.$eval('body', el => el.textContent);
         assert.ok(page_content.includes('vadouz')); // one of the name keywords
       });
     }
 
 
     it('should support case-insensitive search, can navigate to new page', async function () {
-      let input_field = await page.$('input[type=edit]');
+      const input_field = await page.$('input[type=edit]');
       await input_field.click({ clickCount: 3 });
       await input_field.type('w375257537');
       await page.click('button[type=submit]');
@@ -124,8 +124,7 @@ describe('Details Page', function () {
       let page_content = await page.$eval('body', el => el.textContent);
       assert.ok(page_content.includes('Gafleistrasse'));
 
-      let current_url;
-      let [child_places_btn] = await page.$$(
+      const [child_places_btn] = await page.$$(
         "xpath/.//a[contains(text(), 'display child places')]"
       );
 
@@ -133,7 +132,7 @@ describe('Details Page', function () {
       await page.waitForNavigation();
       await page.waitForSelector('table#address');
 
-      current_url = new URL(await page.url());
+      const current_url = new URL(await page.url());
       assert.strictEqual(current_url.searchParams.get('hierarchy'), '1');
 
       page_content = await page.$eval('body', el => el.textContent);
@@ -154,7 +153,7 @@ describe('Details Page', function () {
     });
 
     it('should display No Name, no keywords, no hierarchy', async function () {
-      let page_content = await page.$eval('body', el => el.textContent);
+      const page_content = await page.$eval('body', el => el.textContent);
 
       assert.ok(page_content.includes('NameNo Name'));
       if (!process.env.REVERSE_ONLY) {

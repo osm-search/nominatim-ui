@@ -10,7 +10,7 @@
 
   let results = $state();
   let api_request_params = $state.raw();
-  let bStructuredSearch = $state();
+  const bStructuredSearch = $state();
   let current_result = $state();
 
   function loaddata(search_params) {
@@ -38,7 +38,7 @@
       format: 'jsonv2'
     };
 
-    let anyStructuredFieldsSet = (api_request_params.amenity
+    const anyStructuredFieldsSet = (api_request_params.amenity
                                 || api_request_params.street
                                 || api_request_params.city
                                 || api_request_params.county

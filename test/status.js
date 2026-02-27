@@ -18,7 +18,7 @@ describe('Status Page', function () {
       { timeout: 10000 }
     );
 
-    let status_details = await page.$eval(
+    const status_details = await page.$eval(
       'body',
       el => el.textContent.match(/Software version.*\d+\.\d+/)
     );

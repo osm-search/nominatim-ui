@@ -1,5 +1,5 @@
 <script>
-    let { items } = $props();
+    const { items } = $props();
 </script>
 
 <style>
