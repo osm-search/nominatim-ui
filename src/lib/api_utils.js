@@ -53,7 +53,7 @@ export function generate_nominatim_api_url(endpoint_name, params) {
   // default value for /search
   if (params.dedupe === 1) delete params.dedupe;
 
-  extend_parameters(params, Nominatim_Config.Nominatim_API_Endpoint_Params);
+  Object.assign(params, Nominatim_Config.Nominatim_API_Endpoint_Params);
   return generate_nominatim_endpoint_url(endpoint_name)
          + '?'
          + Object.keys(clean_up_parameters(params)).map((k) => {
@@ -61,20 +61,11 @@ export function generate_nominatim_api_url(endpoint_name, params) {
          }).join('&');
 }
 
-function extend_parameters(params, params2) {
-  const param_names = Object.keys(params2);
-  for (let i = 0; i < param_names.length; i += 1) {
-    params[param_names[i]] = params2[param_names[i]];
-  }
-}
-
 function clean_up_parameters(params) {
   // `&a=&b=&c=1` => '&c=1'
-  const param_names = Object.keys(params);
-  for (let i = 0; i < param_names.length; i += 1) {
-    const val = params[param_names[i]];
-    if (typeof (val) === 'undefined' || val === '' || val === null) {
-      delete params[param_names[i]];
+  for (const [key, val] of Object.entries(params)) {
+    if (val === undefined || val === '' || val === null) {
+      delete params[key];
     }
   }
   return params;
