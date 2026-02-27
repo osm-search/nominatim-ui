@@ -31,7 +31,7 @@
         "mocha": "^11.7.5",
         "prettier": "^3.7.4",
         "puppeteer": "^24.33.0",
-        "rollup": "^4.53.3",
+        "rollup": "^4.59.0",
         "rollup-plugin-css-only": "^4.5.5",
         "rollup-plugin-livereload": "^2.0.5",
         "rollup-plugin-svelte": "^7.2.3",
