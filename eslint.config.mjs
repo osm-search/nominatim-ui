@@ -58,8 +58,7 @@ export default [
 
         "no-var": "error",
         "prefer-const": "error",
-        "svelte/require-each-key": "off",
-        "svelte/no-immutable-reactive-statements": "off"
+        "svelte/require-each-key": "off"
     },
 }, {
     files: ["test/**"],
