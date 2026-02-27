@@ -26,10 +26,13 @@ describe('Search Page', function () {
     });
 
     it('should have a last_updated_: ... ago data', async function () {
-      await page.waitForSelector('abbr[id="data-date"]');
-
-      let last_updated = await page.$eval('abbr[id="data-date"]', el => el.textContent);
-      assert.ok(last_updated.includes('ago'));
+      await page.waitForFunction(
+        () => {
+          let el = document.querySelector('abbr[id="data-date"]');
+          return el && el.textContent.includes('ago');
+        },
+        { timeout: 10000 }
+      );
     });
 
     it('should show map bounds buttons', async function () {

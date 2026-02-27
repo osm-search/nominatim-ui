@@ -13,6 +13,11 @@ describe('Status Page', function () {
   });
 
   it('should have software version', async function () {
+    await page.waitForFunction(
+      () => document.body.textContent.match(/Software version.*\d+\.\d+/),
+      { timeout: 10000 }
+    );
+
     let status_details = await page.$eval(
       'body',
       el => el.textContent.match(/Software version.*\d+\.\d+/)

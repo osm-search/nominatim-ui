@@ -32,10 +32,11 @@ describe('Nominatim API errors', function () {
     });
 
     it('should display an error', async function () {
-      await page.waitForSelector('#error');
-
-      let message = await page.$eval('#error', el => el.textContent);
-      assert.ok(message.includes('Error parsing JSON data from'));
+      await page.waitForFunction(
+        () => document.querySelector('#error')
+              ?.textContent.includes('Error parsing JSON data from'),
+        { timeout: 10000 }
+      );
     });
   });
 });
