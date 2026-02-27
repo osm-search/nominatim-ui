@@ -15,7 +15,7 @@
 </script>
 
 <!-- deal with back-button and other user action -->
-<svelte:window on:popstate={() => appState.refreshPage()} />
+<svelte:window onpopstate={() => appState.refreshPage()} />
 
 {#if appState.page.tab === 'search'}
 <SearchPage />
