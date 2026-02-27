@@ -5,7 +5,7 @@
 
   let { bStructuredSearch = false, api_request_params = {} } = $props();
 
-  let useViewbox = $state(api_request_params.viewbox || false);
+  let useViewbox = $derived(!!api_request_params.viewbox);
 
   function set_bounded(e) {
     document.querySelector('input[name=bounded]').value = e.target.checked ? 1 : '';
