@@ -7,6 +7,7 @@
   import { mapState } from '../state/MapState.svelte.js';
   import { appState } from '../state/AppState.svelte.js';
 
+  // eslint-disable-next-line prefer-const
   let { lat = '', lon = '', zoom = '', api_request_params = {} } = $props();
 
   $effect(() => {
@@ -32,7 +33,7 @@
 
   // common mistake is to copy&paste latitude and longitude into the 'lat' search box
   function maybeSplitLatitude(e) {
-    var coords_split = e.target.value.split(/,|%2C/);
+    const coords_split = e.target.value.split(/,|%2C/);
     if (coords_split.length === 2) {
       document.querySelector('input[name=lat]').value = L.Util.trim(coords_split[0]);
       document.querySelector('input[name=lon]').value = L.Util.trim(coords_split[1]);

@@ -6,7 +6,7 @@
 
   let last_updated_date = $state();
 
-  let last_api_request_url = $derived.by(() => {
+  const last_api_request_url = $derived.by(() => {
     const url = appState.lastApiRequestURL;
 
     if (url) {

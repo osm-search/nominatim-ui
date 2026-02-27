@@ -44,7 +44,7 @@ class AppState {
       if (param_str) {
         param_str = '?' + param_str;
       }
-      let new_url = pagename + '.html' + param_str;
+      const new_url = pagename + '.html' + param_str;
 
       if (window.location.protocol.match(/^http/)) {
         window.history.pushState([], '', new_url);
@@ -108,7 +108,7 @@ class AppState {
 
           // Parse JSON here instead of returning a promise so we can catch possible
           // errors.
-          var data;
+          let data;
           try {
             if (mock_api_error === 'parse') {
               data = JSON.parse('{');

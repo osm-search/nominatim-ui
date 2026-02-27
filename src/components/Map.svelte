@@ -8,19 +8,19 @@
   import { mapState } from '../state/MapState.svelte.js';
   import MapPosition from '../components/MapPosition.svelte';
 
-  let {
+  const {
     display_minimap = false,
     current_result = null,
     position_marker = null
   } = $props();
 
   let map;
-  let dataLayers = [];
+  const dataLayers = [];
 
   function mapViewboxAsString(map) {
-    var bounds = map.getBounds();
-    var west = bounds.getWest();
-    var east = bounds.getEast();
+    const bounds = map.getBounds();
+    let west = bounds.getWest();
+    let east = bounds.getEast();
 
     if ((east - west) >= 360) { // covers more than whole planet
       west = map.getCenter().lng - 179.999;
@@ -72,7 +72,7 @@
     }).addTo(map);
 
     if (display_minimap) {
-      let osm2 = new L.TileLayer(Nominatim_Config.Map_Tile_URL, {
+      const osm2 = new L.TileLayer(Nominatim_Config.Map_Tile_URL, {
         minZoom: 0,
         maxZoom: 13,
         attribution: attribution
@@ -100,7 +100,7 @@
   function parse_and_normalize_geojson_string(part) {
     // normalize places the geometry into a featurecollection, similar to
     // https://github.com/mapbox/geojson-normalize
-    var parsed_geojson = {
+    const parsed_geojson = {
       type: 'FeatureCollection',
       features: [
         {
@@ -128,7 +128,7 @@
 
     if (marker) {
       // We don't need a marker, but L.circle would change radius when you zoom in/out
-      let cm = L.circleMarker(
+      const cm = L.circleMarker(
         marker,
         {
           radius: 5,
@@ -145,12 +145,12 @@
       dataLayers.push(cm);
     }
 
-    var search_params = new URLSearchParams(window.location.search);
-    var viewbox = search_params.get('viewbox');
+    const search_params = new URLSearchParams(window.location.search);
+    const viewbox = search_params.get('viewbox');
     if (viewbox) {
-      let coords = viewbox.split(','); // <x1>,<y1>,<x2>,<y2>
-      let bounds = L.latLngBounds([coords[1], coords[0]], [coords[3], coords[2]]);
-      let viewbox_on_map = L.rectangle(bounds, {
+      const coords = viewbox.split(','); // <x1>,<y1>,<x2>,<y2>
+      const bounds = L.latLngBounds([coords[1], coords[0]], [coords[3], coords[2]]);
+      const viewbox_on_map = L.rectangle(bounds, {
         color: '#69d53e',
         weight: 3,
         dashArray: '5 5',
@@ -166,13 +166,13 @@
 
     if (!aFeature) return;
 
-    let lat = aFeature.centroid ? aFeature.centroid.coordinates[1] : aFeature.lat;
-    let lon = aFeature.centroid ? aFeature.centroid.coordinates[0] : aFeature.lon;
-    let geojson = aFeature.geometry || aFeature.geojson;
-    let entrances = aFeature.entrances;
+    const lat = aFeature.centroid ? aFeature.centroid.coordinates[1] : aFeature.lat;
+    const lon = aFeature.centroid ? aFeature.centroid.coordinates[0] : aFeature.lon;
+    const geojson = aFeature.geometry || aFeature.geojson;
+    const entrances = aFeature.entrances;
 
     if (lat && lon) {
-      let circle = L.circleMarker([lat, lon], {
+      const circle = L.circleMarker([lat, lon], {
         radius: 10, weight: 2, fillColor: '#ff7800', color: 'blue', opacity: 0.75
       });
       if (marker) { // reverse result
@@ -184,7 +184,7 @@
 
 
     if (geojson) {
-      var geojson_layer = L.geoJson(
+      const geojson_layer = L.geoJson(
         // https://leafletjs.com/reference-1.7.1.html#path-option
         parse_and_normalize_geojson_string(geojson),
         {
@@ -204,7 +204,7 @@
 
     if (entrances) {
       entrances.forEach((entrance, i) => {
-        let entranceCircle = L.circleMarker([entrance.lat, entrance.lon], {
+        const entranceCircle = L.circleMarker([entrance.lat, entrance.lon], {
           radius: 5, weight: 2, fillColor: '#ff7800', color: 'red', opacity: 0.75
         });
         entranceCircle.bindTooltip(`Entrance ${i + 1} (type=${entrance.type})`).openTooltip();

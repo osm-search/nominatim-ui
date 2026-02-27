@@ -2,10 +2,10 @@
   import { appState } from '../state/AppState.svelte.js';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
-  let { page, content } = $props();
+  const { page, content } = $props();
 
   function serialize_form(form) {
-    var params = new SvelteURLSearchParams();
+    const params = new SvelteURLSearchParams();
 
     Array.prototype.slice.call(form.elements).forEach(function (field) {
       if (!field.name || field.disabled || ['submit', 'button'].indexOf(field.type) > -1) return;
@@ -36,7 +36,7 @@
   function handle_submit(event) {
     event.preventDefault();
 
-    let form = event.target;
+    const form = event.target;
 
     let allow_submit = true;
 

@@ -66,7 +66,7 @@ export function formatAddressRank(iRank) {
 }
 
 export function formatPlaceType(aPlace) {
-  var sOut = aPlace.class + ':' + aPlace.type;
+  let sOut = aPlace.class + ':' + aPlace.type;
   if (aPlace.type && aPlace.type === 'administrative' && aPlace.place_type) {
     sOut = sOut + ' (' + aPlace.place_type + ')';
   }
@@ -81,7 +81,7 @@ export function formatAdminLevel(iLevel) {
 export function formatDistance(fDistance, bInMeters) {
   if (bInMeters) {
     if (fDistance < 1) return '0';
-    var sFormatted = (fDistance >= 1000)
+    const sFormatted = (fDistance >= 1000)
       ? Math.round(fDistance / 1000, 1) + ' km'
       : Math.round(fDistance, 0) + ' m';
 

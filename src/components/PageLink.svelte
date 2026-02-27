@@ -1,7 +1,7 @@
 <script>
   import { appState } from '../state/AppState.svelte.js';
 
-  let {
+  const {
     page,
     text,
     text_snippet,

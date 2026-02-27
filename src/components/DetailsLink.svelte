@@ -1,7 +1,7 @@
 <script>
   import { appState } from '../state/AppState.svelte.js';
 
-  let { text = 'details', extra_classes = '', feature = null } = $props();
+  const { text = 'details', extra_classes = '', feature = null } = $props();
 
   function formatShortOSMType(sType) {
     if (sType === 'node') return 'N';

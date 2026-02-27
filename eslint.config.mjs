@@ -25,7 +25,7 @@ export default [
             ...globals.node
         },
 
-        ecmaVersion: 2022,
+        ecmaVersion: 2024,
         sourceType: "module",
     },
 }, {
@@ -56,6 +56,8 @@ export default [
             ignoreUrls: true,
         }],
 
+        "no-var": "error",
+        "prefer-const": "error",
         "svelte/require-each-key": "off",
         "svelte/no-immutable-reactive-statements": "off"
     },

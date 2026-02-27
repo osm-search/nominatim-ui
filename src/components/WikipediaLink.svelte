@@ -1,6 +1,6 @@
 <script>
   // de:Überwasserkirche
-  let { wikipedia } = $props();
+  const { wikipedia } = $props();
 
   const linkParts = $derived(wikipedia ? wikipedia.split(':', 2) : null);
   const subDomain = $derived(String(linkParts[0]).toLowerCase().replace(/[^a-z0-9-]/g, ''));

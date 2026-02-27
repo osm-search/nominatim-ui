@@ -1,7 +1,7 @@
 <script>
 import { formatOSMType } from '../lib/helpers.js';
 
-let { osmType, osmId } = $props();
+const { osmType, osmId } = $props();
 
 const osmTypeString = $derived(formatOSMType(osmType, false));
 

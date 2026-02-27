@@ -1,5 +1,5 @@
 <script>
-  let { postcode, lat, lon, country_code } = $props();
+  const { postcode, lat, lon, country_code } = $props();
 
   const overpass_query = $derived(`
     // Based on the map bounds, you can zoom out and rerun the query

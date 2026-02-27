@@ -1,7 +1,7 @@
 <script>
 import { appState } from '../state/AppState.svelte.js';
 
-let {
+const {
   lat = null,
   lon = null,
   zoom = null,
@@ -25,7 +25,7 @@ const params = $derived.by(() => {
 });
 
 const href = $derived.by(() => {
-  let param_str = params.toString();
+  const param_str = params.toString();
   return 'reverse.html' + (param_str ? '?' : '') + param_str;
 });
 

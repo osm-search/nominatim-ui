@@ -53,7 +53,7 @@ export default {
         // The ':global()' rules (https://svelte.dev/docs#style) get
         // prepended so we can't use them to overwrite bootstrap.css
         // rules
-        let global_styles = readFileSync('src/global_style.css');
+        const global_styles = readFileSync('src/global_style.css');
         styles += global_styles;
         writeFileSync('dist/build/bundle.css', styles);
       }

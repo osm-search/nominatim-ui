@@ -16,7 +16,7 @@ describe('Nominatim API errors', function () {
     it('should display an error', async function () {
       await page.waitForSelector('#error');
 
-      let message = await page.$eval('#error', el => el.textContent);
+      const message = await page.$eval('#error', el => el.textContent);
       assert.ok(message.includes('Error fetching data from'));
     });
   });

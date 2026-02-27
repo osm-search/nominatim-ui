@@ -21,14 +21,14 @@ describe('Search Page', function () {
     });
 
     it('should have a welcome message', async function () {
-      let welcome_message = await page.$eval('#welcome h2', el => el.textContent);
+      const welcome_message = await page.$eval('#welcome h2', el => el.textContent);
       assert.deepStrictEqual(welcome_message, 'Welcome to Nominatim');
     });
 
     it('should have a last_updated_: ... ago data', async function () {
       await page.waitForFunction(
         () => {
-          let el = document.querySelector('abbr[id="data-date"]');
+          const el = document.querySelector('abbr[id="data-date"]');
           return el && el.textContent.includes('ago');
         },
         { timeout: 10000 }
@@ -37,7 +37,7 @@ describe('Search Page', function () {
 
     it('should show map bounds buttons', async function () {
       await page.waitForSelector('#map');
-      let show_map_pos_handle = await page.$('#show-map-position');
+      const show_map_pos_handle = await page.$('#show-map-position');
       assert.strictEqual(await page.$('#map-position-inner'), null);
 
       await show_map_pos_handle.click();
@@ -51,11 +51,11 @@ describe('Search Page', function () {
       //   'last click:',
       //   ' mouse position: 65.69612,103.71094'
       // ]
-      let map_center_coords = map_pos_details[0]
+      const map_center_coords = map_pos_details[0]
         .split('map center: ')[1].split(' view')[0].split(',');
-      let map_zoom = map_pos_details[1].split('map zoom: ')[1];
-      let map_viewbox = map_pos_details[2].split('viewbox: ')[1].split(',');
-      let last_click = map_pos_details[3].split('last click: ')[1];
+      const map_zoom = map_pos_details[1].split('map zoom: ')[1];
+      const map_viewbox = map_pos_details[2].split('viewbox: ')[1].split(',');
+      const last_click = map_pos_details[3].split('last click: ')[1];
 
       assert.deepStrictEqual(map_center_coords.length, 2);
       assert.ok(map_zoom);
@@ -87,31 +87,33 @@ describe('Search Page', function () {
     });
 
     it('should have added search params', async function () {
-      let current_url = new URL(await page.url());
+      const current_url = new URL(await page.url());
       assert.strictEqual(current_url.searchParams.get('q'), 'Paris');
     });
 
     it('should have at least one result', async function () {
-      let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
+      const results_count = await page.$$eval(
+        '#searchresults .result', elements => elements.length
+      );
       assert.ok(results_count > 1);
     });
 
     it('should have show more results button', async function () {
-      let [search_more_btn] = await page.$$(
+      const [search_more_btn] = await page.$$(
         "xpath/.//a[contains(text(), 'Search for more results')]"
       );
       assert.ok(search_more_btn);
     });
 
     it('should display the API request and debug URL', async function () {
-      let link_titles = await page.$$eval('#api-request a', links => links.map(l => l.innerHTML));
+      const link_titles = await page.$$eval('#api-request a', links => links.map(l => l.innerHTML));
       assert.deepEqual(link_titles, ['API request', 'debug output']);
     });
 
     it('should not have polygon params in API request and debug URL', async function () {
-      let links_href = await page.$$eval('#api-request a', links => links.map(l => l.href));
-      let api_request_url = new URL(links_href[0]);
-      let debug_url = new URL(links_href[1]);
+      const links_href = await page.$$eval('#api-request a', links => links.map(l => l.href));
+      const api_request_url = new URL(links_href[0]);
+      const debug_url = new URL(links_href[1]);
 
       assert.deepStrictEqual(api_request_url.searchParams.has('polygon_geojson'), false);
       assert.deepStrictEqual(debug_url.searchParams.has('polygon_geojson'), false);
@@ -127,8 +129,8 @@ describe('Search Page', function () {
       assert.equal(checkbox_checked, true);
 
       const links_href = await page.$$eval('#api-request a', links => links.map(l => l.href));
-      let api_request_url = new URL(links_href[0]);
-      let debug_url = new URL(links_href[1]);
+      const api_request_url = new URL(links_href[0]);
+      const debug_url = new URL(links_href[1]);
 
       assert.deepStrictEqual(api_request_url.searchParams.has('dedupe'), false);
       assert.deepStrictEqual(debug_url.searchParams.has('dedupe'), false);
@@ -139,18 +141,16 @@ describe('Search Page', function () {
     });
 
     it('should redirect to details page on clicking details button', async function () {
-      let current_url;
-      let page_header;
-      let results = await page.$$('#searchresults .result a');
+      const results = await page.$$('#searchresults .result a');
 
       await results[0].click();
       await page.waitForSelector('table#address');
 
-      current_url = new URL(await page.url());
+      const current_url = new URL(await page.url());
       assert.deepStrictEqual(current_url.pathname, '/details.html');
 
       await page.waitForSelector('.container h1');
-      page_header = await page.$eval('.container h1', el => el.textContent);
+      const page_header = await page.$eval('.container h1', el => el.textContent);
       assert.ok(page_header.includes('Paris'));
     });
   });
@@ -176,14 +176,16 @@ describe('Search Page', function () {
     });
 
     it('should have added search params', async function () {
-      let current_url = new URL(await page.url());
+      const current_url = new URL(await page.url());
       assert.strictEqual(current_url.searchParams.get('q'), null);
       assert.strictEqual(current_url.searchParams.get('city'), 'Paris');
       assert.strictEqual(current_url.searchParams.get('country'), 'USA');
     });
 
     it('should have at least one result', async function () {
-      let results_count = await page.$$eval('#searchresults .result', elements => elements.length);
+      const results_count = await page.$$eval(
+        '#searchresults .result', elements => elements.length
+      );
       assert.ok(results_count > 1);
     });
   });
