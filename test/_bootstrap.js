@@ -24,7 +24,7 @@ export async function mochaGlobalSetup() {
   fse.mkdirpSync(workdir);
   fse.copySync('dist', workdir);
 
-  let api_endpoint = use_proxy ? '/' : 'https:/nominatim.openstreetmap.org/';
+  const api_endpoint = use_proxy ? '/' : 'https:/nominatim.openstreetmap.org/';
 
   fse.outputFile(workdir + '/theme/config.theme.js', `
 Nominatim_Config.Nominatim_API_Endpoint = '${api_endpoint}';
@@ -46,9 +46,9 @@ Nominatim_Config.Reverse_Only = ${reverse_only};
 
     this.proxy_server = await http.createServer((req, res) => {
       // identify if the requests should be served by the (remote) API or static webserver
-      let api_url_match = !req.url.match(/(.html|.css|.js|.ico|.png)(\?|$)/);
+      const api_url_match = !req.url.match(/(.html|.css|.js|.ico|.png)(\?|$)/);
 
-      let target = api_url_match
+      const target = api_url_match
         ? 'https://nominatim.openstreetmap.org'
         : 'http://localhost:' + static_port;
 
@@ -67,7 +67,7 @@ Nominatim_Config.Reverse_Only = ${reverse_only};
     headless: 'new',
     args: [
       '--user-agent=Nominatim UI test suite Mozilla/5.0 Gecko/20100101 HeadlessChrome/90.0',
-      // Nominatim's /status endpoint doesn't send a Access-Control-Allow-Origin header
+      // Nominatim API doesn't send Access-Control-Allow-Origin headers
       '--disable-web-security'
     ]
   });

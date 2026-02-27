@@ -44,7 +44,7 @@ class AppState {
       if (param_str) {
         param_str = '?' + param_str;
       }
-      let new_url = pagename + '.html' + param_str;
+      const new_url = pagename + '.html' + param_str;
 
       if (window.location.protocol.match(/^http/)) {
         window.history.pushState([], '', new_url);
@@ -102,13 +102,15 @@ class AppState {
           if ((!((response.status >= 200 && response.status < 300) || response.status === 404))
               || mock_api_error === 'fetch'
           ) {
-            this.errorMessage = `Error fetching data from ${api_url} (${response.statusText})`;
+            if (endpoint_name !== 'status') {
+              this.errorMessage = `Error fetching data from ${api_url} (${response.statusText})`;
+            }
             return undefined;
           }
 
           // Parse JSON here instead of returning a promise so we can catch possible
           // errors.
-          var data;
+          let data;
           try {
             if (mock_api_error === 'parse') {
               data = JSON.parse('{');
@@ -133,7 +135,9 @@ class AppState {
         });
     } catch (error) {
       if (error.name !== 'AbortError') {
-        this.errorMessage = `Error fetching data from ${api_url} (${error})`;
+        if (endpoint_name !== 'status') {
+          this.errorMessage = `Error fetching data from ${api_url} (${error})`;
+        }
         this.requestProgress = 'finish';
       }
     }
