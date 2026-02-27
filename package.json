@@ -36,7 +36,7 @@
         "rollup-plugin-livereload": "^2.0.5",
         "rollup-plugin-svelte": "^7.2.3",
         "static-server": "^2.2.1",
-        "svelte": "^5.45.10"
+        "svelte": "^5.53.5"
     },
     "dependencies": {
         "@popperjs/core": "^2.11.8",
