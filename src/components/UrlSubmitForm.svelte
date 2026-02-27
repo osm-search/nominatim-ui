@@ -7,17 +7,17 @@
   function serialize_form(form) {
     const params = new SvelteURLSearchParams();
 
-    Array.prototype.slice.call(form.elements).forEach(function (field) {
-      if (!field.name || field.disabled || ['submit', 'button'].indexOf(field.type) > -1) return;
+    for (const field of form.elements) {
+      if (!field.name || field.disabled || ['submit', 'button'].includes(field.type)) continue;
 
-      if (['checkbox', 'radio'].indexOf(field.type) > -1 && !field.checked) return;
-      if (typeof field.value === 'undefined' || field.value === '') return;
+      if (['checkbox', 'radio'].includes(field.type) && !field.checked) continue;
+      if (typeof field.value === 'undefined' || field.value === '') continue;
 
       // Default value for /search endpoint
-      if (field.name === 'dedupe' && (field.value === 1 || field.value === '1')) return;
+      if (field.name === 'dedupe' && (field.value === 1 || field.value === '1')) continue;
 
       params.set(field.name, field.value);
-    });
+    }
 
     return params;
   }
@@ -38,16 +38,14 @@
 
     const form = event.target;
 
-    let allow_submit = true;
-
-    Array.prototype.slice.call(form.elements).forEach(function (field) {
+    for (const field of form.elements) {
       if (!validate_field(field)) {
-        alert('Invalid input in ' + field.name);
-        allow_submit = false;
+        alert(`Invalid input in ${field.name}`);
+        return;
       }
-    });
+    }
 
-    if (allow_submit) appState.refreshPage(page, serialize_form(form));
+    appState.refreshPage(page, serialize_form(form));
   }
 </script>
 
