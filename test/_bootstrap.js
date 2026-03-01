@@ -67,7 +67,7 @@ Nominatim_Config.Reverse_Only = ${reverse_only};
     headless: 'new',
     args: [
       '--user-agent=Nominatim UI test suite Mozilla/5.0 Gecko/20100101 HeadlessChrome/90.0',
-      // Nominatim's /status endpoint doesn't send a Access-Control-Allow-Origin header
+      // Nominatim API doesn't send Access-Control-Allow-Origin headers
       '--disable-web-security'
     ]
   });

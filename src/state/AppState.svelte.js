@@ -102,7 +102,9 @@ class AppState {
           if ((!((response.status >= 200 && response.status < 300) || response.status === 404))
               || mock_api_error === 'fetch'
           ) {
-            this.errorMessage = `Error fetching data from ${api_url} (${response.statusText})`;
+            if (endpoint_name !== 'status') {
+              this.errorMessage = `Error fetching data from ${api_url} (${response.statusText})`;
+            }
             return undefined;
           }
 
@@ -133,7 +135,9 @@ class AppState {
         });
     } catch (error) {
       if (error.name !== 'AbortError') {
-        this.errorMessage = `Error fetching data from ${api_url} (${error})`;
+        if (endpoint_name !== 'status') {
+          this.errorMessage = `Error fetching data from ${api_url} (${error})`;
+        }
         this.requestProgress = 'finish';
       }
     }
