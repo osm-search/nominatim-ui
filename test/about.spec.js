@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './shared.js';
 
 test.describe('About Page', () => {
   let page;

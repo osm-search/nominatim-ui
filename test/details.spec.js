@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './shared.js';
 
 const reverse_only = !!process.env.REVERSE_ONLY;
 

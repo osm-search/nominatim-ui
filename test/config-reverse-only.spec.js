@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './shared.js';
 
 test.describe('Reverse Only', () => {
   test.skip(() => !process.env.REVERSE_ONLY, 'Only runs in reverse-only mode');

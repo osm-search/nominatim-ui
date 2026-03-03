@@ -41,7 +41,7 @@ Nominatim_Config.Reverse_Only = ${reverse_only};
 
     const proxy_server = http.createServer((req, res) => {
       const api_url_match = !req.url.match(
-        /(.html|.css|.js|.ico|.png)(\?|$)/
+        /(.html|.css|.js|.ico|.png|.svg)(\?|$)/
       );
       const target = api_url_match
         ? 'https://nominatim.openstreetmap.org'
