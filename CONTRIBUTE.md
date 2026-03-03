@@ -33,10 +33,10 @@ Svelte. Version 3 added theme and easier configuration.
 
 ## Testing
 
-The `test/` setup uses [Mocha](https://mochajs.org/) to run tests. Tests use [Puppeteer](https://pptr.dev/) to control a Google Chrome headless browser and evaluate with [Assert](https://nodejs.org/api/assert.html).
+The `test/` setup uses [Playwright](https://playwright.dev/) to run E2E tests in headless Chromium.
 
 
-* Run integration test suite (configuration in `.mocharc.json`)
+* Run integration test suite (configuration in `playwright.config.js`)
 
    ```
    yarn test
@@ -47,13 +47,19 @@ The `test/` setup uses [Mocha](https://mochajs.org/) to run tests. Tests use [Pu
    port. That's a rare setup but something https://nominatim.openstreetmap.org/ does
    so worth testing.
 
-   To run a single test file only
+   To run a single test file:
 
    ```
-   yarn run rollup -c && yarn run mocha test/details.js
+   yarn test test/details.spec.js
    ```
 
-* Run syntax linter (configuration in `.eslint.json`)
+   To run a single test by name:
+
+   ```
+   yarn test -g "should have a HTML page title"
+   ```
+
+* Run syntax linter (configuration in `eslint.config.mjs`)
 
    ```
    yarn lint
