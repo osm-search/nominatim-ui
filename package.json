@@ -12,7 +12,6 @@
         "start": "sirv dist"
     },
     "devDependencies": {
-        "@eslint/eslintrc": "^3.3.4",
         "@eslint/js": "^9",
         "@playwright/test": "^1.58.2",
         "@rollup/plugin-commonjs": "^29.0.0",
@@ -21,7 +20,6 @@
         "eslint": "^9",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-import": "^2.32.0",
-        "eslint-plugin-prettier": "^5.5.5",
         "eslint-plugin-security": "^4.0.0",
         "eslint-plugin-svelte": "^3.15.0",
         "fs-extra": "^11.3.3",
