@@ -1,6 +1,6 @@
 export default async function globalTeardown() {
   if (globalThis.__staticServer) {
-    await globalThis.__staticServer.stop();
+    globalThis.__staticServer.close();
     console.log('static server stopped');
   }
 

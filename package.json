@@ -9,7 +9,7 @@
         "lint": "eslint --quiet *.js src/ test/",
         "lint:fix": "eslint --fix *.js src/ test/",
         "test": "rollup -c && playwright test",
-        "start": "static-server dist"
+        "start": "sirv dist"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3.3.4",
@@ -33,7 +33,8 @@
         "rollup-plugin-css-only": "^4.5.5",
         "rollup-plugin-livereload": "^2.0.5",
         "rollup-plugin-svelte": "^7.2.3",
-        "static-server": "^2.2.1",
+        "sirv": "^3.0.2",
+        "sirv-cli": "^3.0.1",
         "svelte": "^5.53.5"
     },
     "dependencies": {
