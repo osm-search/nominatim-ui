@@ -1,6 +1,6 @@
-import StaticServer from 'static-server';
 import http from 'node:http';
 import httpProxy from 'http-proxy';
+import sirv from 'sirv';
 import fse from 'fs-extra';
 
 const testing_port = 9999;
@@ -23,8 +23,9 @@ Nominatim_Config.Nominatim_API_Endpoint = '${api_endpoint}';
 Nominatim_Config.Reverse_Only = ${reverse_only};
   `);
 
-  const server = new StaticServer({ port: static_port, rootPath: workdir });
-  await server.start();
+  const handler = sirv(workdir);
+  const server = http.createServer(handler).listen(static_port);
+  await new Promise(resolve => server.on('listening', resolve));
   console.log(
     `static server serving ${workdir} directory running on port ${static_port}`
   );
