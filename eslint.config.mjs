@@ -1,5 +1,4 @@
 import svelte from "eslint-plugin-svelte";
-import mocha from "eslint-plugin-mocha";
 import prettier from "eslint-plugin-prettier/recommended";
 import security from 'eslint-plugin-security';
 import globals from "globals";
@@ -9,12 +8,10 @@ import js from "@eslint/js";
 
 export default [
     js.configs.recommended,
-    mocha.configs.recommended,
     ...svelte.configs.recommended,
 {
     plugins: {
         svelte,
-        mocha,
         prettier,
         security,
     },
@@ -59,14 +56,6 @@ export default [
         "no-var": "error",
         "prefer-const": "error",
         "svelte/require-each-key": "off"
-    },
-}, {
-    files: ["test/**"],
-
-    languageOptions: {
-        globals: {
-            browser: true,
-        },
     },
 }, {
     files: ["src/color-mode-toggler.js"],
