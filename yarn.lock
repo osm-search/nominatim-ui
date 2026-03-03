@@ -2046,13 +2046,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http@npm:^0.0.1-security":
-  version: 0.0.1-security
-  resolution: "http@npm:0.0.1-security"
-  checksum: 10c0/c0354c2afb6027a80756a30b1fb06607608c0408d100a5e3610d762dd1a320cb2611b0c3cf5ccb969b80f839e2735237ecc9897841e936d098161c38ee153ee5
-  languageName: node
-  linkType: hard
-
 "https-proxy-agent@npm:^7.0.1":
   version: 7.0.6
   resolution: "https-proxy-agent@npm:7.0.6"
@@ -2829,7 +2822,6 @@ __metadata:
     eslint-plugin-svelte: "npm:^3.15.0"
     fs-extra: "npm:^11.3.3"
     globals: "npm:^17.3.0"
-    http: "npm:^0.0.1-security"
     http-proxy: "npm:^1.18.1"
     leaflet: "npm:^1.9.4"
     leaflet-minimap: "npm:^3.6.1"
