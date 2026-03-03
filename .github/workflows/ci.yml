@@ -27,7 +27,9 @@ jobs:
         run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
 
       - name: Install dependencies
-        run: yarn install
+        run: |
+          yarn install
+          yarn playwright install
 
       - name: Linting
         run: yarn lint
