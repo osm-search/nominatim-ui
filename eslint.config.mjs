@@ -1,21 +1,15 @@
 import svelte from "eslint-plugin-svelte";
-import prettier from "eslint-plugin-prettier/recommended";
+import prettier from "eslint-config-prettier";
 import security from 'eslint-plugin-security';
 import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
 
 export default [
     js.configs.recommended,
     ...svelte.configs.recommended,
+    prettier,
+    security.configs.recommended,
 {
-    plugins: {
-        svelte,
-        prettier,
-        security,
-    },
-
     languageOptions: {
         globals: {
             ...globals.browser,
@@ -26,7 +20,7 @@ export default [
         sourceType: "module",
     },
 }, {
-    files: ["**/*"],
+    files: ["src/**", "test/**", "*.js"],
 
     languageOptions: {
         globals: {
