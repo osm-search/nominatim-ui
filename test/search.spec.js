@@ -95,12 +95,6 @@ test.describe('Search Page', () => {
       expect(results_count).toBeGreaterThan(1);
     });
 
-    test('should have show more results button', async () => {
-      await expect(
-        page.locator('a', { hasText: 'Search for more results' })
-      ).toBeVisible();
-    });
-
     test('should display the API request and debug URL', async () => {
       const link_titles = await page.locator(
         '#api-request a'
@@ -196,6 +190,84 @@ test.describe('Search Page', () => {
         '#searchresults .result'
       ).count();
       expect(results_count).toBeGreaterThan(1);
+    });
+  });
+
+  test.describe('Search for more results', () => {
+    let page;
+    let initial_count;
+
+    test.beforeAll(async ({ browser }) => {
+      page = await browser.newPage();
+      await page.goto('/search.html');
+      await page.locator('input[name=q]').fill('Paris');
+      await page.locator('button[type=submit]').first().click();
+      await page.locator('#searchresults').waitFor();
+    });
+
+    test.afterAll(async () => {
+      await page.close();
+    });
+
+    test('should have show more results button', async () => {
+      await expect(
+        page.locator('button', { hasText: 'Search for more results' })
+      ).toBeVisible();
+    });
+
+    test('should append results when clicking more results', async () => {
+      initial_count = await page.locator(
+        '#searchresults .result'
+      ).count();
+      expect(initial_count).toBeGreaterThan(0);
+
+      await page.locator(
+        'button', { hasText: 'Search for more results' }
+      ).click();
+
+      await page.waitForFunction(
+        (prev) => document.querySelectorAll('#searchresults .result').length > prev,
+        initial_count,
+        { timeout: 10000 }
+      );
+
+      const new_count = await page.locator(
+        '#searchresults .result'
+      ).count();
+      expect(new_count).toBeGreaterThan(initial_count);
+    });
+
+    test('should add result-previous class to older results', async () => {
+      expect(initial_count).toBeGreaterThan(0);
+      await expect(page.locator('#searchresults .result-previous')).toHaveCount(initial_count);
+    });
+
+    test('should highlight first new result', async () => {
+      const highlighted = page.locator('#searchresults .result.highlight');
+      await expect(highlighted).toHaveCount(1);
+      const position = await highlighted.getAttribute('data-position');
+      expect(Number(position)).toBe(initial_count);
+    });
+
+    test('should display API URL for more results', async () => {
+      const api_div = page.locator('.more-api-request[data-request-num="2"]');
+      await expect(api_div).toBeVisible();
+      const api_link = api_div.locator('a').first();
+      await expect(api_link).toHaveText('API request #2');
+      const href = await api_link.getAttribute('href');
+      expect(href).toContain('exclude_place_ids');
+    });
+
+    test('should update browser URL with exclude_place_ids', async () => {
+      const current_url = new URL(page.url());
+      expect(current_url.searchParams.has('exclude_place_ids')).toBe(true);
+    });
+
+    test('should go back to original search URL on browser back', async () => {
+      await page.goBack();
+      const url = new URL(page.url());
+      expect(url.searchParams.has('q')).toBe(true);
+      expect(url.searchParams.has('exclude_place_ids')).toBe(false);
     });
   });
 
