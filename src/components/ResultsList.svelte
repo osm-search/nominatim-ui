@@ -6,7 +6,7 @@
   import Welcome from './Welcome.svelte';
   import MapIcon from './MapIcon.svelte';
 
-  /* eslint-disable prefer-const */
+  /* eslint-disable prefer-const, no-useless-assignment */
   let {
     results,
     reverse_search = false,
@@ -15,7 +15,7 @@
     moreResultsApiBatches = [],
     onLoadMore = null
   } = $props();
-  /* eslint-enable prefer-const */
+  /* eslint-enable prefer-const, no-useless-assignment */
 
   let iHighlightNum = $state();
 
