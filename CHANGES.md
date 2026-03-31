@@ -1,3 +1,11 @@
+* version 3.11.0 - 2026-04-01
+    * Search: click on load-more now fetches, adds new results to current page
+    * Code cleanup: Use newer features, e.g. object.assign, for loops
+    * Code cleanup: use const/let instead of var
+    * Code cleanup: more sanetizing of HTML content
+    * Code cleanup: legacy eslint-plugin-import no longer required
+    * Test suite: replace puppeteer with playwright (#343)
+
 * version 3.10.1 - 2025-12-12
     * Bug: When building the wikipedia URL the path was HTML, not URL escaped, Thanks tomhughes
 
