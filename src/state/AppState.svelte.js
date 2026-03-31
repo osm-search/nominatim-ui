@@ -123,6 +123,7 @@ class AppState {
           return data;
         })
         .then((data) => {
+          if (endpoint_name !== 'status') this.lastApiRequestURL = api_url;
           if (data) {
             if (data.error) {
               this.errorMessage = data.error.message;
@@ -137,8 +138,6 @@ class AppState {
         this.requestProgress = 'finish';
       }
     }
-
-    if (endpoint_name !== 'status') this.lastApiRequestURL = api_url;
   }
 }
 

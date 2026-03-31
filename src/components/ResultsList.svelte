@@ -6,8 +6,16 @@
   import Welcome from './Welcome.svelte';
   import MapIcon from './MapIcon.svelte';
 
-  // eslint-disable-next-line prefer-const
-  let { results, reverse_search = false, current_result = $bindable() } = $props();
+  /* eslint-disable prefer-const */
+  let {
+    results,
+    reverse_search = false,
+    current_result = $bindable(),
+    previousCount = 0,
+    moreResultsApiBatches = [],
+    onLoadMore = null
+  } = $props();
+  /* eslint-enable prefer-const */
 
   let iHighlightNum = $state();
 
@@ -43,7 +51,7 @@
 
   $effect(() => {
     if (results) {
-      iHighlightNum = 0;
+      iHighlightNum = previousCount;
     }
   });
 
@@ -57,9 +65,18 @@
   <div id="searchresults" role="list">
 
     {#each results as aResult, iResNum}
+      {#each moreResultsApiBatches as batch}
+        {#if batch.beforeIndex === iResNum}
+          <div class="more-api-request" data-request-num="{batch.requestNum}">
+            <a href="{batch.url}">API request #{batch.requestNum}</a>
+            (<a href="{batch.url}&debug=1">debug output</a>)
+          </div>
+        {/if}
+      {/each}
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <div class="result"
            class:highlight={iResNum === iHighlightNum}
+           class:result-previous={previousCount > 0 && iResNum < previousCount}
            role="listitem"
            data-position="{iResNum}"
            onclick={handleClick}
@@ -77,9 +94,9 @@
 
     {#if sMoreURL && !reverse_search}
       <div class="more">
-        <a class="btn btn-primary" href="{sMoreURL}">
+        <button class="btn btn-primary" onclick={() => onLoadMore(sMoreURL)}>
           Search for more results
-        </a>
+        </button>
       </div>
     {/if}
   </div>
@@ -133,6 +150,16 @@
   .noresults{
     text-align: center;
     padding: 1em;
+  }
+
+  .result-previous {
+    opacity: 0.5;
+  }
+
+  .more-api-request {
+    text-align: center;
+    margin-top: 0.5em;
+    font-size: 0.8em;
   }
 
   .more{

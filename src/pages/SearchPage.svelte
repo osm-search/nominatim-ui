@@ -9,6 +9,14 @@
   import Map from '../components/Map.svelte';
 
   let results = $state();
+  let allResults = $state(); // accumulated results including all "load more" fetches
+  let previousCount = $state(0); // number of results before the latest "load more"
+  // API URLs for each "load more" fetch. List with keys
+  // - url
+  // - beforeIndex
+  // - requestNum
+  // to be able to place the dividers (debug links) between the sections
+  let moreResultsApiBatches = $state([]);
   let api_request_params = $state.raw();
   const bStructuredSearch = $state();
   let current_result = $state();
@@ -47,8 +55,11 @@
                                 || api_request_params.postalcode);
 
     if (api_request_params.q || anyStructuredFieldsSet) {
+      previousCount = 0;
+      moreResultsApiBatches = [];
       appState.fetchFromApi('search', api_request_params, function (data) {
         results = data;
+        allResults = data;
 
         if (anyStructuredFieldsSet) {
           update_html_title('Result for ' + [
@@ -71,7 +82,27 @@
       });
     } else {
       results = undefined;
+      allResults = undefined;
     }
+  }
+
+  function loadMore(sMoreURL) {
+    const moreParams = new URLSearchParams(sMoreURL.replace('?', ''));
+    const params = {
+      ...api_request_params,
+      exclude_place_ids: moreParams.get('exclude_place_ids')
+    };
+
+    appState.fetchFromApi('search', params, function (data) {
+      previousCount = allResults ? allResults.length : 0;
+      moreResultsApiBatches = [...moreResultsApiBatches, {
+        url: appState.lastApiRequestURL,
+        beforeIndex: previousCount,
+        requestNum: moreResultsApiBatches.length + 2
+      }];
+      allResults = [...(allResults || []), ...data];
+      history.pushState(null, '', sMoreURL);
+    });
   }
 
   $effect(() => {
@@ -89,7 +120,9 @@
 
 <div id="content">
   <div class="sidebar">
-    <ResultsList {results} bind:current_result reverse_search={false} />
+    <ResultsList results={allResults || results}
+      bind:current_result reverse_search={false}
+      {previousCount} {moreResultsApiBatches} onLoadMore={loadMore} />
   </div>
   <div id="map-wrapper">
     <Map {current_result} display_minimap={true} />
