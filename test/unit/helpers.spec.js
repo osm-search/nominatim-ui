@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { identifyLinkInQuery, formatLabel } from '../../src/lib/helpers.js';
+import {
+  identifyLinkInQuery, formatLabel, formatShortOSMType, formatOSMType
+} from '../../src/lib/helpers.js';
 
 test.describe('Helpers', () => {
 
@@ -13,6 +15,30 @@ test.describe('Helpers', () => {
     expect(identifyLinkInQuery('n1234')).toEqual(['N', 1234]);
     expect(identifyLinkInQuery('W1234')).toEqual(['W', 1234]);
     expect(identifyLinkInQuery('R-123')).toEqual(['R', -123]);
+  });
+
+  // N => node
+  test('.formatOSMType', () => {
+    expect(formatOSMType('N')).toBe('node');
+    expect(formatOSMType('W')).toBe('way');
+    expect(formatOSMType('R')).toBe('relation');
+    expect(formatOSMType('T')).toBe('');
+    expect(formatOSMType('T', true)).toBe('way');
+    expect(formatOSMType('I', true)).toBe('way');
+    expect(formatOSMType('X')).toBe('');
+    expect(formatOSMType('X', true)).toBe('');
+  });
+
+  // node => N
+  test('.formatShortOSMType', () => {
+    expect(formatShortOSMType('node')).toBe('N');
+    expect(formatShortOSMType('way')).toBe('W');
+    expect(formatShortOSMType('relation')).toBe('R');
+    expect(formatShortOSMType('N')).toBe('N');
+    expect(formatShortOSMType('W')).toBe('W');
+    expect(formatShortOSMType('R')).toBe('R');
+    expect(formatShortOSMType('')).toBe('');
+    expect(formatShortOSMType(undefined)).toBe('');
   });
 
   test('.formatLabel', () => {

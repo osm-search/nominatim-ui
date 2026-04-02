@@ -1,5 +1,5 @@
 <script>
-  import { formatLabel } from '../lib/helpers.js';
+  import { formatLabel, formatShortOSMType } from '../lib/helpers.js';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   import DetailsLink from './DetailsLink.svelte';
@@ -31,7 +31,9 @@
       aExcludePlaceIds = search_params.get('exclude_place_ids').split(',');
     }
     for (let i = 0; i < aResults.length; i += 1) {
-      aExcludePlaceIds.push(aResults[i].place_id);
+      const r = aResults[i];
+      const sType = formatShortOSMType(r.osm_type);
+      aExcludePlaceIds.push(sType && r.osm_id ? sType + r.osm_id : r.place_id);
     }
     const parsed_url = new SvelteURLSearchParams(window.location.search);
     parsed_url.set('exclude_place_ids', aExcludePlaceIds.join(','));
