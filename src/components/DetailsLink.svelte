@@ -1,25 +1,15 @@
 <script>
   import { appState } from '../state/AppState.svelte.js';
+  import { formatShortOSMType } from '../lib/helpers.js';
 
   const { text = 'details', extra_classes = '', feature = null } = $props();
-
-  function formatShortOSMType(sType) {
-    if (sType === 'node') return 'N';
-    if (sType === 'way') return 'W';
-    if (sType === 'relation') return 'R';
-    return '';
-  }
 
   const url_params = $derived.by(() => {
     const new_params = {};
 
     if (feature !== null) {
       if (feature.osm_type) {
-        if (feature.osm_type.length === 1) {
-          new_params.osmtype = feature.osm_type;
-        } else {
-          new_params.osmtype = formatShortOSMType(feature.osm_type);
-        }
+        new_params.osmtype = formatShortOSMType(feature.osm_type);
 
         new_params.osmid = feature.osm_id;
 
