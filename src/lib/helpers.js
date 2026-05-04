@@ -1,5 +1,12 @@
 import escapeHtml from 'escape-html';
 
+export function formatShortOSMType(sType) {
+  if (sType === 'node' || sType === 'N') return 'N';
+  if (sType === 'way' || sType === 'W') return 'W';
+  if (sType === 'relation' || sType === 'R') return 'R';
+  return '';
+}
+
 export function formatOSMType(sType, bExcludeExternal) {
   if (sType === 'N') return 'node';
   if (sType === 'W') return 'way';
