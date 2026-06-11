@@ -38,7 +38,7 @@ test.describe('Details Page', () => {
 
     test('should display error', async () => {
       await expect(page.locator('body')).toContainText(
-        'No place with that OSM ID found'
+        'No place with that ID found'
       );
     });
   });
