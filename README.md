@@ -31,9 +31,9 @@ You can either
 
 ## Configuration
 
-You can customize your installation by creating and editing `dist/theme/config.theme.js` which allows you to override the default values provided by `dist/config.default.js`. See the `config.theme.js.example` in the same directory for examples.
+You can customize your installation by creating and editing `dist/theme/config.theme.js` which allows you to override the default values provided by `dist/config.defaults.js`. See the `config.theme.js.example` in the same directory for examples.
 
-The `dist/theme/` directory also contains files make it easy to set a different
+The `dist/theme/` directory also contains files that make it easy to set a different
 logo image, colors, welcome and help text.
 
 ## License
