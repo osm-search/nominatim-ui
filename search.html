@@ -9,20 +9,22 @@
   <link rel="icon" type="image/png" href="theme/favicon-194x194.png" sizes="194x194">
   <link rel="icon" type="image/png" href="theme/favicon-32x32.png" sizes="32x32">
 
-  <link rel='stylesheet' href='build/bundle.css'>
   <link rel='stylesheet' href='theme/style.css'>
 
   <script src='config.defaults.js'></script>
   <script src='theme/config.theme.js'></script>
 
   <script>
-    if (Nominatim_Config.Reverse_Only) {
-      window.location.pathname = window.location.pathname.replace('search.html', 'reverse.html');
+    if (Nominatim_Config.Reverse_Only
+        && window.location.pathname.endsWith('search.html')) {
+      window.location.pathname = window.location.pathname.replace(
+        'search.html', 'reverse.html'
+      );
     }
   </script>
-  <script defer src='build/bundle.js'></script>
 </head>
 
 <body>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>

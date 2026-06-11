@@ -1,3 +1,8 @@
+* version 3.12.0 - 2026-06-11
+    * Migrate build from 'rollup' to 'vite', that's what Svelte also uses
+    * Source files move out of 'dist/' into main folder (\*.html) and 'public/'
+    * 'dist/' folder is no longer in version control, it's still part of the release package
+
 * version 3.11.0 - 2026-04-01
     * Search: click on load-more now fetches, adds new results to current page
     * Code cleanup: Use newer features, e.g. object.assign, for loops
