@@ -1,4 +1,4 @@
-* version 3.12.0 - 2026-06-11
+* version 3.12.0 - 2026-06-14
     * Migrate build from 'rollup' to 'vite', that's what Svelte also uses
     * Source files move out of 'dist/' into main folder (\*.html) and 'public/'
     * 'dist/' folder is no longer in version control, it's still part of the release package
