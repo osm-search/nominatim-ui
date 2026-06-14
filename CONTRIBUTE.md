@@ -4,16 +4,25 @@
 
 ## Background
 
-Uses [Svelte](https://svelte.dev/) framework,
-[Leaflet](https://leafletjs.com/) for map interaction,
-[Bootstrap](https://getbootstrap.com/) for layout styling.
+Uses [Svelte](https://svelte.dev/) 5 framework,
+[Leaflet](https://leafletjs.com/) 1.9 for map interaction,
+[Bootstrap](https://getbootstrap.com/) 5 for layout styling.
 
 The user interface used to be included in the geocoder. Thus the
 first version avoided being a redesign and still uses some of the
 same configuration values. Version 2 was a full refactor using
-Svelte. Version 3 added theme and easier configuration.
+Svelte. Version 3 added themes and easier configuration.
 
 
+
+## Project layout
+
+* `search.html` is the single-page-application (SPA) entry point
+* `index.html` does a meta-refresh to `search.html`
+* At build time (see `vite.config.js`) `search.html` is copied to `reverse.html`, `details.html`, `about.html` etc so each page name has its own bookmark-able URL.
+* `src/`: Svelte components and JavaScript sources.
+* `public/`: static assets, build copies them to `dist/`
+* `dist/`: build output. Not checked into git.
 
 ## Building the frontend
 
@@ -23,13 +32,25 @@ Svelte. Version 3 added theme and easier configuration.
    yarn install
    ```
 
-* After you change files in `src` directory run
+* After you change source files run
 
    ```
    yarn dev
    ```
-   which will start a webserver on port 9080 and auto-reloads
-   whenever you edit files. Configuration in `rollup.config.js`.
+   which will start a Vite dev server on port 5173 (the Vite default),
+   it will refresh whenever a source file changes (hot module reload (HMR)).
+
+* To build a production bundle into `dist/`:
+
+   ```
+   yarn build
+   ```
+
+* To preview the production build locally:
+
+   ```
+   yarn preview
+   ```
 
 ## Testing
 
@@ -81,4 +102,6 @@ With yarn 4 that's `yarn outdated; yarn up '*'`.
 4. Tag release: `git tag THE_VERSION_NUMBER`, `git push --tags`
 
 5. Create release on https://github.com/osm-search/nominatim-ui/releases
-   This (a triggered Github Action) will run `yarn build` and add the `dist/build/bundle.*` files.
+   This (a triggered Github Action) will run `yarn build` and bundle the
+   `dist/` directory (built HTML pages, `assets/` JS+CSS, `theme/`, `mapicons/`,
+   `config.defaults.js`) into a release tarball and zip.

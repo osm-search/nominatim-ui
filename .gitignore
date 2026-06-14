@@ -1,6 +1,6 @@
 .DS_Store
-dist/theme/config.theme.js
-dist/build/bundle.*
+public/theme/config.theme.js
+dist
 node_modules
 .yarn
 .pnp*
