@@ -40,6 +40,10 @@ logo image, colors, welcome and help text.
 
 The source code is available under a [GPLv2 license](LICENSE).
 
+## Map icons
+
+The images originate from [OSM Carto](https://github.com/openstreetmap-carto/openstreetmap-carto/) (public domain) and [map-icons](https://github.com/openstreetmap/map-icons) (CC0 Public Domain).
+
 ## Public instance
 
 One runs at https://nominatim.openstreetmap.org/
