@@ -5,8 +5,29 @@
   import 'leaflet/dist/leaflet.css';
   import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 
+  import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+  import markerIcon from 'leaflet/dist/images/marker-icon.png';
+  import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
   import { mapState } from '../state/MapState.svelte.js';
   import MapPosition from '../components/MapPosition.svelte';
+
+  // Leaflet (javascript) does some magic auto-detectig the URL of its default marker
+  // images based on the marker-icon.png reference in its CSS.
+  // Vite does some magic and converts images below (4kb) into inline images
+  // (data:image/png;base64,... URLs).
+  // 4kb is configurable but Vite still changes image URLs to make them more
+  // cacheable, e.g. marker-icon-hN30_KVU.png
+  // But only in production environment, which makes debuggig harder.
+  //
+  // The workaround is to delete Leaflet's magic (_getIconUrl) and point
+  // Leaflet to the bundled assets explicitly.
+  delete L.Icon.Default.prototype._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: markerIcon2x,
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow
+  });
 
   const {
     display_minimap = false,

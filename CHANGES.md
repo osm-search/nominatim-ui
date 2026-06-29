@@ -1,3 +1,7 @@
+* version 3.12.1 - 2026-06-29
+    * Fix: Leaflet's marker icons didn't load
+    * Test suite: pin playwrite-test until we can figure out the "Using Yarn PnP with Vite is discouraged" warning
+
 * version 3.12.0 - 2026-06-14
     * Migrate build from 'rollup' to 'vite', that's what Svelte also uses
     * Source files move out of 'dist/' into main folder (\*.html) and 'public/'
