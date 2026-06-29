@@ -2,6 +2,7 @@
 public/theme/config.theme.js
 dist
 node_modules
-.yarn
+.yarn/*
+!.yarn/plugins
 .pnp*
 dist_for_testing
