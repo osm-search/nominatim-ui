@@ -5,7 +5,11 @@ const testing_port = 9999;
 export default defineConfig({
   testDir: './test',
   testMatch: '**/*.spec.js',
-  timeout: 10_000,
+  timeout: 30_000,
+  // The suite hits the live, rate-limited nominatim.openstreetmap.org API, so
+  // an occasional slow response is expected on CI. Retry there to absorb it;
+  // keep 0 locally so flakiness stays visible during development.
+  retries: process.env.CI ? 2 : 0,
   globalSetup: './test/global-setup.js',
   globalTeardown: './test/global-teardown.js',
   reporter: 'list',

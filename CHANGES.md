@@ -1,3 +1,8 @@
+* version 3.12.2 - 2026-06-29
+    * Switch Yarn from PnP to the node-modules linker, resolving the "Using Yarn PnP with Vite is discouraged" warning
+    * Unpin @playwright/test (back to ^1.61.1) now that it loads its config fine under the node-modules linker
+    * Test suite: raise the Playwright timeout to 30s and retry twice on CI to absorb slow responses from the rate-limited public API
+
 * version 3.12.1 - 2026-06-29
     * Fix: Leaflet's marker icons didn't load
     * Test suite: pin playwrite-test until we can figure out the "Using Yarn PnP with Vite is discouraged" warning
