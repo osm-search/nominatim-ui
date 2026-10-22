@@ -16,7 +16,7 @@ export default async function globalSetup() {
 
   const api_endpoint = use_proxy
     ? '/'
-    : 'https:/nominatim.openstreetmap.org/';
+    : 'https://nominatim.openstreetmap.org/';
 
   fse.outputFileSync(workdir + '/theme/config.theme.js', `
 Nominatim_Config.Nominatim_API_Endpoint = '${api_endpoint}';

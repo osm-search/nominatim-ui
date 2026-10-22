@@ -1,4 +1,4 @@
-import { test, expect } from './shared.js';
+import { test, expect, waitForApiRequestLink } from './shared.js';
 
 const reverse_only = !!process.env.REVERSE_ONLY;
 
@@ -40,8 +40,8 @@ test.describe('Reverse Page', () => {
     test.beforeAll(async ({ browser }) => {
       page = await browser.newPage();
       await page.goto('/reverse.html');
-      await page.locator('input[name=lat]').fill('27.1750090510034');
-      await page.locator('input[name=lon]').fill('78.04209025');
+      await page.locator('input[name=lat]').fill('51.50344');
+      await page.locator('input[name=lon]').fill('-0.12770');
       await page.locator('button[type=submit]').click();
       await page.locator('#searchresults').waitFor();
     });
@@ -72,9 +72,7 @@ test.describe('Reverse Page', () => {
         );
         await page.locator('#option_layer').fill('address');
         await page.locator('button[type=submit]').click();
-        await page.waitForFunction(() => {
-          return new URLSearchParams(location.search).get('layer') === 'address';
-        });
+        await waitForApiRequestLink(page, 'layer=address');
 
         const initialUrl = new URL(page.url());
         const initialLat = initialUrl.searchParams.get('lat');
@@ -94,13 +92,20 @@ test.describe('Reverse Page', () => {
         // Confirm the layer=address is still in URL
         const refreshedUrl = new URL(page.url());
         expect(refreshedUrl.searchParams.get('layer')).toBe('address');
+
+        // Wait for the results of the new position, otherwise the next
+        // test sees the results of the previous search.
+        const newLat = refreshedUrl.searchParams.get('lat');
+        await waitForApiRequestLink(page, `lat=${newLat}&`);
       }
     );
 
     test('should redirect to details page on clicking details button',
       async () => {
         await page.locator('#searchresults .result a').first().click();
-        await page.locator('table#address').waitFor();
+        // Only check the navigation. The details content comes from the live
+        // API and some of its servers return 404 for places that others have.
+        await waitForApiRequestLink(page, '/details?');
 
         const current_url = new URL(page.url());
         expect(current_url.pathname).toBe('/details.html');
