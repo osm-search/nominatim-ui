@@ -35,4 +35,14 @@ export const test = base.extend({
   },
 });
 
+/**
+ * Wait until the page shows the results of the API request whose URL
+ * contains href_part. The 'API request' link in the header gets removed
+ * when a new API request starts and only comes back once its response has
+ * been displayed.
+ */
+export async function waitForApiRequestLink(page, href_part) {
+  await page.locator(`#api-request a[href*="${href_part}"]`).first().waitFor();
+}
+
 export { expect } from '@playwright/test';

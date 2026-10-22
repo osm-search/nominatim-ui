@@ -100,13 +100,13 @@ test.describe('Details Page', () => {
 
     test('should support case-insensitive search, can navigate to new page',
       async () => {
-        await page.locator('input[type=edit]').fill('w375257537');
+        await page.locator('input[type=edit]').fill('r1879842');
         await page.locator('button[type=submit]').click();
 
         await page.locator(
-          'a[href="https://www.openstreetmap.org/way/375257537"]'
+          'a[href="https://www.openstreetmap.org/relation/1879842"]'
         ).first().waitFor();
-        await expect(page.locator('.container h1')).toContainText('Taj Mahal');
+        await expect(page.locator('.container h1')).toContainText('10 Downing Street');
       }
     );
   });
