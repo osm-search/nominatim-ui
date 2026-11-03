@@ -14,20 +14,20 @@
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
-        "@playwright/test": "~1.58.2",
-        "@sveltejs/vite-plugin-svelte": "^7.1.2",
-        "eslint": "^10.6.0",
+        "@playwright/test": "~1.64.1",
+        "@sveltejs/vite-plugin-svelte": "^7.3.1",
+        "eslint": "^10.14.0",
         "eslint-config-prettier": "^10.1.8",
-        "eslint-plugin-security": "^4.0.1",
-        "eslint-plugin-svelte": "^3.20.0",
-        "fs-extra": "^11.3.5",
-        "globals": "^17.7.0",
+        "eslint-plugin-security": "^4.2.1",
+        "eslint-plugin-svelte": "^3.23.1",
+        "fs-extra": "^11.4.1",
+        "globals": "^17.14.0",
         "http-proxy": "^1.18.1",
-        "prettier": "^3.9.3",
+        "prettier": "^3.9.10",
         "sirv": "^3.0.2",
         "sirv-cli": "^3.0.1",
-        "svelte": "^5.56.4",
-        "vite": "^8.1.6"
+        "svelte": "^5.57.3",
+        "vite": "^8.3.5"
     },
     "dependencies": {
         "@popperjs/core": "^2.11.8",
@@ -38,5 +38,9 @@
         "timeago.js": "^4.0.2"
     },
     "type": "module",
-    "packageManager": "yarn@4.9.2"
+    "packageManager": "yarn@4.18.1",
+    "resolutions": {
+        "glob": "^14.0.3",
+        "minimatch": "^11.0.4"
+    }
 }
